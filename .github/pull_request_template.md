@@ -10,6 +10,10 @@ Link supporting sources and describe checks performed. For research, separate ob
 
 Link related issues and relevant ALT-nn, GAP-nn, or VP-nn entries.
 
+## For the reviewer
+
+What should the reviewer look at? Explain whether the linked requirements or acceptance criteria are satisfied.
+
 ## Review checklist
 
 - [ ] Links checked.
