@@ -2,7 +2,7 @@
 
 **Problem space (draft, pending team agreement):** Corporate IT teams need to give employees and internal applications access to several LLM providers while enforcing their own company-specific rules for authentication, sensitive-data filtering, routing, and usage logging on every request and response.
 
-**Evidence board:** <https://miro.com/app/board/uXjVEeQDS7A=/> (view-only Miro board, one frame per alternative; screenshots captured 2026-10-05).
+**Evidence board:** <https://miro.com/app/board/uXjVEeQDS7A=/> (one frame per alternative; screenshots captured 2026-10-05; anonymous view-only access still needs checking).
 
 **Comparison properties (draft, pending team agreement):**
 
@@ -99,7 +99,7 @@
 - [Callback stages](../../reports/week-01/images/alt-03-litellm-hooks.png): request modification, response modification, and separate streaming hooks (P1).
 - [OSS and Enterprise comparison](../../reports/week-01/images/alt-03-litellm-oss-enterprise.png): OSS includes custom guardrails and Presidio; management-operation logs are shown under Enterprise (P2, P4, P5, P6).
 
-These images are in the repository. They still need adding to the ALT-03 frame on the shared evidence board. Screenshots show documentation, not a tested deployment.
+These images are in the repository. Ali12hamdan confirmed uploading both to the shared evidence board. Anonymous view-only access still needs checking. Screenshots show documentation, not a tested deployment.
 
 **Problem it solves:** gives developers and platform teams an OpenAI-compatible endpoint for multiple providers, with local routing, access keys, spend tracking, and custom policy hooks.
 
