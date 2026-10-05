@@ -1,6 +1,6 @@
 # Gap analysis
 
-**Status:** draft for Customer discussion, based on [three alternatives](alternatives.md) and the [comparison](comparison.md). The product capabilities are documented, but we have not interviewed this team's Customer or run matched deployment trials. The two entries below are provisional hypotheses, not established gaps. Neither passes all four tests yet. We will drop or revise them if extending LiteLLM serves the job adequately.
+**Status:** draft for Customer discussion, based on [three alternatives](alternatives.md) and the [comparison](comparison.md). The product capabilities are documented, but we have not interviewed this team's Customer or run matched deployment trials. The two entries below are provisional hypotheses, not established gaps. Neither passes all four tests yet. Our own kickoff is missing, and no asynchronous Customer exchange has taken place. Another team's transcript helped us understand the general project context; it is secondary background, not evidence that our users need GAP-01 or GAP-02. We will drop or revise them if extending LiteLLM serves the job adequately.
 
 ## GAP-01: Link each policy decision to its active policy version
 
