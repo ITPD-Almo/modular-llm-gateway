@@ -20,7 +20,10 @@
 **Kind:** Direct competitor. Commercial AI gateway offered as SaaS, with an MIT-licensed open-source gateway core and an enterprise hybrid deployment.
 **Link:** <https://portkey.ai/docs/product/ai-gateway>
 **Version looked at:** documentation and pricing page as of 2026-10-05; open-source gateway release [v1.15.2](https://github.com/Portkey-AI/gateway/releases/tag/v1.15.2) (published 2026-01-12, latest release on 2026-10-05).
+**Ownership:** Palo Alto Networks [announced the acquisition of Portkey](https://www.paloaltonetworks.com/company/press/2026/palo-alto-networks-to-acquire-portkey-to-secure-the-rise-of-ai-agents) in 2026. A [July 2026 Palo Alto Networks blog post](https://www.paloaltonetworks.com/blog/2026/07/announcing-general-availability-of-prisma-airs-ai-gateway/) announced the product's general availability as "Prisma AIRS AI Gateway", and the banner on portkey.ai linked to that post on 2026-10-05.
 **Depth of evaluation:** read the product documentation, the pricing page, and the open-source repository's plugin folder. Did not create an account or send traffic through the hosted gateway, so dashboard behaviour is taken from the documentation.
+
+**Screenshots on the board:** `ALT-01 Portkey — webhook guardrail response (P1)` and `ALT-01 Portkey — plan feature comparison (P2, P5, P6)`.
 
 **Problem it solves:** gives engineering and platform teams one OpenAI-compatible endpoint in front of many LLM providers, with routing, guardrails, credential management, and request logs, so that applications do not call providers directly.
 
@@ -46,4 +49,5 @@
 - Governance features are gated by plan. SSO, granular budgets, admin audit logs, custom retention, and VPC hosting appear only on Enterprise (P2, P5, P6). The open-source gateway lacks PII redaction and RBAC. A company that self-hosts for data-control reasons loses most of the governance.
 - Custom policies on the hosted product run as external webhooks. Each one adds a network hop with a 3000 ms default timeout that fails open unless `failOnError` is set (P1). In-process plugins require building and maintaining a fork of the gateway source.
 - Sensitive data is logged by default. Request and response bodies are stored unless each client sends `x-portkey-debug: false`, so the protection depends on every calling application (P4, P5).
+- The open-source gateway's future is uncertain. Observation: the latest release is v1.15.2 from 2026-01-12, and the most recent commit on `main` is from 2026-05-25 (checked through the GitHub API on 2026-10-05), while the product is now sold as part of Palo Alto Networks' Prisma AIRS. Inference: a company choosing the self-hosted route cannot count on continued open-source development (P6).
 - Pre-built PII patterns cannot be customised for company-specific identifiers such as internal project codes or employee numbers. These require hand-written regex guardrails (P4).
