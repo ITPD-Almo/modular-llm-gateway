@@ -84,3 +84,46 @@
 - Policies are XML with embedded C# expressions that get only limited verification when saved (P1). Inference: writing a company-specific filter needs API Management expertise, and mistakes in expression logic that the save-time check does not catch surface as runtime errors, so filters need testing before they reach production traffic.
 - The feature set depends on tier and gateway type. Token limits and token metrics are missing on Consumption, self-hosting is limited to Developer and Premium, and the Anthropic API needs a v2 tier (P2, P5, P6). Observation: no single tier is described as supporting every AI policy, self-hosting, and Anthropic together in the pages read. Inference: a company may have to change tier, and price, to get the full set.
 - It ties the gateway to Azure. Even the self-hosted gateway is configured from, and reports to, an Azure instance (P6), and the smoothest setup (managed identity, Content Safety, Foundry import) applies to Azure-hosted models (P2).
+
+
+## ALT-03: LiteLLM Proxy
+
+**Kind:** Open-source/self-hosted option. A Python gateway that can run on the company's own infrastructure. It also competes directly with dedicated AI gateways.
+**Link:** <https://docs.litellm.ai/docs/simple_proxy>
+**Version looked at:** release [v1.104.0](https://github.com/BerriAI/litellm/releases/tag/v1.104.0), published 2026-10-03; live documentation read on 2026-10-05. Live docs may describe features newer than that release.
+**License:** the [release's LICENSE](https://github.com/BerriAI/litellm/blob/v1.104.0/LICENSE) applies MIT outside `enterprise/`; enterprise content has a separate license. The whole repository should not be described as unconditionally MIT-licensed.
+**Depth of evaluation:** read the callback, custom guardrail, virtual key, routing, Presidio, logging, deployment, and OSS/Enterprise documentation. Also read the tagged `CustomLogger` source and checked that the named pre-call, response, streaming, and logging methods exist. No proxy was deployed, no paid license was used, and no requests were sent to a provider. Latency, usability, and failure behaviour are not measured.
+
+**Screenshot evidence:** two screenshots of the live documentation, captured in a browser on 2026-10-05 and checked for readability:
+
+- [Callback stages](../../reports/week-01/images/alt-03-litellm-hooks.png): request modification, response modification, and separate streaming hooks (P1).
+- [OSS and Enterprise comparison](../../reports/week-01/images/alt-03-litellm-oss-enterprise.png): OSS includes custom guardrails and Presidio; management-operation logs are shown under Enterprise (P2, P4, P5, P6).
+
+These images are in the repository. They still need adding to the ALT-03 frame on the shared evidence board. Screenshots show documentation, not a tested deployment.
+
+**Problem it solves:** gives developers and platform teams an OpenAI-compatible endpoint for multiple providers, with local routing, access keys, spend tracking, and custom policy hooks.
+
+**Observations by property**
+
+| Property | Observation | Source |
+| --- | --- | --- |
+| P1 Custom request/response policies | Python `CustomLogger` callbacks can modify or reject requests before a provider call and modify responses afterwards. Non-streaming success and streaming response processing use different methods. A callback instance is registered by a dotted path in YAML. The tagged source defines `async_pre_call_hook`, `async_post_call_success_hook`, and `async_post_call_streaming_hook`. The separate `CustomGuardrail.apply_guardrail` interface extracts content and writes returned content back; raising an exception blocks the call. | [Callback guide](https://docs.litellm.ai/docs/proxy/call_hooks), [tagged callback source](https://github.com/BerriAI/litellm/blob/v1.104.0/litellm/integrations/custom_logger.py), [custom guardrail guide](https://docs.litellm.ai/docs/proxy/guardrails/custom_guardrail) |
+| P2 Access and credential controls | Virtual keys control model access, track spend, and support budgets. Provider credentials can be referenced through environment variables in the gateway configuration. Virtual-key management requires PostgreSQL. The Enterprise comparison includes organization/delegated admin roles and JWT-based authentication; it says Admin UI SSO is free for up to five users, with a license required beyond that. | [Virtual keys](https://docs.litellm.ai/docs/proxy/virtual_keys), [Enterprise comparison](https://docs.litellm.ai/docs/enterprise) |
+| P3 Routing flexibility | The router supports random distribution (`simple-shuffle`, the default), least-busy, usage-based, latency-based, and cost-based strategies. Fallbacks move to another model group after retries fail; the guide also describes context-window and content-policy fallbacks. These documents establish routing mechanisms, not measured performance or arbitrary semantic classification of requests. | [Load balancing](https://docs.litellm.ai/docs/proxy/load_balancing), [Fallbacks](https://docs.litellm.ai/docs/proxy/reliability) |
+| P4 Sensitive-data handling | The OSS/Enterprise comparison explicitly includes custom guardrails and Presidio PII masking in OSS. The Presidio guide requires separate Analyzer and Anonymizer containers and supports masking or blocking. Logging can globally omit message/response content with `turn_off_message_logging`, while retaining metadata such as spend. The logging guide describes a permission-controlled client opt-out; this behaviour was not tested against the tagged release. | [Enterprise comparison](https://docs.litellm.ai/docs/enterprise), [Presidio guide](https://docs.litellm.ai/docs/proxy/guardrails/pii_masking_v2), [Logging](https://docs.litellm.ai/docs/proxy/logging) |
+| P5 Audit and usage evidence | OSS includes spend tracking, request/response logging, Prometheus metrics, and callbacks to logging providers such as OpenTelemetry or Langfuse. The Enterprise comparison lists management-operation logs and audit logs with retention policies for admin actions/key changes. Request logs and administrative audit logs are different capabilities. The read pages do not establish that OSS has no way to implement custom audit events. | [Logging](https://docs.litellm.ai/docs/proxy/logging), [Enterprise comparison](https://docs.litellm.ai/docs/enterprise) |
+| P6 Operational effort | A monolithic deployment can serve gateway traffic, management APIs, and UI in one image. Production guidance requires PostgreSQL for auth/tracking and Redis once multiple instances are used. Presidio adds two services if that integration is selected. These requirements apply to those features/deployment modes, not to every minimal proxy. Configuration, database migrations, upgrades, and infrastructure remain the operator's responsibility. | [Production deployment](https://docs.litellm.ai/docs/proxy/deploy), [Virtual keys](https://docs.litellm.ai/docs/proxy/virtual_keys), [Presidio guide](https://docs.litellm.ai/docs/proxy/guardrails/pii_masking_v2) |
+
+**Strengths**
+
+- Compared with ALT-02's XML/C# policy expressions, it offers ordinary Python extension classes with documented configuration and examples (P1). ALT-01 also supports source-level TypeScript plugins; extensibility is not unique to LiteLLM or our proposed product.
+- Custom guardrails and Presidio masking are included in OSS, unlike ALT-01's documented enterprise PII feature split and ALT-02's need to compose a redaction policy (P4). Presidio still requires deployment and configuration.
+- Compared with the per-request logging control documented for ALT-01, LiteLLM documents a gateway-wide option to omit message content while keeping spend metadata (P4, P5). Whether this satisfies the Customer's privacy requirements needs a configuration test.
+
+**Weaknesses**
+
+- For an IT operator using virtual keys and Presidio, the gateway, PostgreSQL, Analyzer, and Anonymizer form a multi-service deployment; scaling across instances adds Redis (P2, P4, P6). Inference: this is more to operate than a narrow single-instance proxy with static access rules. No setup-time measurement has been made.
+- The ready-made administrative audit and delegated-admin capabilities are listed under Enterprise (P2, P5). A team choosing only OSS would need to check whether request logs and custom callbacks cover its actual audit needs before claiming equivalence.
+- Non-streaming and streaming response hooks are separate, and callback registration uses a Python instance path (P1). Inference: an extension author needs tests for each supported path; a non-streaming example alone does not demonstrate streaming coverage. This is an integration concern, not evidence that LiteLLM cannot be tested safely.
+
+**Consequence for our project:** Python plugins, PII masking, global body-free logging, and provider fallbacks already exist. We should compare a small, explicit policy-and-audit workflow against configuring LiteLLM before committing to a new gateway.
