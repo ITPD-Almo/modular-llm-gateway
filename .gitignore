@@ -1,0 +1,26 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+# Operating systems
+.DS_Store
+Thumbs.db
+# Generated files
+node_modules/
+dist/
+build/
+coverage/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+# Private course materials
+private/
+recordings/
