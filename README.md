@@ -23,11 +23,11 @@ Organization: [ITPD-Almo](https://github.com/ITPD-Almo).
 | spaghetti-n-spaghetti |
 | atkond2point0 |
 
-Team number pending confirmation. Real names and university emails belong only in the private Moodle submission.
+Course team: **9**. Real names and university emails belong only in the private Moodle submission.
 
 ## Documentation
 
-Week 1 research and Customer meeting artifacts will be added through reviewed pull requests. Research will establish alternatives, comparison properties, gaps, and value propositions before implementation begins.
+Course project, work in progress. Start with the [Week 01 report](reports/week-01/README.md). Maintained research includes the [alternatives](docs/research/alternatives.md), [comparison](docs/research/comparison.md), [gap analysis](docs/research/gap-analysis.md), and [value propositions](docs/research/value-proposition.md).
 
 ## Contribution workflow
 
