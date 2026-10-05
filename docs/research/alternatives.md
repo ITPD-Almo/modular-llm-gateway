@@ -2,7 +2,7 @@
 
 **Problem space (draft, pending team agreement):** Corporate IT teams need to give employees and internal applications access to several LLM providers while enforcing their own company-specific rules for authentication, sensitive-data filtering, routing, and usage logging on every request and response.
 
-**Evidence board:** link pending (view-only board maintained by spaghetti-n-spaghetti).
+**Evidence board:** <https://miro.com/app/board/uXjVEeQDS7A=/> (view-only Miro board, one frame per alternative; screenshots captured 2026-10-05).
 
 **Comparison properties (draft, pending team agreement):**
 
@@ -59,7 +59,7 @@
 **Version looked at:** Microsoft Learn documentation read on 2026-10-05. Page dates as shown in each page's metadata: AI gateway capabilities 2026-05-29, `llm-content-safety` 2026-08-18, `llm-token-limit` 2026-04-01, LLM logging 2026-06-12, policy reference index 2026-08-24, backends 2026-05-20, policy expressions 2026-01-15, self-hosted gateway 2025-09-30.
 **Depth of evaluation:** read the AI gateway overview, the reference pages of the LLM policies, the full policy index with its per-gateway support table, the policy expression rules, the backend and self-hosted gateway pages, and the pricing page. Did not create an Azure subscription or an API Management instance, so portal behaviour is taken from the documentation and its screenshots. The pricing page showed no numeric prices without a region and currency selection, so cost is not compared.
 
-**Screenshots on the board:** pending — to be captured from the policy reference pages (P1, P4) and the LLM logging settings (P5).
+**Screenshots on the board:** `ALT-02 Azure APIM — llm-content-safety blocks harm categories with 403, no redaction (P4)` and `ALT-02 Azure APIM — opt-in prompt/completion logging per API with byte limits (P5)`.
 
 **Problem it solves:** lets a company put its LLM endpoints behind the same API gateway it already uses for other APIs, so token limits, authentication, content checks, load balancing, and logging are configured as gateway policies rather than in each application.
 
