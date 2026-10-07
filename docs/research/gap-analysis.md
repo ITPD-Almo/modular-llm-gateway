@@ -40,6 +40,8 @@
 
 ## Directions rejected for now
 
+General-purpose plugins are rejected as a claimed advantage per [DEC-002](../decisions.md#dec-002).
+
 | Candidate | Evidence and reason |
 | --- | --- |
 | General-purpose request/response plugins | ALT-01 P1 has TypeScript plugins; ALT-03 P1 has Python callbacks and custom guardrails. This is a baseline feature, not a proven gap. |
