@@ -1,0 +1,31 @@
+name: Task
+description: One unit of work that one pull request closes.
+labels: ["task"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Give the task a short imperative title, and name its branch `<issue-number>-<short-description>`.
+        Its pull request closes it with `Closes #<issue-number>`, and the reviewer ticks every acceptance criterion before approving.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: The work to do. When it carries out a meeting action point, cite it by the report's path and `#action-points` anchor, with the action quoted.
+    validations:
+      required: true
+  - type: textarea
+    id: story
+    attributes:
+      label: Story
+      description: "Optional. One bullet per story issue the task works toward, with the story's AC-nn in parentheses, such as `- #42 (AC-01, AC-02)`. Leave empty for a workflow, a document, or a report."
+    validations:
+      required: false
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance criteria
+      description: At least one observable pass/fail check, one checklist item each, numbered AC-01, AC-02, and so on.
+      value: "- [ ] AC-01: "
+    validations:
+      required: true
