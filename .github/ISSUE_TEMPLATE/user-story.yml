@@ -1,0 +1,72 @@
+name: User story
+description: One user need, with its value proposition, origins, assumptions, priority reason, and acceptance criteria.
+title: "US-nn: <story title>"
+labels: ["user-story"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Title the issue `US-nn: <story title>`, where `US-nn` is one above the highest `US-nn` in the [story list](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=label%3Auser-story), open and closed issues alike.
+        After opening it, apply exactly one `moscow:*` label.
+        Link every file on `main`, for example `https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/docs/assumptions.md#asm-01`.
+  - type: textarea
+    id: story
+    attributes:
+      label: Story
+      description: "The user's need, not a solution: As a <user>, I want <need>, so that <reason>."
+      placeholder: As an IT operator, I want ..., so that ...
+    validations:
+      required: true
+  - type: input
+    id: value-proposition
+    attributes:
+      label: Value proposition
+      description: "Exactly one VP-nn, linked on main: [`VP-01`](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/docs/research/value-proposition.md#vp-01)"
+    validations:
+      required: true
+  - type: textarea
+    id: traces-to
+    attributes:
+      label: Traces to
+      description: "Optional. One origin per line: a GAP-nn that the VP closes, a DEC-nnn, or an action point. Example: - [`GAP-01`](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/docs/research/gap-analysis.md#gap-01)"
+    validations:
+      required: false
+  - type: textarea
+    id: rests-on
+    attributes:
+      label: Rests on
+      description: "Optional. One ASM-nn per line, linked on main. Example: - [`ASM-01`](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/docs/assumptions.md#asm-01)"
+    validations:
+      required: false
+  - type: textarea
+    id: priority-reason
+    attributes:
+      label: Priority reason
+      description: Why this priority and not the one above or below it. Cite the CON-nn or BND-nn that drives it, linked, when one does.
+      placeholder: "Must Have: ..."
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance criteria
+      description: At least two observable pass/fail checks, unless the story is Won't Have. Start each with its AC-nn.
+      value: |
+        1. AC-01: Given ..., when ..., then ...
+        2. AC-02: Given ..., when ..., then ...
+    validations:
+      required: false
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Optional context for whoever builds the story.
+    validations:
+      required: false
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Tasks
+      description: "Optional. The task issues that work toward this story, one per line, such as `- #12`."
+    validations:
+      required: false
