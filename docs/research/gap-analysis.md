@@ -4,6 +4,8 @@
 
 ## GAP-01: Link each policy decision to its active policy version
 
+- **Changed:** kept provisional until we check the user need and existing options, per [DEC-002](../decisions.md#dec-002).
+
 **User and job:** an IT operator running a small internal gateway needs to explain which policy revision was active when a request was allowed, masked, or rejected, without storing the prompt. This user need is a hypothesis to validate with the Customer; it is not a decision from the other team's meeting.
 
 **Evidence:** the [P5 comparison](comparison.md) separates request/spend logs from administrative audit. ALT-01 P5 and ALT-03 P5 list ready-made admin audit under Enterprise. ALT-02 P5 includes gateway logs and [Azure Activity Log](https://learn.microsoft.com/en-us/azure/api-management/monitor-api-management), which automatically records subscription-level resource changes. Administrative audit therefore exists in Azure. The reviewed page does not establish a link from each allow, redact, or reject decision to the exact policy version active for that request; that correlation is the narrower hypothesis to check, not a proven missing feature. ALT-03 P1/P5 also allow custom callbacks, so implementing decision-to-policy-version correlation in LiteLLM is a credible alternative. These observations suggest a question about packaging decision-to-version correlation, not a universal absence of audit logging.
@@ -22,6 +24,8 @@
 
 ## GAP-02: A small reproducible deployment for a fixed policy job
 
+- **Changed:** kept provisional until we check the user need and existing options, per [DEC-002](../decisions.md#dec-002).
+
 **User and job:** a small IT team needs a private trial with one provider, static caller credentials, one masking policy, and body-free decision logs, before adopting full gateway administration. This is a narrower job than serving a whole corporation and needs Customer confirmation.
 
 **Evidence:** ALT-01 P6 separates SaaS, OSS, and enterprise deployment; ALT-02 P6 needs Azure and feature-specific resources; ALT-03 P2/P4/P6 documents PostgreSQL for virtual keys and separate services for Presidio. But ALT-03 P6 also permits a minimal gateway. The [P6 comparison](comparison.md) therefore does not prove a new proxy is simpler for the same job.
@@ -39,6 +43,8 @@
 **Validation (proposed owner, awaiting team confirmation):** spaghetti-n-spaghetti documents matched setup steps during Week 2 (2026-10-05 to 2026-10-11). Keep provider behaviour mocked for initial policy tests; no performance advantage is claimed.
 
 ## Directions rejected for now
+
+General-purpose plugins are rejected as a claimed advantage per [DEC-002](../decisions.md#dec-002).
 
 | Candidate | Evidence and reason |
 | --- | --- |

@@ -4,6 +4,8 @@
 
 **Evidence board:** <https://miro.com/app/board/uXjVEeQDS7A=/> (one frame per alternative; screenshots captured 2026-10-05; anonymous view-only access still needs checking).
 
+The three alternatives were selected for detailed research per [DEC-001](../decisions.md#dec-001).
+
 **Comparison properties (draft, pending team agreement):**
 
 | ID  | Property                        | What we look for                                                                                |

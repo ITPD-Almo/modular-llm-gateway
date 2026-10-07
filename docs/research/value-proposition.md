@@ -4,6 +4,8 @@
 
 ## VP-01: Explain a policy decision without keeping the prompt
 
+- **Changed:** kept as a draft based on a provisional gap, per [DEC-002](../decisions.md#dec-002).
+
 **Positioning:** for IT operators running a small internal LLM gateway, we propose a source-open policy event trail that connects each allow, redact, or reject decision to the loaded policy revision and plugin, while omitting prompt and response bodies.
 
 **Closes:** [GAP-01](gap-analysis.md#gap-01-link-each-policy-decision-to-its-active-policy-version).
@@ -13,6 +15,8 @@
 **How we would check it:** use fixture requests and two policy revisions; every recorded decision must identify the request, loaded revision, and plugin without containing fixture secrets. Then ask the Customer whether that record answers their actual troubleshooting job.
 
 ## VP-02: Start with a small private policy trial
+
+- **Changed:** kept as a draft based on a provisional gap, per [DEC-002](../decisions.md#dec-002).
 
 **Positioning:** for a small IT team evaluating company-specific LLM rules, we propose a single-instance starter for one provider, static caller credentials, one masking policy, and body-free decision records, with repeatable allow/redact/reject/error fixtures.
 
