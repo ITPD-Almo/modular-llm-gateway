@@ -1,0 +1,3 @@
+[submodule ".claude/skills/itpd"]
+	path = .claude/skills/itpd
+	url = https://github.com/inno-itpd/itpd
