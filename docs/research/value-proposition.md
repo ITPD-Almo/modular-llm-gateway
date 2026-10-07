@@ -1,6 +1,6 @@
 # Value proposition
 
-**Status:** two draft positioning statements for discussion. Both depend on [provisional gaps](gap-analysis.md); neither is a validated competitive advantage or an implemented feature. Confirm them with this team's Customer and compare the LiteLLM extension path before committing to scope.
+**Status:** two draft positioning statements for discussion. Both depend on [provisional gaps](gap-analysis.md); neither is a validated competitive advantage or an implemented feature. Our own kickoff and Customer validation are missing. Another team's transcript was used as secondary background, not as acceptance of either proposition. Confirm them with this team's Customer and compare the LiteLLM extension path before committing to scope.
 
 ## VP-01: Explain a policy decision without keeping the prompt
 

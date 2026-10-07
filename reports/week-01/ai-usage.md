@@ -1,13 +1,22 @@
 # AI usage for Week 1
 
-Ali12hamdan used Codex to help interpret the assignment, set up the repository and CI, review research PRs, and draft ALT-03, the comparison updates, gap analysis, and value proposition. Codex used GitHub APIs, official product documentation, tagged source inspection, and a headless browser to capture the two LiteLLM documentation screenshots.
+## Ali12hamdan
 
-## Accepted, changed, and rejected
+I used Codex to reformat the documents, make the wording clearer, and suggest what we still needed for the assignment. I also used it to refine the research and suggest better ideas.
 
-- Repository setup and the reviewer-requested template/version comment fixes were accepted and merged through PR #1 after Mohammed-Nour approved them.
-- The ALT-03 source checks and screenshots are included in the research PR for team review. No deployed gateway or provider test is claimed.
-- The broad claim that existing gateways lack plugins was rejected: Portkey and LiteLLM already provide them.
-- The proposal was changed to two narrow hypotheses. Unverified user needs and deployment advantages are marked provisional instead of being presented as Customer decisions.
-- Mohammed-Nour checked the release, license, hook methods, and screenshots. His review led to adding Azure Activity Log, narrowing GAP-01 to decision-to-policy-version correlation, and proposing shared verification owners. Board uploads and Customer validation remain pending. Further review of these fixes is pending. Each member should add their own tool use and what they accepted, changed, or rejected; this file does not report other members' AI use.
+## Mohammed-Nour
 
-Commit messages describe the changes. This file records AI assistance separately, as required by the assignment.
+I used Claude Code (Claude) as a research and review assistant: drafting the ALT-02
+Azure API Management analysis, extending the candidate list, building the comparison
+table, organising the evidence board, and reviewing team pull requests. I verified
+every claim against the cited documentation before committing, and confirmed PR #1's
+action pins and CI results directly.
+
+I kept the sourced observations and review findings. I revised several conclusions
+during team review where the sources supported a narrower claim, for example on
+Portkey's plugin and regex redaction support and Azure's policy validation, and
+removed points that assessed the vendor rather than the product.
+
+## Other members
+
+spaghetti-n-spaghetti and atkond2point0 still need to add their own AI use, or confirm that they used none.
