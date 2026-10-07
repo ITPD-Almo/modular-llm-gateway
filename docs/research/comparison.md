@@ -3,6 +3,7 @@
 Rows are the properties P1–P6 from [alternatives.md](alternatives.md); columns are the selected alternatives.
 Each cell names the observation it rests on (`ALT-nn Pn`) and marks what was **observed** in the source and what we **infer** from it.
 Strengths are relative to the other columns, not absolute.
+The selected columns follow [DEC-001](../decisions.md#dec-001).
 
 **Status:** all three alternatives have documentation-based observations as of 2026-10-05. No comparative deployment, latency, or usability test has been run.
 
@@ -17,6 +18,7 @@ Strengths are relative to the other columns, not absolute.
 
 ## Reading the table as a whole
 
+The provisional direction and rejection of generic plugins as an advantage are recorded in [DEC-002](../decisions.md#dec-002).
 These are patterns in the comparison, not confirmed user needs. Candidate gaps and rejected directions are recorded in [gap-analysis.md](gap-analysis.md).
 
 1. **Plugins already exist (P1).** ALT-01 has TypeScript plugins and ALT-03 has Python callbacks/custom guardrails; ALT-02 has C# policy expressions. Reject the claim that a general-purpose plugin gateway is missing. The useful question is whether our narrower workflow is easier to understand and verify for this Customer.
