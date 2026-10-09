@@ -8,14 +8,14 @@ The three alternatives were selected for detailed research per [DEC-001](../deci
 
 **Comparison properties (draft, pending team agreement):**
 
-| ID  | Property                        | What we look for                                                                                |
-| --- | ------------------------------- | ----------------------------------------------------------------------------------------------- |
-| P1  | Custom request/response policies | Can a company add its own logic before the request reaches the provider and after the response returns, and can that logic change the content? |
-| P2  | Access and credential controls  | How provider keys are stored and handed out, and what per-user or per-team limits exist.         |
-| P3  | Routing flexibility             | What a request can be routed on, and what fallback and load-balancing options exist.             |
-| P4  | Sensitive-data handling         | Whether personal or confidential data can be detected and removed before it reaches a provider, and whether logs keep it. |
-| P5  | Audit and usage evidence        | What is recorded per request and per admin action, and for how long.                            |
-| P6  | Operational effort              | What the company has to run itself, and which capabilities depend on the hosting model or plan.  |
+|ID|Property|What we look for|
+|---|---|---|
+|P1|Custom request/response policies|Can a company add its own logic before the request reaches the provider and after the response returns, and can that logic change the content?|
+|P2|Access and credential controls|How provider keys are stored and handed out, and what per-user or per-team limits exist.|
+|P3|Routing flexibility|What a request can be routed on, and what fallback and load-balancing options exist.|
+|P4|Sensitive-data handling|Whether personal or confidential data can be detected and removed before it reaches a provider, and whether logs keep it.|
+|P5|Audit and usage evidence|What is recorded per request and per admin action, and for how long.|
+|P6|Operational effort|What the company has to run itself, and which capabilities depend on the hosting model or plan.|
 
 ## ALT-01: Portkey AI Gateway
 
@@ -86,7 +86,6 @@ The three alternatives were selected for detailed research per [DEC-001](../deci
 - Policies are XML with embedded C# expressions that get only limited verification when saved (P1). Inference: writing a company-specific filter needs API Management expertise, and mistakes in expression logic that the save-time check does not catch surface as runtime errors, so filters need testing before they reach production traffic.
 - The feature set depends on tier and gateway type. Token limits and token metrics are missing on Consumption, self-hosting is limited to Developer and Premium, and the Anthropic API needs a v2 tier (P2, P5, P6). Observation: no single tier is described as supporting every AI policy, self-hosting, and Anthropic together in the pages read. Inference: a company may have to change tier, and price, to get the full set.
 - It ties the gateway to Azure. Even the self-hosted gateway is configured from, and reports to, an Azure instance (P6), and the smoothest setup (managed identity, Content Safety, Foundry import) applies to Azure-hosted models (P2).
-
 
 ## ALT-03: LiteLLM Proxy
 
