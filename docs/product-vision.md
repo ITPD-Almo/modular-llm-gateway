@@ -116,3 +116,4 @@ The security or compliance officer is a stakeholder but exchanges nothing with t
 
 - [User stories](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=label%3Auser-story)
 - [Assumptions](assumptions.md) and [decisions](decisions.md)
+- [Week 2 report](../reports/week-02/README.md)
