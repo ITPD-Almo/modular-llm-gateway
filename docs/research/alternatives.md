@@ -17,16 +17,20 @@ The three alternatives were selected for detailed research per [DEC-001](../deci
 | P5  | Audit and usage evidence        | What is recorded per request and per admin action, and for how long.                            |
 | P6  | Operational effort              | What the company has to run itself, and which capabilities depend on the hosting model or plan.  |
 
-## ALT-01: Portkey AI Gateway
+## ALT-01
 
-**Kind:** Direct competitor. Commercial AI gateway offered as SaaS, with an MIT-licensed open-source gateway core and an enterprise hybrid deployment.
-**Link:** <https://portkey.ai/docs/product/ai-gateway>
-**Version looked at:** documentation and pricing page as of 2026-10-05; open-source gateway release [v1.15.2](https://github.com/Portkey-AI/gateway/releases/tag/v1.15.2) (published 2026-01-12).
-**Depth of evaluation:** read the product documentation, the pricing page, and the open-source repository's plugin folder. Did not create an account or send traffic through the hosted gateway, so dashboard behaviour is taken from the documentation.
+Portkey AI Gateway
 
-**Screenshots on the board:** `ALT-01 Portkey — webhook guardrail response (P1)` and `ALT-01 Portkey — plan feature comparison (P2, P5, P6)`.
+- **Status:** Active
+- **Kind:** Direct competitor. Commercial AI gateway offered as SaaS, with an MIT-licensed open-source gateway core and an enterprise hybrid deployment.
+- **Link:** <https://portkey.ai/docs/product/ai-gateway>
+- **Version looked at:** documentation and pricing page as of 2026-10-05; open-source gateway release [v1.15.2](https://github.com/Portkey-AI/gateway/releases/tag/v1.15.2) (published 2026-01-12).
+- **Depth of evaluation:** read the product documentation, the pricing page, and the open-source repository's plugin folder. Did not create an account or send traffic through the hosted gateway, so dashboard behaviour is taken from the documentation.
+- **Problem it solves:** gives engineering and platform teams one OpenAI-compatible endpoint in front of many LLM providers, with routing, guardrails, credential management, and request logs, so that applications do not call providers directly.
 
-**Problem it solves:** gives engineering and platform teams one OpenAI-compatible endpoint in front of many LLM providers, with routing, guardrails, credential management, and request logs, so that applications do not call providers directly.
+**Screenshots on the board**
+
+`ALT-01 Portkey — webhook guardrail response (P1)` and `ALT-01 Portkey — plan feature comparison (P2, P5, P6)`.
 
 **Observations by property**
 
@@ -52,16 +56,20 @@ The three alternatives were selected for detailed research per [DEC-001](../deci
 - Keeping prompts out of logs is documented only per request. Observation: the Logs page describes omitting request and response content through the `x-portkey-debug: false` header and does not mention an organisation-wide setting. Inference, to verify with a trial account: if no such setting exists, keeping sensitive data out of logs depends on every calling application (P4, P5).
 - Company-specific identifiers depend on patterns the company writes itself. Observation: Portkey supports custom regex patterns with replacement text and redaction, while its pre-built PII patterns cannot be customised. Companies still need to write, test, and maintain these patterns. Inference: regex suits identifiers with a fixed format, such as employee numbers or project codes, but not confidential content without a fixed shape, such as a project described in prose (P4).
 
-## ALT-02: Azure API Management AI gateway
+## ALT-02
 
-**Kind:** Adjacent substitute. A general-purpose cloud API management service whose existing gateway gained LLM-specific policies; companies already on Azure reuse it instead of buying a dedicated AI gateway.
-**Link:** <https://learn.microsoft.com/en-us/azure/api-management/genai-gateway-capabilities>
-**Version looked at:** Microsoft Learn documentation read on 2026-10-05. Page dates as shown in each page's metadata: AI gateway capabilities 2026-05-29, `llm-content-safety` 2026-08-18, `llm-token-limit` 2026-04-01, LLM logging 2026-06-12, policy reference index 2026-08-24, backends 2026-05-20, policy expressions 2026-01-15, self-hosted gateway 2025-09-30.
-**Depth of evaluation:** read the AI gateway overview, the reference pages of the LLM policies, the full policy index with its per-gateway support table, the policy expression rules, the backend and self-hosted gateway pages, the monitoring page (including Activity Log), and the pricing page. Did not create an Azure subscription or an API Management instance, so portal behaviour is taken from the documentation and its screenshots. The pricing page showed no numeric prices without a region and currency selection, so cost is not compared.
+Azure API Management AI gateway
 
-**Screenshots on the board:** `ALT-02 Azure APIM — llm-content-safety blocks harm categories with 403, no redaction (P4)` and `ALT-02 Azure APIM — opt-in prompt/completion logging per API with byte limits (P5)`.
+- **Status:** Active
+- **Kind:** Adjacent substitute. A general-purpose cloud API management service whose existing gateway gained LLM-specific policies; companies already on Azure reuse it instead of buying a dedicated AI gateway.
+- **Link:** <https://learn.microsoft.com/en-us/azure/api-management/genai-gateway-capabilities>
+- **Version looked at:** Microsoft Learn documentation read on 2026-10-05. Page dates as shown in each page's metadata: AI gateway capabilities 2026-05-29, `llm-content-safety` 2026-08-18, `llm-token-limit` 2026-04-01, LLM logging 2026-06-12, policy reference index 2026-08-24, backends 2026-05-20, policy expressions 2026-01-15, self-hosted gateway 2025-09-30.
+- **Depth of evaluation:** read the AI gateway overview, the reference pages of the LLM policies, the full policy index with its per-gateway support table, the policy expression rules, the backend and self-hosted gateway pages, the monitoring page (including Activity Log), and the pricing page. Did not create an Azure subscription or an API Management instance, so portal behaviour is taken from the documentation and its screenshots. The pricing page showed no numeric prices without a region and currency selection, so cost is not compared.
+- **Problem it solves:** lets a company put its LLM endpoints behind the same API gateway it already uses for other APIs, so token limits, authentication, content checks, load balancing, and logging are configured as gateway policies rather than in each application.
 
-**Problem it solves:** lets a company put its LLM endpoints behind the same API gateway it already uses for other APIs, so token limits, authentication, content checks, load balancing, and logging are configured as gateway policies rather than in each application.
+**Screenshots on the board**
+
+`ALT-02 Azure APIM — llm-content-safety blocks harm categories with 403, no redaction (P4)` and `ALT-02 Azure APIM — opt-in prompt/completion logging per API with byte limits (P5)`.
 
 **Observations by property**
 
@@ -87,23 +95,26 @@ The three alternatives were selected for detailed research per [DEC-001](../deci
 - The feature set depends on tier and gateway type. Token limits and token metrics are missing on Consumption, self-hosting is limited to Developer and Premium, and the Anthropic API needs a v2 tier (P2, P5, P6). Observation: no single tier is described as supporting every AI policy, self-hosting, and Anthropic together in the pages read. Inference: a company may have to change tier, and price, to get the full set.
 - It ties the gateway to Azure. Even the self-hosted gateway is configured from, and reports to, an Azure instance (P6), and the smoothest setup (managed identity, Content Safety, Foundry import) applies to Azure-hosted models (P2).
 
+## ALT-03
 
-## ALT-03: LiteLLM Proxy
+LiteLLM Proxy
 
-**Kind:** Open-source/self-hosted option. A Python gateway that can run on the company's own infrastructure. It also competes directly with dedicated AI gateways.
-**Link:** <https://docs.litellm.ai/docs/simple_proxy>
-**Version looked at:** release [v1.104.0](https://github.com/BerriAI/litellm/releases/tag/v1.104.0), published 2026-10-03; live documentation read on 2026-10-05. Live docs may describe features newer than that release.
-**License:** the [release's LICENSE](https://github.com/BerriAI/litellm/blob/v1.104.0/LICENSE) applies MIT outside `enterprise/`; enterprise content has a separate license. The whole repository should not be described as unconditionally MIT-licensed.
-**Depth of evaluation:** read the callback, custom guardrail, virtual key, routing, Presidio, logging, deployment, and OSS/Enterprise documentation. Also read the tagged `CustomLogger` source and checked that the named pre-call, response, streaming, and logging methods exist. No proxy was deployed, no paid license was used, and no requests were sent to a provider. Latency, usability, and failure behaviour are not measured.
+- **Status:** Active
+- **Kind:** Open-source/self-hosted option. A Python gateway that can run on the company's own infrastructure. It also competes directly with dedicated AI gateways.
+- **Link:** <https://docs.litellm.ai/docs/simple_proxy>
+- **Version looked at:** release [v1.104.0](https://github.com/BerriAI/litellm/releases/tag/v1.104.0), published 2026-10-03; live documentation read on 2026-10-05. Live docs may describe features newer than that release.
+  License: the [release's LICENSE](https://github.com/BerriAI/litellm/blob/v1.104.0/LICENSE) applies MIT outside `enterprise/`; enterprise content has a separate license. The whole repository should not be described as unconditionally MIT-licensed.
+- **Depth of evaluation:** read the callback, custom guardrail, virtual key, routing, Presidio, logging, deployment, and OSS/Enterprise documentation. Also read the tagged `CustomLogger` source and checked that the named pre-call, response, streaming, and logging methods exist. No proxy was deployed, no paid license was used, and no requests were sent to a provider. Latency, usability, and failure behaviour are not measured.
+- **Problem it solves:** gives developers and platform teams an OpenAI-compatible endpoint for multiple providers, with local routing, access keys, spend tracking, and custom policy hooks.
 
-**Screenshot evidence:** two screenshots of the live documentation, captured in a browser on 2026-10-05 and checked for readability:
+**Screenshot evidence**
+
+Two screenshots of the live documentation, captured in a browser on 2026-10-05 and checked for readability:
 
 - [Callback stages](../../reports/week-01/images/alt-03-litellm-hooks.png): request modification, response modification, and separate streaming hooks (P1).
 - [OSS and Enterprise comparison](../../reports/week-01/images/alt-03-litellm-oss-enterprise.png): OSS includes custom guardrails and Presidio; management-operation logs are shown under Enterprise (P2, P4, P5, P6).
 
 These images are in the repository. Ali12hamdan confirmed uploading both to the shared evidence board. Anonymous view-only access still needs checking. Screenshots show documentation, not a tested deployment.
-
-**Problem it solves:** gives developers and platform teams an OpenAI-compatible endpoint for multiple providers, with local routing, access keys, spend tracking, and custom policy hooks.
 
 **Observations by property**
 

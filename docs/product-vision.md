@@ -4,17 +4,21 @@ Modular LLM Gateway
 
 ## Goal
 
-An IT operator in a small company can route employees' LLM requests through one self-hosted gateway that masks fixed-format company identifiers and shows, for any request, which policy revision allowed, masked, or rejected it, without storing the prompt.
+DevOps staff in a medium or large company can start a gateway, add company-specific plugins, and control employee LLM requests and responses, including routing requests to a provider.
 
 **Supports:** [VP-01](research/value-proposition.md#vp-01), [VP-02](research/value-proposition.md#vp-02).
 
+The [October 9 meeting](../reports/week-02/meeting-report.md) changed our focus from a masking and policy-record example to the plugin workflow, per [DEC-003](decisions.md#dec-003) and [DEC-006](decisions.md#dec-006). The two value propositions remain provisional; the Customer did not confirm them as competitive advantages.
+
+For the first usable interaction, the operator should start the system, add two simple plugins, send a request, and see the result. Restarting after adding plugins and using a fake provider are acceptable, per [DEC-005](decisions.md#dec-005). We still need to turn this into a linked story candidate and confirm its scope. An existing tool may be used if it fits, per [DEC-004](decisions.md#dec-004); we have not chosen a new core or an extension yet.
+
 ## Stakeholders
 
-- **IT operator**: runs the gateway, writes the policy, and answers for its decisions; the primary user.
+- **DevOps operator**: starts the gateway, adds company-specific plugins, checks that requests are being processed, and manages its configuration; the primary user.
 - **Employee**: sends prompts through the gateway from an internal tool, and is affected by every mask and rejection without configuring anything.
 - **Plugin developer**: writes a company-specific request or response plugin against the documented plugin interface.
 - **Security or compliance officer**: asks the operator to explain a decision after the fact, and never touches the gateway.
-- **LLM provider**: receives the masked requests and returns the responses.
+- **LLM provider**: receives the processed requests and returns responses; a fake provider can take its place for the first demonstration.
 - **Customer**: the course instructor, who decides the scope.
 
 ## Constraints
@@ -26,6 +30,9 @@ The product is a modular core with replaceable plugins for request and response 
 - **Status:** Active
 - **Source:** Customer-given
 - **What it costs:** policy logic cannot be written directly into the core, so even the first masking rule needs a plugin interface, its documentation, and an example.
+- **Decision:** [DEC-003](decisions.md#dec-003).
+- **Changed:**
+  - The next design must show plugin inputs, outputs, execution order, and loading, per [DEC-006](decisions.md#dec-006). Masking alone does not explain the interface.
 
 ### CON-02
 
@@ -53,12 +60,14 @@ No real provider keys, prompts, or personal data in the public repository or its
 
 ## Boundary
 
+These are proposed trial limits. The October 9 meeting allowed restarting for plugin changes, but did not explicitly accept the identity, storage, or other limits below.
+
 ### BND-01
 
 Manage employee identities, single sign-on, and group membership.
 
 - **Status:** Active
-- **Handled by:** the IT operator, who issues each internal tool a static gateway credential by hand
+- **Handled by:** the DevOps operator, who issues each internal tool a static gateway credential by hand
 - **Why:** [`CON-02`](#con-02): identity administration needs expertise and time the team does not have, and every alternative we studied already sells it.
 
 ### BND-02
@@ -82,8 +91,10 @@ Keep decision records tamper-proof and store them for the long term.
 Edit policies or install plugins through a web administration interface while the gateway runs.
 
 - **Status:** Active
-- **Handled by:** the IT operator, by editing the policy file and restarting the gateway
-- **Why:** [`CON-03`](#con-03): a static policy file gives every decision one revision to point at, and an administration interface would take the term on its own.
+- **Handled by:** the DevOps operator, by editing the configuration and restarting the gateway
+- **Why:** [DEC-005](decisions.md#dec-005) allows restarting after adding plugins. The team proposes file-based configuration for the first interaction; a web administration interface was not agreed as part of it.
+- **Changed:**
+  - Linked the restart approach to the Customer's first usable workflow, per [DEC-005](decisions.md#dec-005). Live plugin replacement is not needed for that workflow.
 
 ### BND-05
 
@@ -97,8 +108,8 @@ Run the language models.
 
 ![System context diagram](architecture/context.svg)
 
-The actors are the employee, whose internal tool sends requests through the gateway with a static credential, and the IT operator, who supplies that credential, the policy file, and the plugins, and reads the decision records.
-The external systems are the LLM provider, which receives masked requests per `BND-05`, and the company log store, which keeps the decision records per `BND-03`.
+The actors are the employee, whose internal tool sends requests through the gateway with a proposed static credential, and the DevOps operator, who supplies configuration and plugins and reads the operating information.
+The external systems are the LLM provider, which receives routed requests per `BND-05`, and the company log store, which keeps the configured records per `BND-03`. A fake provider can stand in for the LLM during the first demonstration, per [DEC-005](decisions.md#dec-005).
 The security or compliance officer is a stakeholder but exchanges nothing with the gateway, so the officer is not on the diagram, and nothing on it detects confidential prose, because `BND-02` leaves that job to nobody.
 
 ## Where The Detail Lives
