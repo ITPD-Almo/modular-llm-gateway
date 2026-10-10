@@ -1,6 +1,6 @@
 # Gap analysis
 
-**Status:** draft for Customer discussion, based on [three alternatives](alternatives.md) and the [comparison](comparison.md). The product capabilities are documented, but we have not interviewed this team's Customer or run matched deployment trials. The two entries below are provisional hypotheses, not established gaps. Neither passes all four tests yet. Our own kickoff is missing, and no asynchronous Customer exchange has taken place. Another team's transcript helped us understand the general project context; it is secondary background, not evidence that our users need GAP-01 or GAP-02. We will drop or revise them if extending LiteLLM serves the job adequately.
+**Status:** draft for Customer discussion, based on [three alternatives](alternatives.md) and the [comparison](comparison.md). The two entries remain provisional hypotheses, not established gaps. Our [October 9 meeting](../../reports/week-02/meeting-report.md) clarified the DevOps plugin workflow but did not establish either narrower unmet need or a competitive advantage. We still need matched extension and deployment checks. The earlier other-team transcript was background; this joint meeting included our own questions. We will revise or drop these gaps if an existing tool serves the job adequately, as allowed by [DEC-004](../decisions.md#dec-004).
 
 ## GAP-01
 
@@ -13,6 +13,8 @@ Link each policy decision to its active policy version
 - **Buildable by us in this course:** plausible for a single-instance course prototype; tamper-proof storage, compliance certification, and full identity administration are outside this scope.
 - **Confidence:** medium in the documented feature split, low in the unmet user need and differentiation.
 - **Rests on:** [ASM-01](../assumptions.md#asm-01), [ASM-02](../assumptions.md#asm-02), [ASM-06](../assumptions.md#asm-06).
+- **Changed:**
+  - Kept the policy-version idea provisional after the Customer clarified the broader plugin workflow, per [DEC-003](../decisions.md#dec-003). Existing-tool reuse is allowed by [DEC-004](../decisions.md#dec-004); feasibility and user need still need checking.
 
 **Gap tests**
 
@@ -25,7 +27,7 @@ Link each policy decision to its active policy version
 
 **Validation (proposed owners, awaiting team confirmation)**
 
-Ali12hamdan prepares an example policy event; Mohammed-Nour checks Azure decision-to-version correlation; atkond2point0 checks the LiteLLM extension path during Week 2 (2026-10-05 to 2026-10-11); confirm requirements in this team's kickoff. This is a proposed team task, not an agreed meeting action.
+Ali12hamdan prepares an example policy event; Mohammed-Nour checks Azure decision-to-version correlation; atkond2point0 checks the LiteLLM extension path in the proposed Week 3 follow-up; confirm the outstanding questions in a Week 3 follow-up. This is a proposed team task, not an agreed meeting action.
 
 ## GAP-02
 
@@ -38,6 +40,8 @@ A small reproducible deployment for a fixed policy job
 - **Buildable by us in this course:** plausible if provider count, policy types, and deployment mode stay narrow; production HA, general PII detection, and a management UI are excluded.
 - **Confidence:** medium in documented deployment requirements, low in the claim of reduced effort.
 - **Rests on:** [ASM-03](../assumptions.md#asm-03), [ASM-04](../assumptions.md#asm-04), [ASM-05](../assumptions.md#asm-05), [ASM-06](../assumptions.md#asm-06).
+- **Changed:**
+  - The Customer allowed a fake provider and restarting for the first plugin interaction, per [DEC-005](../decisions.md#dec-005). This does not prove the proposed starter takes less effort or confirm its credential and logging limits.
 
 **Gap tests**
 
@@ -50,7 +54,7 @@ A small reproducible deployment for a fixed policy job
 
 **Validation (proposed owner, awaiting team confirmation)**
 
-spaghetti-n-spaghetti documents matched setup steps during Week 2 (2026-10-05 to 2026-10-11). Keep provider behaviour mocked for initial policy tests; no performance advantage is claimed.
+spaghetti-n-spaghetti documents matched setup steps in the proposed Week 3 follow-up. Keep provider behaviour mocked for initial policy tests; no performance advantage is claimed.
 
 ## Directions rejected for now
 
@@ -67,4 +71,4 @@ General-purpose plugins are rejected as a claimed advantage per [DEC-002](../dec
 
 ## Decision still needed
 
-The evidence supports researching a narrower workflow, not yet building a new gateway. Bring these hypotheses to the Customer with the option of extending LiteLLM. If the same job is easy to satisfy there, record the rejected gap rather than inventing a reason to build another core.
+The evidence supports researching a narrower workflow, not yet building a new gateway. Check the outstanding user needs with the Customer and compare an existing-tool extension, per [DEC-004](../decisions.md#dec-004). If the same job is easy to satisfy there, record the rejected gap rather than inventing a reason to build another core.
