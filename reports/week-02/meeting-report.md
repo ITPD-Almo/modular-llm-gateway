@@ -26,7 +26,7 @@ None. There was no earlier customer meeting report. Our Week 1 research hypothes
 - The Customer confirmed request and response processing and routing as the overall direction. Existing tools may be used if they fit the required workflow.
 - Our proposed masking and request-record flow was missing the plugin contract, execution order, and loading approach. These need to be shown in the next design and prototype.
 - A first usable workflow can use two simple plugins and a fake provider. Restarting when adding plugins is acceptable. A finished MUP was not required next week.
-- The meeting did not establish policy-version tracking as our main advantage, settle the outstanding assumptions, or accept the original three-story candidate as a complete scope.
+- The meeting did not establish policy-version tracking as our main advantage, settle the outstanding assumptions, or give a specific verdict on the original three-story candidate.
 
 ## Decisions
 

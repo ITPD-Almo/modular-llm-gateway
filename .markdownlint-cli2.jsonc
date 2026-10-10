@@ -1,0 +1,10 @@
+{
+  "config": {
+    "default": true,
+    "MD013": false, // one sentence per line and long table rows
+    "MD029": false, // meeting scripts number questions across groups
+    "MD036": false // the requirements mandate bold labels such as **Strengths**
+  },
+  "gitignore": true,
+  "ignores": [".claude/skills/itpd/**"]
+}
