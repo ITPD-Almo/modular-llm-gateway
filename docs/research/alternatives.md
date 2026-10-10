@@ -8,14 +8,14 @@ The three alternatives were selected for detailed research per [DEC-001](../deci
 
 **Comparison properties (draft, pending team agreement):**
 
-| ID  | Property                        | What we look for                                                                                |
-| --- | ------------------------------- | ----------------------------------------------------------------------------------------------- |
-| P1  | Custom request/response policies | Can a company add its own logic before the request reaches the provider and after the response returns, and can that logic change the content? |
-| P2  | Access and credential controls  | How provider keys are stored and handed out, and what per-user or per-team limits exist.         |
-| P3  | Routing flexibility             | What a request can be routed on, and what fallback and load-balancing options exist.             |
-| P4  | Sensitive-data handling         | Whether personal or confidential data can be detected and removed before it reaches a provider, and whether logs keep it. |
-| P5  | Audit and usage evidence        | What is recorded per request and per admin action, and for how long.                            |
-| P6  | Operational effort              | What the company has to run itself, and which capabilities depend on the hosting model or plan.  |
+|ID|Property|What we look for|
+|---|---|---|
+|P1|Custom request/response policies|Can a company add its own logic before the request reaches the provider and after the response returns, and can that logic change the content?|
+|P2|Access and credential controls|How provider keys are stored and handed out, and what per-user or per-team limits exist.|
+|P3|Routing flexibility|What a request can be routed on, and what fallback and load-balancing options exist.|
+|P4|Sensitive-data handling|Whether personal or confidential data can be detected and removed before it reaches a provider, and whether logs keep it.|
+|P5|Audit and usage evidence|What is recorded per request and per admin action, and for how long.|
+|P6|Operational effort|What the company has to run itself, and which capabilities depend on the hosting model or plan.|
 
 ## ALT-01: Portkey AI Gateway
 
@@ -87,13 +87,12 @@ The three alternatives were selected for detailed research per [DEC-001](../deci
 - The feature set depends on tier and gateway type. Token limits and token metrics are missing on Consumption, self-hosting is limited to Developer and Premium, and the Anthropic API needs a v2 tier (P2, P5, P6). Observation: no single tier is described as supporting every AI policy, self-hosting, and Anthropic together in the pages read. Inference: a company may have to change tier, and price, to get the full set.
 - It ties the gateway to Azure. Even the self-hosted gateway is configured from, and reports to, an Azure instance (P6), and the smoothest setup (managed identity, Content Safety, Foundry import) applies to Azure-hosted models (P2).
 
-
 ## ALT-03: LiteLLM Proxy
 
 **Kind:** Open-source/self-hosted option. A Python gateway that can run on the company's own infrastructure. It also competes directly with dedicated AI gateways.
 **Link:** <https://docs.litellm.ai/docs/simple_proxy>
 **Version looked at:** release [v1.104.0](https://github.com/BerriAI/litellm/releases/tag/v1.104.0), published 2026-10-03; live documentation read on 2026-10-05. Live docs may describe features newer than that release.
-**License:** the [release's LICENSE](https://github.com/BerriAI/litellm/blob/v1.104.0/LICENSE) applies MIT outside `enterprise/`; enterprise content has a separate license. The whole repository should not be described as unconditionally MIT-licensed.
+**License:** the [release's LICENSE](https://raw.githubusercontent.com/BerriAI/litellm/v1.104.0/LICENSE) applies MIT outside `enterprise/`; enterprise content has a separate license. The whole repository should not be described as unconditionally MIT-licensed.
 **Depth of evaluation:** read the callback, custom guardrail, virtual key, routing, Presidio, logging, deployment, and OSS/Enterprise documentation. Also read the tagged `CustomLogger` source and checked that the named pre-call, response, streaming, and logging methods exist. No proxy was deployed, no paid license was used, and no requests were sent to a provider. Latency, usability, and failure behaviour are not measured.
 
 **Screenshot evidence:** two screenshots of the live documentation, captured in a browser on 2026-10-05 and checked for readability:
@@ -109,7 +108,7 @@ These images are in the repository. Ali12hamdan confirmed uploading both to the 
 
 | Property | Observation | Source |
 | --- | --- | --- |
-| P1 Custom request/response policies | Python `CustomLogger` callbacks can modify or reject requests before a provider call and modify responses afterwards. Non-streaming success and streaming response processing use different methods. A callback instance is registered by a dotted path in YAML. The tagged source defines `async_pre_call_hook`, `async_post_call_success_hook`, and `async_post_call_streaming_hook`. The separate `CustomGuardrail.apply_guardrail` interface extracts content and writes returned content back; raising an exception blocks the call. | [Callback guide](https://docs.litellm.ai/docs/proxy/call_hooks), [tagged callback source](https://github.com/BerriAI/litellm/blob/v1.104.0/litellm/integrations/custom_logger.py), [custom guardrail guide](https://docs.litellm.ai/docs/proxy/guardrails/custom_guardrail) |
+| P1 Custom request/response policies | Python `CustomLogger` callbacks can modify or reject requests before a provider call and modify responses afterwards. Non-streaming success and streaming response processing use different methods. A callback instance is registered by a dotted path in YAML. The tagged source defines `async_pre_call_hook`, `async_post_call_success_hook`, and `async_post_call_streaming_hook`. The separate `CustomGuardrail.apply_guardrail` interface extracts content and writes returned content back; raising an exception blocks the call. | [Callback guide](https://docs.litellm.ai/docs/proxy/call_hooks), [tagged callback source](https://raw.githubusercontent.com/BerriAI/litellm/v1.104.0/litellm/integrations/custom_logger.py), [custom guardrail guide](https://docs.litellm.ai/docs/proxy/guardrails/custom_guardrail) |
 | P2 Access and credential controls | Virtual keys control model access, track spend, and support budgets. Provider credentials can be referenced through environment variables in the gateway configuration. Virtual-key management requires PostgreSQL. The Enterprise comparison includes organization/delegated admin roles and JWT-based authentication; it says Admin UI SSO is free for up to five users, with a license required beyond that. | [Virtual keys](https://docs.litellm.ai/docs/proxy/virtual_keys), [Enterprise comparison](https://docs.litellm.ai/docs/enterprise) |
 | P3 Routing flexibility | The router supports random distribution (`simple-shuffle`, the default), least-busy, usage-based, latency-based, and cost-based strategies. Fallbacks move to another model group after retries fail; the guide also describes context-window and content-policy fallbacks. These documents establish routing mechanisms, not measured performance or arbitrary semantic classification of requests. | [Load balancing](https://docs.litellm.ai/docs/proxy/load_balancing), [Fallbacks](https://docs.litellm.ai/docs/proxy/reliability) |
 | P4 Sensitive-data handling | The OSS/Enterprise comparison explicitly includes custom guardrails and Presidio PII masking in OSS. The Presidio guide requires separate Analyzer and Anonymizer containers and supports masking or blocking. Logging can globally omit message/response content with `turn_off_message_logging`, while retaining metadata such as spend. The logging guide describes a permission-controlled client opt-out; this behaviour was not tested against the tagged release. | [Enterprise comparison](https://docs.litellm.ai/docs/enterprise), [Presidio guide](https://docs.litellm.ai/docs/proxy/guardrails/pii_masking_v2), [Logging](https://docs.litellm.ai/docs/proxy/logging) |
