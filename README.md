@@ -20,7 +20,6 @@ Organization: [ITPD-Almo](https://github.com/ITPD-Almo).
 | --- |
 | Ali12hamdan |
 | Mohammed-Nour |
-| spaghetti-n-spaghetti |
 | atkond2point0 |
 
 Course team: **9**. Real names and university emails belong only in the private Moodle submission.
