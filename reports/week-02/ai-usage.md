@@ -5,7 +5,7 @@
 - **Ali12hamdan:** Codex.
 - **Mohammed-Nour:** Claude Code (Claude).
 - **atkond2point0:** no statement given. Their Week 2 work, [PR #20](https://github.com/ITPD-Almo/modular-llm-gateway/pull/20) and [PR #21](https://github.com/ITPD-Almo/modular-llm-gateway/pull/21), does not show whether AI tools were used, so we have not recorded either answer for them.
-- **spaghetti-n-spaghetti:** none to report. spaghetti-n-spaghetti did not take part in the Week 2 work.
+- **spaghetti-n-spaghetti:** former member. They left the team before the Week 2 work, and Ali12hamdan and Mohammed-Nour took over their tasks. They gave no statement, so we have not recorded either answer for them.
 
 ## What we used them for
 
