@@ -28,7 +28,7 @@ Static caller credentials and one provider are acceptable for the initial trial.
 The narrow starter takes fewer mandatory services or manual steps than a matched existing gateway setup.
 
 - **Status:** Open
-- **How to check:** spaghetti-n-spaghetti will compare services and manual steps for the same policy job in Week 3, following the team plan. Report the result even if LiteLLM wins.
+- **How to check:** Ali12hamdan and Mohammed-Nour, who took over spaghetti-n-spaghetti's tasks, will compare services and manual steps for the same policy job in Week 3, following the team plan. Report the result even if LiteLLM wins.
 
 ## ASM-05
 
@@ -39,7 +39,7 @@ A fixed-format masking rule serves a real trial need.
 
 ## ASM-06
 
-Four people can deliver the bounded trial with policy error handling and tests.
+Three people can deliver the bounded trial with policy error handling and tests.
 
 - **Status:** Open
 - **How to check:** The whole team will estimate the Must Have stories in Week 3, following the team plan, before choosing a language or promising a delivery date.
