@@ -10,7 +10,7 @@ Read the [meeting report](meeting-report.md) first. It records what the Customer
 
 We moved the Week 1 decisions and assumptions into their own logs, restructured the research around its identifiers, and wrote a product vision with a system context diagram. On October 9 we showed the Customer a text concept of a masking flow and a policy-version record, in a joint meeting with two other teams.
 
-We were wrong about what mattered first. We had centred the first version on masking and finding the policy revision behind a decision. The Customer said the missing part was how plugins connect to the gateway: their inputs, outputs, execution order, and loading. The Customer also defined the first usable workflow as starting the system, adding two simple plugins, sending a request, and seeing the result. The meeting did not establish policy-version tracking as our advantage, and the Customer did not accept our three draft stories as a complete candidate.
+We were wrong about what mattered first. We had centred the first version on masking and finding the policy revision behind a decision. The Customer said the missing part was how plugins connect to the gateway: their inputs, outputs, execution order, and loading. The Customer also defined the first usable workflow as starting the system, adding two simple plugins, sending a request, and seeing the result. The meeting did not establish policy-version tracking as our advantage, and our three draft stories need revision after the feedback.
 
 Still open: the revised story issues and the Customer's verdict on them, the plugin interface design, whether an existing gateway already supports this workflow, and permission to publish the transcript.
 
@@ -30,7 +30,7 @@ Still open: the revised story issues and the Customer's verdict on them, the plu
 | Pull request template | [.github/pull_request_template.md](../../.github/pull_request_template.md) |
 | Prototypes | [reports/week-02/prototypes.md](prototypes.md) |
 | Meeting script | [reports/week-02/meeting-script.md, in draft PR #26](https://github.com/ITPD-Almo/modular-llm-gateway/pull/26) |
-| Customer validation | [reports/week-02/meeting-report.md](meeting-report.md). The transcript is not public, because publication permission is unconfirmed; see the Moodle submission. |
+| Customer validation | [reports/week-02/meeting-report.md](meeting-report.md). The transcript is not public, because publication permission is unconfirmed; see Deviations. |
 | AI usage | [reports/week-02/ai-usage.md](ai-usage.md) |
 
 ## Minimum Usable Product Candidate
@@ -39,7 +39,7 @@ Still open: the revised story issues and the Customer's verdict on them, the plu
 
 **Stories:** none yet. The candidate we took to the meeting was three draft `Must Have` stories: reaching the provider without holding its key, masking company identifiers, and finding which policy revision decided a request. They were not opened as issues before the meeting.
 
-**Verdict:** the Customer did not accept those three stories as a complete candidate, and redefined the core task above, per [DEC-005](../../docs/decisions.md#dec-005). The revised `Must Have` stories and the Customer's verdict on them are due in Week 3.
+**Verdict:** not given. The Customer clarified the core task above, per [DEC-005](../../docs/decisions.md#dec-005), so the three stories need revision after the feedback. They were not explicitly rejected. The revised `Must Have` stories and the Customer's verdict on them are unfinished and due in Week 3.
 
 ## What changed after the prototype
 
@@ -52,7 +52,7 @@ Still open: the revised story issues and the Customer's verdict on them, the plu
 | Ali12hamdan | Decisions log in [PR #14](https://github.com/ITPD-Almo/modular-llm-gateway/pull/14), assumptions log in [PR #16](https://github.com/ITPD-Almo/modular-llm-gateway/pull/16), meeting script in [PR #26](https://github.com/ITPD-Almo/modular-llm-gateway/pull/26), meeting report and DEC-003 to DEC-006 in [PR #28](https://github.com/ITPD-Almo/modular-llm-gateway/pull/28). Presented and asked our questions in the meeting. Approved [PR #8](https://github.com/ITPD-Almo/modular-llm-gateway/pull/8#pullrequestreview-5445684123), [PR #11](https://github.com/ITPD-Almo/modular-llm-gateway/pull/11#pullrequestreview-5445810373), and [PR #12](https://github.com/ITPD-Almo/modular-llm-gateway/pull/12#pullrequestreview-5445863178). Requested changes on [PR #20](https://github.com/ITPD-Almo/modular-llm-gateway/pull/20#pullrequestreview-5471788745), [PR #21](https://github.com/ITPD-Almo/modular-llm-gateway/pull/21#pullrequestreview-5471790064), and [PR #24](https://github.com/ITPD-Almo/modular-llm-gateway/pull/24#pullrequestreview-5472673165). |
 | Mohammed-Nour | Issue forms and labels in [PR #8](https://github.com/ITPD-Almo/modular-llm-gateway/pull/8), pull request template in [PR #11](https://github.com/ITPD-Almo/modular-llm-gateway/pull/11), course materials skill in [PR #12](https://github.com/ITPD-Almo/modular-llm-gateway/pull/12), research restructure in [PR #24](https://github.com/ITPD-Almo/modular-llm-gateway/pull/24), product vision and context diagram in [PR #25](https://github.com/ITPD-Almo/modular-llm-gateway/pull/25), and this report. Approved [PR #14](https://github.com/ITPD-Almo/modular-llm-gateway/pull/14#pullrequestreview-5447017406) and [PR #16](https://github.com/ITPD-Almo/modular-llm-gateway/pull/16#pullrequestreview-5447025468). |
 | atkond2point0 | Markdown formatting in [PR #20](https://github.com/ITPD-Almo/modular-llm-gateway/pull/20) and the Markdown CI workflow in [PR #21](https://github.com/ITPD-Almo/modular-llm-gateway/pull/21). Attended the meeting. |
-| spaghetti-n-spaghetti | No Week 2 contribution recorded. |
+| spaghetti-n-spaghetti | Former member. Left the team before the Week 2 work; Ali12hamdan and Mohammed-Nour took over their tasks. |
 
 ## Repository evidence
 
@@ -67,10 +67,12 @@ The link check excludes `.claude/skills/itpd`, the course materials submodule. T
 - **No kickoff.** We had no Week 1 kickoff, so `## Previous action points` and `## Previous open questions` in the meeting report say `None`.
 - **Joint meeting.** The October 9 meeting was shared with two other teams. Our part took about 12 of its 37 minutes. Of our team, Ali12hamdan and atkond2point0 attended.
 - **Late script.** The meeting script was prepared before the meeting but uploaded afterwards in draft [PR #26](https://github.com/ITPD-Almo/modular-llm-gateway/pull/26). Its candidate part does not list `US-nn` issues, because none were open.
-- **No story issues yet.** The stories were drafts, not issues, at the meeting. Since the Customer redefined the core task, we will open revised story issues and ask for a verdict in Week 3 rather than open stories the Customer has already rejected as a candidate.
+- **No story issues yet.** The stories were drafts, not issues, at the meeting. Since the Customer clarified the core task, the stories need revision after the feedback. We will open the revised story issues and ask for a verdict in Week 3. This is unfinished.
 - **Text prototype.** The prototype was a static text concept, not running code. It still tested our proposed first version with the Customer, and the answer changed the vision.
-- **Transcript.** The host announced recording, but recording and transcript-publication permission are unconfirmed. We kept it out of the repository and will include it in the Moodle submission if publication is refused.
-- **Roles and authors.** The planned note-taker and observer roles are not confirmed in the meeting record. Ali12hamdan wrote the meeting report and Mohammed-Nour wrote this report, in place of spaghetti-n-spaghetti, who did not take part in the Week 2 work.
+- **Transcript.** The host announced recording, but recording and transcript-publication permission are unconfirmed. Private sharing is also unconfirmed. We kept the transcript out of the repository, and will upload it to Moodle only if the Customer permits private sharing.
+- **Roles and authors.** The planned note-taker and observer roles are not confirmed in the meeting record. Ali12hamdan wrote the meeting report and Mohammed-Nour wrote this report.
+- **Team change.** spaghetti-n-spaghetti left the team, and Ali12hamdan and Mohammed-Nour took over their tasks. The team now has three active members, so [CON-02](../../docs/product-vision.md#con-02) and [ASM-06](../../docs/assumptions.md#asm-06) now say three.
+- **Task created through the API.** Task [#27](https://github.com/ITPD-Almo/modular-llm-gateway/issues/27) was created through the GitHub API with the Task form's fields, at Ali12hamdan's request, instead of through the web issue form.
 - **Markdown CI order.** The formatting fixes ([PR #20](https://github.com/ITPD-Almo/modular-llm-gateway/pull/20)) and the Markdown workflow ([PR #21](https://github.com/ITPD-Almo/modular-llm-gateway/pull/21)) were still under review when this report was written.
 
 ## Privacy

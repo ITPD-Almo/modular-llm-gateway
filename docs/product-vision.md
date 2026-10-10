@@ -36,11 +36,13 @@ The product is a modular core with replaceable plugins for request and response 
 
 ### CON-02
 
-Built and maintained by four students.
+Built and maintained by three students.
 
 - **Status:** Active
 - **Source:** Team-given
 - **What it costs:** no component may need an expert the team does not have, so no general PII detector, no high-availability setup, and no identity administration.
+- **Changed:**
+  - Four students became three: spaghetti-n-spaghetti left the team, and Ali12hamdan and Mohammed-Nour took over their tasks.
 
 ### CON-03
 
