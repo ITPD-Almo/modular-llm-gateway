@@ -24,3 +24,5 @@ What should the reviewer look at? Before approving, tick each acceptance criteri
 - [ ] No credentials, recordings, or private personal details committed.
 - [ ] Another team member requested for review.
 - [ ] Every acceptance criterion of the closed task issue is ticked.
+
+<!-- markdownlint-disable-file MD041 -->
