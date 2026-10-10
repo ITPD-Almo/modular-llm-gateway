@@ -1,6 +1,6 @@
 # Modular LLM Gateway
 
-Status: Week 1 research and initial repository setup. No gateway implementation yet.
+Status: Week 2 product vision and first Customer validation. No gateway implementation yet.
 
 ## Project
 
@@ -20,14 +20,13 @@ Organization: [ITPD-Almo](https://github.com/ITPD-Almo).
 | --- |
 | Ali12hamdan |
 | Mohammed-Nour |
-| spaghetti-n-spaghetti |
 | atkond2point0 |
 
 Course team: **9**. Real names and university emails belong only in the private Moodle submission.
 
 ## Documentation
 
-Course project, work in progress. Start with the [Week 01 report](reports/week-01/README.md). Maintained research includes the [alternatives](docs/research/alternatives.md), [comparison](docs/research/comparison.md), [gap analysis](docs/research/gap-analysis.md), and [value propositions](docs/research/value-proposition.md).
+Course project, work in progress. Start with the [Week 02 report](reports/week-02/README.md); the [Week 01 report](reports/week-01/README.md) covers the initial research. The [product vision](docs/product-vision.md) states the goal and boundary, and the [decisions](docs/decisions.md) and [assumptions](docs/assumptions.md) logs record what we agreed and what we still need to check. Maintained research includes the [alternatives](docs/research/alternatives.md), [comparison](docs/research/comparison.md), [gap analysis](docs/research/gap-analysis.md), and [value propositions](docs/research/value-proposition.md).
 
 ## Contribution workflow
 
