@@ -103,7 +103,7 @@ LiteLLM Proxy
 - **Kind:** Open-source/self-hosted option. A Python gateway that can run on the company's own infrastructure. It also competes directly with dedicated AI gateways.
 - **Link:** <https://docs.litellm.ai/docs/simple_proxy>
 - **Version looked at:** release [v1.104.0](https://github.com/BerriAI/litellm/releases/tag/v1.104.0), published 2026-10-03; live documentation read on 2026-10-05. Live docs may describe features newer than that release.
-  License: the [release's LICENSE](https://raw.githubusercontent.com/BerriAI/litellm/v1.104.0/LICENSE) applies MIT outside `enterprise/`; enterprise content has a separate license. The whole repository should not be described as unconditionally MIT-licensed.
+- **License:** the [release's LICENSE](https://raw.githubusercontent.com/BerriAI/litellm/v1.104.0/LICENSE) applies MIT outside `enterprise/`; enterprise content has a separate license. The whole repository should not be described as unconditionally MIT-licensed.
 - **Depth of evaluation:** read the callback, custom guardrail, virtual key, routing, Presidio, logging, deployment, and OSS/Enterprise documentation. Also read the tagged `CustomLogger` source and checked that the named pre-call, response, streaming, and logging methods exist. No proxy was deployed, no paid license was used, and no requests were sent to a provider. Latency, usability, and failure behaviour are not measured.
 - **Problem it solves:** gives developers and platform teams an OpenAI-compatible endpoint for multiple providers, with local routing, access keys, spend tracking, and custom policy hooks.
 
