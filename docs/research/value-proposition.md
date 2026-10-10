@@ -8,7 +8,7 @@ The two directions come from [DEC-002](../decisions.md#dec-002).
 
 **Positioning:** for IT operators running a small internal LLM gateway, we propose a source-open policy event trail that connects each allow, redact, or reject decision to the loaded policy revision and plugin, while omitting prompt and response bodies.
 
-**Closes:** [GAP-01](gap-analysis.md#gap-01-link-each-policy-decision-to-its-active-policy-version).
+**Closes:** [GAP-01](gap-analysis.md#gap-01).
 
 - **Rests on:** [ASM-01](../assumptions.md#asm-01), [ASM-02](../assumptions.md#asm-02), [ASM-06](../assumptions.md#asm-06).
 
@@ -21,7 +21,7 @@ The two directions come from [DEC-002](../decisions.md#dec-002).
 
 **Positioning:** for a small IT team evaluating company-specific LLM rules, we propose a single-instance starter for one provider, static caller credentials, one masking policy, and body-free decision records, with repeatable allow/redact/reject/error fixtures.
 
-**Closes:** [GAP-02](gap-analysis.md#gap-02-a-small-reproducible-deployment-for-a-fixed-policy-job).
+**Closes:** [GAP-02](gap-analysis.md#gap-02).
 
 - **Rests on:** [ASM-03](../assumptions.md#asm-03), [ASM-04](../assumptions.md#asm-04), [ASM-05](../assumptions.md#asm-05), [ASM-06](../assumptions.md#asm-06).
 
