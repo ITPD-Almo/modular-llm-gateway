@@ -54,7 +54,7 @@ A small reproducible deployment for a fixed policy job
 
 **Validation (proposed owner, awaiting team confirmation)**
 
-spaghetti-n-spaghetti documents matched setup steps in the proposed Week 3 follow-up. Keep provider behaviour mocked for initial policy tests; no performance advantage is claimed.
+Ali12hamdan and Mohammed-Nour, who took over spaghetti-n-spaghetti's tasks, document matched setup steps in the proposed Week 3 follow-up. Keep provider behaviour mocked for initial policy tests; no performance advantage is claimed.
 
 ## Directions rejected for now
 
