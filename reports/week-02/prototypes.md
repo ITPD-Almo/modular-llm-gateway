@@ -17,10 +17,12 @@
   schema, and unknown-ID lookup. The LiteLLM SDK check covers `CustomLogger`,
   mocked responses, separate r1/r2 processes, and explicit logging for a
   pre-provider rejection. See the [spike task and AC-01–AC-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/34).
-  The task's Story field points to [#22](https://github.com/ITPD-Almo/modular-llm-gateway/issues/22),
-  which is a research-formatting issue, not a US-03 story. No actual US-03
-  story issue is available to link, so this evidence does not claim story
-  acceptance. [ASM-01](../../docs/assumptions.md#asm-01) remains Open.
+  The task's Story field still points to [#22](https://github.com/ITPD-Almo/modular-llm-gateway/issues/22),
+  which is a research-formatting issue, not a US-03 story. Ali12hamdan's
+  approval of this evidence PR confirms that the real story link and its
+  acceptance criteria are still missing; no US-03 issue exists in the current
+  issue list. This evidence therefore does not claim story acceptance.
+  [ASM-01](../../docs/assumptions.md#asm-01) remains Open.
 - **Question:** For the static concept shown at the meeting, does the proposed
   masking and request-record flow show a useful first version, and what is
   missing? The runnable policy-trail spike was not demonstrated to the Customer.
