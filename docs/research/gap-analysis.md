@@ -2,15 +2,19 @@
 
 **Status:** draft for Customer discussion, based on [three alternatives](alternatives.md) and the [comparison](comparison.md). The product capabilities are documented, but we have not interviewed this team's Customer or run matched deployment trials. The two entries below are provisional hypotheses, not established gaps. Neither passes all four tests yet. Our own kickoff is missing, and no asynchronous Customer exchange has taken place. Another team's transcript helped us understand the general project context; it is secondary background, not evidence that our users need GAP-01 or GAP-02. We will drop or revise them if extending LiteLLM serves the job adequately.
 
-## GAP-01: Link each policy decision to its active policy version
+## GAP-01
 
-**User and job:** an IT operator running a small internal gateway needs to explain which policy revision was active when a request was allowed, masked, or rejected, without storing the prompt. This user need is a hypothesis to validate with the Customer; it is not a decision from the other team's meeting.
+Link each policy decision to its active policy version
 
+- **Status:** Active
+- **Who needs it and what they cannot do:** an IT operator running a small internal gateway needs to explain which policy revision was active when a request was allowed, masked, or rejected, without storing the prompt. This user need is a hypothesis to validate with the Customer; it is not a decision from the other team's meeting.
+- **Evidence:** the [P5 comparison](comparison.md) separates request/spend logs from administrative audit. ALT-01 P5 and ALT-03 P5 list ready-made admin audit under Enterprise. ALT-02 P5 includes gateway logs and [Azure Activity Log](https://learn.microsoft.com/en-us/azure/api-management/monitor-api-management), which automatically records subscription-level resource changes. Administrative audit therefore exists in Azure. The reviewed page does not establish a link from each allow, redact, or reject decision to the exact policy version active for that request; that correlation is the narrower hypothesis to check, not a proven missing feature. ALT-03 P1/P5 also allow custom callbacks, so implementing decision-to-policy-version correlation in LiteLLM is a credible alternative. These observations suggest a question about packaging decision-to-version correlation, not a universal absence of audit logging.
+- **What closing it looks like:** a source-open static-config gateway records request ID, policy revision, plugin ID, decision, and sanitized reason code, and records the policy revision loaded on restart. It does not record prompt bodies or pretend to provide a full administrative audit system.
+- **Buildable by us in this course:** plausible for a single-instance course prototype; tamper-proof storage, compliance certification, and full identity administration are outside this scope.
+- **Confidence:** medium in the documented feature split, low in the unmet user need and differentiation.
 - **Rests on:** [ASM-01](../assumptions.md#asm-01), [ASM-02](../assumptions.md#asm-02), [ASM-06](../assumptions.md#asm-06).
 
-**Evidence:** the [P5 comparison](comparison.md) separates request/spend logs from administrative audit. ALT-01 P5 and ALT-03 P5 list ready-made admin audit under Enterprise. ALT-02 P5 includes gateway logs and [Azure Activity Log](https://learn.microsoft.com/en-us/azure/api-management/monitor-api-management), which automatically records subscription-level resource changes. Administrative audit therefore exists in Azure. The reviewed page does not establish a link from each allow, redact, or reject decision to the exact policy version active for that request; that correlation is the narrower hypothesis to check, not a proven missing feature. ALT-03 P1/P5 also allow custom callbacks, so implementing decision-to-policy-version correlation in LiteLLM is a credible alternative. These observations suggest a question about packaging decision-to-version correlation, not a universal absence of audit logging.
-
-**Proposed response:** a source-open static-config gateway records request ID, policy revision, plugin ID, decision, and sanitized reason code, and records the policy revision loaded on restart. It does not record prompt bodies or pretend to provide a full administrative audit system.
+**Gap tests**
 
 | Gap test | Current assessment |
 | --- | --- |
@@ -19,18 +23,23 @@
 | Reachable | Yes as a proposed design: one event format and policy revision identifier, with no dynamic admin UI. |
 | Buildable by four people | Plausible for a single-instance course prototype; tamper-proof storage, compliance certification, and full identity administration are outside this scope. |
 
-**Confidence:** medium in the documented feature split, low in the unmet user need and differentiation.
-**Validation (proposed owners, awaiting team confirmation):** Ali12hamdan prepares an example policy event; Mohammed-Nour checks Azure decision-to-version correlation; atkond2point0 checks the LiteLLM extension path during Week 2 (2026-10-05 to 2026-10-11); confirm requirements in this team's kickoff. This is a proposed team task, not an agreed meeting action.
+**Validation (proposed owners, awaiting team confirmation)**
 
-## GAP-02: A small reproducible deployment for a fixed policy job
+Ali12hamdan prepares an example policy event; Mohammed-Nour checks Azure decision-to-version correlation; atkond2point0 checks the LiteLLM extension path during Week 2 (2026-10-05 to 2026-10-11); confirm requirements in this team's kickoff. This is a proposed team task, not an agreed meeting action.
 
-**User and job:** a small IT team needs a private trial with one provider, static caller credentials, one masking policy, and body-free decision logs, before adopting full gateway administration. This is a narrower job than serving a whole corporation and needs Customer confirmation.
+## GAP-02
 
+A small reproducible deployment for a fixed policy job
+
+- **Status:** Active
+- **Who needs it and what they cannot do:** a small IT team needs a private trial with one provider, static caller credentials, one masking policy, and body-free decision logs, before adopting full gateway administration. This is a narrower job than serving a whole corporation and needs Customer confirmation.
+- **Evidence:** ALT-01 P6 separates SaaS, OSS, and enterprise deployment; ALT-02 P6 needs Azure and feature-specific resources; ALT-03 P2/P4/P6 documents PostgreSQL for virtual keys and separate services for Presidio. But ALT-03 P6 also permits a minimal gateway. The [P6 comparison](comparison.md) therefore does not prove a new proxy is simpler for the same job.
+- **What closing it looks like:** supply a single-instance deployment recipe using static configuration and a local fixed-format masking plugin, with fake-provider fixtures for allow, redact, reject, and policy failure cases. This is a proposal for later implementation, not Week 1 code.
+- **Buildable by us in this course:** plausible if provider count, policy types, and deployment mode stay narrow; production HA, general PII detection, and a management UI are excluded.
+- **Confidence:** medium in documented deployment requirements, low in the claim of reduced effort.
 - **Rests on:** [ASM-03](../assumptions.md#asm-03), [ASM-04](../assumptions.md#asm-04), [ASM-05](../assumptions.md#asm-05), [ASM-06](../assumptions.md#asm-06).
 
-**Evidence:** ALT-01 P6 separates SaaS, OSS, and enterprise deployment; ALT-02 P6 needs Azure and feature-specific resources; ALT-03 P2/P4/P6 documents PostgreSQL for virtual keys and separate services for Presidio. But ALT-03 P6 also permits a minimal gateway. The [P6 comparison](comparison.md) therefore does not prove a new proxy is simpler for the same job.
-
-**Proposed response:** supply a single-instance deployment recipe using static configuration and a local fixed-format masking plugin, with fake-provider fixtures for allow, redact, reject, and policy failure cases. This is a proposal for later implementation, not Week 1 code.
+**Gap tests**
 
 | Gap test | Current assessment |
 | --- | --- |
@@ -39,8 +48,9 @@
 | Reachable | Yes as a proposed design: a bounded local recipe and policy fixtures instead of full gateway administration. |
 | Buildable by four people | Plausible if provider count, policy types, and deployment mode stay narrow; production HA, general PII detection, and a management UI are excluded. |
 
-**Confidence:** medium in documented deployment requirements, low in the claim of reduced effort.
-**Validation (proposed owner, awaiting team confirmation):** spaghetti-n-spaghetti documents matched setup steps during Week 2 (2026-10-05 to 2026-10-11). Keep provider behaviour mocked for initial policy tests; no performance advantage is claimed.
+**Validation (proposed owner, awaiting team confirmation)**
+
+spaghetti-n-spaghetti documents matched setup steps during Week 2 (2026-10-05 to 2026-10-11). Keep provider behaviour mocked for initial policy tests; no performance advantage is claimed.
 
 ## Directions rejected for now
 
