@@ -1,0 +1,11 @@
+{
+  "revision": "r1",
+  "rules": [
+    {
+      "name": "mask-employee-id",
+      "pattern": "EMP-\\d{6}",
+      "replacement": "[EMPLOYEE-ID]"
+    }
+  ]
+}
+

@@ -1,0 +1,5 @@
+decisions.jsonl
+__pycache__/
+.venv/
+evidence-capture/
+
