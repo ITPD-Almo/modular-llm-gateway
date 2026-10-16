@@ -1,13 +1,13 @@
 # Assumptions
 
-These are the six assumptions from the Week 1 value proposition, in the same order. None has been verified. The [October 9 meeting](../reports/week-02/meeting-report.md) clarified the plugin workflow, but did not settle these six beliefs. The checks and owners below are proposed team tasks, not Customer decisions.
+These are the six assumptions from the Week 1 value proposition, in the same order. None has been verified. The [October 9 meeting](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-02/meeting-report.md) clarified the plugin workflow, but did not settle these six beliefs. The checks and owners below are proposed team tasks, not Customer decisions.
 
 ## ASM-01
 
 The Customer needs policy revision and decision evidence but can accept a narrow event trail.
 
 - **Status:** Open
-- **How to check:** In a proposed Week 3 follow-up, Ali12hamdan will show a concrete decision record and ask about a recent incident and body retention. The brief agreement with the text flow did not settle this belief; see the [open questions](../reports/week-02/meeting-report.md#open-questions).
+- **How to check:** In a proposed Week 3 follow-up, Ali12hamdan will show a concrete decision record and ask about a recent incident and body retention. The brief agreement with the text flow did not settle this belief; see the [open questions](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-02/meeting-report.md#open-questions).
 
 ## ASM-02
 
@@ -35,7 +35,7 @@ The narrow starter takes fewer mandatory services or manual steps than a matched
 A fixed-format masking rule serves a real trial need.
 
 - **Status:** Open
-- **How to check:** In a proposed Week 3 follow-up, atkond2point0 will ask for synthetic examples and expected masking results. Do not collect real personal data. The masking illustration did not verify this belief; see the [open questions](../reports/week-02/meeting-report.md#open-questions).
+- **How to check:** In a proposed Week 3 follow-up, atkond2point0 will ask for synthetic examples and expected masking results. Do not collect real personal data. The masking illustration did not verify this belief; see the [open questions](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-02/meeting-report.md#open-questions).
 
 ## ASM-06
 
