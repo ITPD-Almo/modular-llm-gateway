@@ -1,0 +1,16 @@
+site_name: Modular LLM Gateway
+site_description: A modular LLM gateway whose request and response processing is done by replaceable plugins.
+site_url: https://itpd-almo.github.io/modular-llm-gateway/
+repo_url: https://github.com/ITPD-Almo/modular-llm-gateway
+repo_name: ITPD-Almo/modular-llm-gateway
+edit_uri: edit/main/docs/
+docs_dir: docs
+theme:
+  name: material
+  features:
+    - navigation.indexes
+    - content.code.copy
+markdown_extensions:
+  - tables
+  - toc:
+      permalink: true

@@ -16,6 +16,7 @@ Thumbs.db
 node_modules/
 dist/
 build/
+site/
 coverage/
 __pycache__/
 *.py[cod]
