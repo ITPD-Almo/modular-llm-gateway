@@ -59,3 +59,13 @@ Show the plugin inputs, outputs, execution order, and loading approach in the ne
 - **Made by:** Customer
 - **Source:** [the joint Week 2 meeting](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-02/meeting-report.md).
 - **Why:** our text flow showed masking and a request record, but did not explain how the gateway and its plugins work together. The Customer asked for this missing interface and left the implementation approach to the team.
+
+## DEC-007
+
+Build the first gateway as a Python 3.12 FastAPI service with plugins loaded from a JSON configuration file and a fake provider.
+
+- **Status:** Active
+- **Date:** 2026-10-17
+- **Made by:** Team
+- **Source:** task #43 acceptance criteria.
+- **Why:** a small in-process interface makes plugin order, transformations, and failure behaviour explicit and testable before a real provider or production deployment is added.

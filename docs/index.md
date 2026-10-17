@@ -11,6 +11,8 @@ This is a course project of team 9 in the autumn 2026 term, and it is a work in 
 - [Product vision](product-vision.md): the goal, the stakeholders, the constraints, and what the gateway does not do.
 - [Threshold of success](threshold-of-success.md): the goals the project must reach to count as a success.
 - [Project plan](project-plan.md): the milestones, the sprints, and their releases.
+- [Setup](setup.md): install and run the gateway.
+- [Plugin contract](plugins.md): plugin inputs, outputs, order, loading, and failures.
 
 ## How we work
 
