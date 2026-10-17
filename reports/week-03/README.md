@@ -12,6 +12,12 @@ The planning documents and documentation site merged in [PR #46](https://github.
 
 The October 16 joint meeting did not demonstrate or settle our three stories. The gateway is merged and checked, and a written demo was prepared against each criterion. We could not obtain Customer verdicts for this submission, so the validation requirement is missing. No story has been moved out of the candidate, and no Customer scope change is inferred from another team's discussion.
 
+## Minimum Usable Product Candidate
+
+The core task is for a DevOps operator to start the gateway with two configured plugins, send a request to the fake provider, and see each plugin's effect on the request and response. A plugin developer can add a plugin through the documented interface without changing the core.
+
+The candidate is [US-01, #40](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02, #41](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41), and [US-03, #42](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42), all Must Have, under [MLS-03](../../docs/project-plan.md#mls-03). [DEC-005](../../docs/decisions.md#dec-005) and [DEC-006](../../docs/decisions.md#dec-006) explain the earlier workflow and interface direction; neither accepts this implementation. No verdict DEC exists for these stories. Nothing moved out of the candidate.
+
 ## Customer meeting outcome
 
 See the [joint meeting report](meeting-report.md) and the [written validation script](meeting-script.md).
@@ -44,14 +50,14 @@ No verdict decisions were added. [DEC-007](../../docs/decisions.md#dec-007) rema
 | Week 2 open questions | [Position at the meeting](meeting-report.md#previous-open-questions) and [current answers](gateway-check.md#week-2-open-questions), with unresolved points carried forward. |
 | Meeting script | [reports/week-03/meeting-script.md](meeting-script.md), prepared after the joint meeting and before the planned written exchange. |
 | Customer validation | [reports/week-03/meeting-report.md](meeting-report.md) records the joint meeting. The later written review was not completed; there are no verdicts or written-exchange transcript. The source VTT stays private because sharing permission is unconfirmed. |
-| AI usage | [reports/week-03/ai-usage.md](ai-usage.md), with Ali's entry. Mohammed-Nour and atkond2point0 did not provide Week 3 statements; that part is missing. |
+| AI usage | [reports/week-03/ai-usage.md](ai-usage.md), with Ali's entry and Mohammed-Nour's supplied statement. atkond2point0's Week 3 statement is missing. |
 
 ## Contribution
 
 | GitHub username | Work and current evidence |
 | --- | --- |
 | Ali12hamdan | Task [#45](https://github.com/ITPD-Almo/modular-llm-gateway/issues/45): Pages configuration, public organization fields and project, reviews of #46, #48 and the dependency updates, fresh-clone gateway checks, meeting documents, and preparation of the written demo, the protected release, and this report. |
-| Mohammed-Nour | Task [#44](https://github.com/ITPD-Almo/modular-llm-gateway/issues/44), planning and workflow documents in [PR #46](https://github.com/ITPD-Almo/modular-llm-gateway/pull/46). |
+| Mohammed-Nour | Task [#44](https://github.com/ITPD-Almo/modular-llm-gateway/issues/44), planning and workflow documents in [PR #46](https://github.com/ITPD-Almo/modular-llm-gateway/pull/46); SPRINT-04 to SPRINT-09 milestones, story issues #41 to #42 and task issues #43 to #45; [review of #48](https://github.com/ITPD-Almo/modular-llm-gateway/pull/48#pullrequestreview-5558282327). |
 | atkond2point0 | Task [#43](https://github.com/ITPD-Almo/modular-llm-gateway/issues/43), the gateway, plugin interface, setup instructions, and tests in merged [PR #48](https://github.com/ITPD-Almo/modular-llm-gateway/pull/48). |
 
 ## Repository evidence
@@ -67,9 +73,11 @@ These checks cover the released implementation. The PDF permalink and repository
 - **Issues created through the API.** The Week 3 story and task issues were created through the API rather than submitted through the web forms. They carry the form's fields and labels, but that does not remove the workflow deviation.
 - **Customer validation missing.** Our stories were not demonstrated at the October 16 joint meeting. A written demo was prepared, but the exchange was not completed for this submission. The local checks are technical evidence, not Customer acceptance. Stories #40 to #42 stay open in SPRINT-04, and no verdict DEC was invented.
 - **Meeting preparation.** No original script for the October 16 call was supplied. The supplied script was prepared for the later written exchange, which did not take place for this submission; it is not backdated.
-- **Attendance and permissions.** Team 9 attendance is unconfirmed by the supplied record. The separate permission answers and the permitted transcript-sharing scope are also unconfirmed. The raw transcript stays out of the public repository.
+- **Transcript sharing permissions.** This meeting report was prepared from the shared transcript. The separate permission answers and permitted sharing scope are unconfirmed, so the raw transcript stays out of the public repository.
 - **Task checklist at merge.** Task #43 closed when #48 merged, but its acceptance boxes were still unchecked when verified afterwards. The local checks are recorded separately, and the accountable reviewer has been asked to record the verified criteria.
-- **AI-use statements missing.** Mohammed-Nour and atkond2point0 did not supply Week 3 statements. Their tools or uses were not inferred from their commits.
+- **AI-use statement missing.** atkond2point0 did not supply a Week 3 statement. His tools or uses were not inferred from his commits. Mohammed-Nour supplied his statement in the PR review comment; it is included.
+- **Release records in one PR.** The dated changelog section, REL-03 line and weekly report are combined in #47, after the tag was published, rather than merged as separate PRs. This keeps the final release records together; the tag existed before their links were added.
+- **Planning confirmation.** The threshold goals and Wednesday review time are team drafts and still need confirmation; the missing Customer exchange did not settle them.
 - **Recording access missing.** The October 16 joint meeting was recorded, but no instructor-accessible recording link was supplied for this submission. No Week 2 recording is used as a substitute.
 - **Post-release carryover.** Task #45 moved to SPRINT-04 because it was still open when the release was cut. It remains the Week 3 report and release task; its merge is required before taking the final snapshot.
 

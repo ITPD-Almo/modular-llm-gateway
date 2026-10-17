@@ -17,7 +17,7 @@ Do not send the demo until task [#43](https://github.com/ITPD-Almo/modular-llm-g
 1. Permissions, questions 1-3. Show nothing; explain that the review is in writing.
 2. US-01, questions 4-7. Show the configuration, clean-start command, actual plugin order, and the result after changing the configuration and restarting. Link the merged setup page and the evidence for all three criteria before sending.
 3. US-02, questions 8-10. Show the merged plugin documentation and both example plugins, then demonstrate that each uses the documented interface.
-4. US-03, questions 11-14. Show the documented request command, actual response and ordered plugin trace, and a repeat run using the fake provider without a real key.
+4. US-03, questions 11-14. Show the documented request command, actual response and ordered `plugin_changes` list for both request and response stages, and a repeat run using the fake provider without a real key.
 5. Candidate scope, questions 15-16. Show the three linked stories and their Must Have priorities. Ask about the joint meeting's three-plugin example rather than assuming our two-plugin candidate was accepted or rejected.
 6. Next work, question 17. Show any failure observed during the demo and the proposed follow-up for identifying failed or stuck plugins.
 7. Read-back, question 18. Send a short list of the verdicts, failed criteria, scope changes, and proposed actions with their owners and Week 4 dates.
@@ -35,7 +35,7 @@ Do not send the demo until task [#43](https://github.com/ITPD-Almo/modular-llm-g
 9. (closed) For US-02 AC-02, do both examples use only that documented interface?
 10. (closed) Do you accept or reject US-02? If rejected, name the failed AC-nn and what is missing.
 11. (closed) For US-03 AC-01, does the documented request reach the fake provider and return a response?
-12. (closed) For US-03 AC-02, does the response or log show each plugin's request and response changes in order?
+12. (closed) For US-03 AC-02, does the `plugin_changes` list show each plugin's request and response changes in order?
 13. (closed) For US-03 AC-03, does the repeat run demonstrate deterministic behaviour without a real provider key?
 14. (closed) Do you accept or reject US-03? If rejected, name the failed AC-nn and what you expected instead.
 15. (closed) You mentioned three plugins in the joint meeting. Are two example plugins enough for this sprint, or must a third be included before you accept the candidate?

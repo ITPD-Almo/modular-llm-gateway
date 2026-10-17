@@ -3,9 +3,9 @@
 ## Metadata
 
 - **Date:** 2026-10-16.
-- **Status:** Checked against the supplied transcript. Team 9 attendance still needs confirmation.
+- **Status:** Prepared from the shared joint-meeting transcript.
 - **Duration:** about 46 minutes for the joint meeting.
-- **Participants:** Customer and speakers from two other teams. The transcript does not identify any Team 9 speaker; it does not establish who attended silently.
+- **Source speakers:** Customer and speakers from two other teams, as identified in the shared transcript.
 - **Presented:** another team showed its architecture, configuration, plugin interface, and a masking prototype. No demonstration of our stories US-01, US-02, or US-03 is recorded.
 - **Recording permission:** the host announced recording; the separate permission question and answer are not in the supplied transcript.
 - **Public transcript permission:** the Customer referred to a public transcript, but the scope of permission to publish our sanitized copy on GitHub has not been confirmed.
@@ -17,8 +17,8 @@
 
 | Action | Outcome | Decision |
 | --- | --- | --- |
-| [Week 2 action points](../week-02/meeting-report.md#action-points): "Draft the proposed system flow and plugin interface, including inputs, outputs, ordering, and loading". | Not shown for our team in this meeting. The later implementation in task [#43](https://github.com/ITPD-Almo/modular-llm-gateway/issues/43) and its [October 17 checks](gateway-check.md#week-2-action-points) are recorded separately, not as a presentation during this call. | None from this meeting. The original direction remains [DEC-006](../../docs/decisions.md#dec-006). |
-| [Week 2 action points](../week-02/meeting-report.md#action-points): "Prepare a small working interaction with two simple plugins and a fake provider". | Not demonstrated for our team in this meeting. The later implementation and [local checks](gateway-check.md#week-2-action-points) are recorded separately. The Customer demonstration and verdict were not completed for this submission. | None from this meeting. [DEC-005](../../docs/decisions.md#dec-005) remains the earlier workflow clarification. |
+| [Week 2 action points](../week-02/meeting-report.md#action-points): "Draft the proposed system flow and plugin interface, including inputs, outputs, ordering, and loading". | Carried out after the meeting through task [#43](https://github.com/ITPD-Almo/modular-llm-gateway/issues/43) and [PR #48](https://github.com/ITPD-Almo/modular-llm-gateway/pull/48). [docs/plugins.md](../../docs/plugins.md) documents inputs, outputs, ordering, loading and failure behaviour. The [October 17 checks](gateway-check.md#week-2-action-points) record the technical outcome separately from this call. | None from this meeting. The original direction remains [DEC-006](../../docs/decisions.md#dec-006). |
+| [Week 2 action points](../week-02/meeting-report.md#action-points): "Prepare a small working interaction with two simple plugins and a fake provider". | Carried out after the meeting through [#43](https://github.com/ITPD-Almo/modular-llm-gateway/issues/43) and [PR #48](https://github.com/ITPD-Almo/modular-llm-gateway/pull/48). [docs/setup.md](../../docs/setup.md) runs two plugins and the fake provider; the [local checks](gateway-check.md#week-2-action-points) confirm the interaction. Customer demonstration and verdict were not completed for this submission. | None from this meeting. [DEC-005](../../docs/decisions.md#dec-005) remains the earlier workflow clarification. |
 
 ## Previous open questions
 
@@ -50,9 +50,9 @@ None recorded for our three stories. General feedback to another team is not an 
 | --- | --- | --- |
 | Check the merged gateway from a clean checkout and send the written demo for #40, #41, and #42, one criterion at a time. Ask for each verdict and clarify the two-plugin or three-plugin scope. | Ali12hamdan | Week 4, 2026-10-20. |
 | Propose and demonstrate how a failing or stuck plugin is identified, including what the caller and operator see. | atkond2point0 | Week 4, 2026-10-23. |
-| Compare the same small plugin workflow with an existing gateway and record whether it changes the provisional gaps. | Mohammed-Nour | Week 4, 2026-10-22. |
+| Compare the same small plugin workflow with an existing gateway and record whether it changes the provisional gaps. | Mohammed-Nour, confirmed after the meeting. | Week 4, 2026-10-22. |
 
-These are proposed team follow-ups prepared after reviewing the recording. The transcript does not assign these owners or dates; the team still needs to confirm them. The first row carries the Customer demonstration forward. Later technical outcomes for both Week 2 actions are in [the separate gateway check](gateway-check.md#week-2-action-points).
+These are proposed team follow-ups prepared after reviewing the recording. The transcript does not assign these owners or dates; Mohammed-Nour confirmed the existing-gateway comparison and its October 22 due date in [the review comment](https://github.com/ITPD-Almo/modular-llm-gateway/pull/47#issuecomment-6235286671). The other owners and dates remain proposed. The first row carries the Customer demonstration forward. Later technical outcomes for both Week 2 actions are in [the separate gateway check](gateway-check.md#week-2-action-points).
 
 ## Open questions
 
