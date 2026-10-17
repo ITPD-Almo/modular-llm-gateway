@@ -36,4 +36,13 @@ Send a request in another terminal:
 curl -X POST http://127.0.0.1:8000/v1/chat/completions -H "Content-Type: application/json" -d '{"model":"fake","messages":[{"role":"user","content":"hello"}]}'
 ```
 
-The response contains `fake: HELLO`, `provider: fake`, and `plugin_trace: ["metadata", "uppercase"]`, showing both configured effects and their order. Run the tests with `python -m pytest`. Run the repository checks with `npx markdownlint-cli2 "**/*.md"` and `npx lychee "**/*.md"` (the same checks run in CI).
+The response contains `fake: HELLO`, `provider: fake`, and `plugin_trace: ["metadata", "uppercase"]`, showing both configured effects and their order. Run the tests with `python -m pytest`.
+
+For the repository checks, install Node.js/npm for Markdown lint and the [lychee CLI](https://github.com/lycheeverse/lychee#installation) for links. For example, lychee can be installed with `cargo install lychee` when Rust is available, or `brew install lychee` on macOS.
+
+```sh
+npx markdownlint-cli2 "**/*.md"
+lychee --exclude-path .claude/skills/itpd './**/*.md'
+```
+
+These checks also run in CI. The link checker is the Rust lychee CLI; do not install the unrelated npm package called lychee.

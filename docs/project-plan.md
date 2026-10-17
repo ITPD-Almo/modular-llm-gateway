@@ -39,11 +39,16 @@ A DevOps operator starts the gateway with two plugins from a configuration file,
 
 #### REL-03
 
+Released as [v0.1.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.1.0) on 2026-10-17, from [the checked main commit](https://github.com/ITPD-Almo/modular-llm-gateway/commit/71cb6ff3eac0da2172d6563229d2a76f7d2598b2). Customer validation was not completed for this submission. Stories #40 to #42 and the remaining report task #45 were carried into SPRINT-04 before the SPRINT-03 GitHub milestone was closed.
+
 ### SPRINT-04
 
 A plugin that raises an error or times out fails only its own request with a clear error, and the quality goals and architecture draft describe the plugin pipeline.
 
 - **Due:** 2026-10-23
+- **Sprint Backlog:** [the issues scheduled into SPRINT-04](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/2)
+
+The three candidate stories carried from SPRINT-03 await Customer verdicts; their implementation is already in v0.1.0. The report task closes after its final review.
 
 #### REL-04
 
@@ -89,6 +94,6 @@ Provisional: the final release addresses the usability findings and is frozen fo
 
 ## Progress Monitoring
 
-- **Review:** the team's weekly review, every Wednesday at 19:00 online, before the Friday customer meeting; it reads [threshold-of-success.md](threshold-of-success.md) and [risks.md](risks.md) and settles what changed.
+- **Review:** proposed weekly review, Wednesdays at 19:00 online, before the Friday customer meeting, with the time still to be confirmed by the team; it reads [threshold-of-success.md](threshold-of-success.md) and [risks.md](risks.md) and settles what changed.
 - **Checked by:** the `Accountable` member of each scheduled issue reports its state, and the team walks the sprint's GitHub milestone against the sprint's goal.
 - **Visible at:** the [GitHub project's Sprint table](https://github.com/orgs/ITPD-Almo/projects/1/views/2), grouped by milestone, and the [sprints' GitHub milestones](https://github.com/ITPD-Almo/modular-llm-gateway/milestones).
