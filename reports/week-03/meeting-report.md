@@ -3,7 +3,7 @@
 ## Metadata
 
 - **Date:** 2026-10-16.
-- **Status:** Draft, checked against the supplied transcript. Team 9 attendance still needs confirmation.
+- **Status:** Checked against the supplied transcript. Team 9 attendance still needs confirmation.
 - **Duration:** about 46 minutes for the joint meeting.
 - **Participants:** Customer and speakers from two other teams. The transcript does not identify any Team 9 speaker; it does not establish who attended silently.
 - **Presented:** another team showed its architecture, configuration, plugin interface, and a masking prototype. No demonstration of our stories US-01, US-02, or US-03 is recorded.
@@ -17,15 +17,15 @@
 
 | Action | Outcome | Decision |
 | --- | --- | --- |
-| [Week 2 action points](../week-02/meeting-report.md#action-points): "Draft the proposed system flow and plugin interface, including inputs, outputs, ordering, and loading". | Not shown for our team in this meeting. Task [#43](https://github.com/ITPD-Almo/modular-llm-gateway/issues/43) now carries the interface documentation and implementation. Its completion must be checked on main; the written follow-up will record that outcome. | None from this meeting. The original direction remains [DEC-006](../../docs/decisions.md#dec-006). |
-| [Week 2 action points](../week-02/meeting-report.md#action-points): "Prepare a small working interaction with two simple plugins and a fake provider". | Not demonstrated for our team. Task [#43](https://github.com/ITPD-Almo/modular-llm-gateway/issues/43) is still open. Carry the demonstration into the written follow-up after its code merges. | None from this meeting. [DEC-005](../../docs/decisions.md#dec-005) remains the earlier workflow clarification. |
+| [Week 2 action points](../week-02/meeting-report.md#action-points): "Draft the proposed system flow and plugin interface, including inputs, outputs, ordering, and loading". | Not shown for our team in this meeting. The later implementation in task [#43](https://github.com/ITPD-Almo/modular-llm-gateway/issues/43) and its [October 17 checks](gateway-check.md#week-2-action-points) are recorded separately, not as a presentation during this call. | None from this meeting. The original direction remains [DEC-006](../../docs/decisions.md#dec-006). |
+| [Week 2 action points](../week-02/meeting-report.md#action-points): "Prepare a small working interaction with two simple plugins and a fake provider". | Not demonstrated for our team in this meeting. The later implementation and [local checks](gateway-check.md#week-2-action-points) are recorded separately. The Customer demonstration and verdict were not completed for this submission. | None from this meeting. [DEC-005](../../docs/decisions.md#dec-005) remains the earlier workflow clarification. |
 
 ## Previous open questions
 
 | Question | Answer | Decision |
 | --- | --- | --- |
 | [Week 2 open questions](../week-02/meeting-report.md#open-questions): "Does the revised story set cover the usable plugin workflow, and what must be included first?" | Stories [#40](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [#41](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41), and [#42](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42) now exist, but no verdict on them appears in this meeting. Carry the question forward. | None. |
-| [Week 2 open questions](../week-02/meeting-report.md#open-questions): "What information must a plugin receive and return, and how should plugin failures be handled?" | The Customer asked the other teams to explain their contracts, execution order, failures, and debugging information. Our contract and failure behaviour still need to be demonstrated through #43. | None specific to our interface. |
+| [Week 2 open questions](../week-02/meeting-report.md#open-questions): "What information must a plugin receive and return, and how should plugin failures be handled?" | The Customer asked the other teams to explain their contracts, execution order, failures, and debugging information. Our contract and failure behaviour were not demonstrated in this meeting. The later implementation is described in [the separate gateway check](gateway-check.md). | None specific to our interface. |
 | [Week 2 open questions](../week-02/meeting-report.md#open-questions): "Is policy-version tracking needed, and what request or response content may be kept?" | Unanswered for our team. The discussion of debugging does not settle content retention or establish our policy-version gap. | None; [ASM-01](../../docs/assumptions.md#asm-01) stays Open. |
 | [Week 2 open questions](../week-02/meeting-report.md#open-questions): "Can an existing gateway support the same workflow with acceptable effort?" | No matched comparison for our team was presented. Carry the check forward. | None; [ASM-02](../../docs/assumptions.md#asm-02) stays Open. |
 | [Week 2 open questions](../week-02/meeting-report.md#open-questions): "Are static caller credentials and one provider enough for the first trial?" | A fake provider was again acceptable in the joint discussion. Our proposed caller credentials and trial limits were not explicitly accepted. | None on the remaining limits; [ASM-03](../../docs/assumptions.md#asm-03) stays Open. |
@@ -38,7 +38,7 @@
 - The discussion stressed plugin contracts and the reasons behind architectural choices. A diagram containing only a plugin-runner box was not enough to explain the design.
 - The Customer asked how an operator would identify a plugin that failed or hung, including its progress through the chain.
 - The Customer mentioned three plugins while addressing the other teams. We need to clarify how that affects our two-example-plugin candidate.
-- Our three story issues were not demonstrated or accepted in the supplied recording. We are preparing a written review after the gateway reaches main.
+- Our three story issues were not demonstrated or accepted in the supplied recording. A separate review of our implementation is still needed; no Customer verdict was available for this submission.
 
 ## Decisions
 
@@ -52,7 +52,7 @@ None recorded for our three stories. General feedback to another team is not an 
 | Propose and demonstrate how a failing or stuck plugin is identified, including what the caller and operator see. | atkond2point0 | Week 4, 2026-10-23. |
 | Compare the same small plugin workflow with an existing gateway and record whether it changes the provisional gaps. | Mohammed-Nour | Week 4, 2026-10-22. |
 
-These are proposed team follow-ups prepared after reviewing the recording. The transcript does not assign these owners or dates; the team still needs to confirm them. The unfinished Week 2 actions carry forward through the first row and task #43.
+These are proposed team follow-ups prepared after reviewing the recording. The transcript does not assign these owners or dates; the team still needs to confirm them. The first row carries the Customer demonstration forward. Later technical outcomes for both Week 2 actions are in [the separate gateway check](gateway-check.md#week-2-action-points).
 
 ## Open questions
 

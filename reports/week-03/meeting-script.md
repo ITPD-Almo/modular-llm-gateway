@@ -2,6 +2,8 @@
 
 ## Context
 
+The planned written exchange was not completed for the Week 3 submission. This file keeps the preparation; it is not evidence of a completed review.
+
 Prepared on October 17 for a written follow-up after the October 16 joint meeting. This is not the preparation for that earlier call.
 
 DevOps operators need to load company plugins, run requests through them, and understand the result. Our candidate is [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41), and [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42), following [DEC-005](../../docs/decisions.md#dec-005) and [DEC-006](../../docs/decisions.md#dec-006).

@@ -3,8 +3,8 @@
 ## Tools
 
 - **Ali12hamdan:** Codex.
-- **Mohammed-Nour:** Week 3 statement not provided yet.
-- **atkond2point0:** Week 3 statement not provided yet.
+- **Mohammed-Nour:** Week 3 statement not provided for this submission.
+- **atkond2point0:** Week 3 statement not provided for this submission.
 
 ## What we used them for
 
@@ -12,7 +12,7 @@
 
 ## What we did with the output
 
-- **Ali12hamdan:** checked the meeting notes against the supplied transcript, built the documentation site locally, checked the action pins against their release tags, ran the merged gateway from a fresh clone, checked the curl responses and tests, and revised the wording to keep unconfirmed points open. The draft still needs team review.
+- **Ali12hamdan:** checked the meeting notes against the supplied transcript, built the documentation site locally, checked the action pins against their release tags, ran the merged gateway from a fresh clone, checked the curl responses and tests, and revised the wording to keep unconfirmed points open. The changes are submitted for team review in PR #47.
 
 ## What was not used
 

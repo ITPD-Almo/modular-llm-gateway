@@ -1,6 +1,6 @@
 # Modular LLM Gateway
 
-Status: Working gateway with configurable plugins and a fake provider. Customer validation is pending.
+Status: [v0.1.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.1.0) is released, with configurable plugins and a fake provider. Customer validation was not completed for the Week 3 submission.
 
 ## Project
 
@@ -26,7 +26,7 @@ Course team: **9**. Real names and university emails belong only in the private 
 
 ## Documentation
 
-Start with the [online documentation](https://itpd-almo.github.io/modular-llm-gateway/), [setup guide](docs/setup.md), and [documentation index](docs/index.md). The [Week 03 report](reports/week-03/README.md) is in draft. Course project documentation includes the [Week 02 report](reports/week-02/README.md), [product vision](docs/product-vision.md), [decisions](docs/decisions.md), and [assumptions](docs/assumptions.md). Research includes the [Week 01 report](reports/week-01/README.md), [alternatives](docs/research/alternatives.md), [comparison](docs/research/comparison.md), [gap analysis](docs/research/gap-analysis.md), and [value propositions](docs/research/value-proposition.md).
+Start with the [online documentation](https://itpd-almo.github.io/modular-llm-gateway/), [setup guide](docs/setup.md), and [documentation index](docs/index.md). See the [Week 03 report](reports/week-03/README.md) for the release and remaining gaps. Course project documentation includes the [Week 02 report](reports/week-02/README.md), [product vision](docs/product-vision.md), [decisions](docs/decisions.md), and [assumptions](docs/assumptions.md). Research includes the [Week 01 report](reports/week-01/README.md), [alternatives](docs/research/alternatives.md), [comparison](docs/research/comparison.md), [gap analysis](docs/research/gap-analysis.md), and [value propositions](docs/research/value-proposition.md).
 
 ## Contribution workflow
 

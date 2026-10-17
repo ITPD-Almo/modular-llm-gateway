@@ -108,4 +108,4 @@ These outcomes were checked after the October 16 meeting, rather than presented 
 
 ## Next step
 
-Ali will forward the checked demo and ask the Customer for a separate accept or reject verdict for US-01, US-02 and US-03, plus clarification about two or three example plugins. No story is closed and no verdict decision is added on the basis of these local checks alone.
+The checked demo was prepared, but Customer validation was not completed for this submission. Stories US-01, US-02 and US-03 remain open in SPRINT-04 for a later verdict, including clarification about two or three example plugins. No story is closed and no verdict decision is added on the basis of these local checks alone.
