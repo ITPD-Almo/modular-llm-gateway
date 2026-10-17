@@ -5,7 +5,7 @@
 | [RISK-01](#risk-01) | Open   | High   | Medium     | The candidate was not shown running at the Week 3 meeting, so the Customer's verdict on the stories may not arrive before the release, which would leave the MUP unaccepted.             |
 | [RISK-02](#risk-02) | Open   | High   | Medium     | The plugin interface was designed before the Customer saw it run, so the Customer may reject its inputs or outputs, which would force us to rewrite the plugins and their documentation. |
 | [RISK-03](#risk-03) | Open   | High   | Low        | The team already lost one of four members, so another member may become unavailable for a sprint, which would leave that sprint's release unfinished.                                    |
-| [RISK-04](#risk-04) | Open   | Medium | Medium     | Nobody on the team has deployed a Python service through continuous integration, so the deployment may take longer than one sprint, which would miss TOS-04 in Week 5.                   |
+| [RISK-04](#risk-04) | Open   | Medium | Medium     | The gateway's deployment target and pipeline are untested, so deploying it may take longer than one sprint, which would miss TOS-04 in Week 5.                                           |
 
 ## RISK-01
 
@@ -51,13 +51,13 @@ The team already lost one of four members, so another member may become unavaila
 
 ## RISK-04
 
-Nobody on the team has deployed a Python service through continuous integration, so the deployment may take longer than one sprint, which would miss TOS-04 in Week 5.
+The gateway's deployment target and pipeline are untested, so deploying it may take longer than one sprint, which would miss TOS-04 in Week 5.
 
 - **Status:** Open
 - **Impact:** Medium
   - [TOS-04](threshold-of-success.md#tos-04) would slip, but the gateway itself would still run locally.
 - **Likelihood:** Medium
-  - The deployment target is not chosen yet, and the course covers deployment only in Week 5.
+  - No deployment target is chosen for this gateway yet, and no pipeline has deployed it, so the first attempt falls in the same sprint as the deadline.
 - **Trigger:** the gateway does not answer a request in the deployment target by Tuesday of Week 5, 2026-10-27.
 - **Window:** [SPRINT-05](project-plan.md#sprint-05).
 - **Mitigation:** package the gateway as a container image in SPRINT-04, so the Week 5 work is only to run that image.
