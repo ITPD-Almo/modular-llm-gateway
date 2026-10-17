@@ -8,7 +8,7 @@
 
 ## What we used them for
 
-- **Ali12hamdan:** asking questions, brainstorming, drafting and reformatting the meeting documents, reviewing PR #46, checking the course rules, and help with repository settings and the release checklist.
+- **Ali12hamdan:** asking questions, brainstorming, drafting and reformatting the meeting documents, reviewing PR #46, checking the course rules, and help with repository and organization settings and the release checklist.
 
 ## What we did with the output
 

@@ -34,8 +34,8 @@ DEC-008 onwards will record actual verdicts once received, following the stack d
 | Stack decision | DEC-007 is part of #43; not yet on main. |
 | Definition of Done | Pending merge of `docs/definition-of-done.md` in #46. |
 | Contributing guide | Pending merge of `CONTRIBUTING.md` in #46. |
-| Sprint milestones and issue fields | [SPRINT-03](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/1). The seven sprint milestones exist; the Responsible and Accountable fields still need owner setup. |
-| GitHub project | Pending owner setup and the actual table-view URL. |
+| Sprint milestones and issue fields | [SPRINT-03](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/1). The seven sprint milestones exist. Responsible and Accountable are Public and set on #40 to #45, matching the assignees. Pinning the fields to issues without a type still needs the browser setting. |
+| GitHub project | [Public sprint table](https://github.com/orgs/ITPD-Almo/projects/1/views/2), grouped by Milestone, with Responsible, Accountable, Assignees and Milestone. It contains #40 to #45. |
 | Minimum usable product | [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41), and [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42), awaiting #43 and written validation. |
 | Changelog and first release | `CHANGELOG.md` is part of #43. The dated 0.1.0 section and REL-03 line are added only after the tag and release exist. |
 | Documentation site | Pages is configured for GitHub Actions. Deployment is pending #46. |
@@ -50,7 +50,7 @@ DEC-008 onwards will record actual verdicts once received, following the stack d
 
 | GitHub username | Work and current evidence |
 | --- | --- |
-| Ali12hamdan | Task [#45](https://github.com/ITPD-Almo/modular-llm-gateway/issues/45): Pages configuration, review of #46, meeting documents, and preparation for written validation and the release. |
+| Ali12hamdan | Task [#45](https://github.com/ITPD-Almo/modular-llm-gateway/issues/45): Pages configuration, public organization fields and project, review of #46, meeting documents, and preparation for written validation and the release. |
 | Mohammed-Nour | Task [#44](https://github.com/ITPD-Almo/modular-llm-gateway/issues/44), planning and workflow documents in [PR #46](https://github.com/ITPD-Almo/modular-llm-gateway/pull/46). |
 | atkond2point0 | Task [#43](https://github.com/ITPD-Almo/modular-llm-gateway/issues/43), the gateway, plugin interface, setup instructions, and tests; PR pending. |
 
@@ -68,7 +68,8 @@ These runs checked main at b8decdc. Replace them with the final submission revis
 - **Written validation after the meeting.** Our stories were not demonstrated at the October 16 joint meeting. A written review is planned after #43 merges. No verdict has been received yet, so this report does not say a written verdict was already given.
 - **Meeting preparation.** No original script for the October 16 call was supplied. The script in this draft is for the later written exchange and is not backdated.
 - **Attendance and permissions.** Team 9 attendance is unconfirmed by the supplied record. The separate permission answers and the permitted transcript-sharing scope are also unconfirmed. The raw transcript stays out of the public repository.
-- **Unfinished work.** This draft is not ready for submission. The gateway, project and fields, site deployment, actual story verdicts, tag, release, final AI-use entries, and final PDF and snapshot are still pending.
+- **Field pinning.** The role fields and their values are public, but the setting that pins them to issues without a type still needs the browser change. Existing populated fields were checked through the API, including an anonymous read.
+- **Unfinished work.** This draft is not ready for submission. The gateway, field pinning, site deployment, actual story verdicts, tag, release, final AI-use entries, and final PDF and snapshot are still pending.
 
 ## Privacy
 
