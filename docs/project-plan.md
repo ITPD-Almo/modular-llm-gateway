@@ -91,4 +91,4 @@ Provisional: the final release addresses the usability findings and is frozen fo
 
 - **Review:** the team's weekly review, every Wednesday at 19:00 online, before the Friday customer meeting; it reads [threshold-of-success.md](threshold-of-success.md) and [risks.md](risks.md) and settles what changed.
 - **Checked by:** the `Accountable` member of each scheduled issue reports its state, and the team walks the sprint's GitHub milestone against the sprint's goal.
-- **Visible at:** the [GitHub project's table view](https://github.com/orgs/ITPD-Almo/projects), grouped by milestone, and the [sprints' GitHub milestones](https://github.com/ITPD-Almo/modular-llm-gateway/milestones).
+- **Visible at:** the [GitHub project's Sprint table](https://github.com/orgs/ITPD-Almo/projects/1/views/2), grouped by milestone, and the [sprints' GitHub milestones](https://github.com/ITPD-Almo/modular-llm-gateway/milestones).

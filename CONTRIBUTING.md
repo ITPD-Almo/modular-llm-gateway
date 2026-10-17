@@ -38,9 +38,9 @@ The reviewer approves and merges. The author cannot approve their own pull reque
 
 ## GitHub project
 
-The team's work is visible in the organization's [GitHub project](https://github.com/orgs/ITPD-Almo/projects), which holds every open issue.
+The team's work is visible in the organization's [GitHub project](https://github.com/orgs/ITPD-Almo/projects/1/views/2), which holds every open issue.
 
-- **Table view, grouped by milestone:** columns `Responsible`, `Accountable`, `Assignees`, and `Milestone`. We use it at the weekly review to walk each sprint's issues and see who does and who checks each one.
+- **Sprint table, grouped by milestone:** columns `Responsible`, `Accountable`, `Assignees`, and `Milestone`. We use it at the weekly review to walk each sprint's issues and see who does and who checks each one.
 
 ## Course materials
 
