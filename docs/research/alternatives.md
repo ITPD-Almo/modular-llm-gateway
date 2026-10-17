@@ -111,8 +111,8 @@ LiteLLM Proxy
 
 Two screenshots of the live documentation, captured in a browser on 2026-10-05 and checked for readability:
 
-- [Callback stages](../../reports/week-01/images/alt-03-litellm-hooks.png): request modification, response modification, and separate streaming hooks (P1).
-- [OSS and Enterprise comparison](../../reports/week-01/images/alt-03-litellm-oss-enterprise.png): OSS includes custom guardrails and Presidio; management-operation logs are shown under Enterprise (P2, P4, P5, P6).
+- [Callback stages](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-01/images/alt-03-litellm-hooks.png): request modification, response modification, and separate streaming hooks (P1).
+- [OSS and Enterprise comparison](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-01/images/alt-03-litellm-oss-enterprise.png): OSS includes custom guardrails and Presidio; management-operation logs are shown under Enterprise (P2, P4, P5, P6).
 
 These images are in the repository. Ali12hamdan confirmed uploading both to the shared evidence board. Anonymous view-only access still needs checking. Screenshots show documentation, not a tested deployment.
 

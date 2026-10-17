@@ -1,4 +1,4 @@
-﻿# Modular LLM Gateway
+# Modular LLM Gateway
 
 The Modular LLM Gateway sits between a company's employees and an LLM provider.
 A DevOps operator starts it, lists the company's plugins in a configuration file, and every request and response passes through those plugins in order before it reaches the provider or the employee.
