@@ -1,0 +1,1 @@
+"""Example gateway plugins."""

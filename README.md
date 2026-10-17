@@ -1,6 +1,6 @@
 # Modular LLM Gateway
 
-Status: Week 2 product vision and first Customer validation. No gateway implementation yet.
+Status: Gateway MUP with configurable plugins and a fake provider.
 
 ## Project
 
@@ -26,7 +26,7 @@ Course team: **9**. Real names and university emails belong only in the private 
 
 ## Documentation
 
-Course project, work in progress. Start with the [Week 02 report](reports/week-02/README.md); the [Week 01 report](reports/week-01/README.md) covers the initial research. The [product vision](docs/product-vision.md) states the goal and boundary, and the [decisions](docs/decisions.md) and [assumptions](docs/assumptions.md) logs record what we agreed and what we still need to check. Maintained research includes the [alternatives](docs/research/alternatives.md), [comparison](docs/research/comparison.md), [gap analysis](docs/research/gap-analysis.md), and [value propositions](docs/research/value-proposition.md).
+Start with the [setup guide](docs/setup.md) and [documentation index](docs/index.md). Course project documentation includes the [Week 02 report](reports/week-02/README.md), [product vision](docs/product-vision.md), [decisions](docs/decisions.md), and [assumptions](docs/assumptions.md). Research includes the [Week 01 report](reports/week-01/README.md), [alternatives](docs/research/alternatives.md), [comparison](docs/research/comparison.md), [gap analysis](docs/research/gap-analysis.md), and [value propositions](docs/research/value-proposition.md).
 
 ## Contribution workflow
 

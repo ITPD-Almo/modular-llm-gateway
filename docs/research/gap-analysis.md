@@ -1,6 +1,6 @@
 # Gap analysis
 
-**Status:** draft for Customer discussion, based on [three alternatives](alternatives.md) and the [comparison](comparison.md). The two entries remain provisional hypotheses, not established gaps. Our [October 9 meeting](../../reports/week-02/meeting-report.md) clarified the DevOps plugin workflow but did not establish either narrower unmet need or a competitive advantage. We still need matched extension and deployment checks. The earlier other-team transcript was background; this joint meeting included our own questions. We will revise or drop these gaps if an existing tool serves the job adequately, as allowed by [DEC-004](../decisions.md#dec-004).
+**Status:** draft for Customer discussion, based on [three alternatives](alternatives.md) and the [comparison](comparison.md). The two entries remain provisional hypotheses, not established gaps. Our [October 9 meeting](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-02/meeting-report.md) clarified the DevOps plugin workflow but did not establish either narrower unmet need or a competitive advantage. We still need matched extension and deployment checks. The earlier other-team transcript was background; this joint meeting included our own questions. We will revise or drop these gaps if an existing tool serves the job adequately, as allowed by [DEC-004](../decisions.md#dec-004).
 
 ## GAP-01
 
