@@ -7,8 +7,9 @@ Modular LLM Gateway
 DevOps staff in a medium or large company can start a gateway, add company-specific plugins, and control employee LLM requests and responses, including routing requests to a provider.
 
 **Supports:** [VP-01](research/value-proposition.md#vp-01), [VP-02](research/value-proposition.md#vp-02).
+**Threshold:** [the threshold of success](threshold-of-success.md).
 
-The [October 9 meeting](../reports/week-02/meeting-report.md) changed our focus from a masking and policy-record example to the plugin workflow, per [DEC-003](decisions.md#dec-003) and [DEC-006](decisions.md#dec-006). The two value propositions remain provisional; the Customer did not confirm them as competitive advantages.
+The [October 9 meeting](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-02/meeting-report.md) changed our focus from a masking and policy-record example to the plugin workflow, per [DEC-003](decisions.md#dec-003) and [DEC-006](decisions.md#dec-006). The two value propositions remain provisional; the Customer did not confirm them as competitive advantages.
 
 For the first usable interaction, the operator should start the system, add two simple plugins, send a request, and see the result. Restarting after adding plugins and using a fake provider are acceptable, per [DEC-005](decisions.md#dec-005). We still need to turn this into a linked story candidate and confirm its scope. An existing tool may be used if it fits, per [DEC-004](decisions.md#dec-004); we have not chosen a new core or an extension yet.
 
@@ -118,4 +119,3 @@ The security or compliance officer is a stakeholder but exchanges nothing with t
 
 - [User stories](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=label%3Auser-story)
 - [Assumptions](assumptions.md) and [decisions](decisions.md)
-- [Week 2 report](../reports/week-02/README.md)

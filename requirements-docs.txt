@@ -1,0 +1,2 @@
+# The documentation site's build tools, pinned; Dependabot moves the pin.
+mkdocs-material==9.7.7
