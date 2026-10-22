@@ -15,8 +15,8 @@ Target: obtain a verdict on each of US-01 to US-03 and settle which quality expe
 3. Candidate scope, 3 minutes. Questions 11-12. Show the three linked stories and their Must Have priorities.
 4. Plugin failure, 4 minutes. Question 13. Show the named HTTP 500 returned by a failing plugin.
 5. Quality requirements and architecture against the drivers, 8 minutes. Questions 14-16. Show the [threshold of success](../../docs/threshold-of-success.md), the vision's [constraints](../../docs/product-vision.md), and the proposed single gateway container with its external systems.
-6. Remaining Week 3 questions, 5 minutes. Questions 17-19. Nothing is shown.
-7. Read-back, 3 minutes. Question 20. Show the list of verdicts, decisions, and action points with owners and Week 5 dates.
+6. Remaining Week 3 questions, 7 minutes. Questions 17-20. Show [the same workflow on LiteLLM Proxy](prototypes.md#two-plugin-workflow-on-litellm-proxy).
+7. Read-back, 3 minutes. Question 21. Show the list of verdicts, decisions, and action points with owners and Week 5 dates.
 
 ## Questions
 
@@ -36,10 +36,11 @@ Target: obtain a verdict on each of US-01 to US-03 and settle which quality expe
 14. (open) Of failure isolation, added latency, and keeping secrets out of logs, which matters most to you, and what limit would you test it against?
 15. (closed) Is one gateway service enough, or must the configuration or the audit records live in a separate store?
 16. (open) Which of the threshold-of-success goals would you check first against this architecture?
-17. (open) Is policy-version tracking needed, and what request or response content may be kept?
-18. (closed) Are static caller credentials and one provider enough for the first trial?
-19. (open) Which made-up company-data examples, with their expected masked output, should the masking plugin handle?
-20. (closed) Does our read-back record your verdicts, decisions, and next actions correctly?
+17. (open) LiteLLM ran the same two-plugin workflow with comparable effort. What would make you choose our gateway over extending LiteLLM?
+18. (open) Is policy-version tracking needed, and what request or response content may be kept?
+19. (closed) Are static caller credentials and one provider enough for the first trial?
+20. (open) Which made-up company-data examples, with their expected masked output, should the masking plugin handle?
+21. (closed) Does our read-back record your verdicts, decisions, and next actions correctly?
 
 ## Roles
 
