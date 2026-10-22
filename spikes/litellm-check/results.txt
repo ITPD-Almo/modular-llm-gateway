@@ -1,0 +1,35 @@
+LiteLLM Proxy 1.106.2: same two-plugin workflow, fake provider, no real key (2026-10-22)
+
+$ ./run.sh default
+  callbacks: metadata, uppercase, trace
+  HTTP/1.1 200 OK   x-plugin-trace: metadata,uppercase
+  content: fake: HELLO
+    metadata request - added metadata.gateway=modular
+    uppercase request - uppercased message content
+    metadata response - recorded metadata transformation
+    uppercase response - recorded uppercase transformation
+
+$ ./run.sh reversed
+  callbacks: uppercase, metadata, trace
+  HTTP/1.1 200 OK   x-plugin-trace: uppercase,metadata
+  content: fake: HELLO
+    uppercase request - uppercased message content
+    metadata request - added metadata.gateway=modular
+    uppercase response - recorded uppercase transformation
+    metadata response - recorded metadata transformation
+
+$ ./run.sh metadata-only
+  callbacks: metadata, trace
+  HTTP/1.1 200 OK   x-plugin-trace: metadata
+  content: fake: hello
+    metadata request - added metadata.gateway=modular
+    metadata response - recorded metadata transformation
+
+$ ./run.sh failing
+  callbacks: metadata, failing, uppercase, trace
+  HTTP/1.1 500 Internal Server Error   
+  body: {"error": {"message": "boom", "type": "internal_server_error", "param": null, "code": "500"}}
+
+$ TIMEOUT=30 ./run.sh hanging
+  callbacks: metadata, hanging, uppercase, trace
+  no response: curl gave up after 30.0 s (twice); proxy had to be killed

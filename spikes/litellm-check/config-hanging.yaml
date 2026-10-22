@@ -1,0 +1,9 @@
+model_list:
+  - model_name: fake
+    litellm_params:
+      model: fake/echo
+litellm_settings:
+  custom_provider_map:
+    - provider: fake
+      custom_handler: hooks.fake_provider
+  callbacks: [hooks.metadata, hooks.hanging, hooks.uppercase, hooks.trace]
