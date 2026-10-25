@@ -1,8 +1,9 @@
 # Plugin diagnostics
 
-For each validated chat request the gateway generates a fresh UUID and returns it in `X-Request-ID`, including a handled plugin or provider failure.
+For each chat POST the gateway generates a fresh UUID before request validation and returns it in `X-Request-ID`, including validation errors and handled plugin or provider failures.
 An incoming client header cannot choose that identifier.
-Input rejected before the chat handler, such as HTTP 422, has no plugin lifecycle events or correlation header.
+Invalid input returns HTTP 422 with `{"detail":"invalid chat request"}` rather than reflecting input values or JSON decoder text.
+Input rejected before the chat handler has a correlation header and no plugin lifecycle events.
 Successful response JSON, plugin order and the fake provider's behavior remain as described in the [plugin contract](plugins.md).
 
 ## Event contract

@@ -110,3 +110,24 @@ def test_event_helper_rejects_arbitrary_exception_reason(caplog):
     with pytest.raises(ValueError, match="unknown diagnostic"):
         emit_hook_event(HookContext(new_request_id(), "ExamplePlugin", "request"), "failed", reason=EXCEPTION_SECRET)
     assert EXCEPTION_SECRET not in caplog.text
+
+
+@pytest.mark.parametrize("body", [
+    '{"messages":"PRIVATE_INVALID_MESSAGES"}',
+    '{"messages":[{"role":"user","content":{"private":"PRIVATE_INVALID_CONTENT"}}]}',
+    '{"messages":[],"metadata":"PRIVATE_INVALID_METADATA"}',
+    '{"messages": PRIVATE_INVALID_JSON}',
+    '{"messages":[{"content":"PRIVATE_MISSING_ROLE"}]}',
+])
+def test_invalid_chat_is_correlated_without_reflecting_input(caplog, body):
+    with TestClient(create_app()) as client:
+        response = client.post("/v1/chat/completions", content=body,
+                               headers={"Content-Type": "application/json", "X-Request-ID": "PRIVATE_CLIENT_ID"})
+        assert response.status_code == 422
+        assert response.json() == {"detail": "invalid chat request"}
+        assert UUID(hex=response.headers["X-Request-ID"]).version == 4
+        assert "PRIVATE_" not in response.text + str(response.headers) + caplog.text
+        assert events(caplog) == []
+        healthy = client.post("/v1/chat/completions", json={"messages": [{"role": "user", "content": "hello"}]})
+        assert healthy.status_code == 200
+        assert healthy.headers["X-Request-ID"] != response.headers["X-Request-ID"]
