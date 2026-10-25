@@ -1,8 +1,9 @@
 # Plugin diagnostics
 
-For each validated chat request the gateway generates a fresh UUID and returns it in `X-Request-ID`, including a handled plugin or provider failure.
+For each chat POST the gateway generates a fresh UUID before request validation and returns it in `X-Request-ID`, including validation errors and handled plugin, provider, payload-limit or capacity failures.
 An incoming client header cannot choose that identifier.
-Input rejected before the chat handler, such as HTTP 422, has no plugin lifecycle events or correlation header.
+Invalid input returns HTTP 422 with `{"detail":"invalid chat request"}` rather than reflecting input values or JSON decoder text.
+Input rejected before the chat handler has a correlation header and no plugin lifecycle events; no worker is allocated.
 Successful response JSON, plugin order and the fake provider's behavior remain as described in the [plugin contract](plugins.md).
 
 ## Event contract
@@ -77,5 +78,6 @@ Worker stdout/stderr are discarded, and only the parent's allowlisted events are
 
 Run `python -m pytest` from a clean install to reproduce the synthetic request-hook and response-hook five-second sleeps, CPU loop, ignored termination, abrupt exit and malformed-output checks.
 The timeout fixtures set a 250 ms budget and assert the HTTP result arrives within one second, followed by a healthy request and zero managed workers.
-Ten repeated timeouts also verify there is no accumulated active worker and that the single admission slot is reusable.
+Twenty repeated timeouts verify there is no accumulated active worker, that the single admission slot is reusable, and that the Python thread count stays within two of its warmed baseline.
+Ten following health checks and healthy requests verify the required recovery sequence.
 These are measured software checks on the tested environment, rather than a hard real-time guarantee for every OS, logging sink or deployment.

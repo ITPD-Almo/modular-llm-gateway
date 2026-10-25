@@ -2,6 +2,7 @@ from concurrent.futures import ThreadPoolExecutor
 import json
 import multiprocessing as mp
 import os
+import threading
 from time import monotonic, sleep
 
 import pytest
@@ -47,17 +48,47 @@ def test_real_hook_timeout_is_bounded_and_a_later_request_recovers(tmp_path, cap
         assert app.state.pipeline_executor.active_worker_count == 0
 
 
-def test_ten_timeouts_reap_each_worker_and_release_capacity(tmp_path):
+def test_twenty_timeouts_reap_each_worker_and_release_capacity(tmp_path):
     app = app_for(tmp_path, "SlowRequest", max_workers=1)
     before = {p.pid for p in mp.active_children()}
     with TestClient(app) as client:
-        for _ in range(10):
+        threads_before = threading.active_count()
+        for _ in range(20):
             started = monotonic()
             assert chat(client, "sleep").status_code == 504
             assert monotonic() - started < 1.0
             assert app.state.pipeline_executor.active_worker_count == 0
             assert {p.pid for p in mp.active_children()} == before
-        assert chat(client).status_code == 200
+        assert threading.active_count() <= threads_before + 2
+        for _ in range(10):
+            assert client.get("/health").status_code == 200
+            healthy = chat(client)
+            assert healthy.status_code == 200
+            assert healthy.json()["choices"][0]["message"]["content"] == "fake: hello"
+
+
+@pytest.mark.parametrize("body", [
+    '{"messages":"PRIVATE_INVALID_MESSAGES"}',
+    '{"messages":[{"role":"user","content":{"private":"PRIVATE_INVALID_CONTENT"}}]}',
+    '{"messages":[],"metadata":"PRIVATE_INVALID_METADATA"}',
+    '{"messages": PRIVATE_INVALID_JSON}',
+])
+def test_invalid_chat_is_correlated_without_reflecting_input(tmp_path, caplog, body):
+    from uuid import UUID
+
+    app = app_for(tmp_path)
+    with TestClient(app) as client:
+        response = client.post("/v1/chat/completions", content=body,
+                               headers={"Content-Type": "application/json", "X-Request-ID": "PRIVATE_CLIENT_ID"})
+        assert response.status_code == 422
+        assert response.json() == {"detail": "invalid chat request"}
+        assert UUID(hex=response.headers["X-Request-ID"]).version == 4
+        assert "PRIVATE_" not in response.text + str(response.headers) + caplog.text
+        assert records(caplog) == []
+        assert app.state.pipeline_executor.active_worker_count == 0
+        healthy = chat(client)
+        assert healthy.status_code == 200
+        assert healthy.headers["X-Request-ID"] != response.headers["X-Request-ID"]
 
 
 def test_cpu_bound_hook_is_stopped(tmp_path):
