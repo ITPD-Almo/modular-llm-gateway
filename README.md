@@ -1,6 +1,6 @@
 # Modular LLM Gateway
 
-Status: [v0.1.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.1.0) is the latest release, with configurable plugins and a fake provider. It runs only locally against the fake provider; there is no shared deployment. No user story has a recorded Customer acceptance yet.
+Status: [v0.2.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.2.0) is the latest release, with supervised plugin deadlines/recovery, safe correlated diagnostics and the A/B developer demo. It runs locally against the fake provider; there is no shared gateway deployment. No user story has a recorded Customer acceptance yet.
 
 ## Project
 
