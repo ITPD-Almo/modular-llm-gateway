@@ -28,13 +28,30 @@ Expected: HTTP 200 and
 
 ## 2. Reverse the order
 
-Swap the two lines in `config/plugins.json` so `UppercasePlugin` comes first, then restart the gateway and run `ask hello` again.
+Replace `config/plugins.json` with this complete file, so `UppercasePlugin` comes first, then restart the gateway and run `ask hello` again:
+
+```json
+{
+  "plugins": [
+    "gateway.plugins.uppercase.UppercasePlugin",
+    "gateway.plugins.add_metadata.MetadataPlugin"
+  ]
+}
+```
 
 Expected: the text is still `fake: HELLO`, but `plugin_trace` is `["uppercase","metadata"]` and the four `plugin_changes` entries start with `uppercase`.
 
 ## 3. Remove a plugin
 
-Delete the `UppercasePlugin` line from `config/plugins.json`, restart, and run `ask hello`.
+Replace `config/plugins.json` with this complete file, which keeps only the metadata plugin and has no trailing comma, then restart and run `ask hello`:
+
+```json
+{
+  "plugins": [
+    "gateway.plugins.add_metadata.MetadataPlugin"
+  ]
+}
+```
 
 Expected: `"content":"fake: hello"` in lower case, `plugin_trace` is `["metadata"]`, and only the two `metadata` entries remain. Restore the file with `git checkout -- config/plugins.json`.
 

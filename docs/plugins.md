@@ -76,14 +76,14 @@ Keep imports and constructors cheap and free of external side effects: they run 
 | Situation | Result |
 | --- | --- |
 | Missing configuration file, malformed JSON, `plugins` not a list of strings, an import or constructor error, or a class without both hooks | The gateway refuses to start and names the configuration path and the reason |
-| Invalid request body | HTTP 422 `invalid chat request`, without echoing the input; no plugin runs |
+| Invalid request body | HTTP 422 `invalid chat request` with an `X-Request-ID` header, without echoing the input; no worker starts, no plugin runs and no lifecycle event is written |
 | A hook raises an exception, the worker exits abruptly during a hook, or a hook returns invalid output | HTTP 500 naming the plugin and stage, for example `plugin FailingPlugin failed during request processing`; the exception text is not returned |
 | A hook runs past its deadline (default 250 ms) | HTTP 504 naming the plugin and stage; only this request fails |
 | The provider fails | HTTP 502 `provider failed` |
 | Worker startup or transfer fails, or all workers are busy | HTTP 503 |
 | The request is over the worker JSON limit | HTTP 413 |
 
-The provider is not called after a failing request hook. A hook deadline fails only the affected request; it never silently skips a transformation. `/health` and later requests keep working. Every chat response, including a 422, carries an `X-Request-ID` header that matches the gateway's content-free lifecycle events. The 250 ms deadline and the fail-the-request policy are team proposals awaiting the Customer's verdict.
+The provider is not called after a failing request hook. A hook deadline fails only the affected request; it never silently skips a transformation. `/health` and later requests keep working. Every chat response, including a 422, carries a generated `X-Request-ID` header. For a validated request, the content-free hook lifecycle events use that same ID; a validation failure creates no worker and no hook events. The 250 ms deadline and the fail-the-request policy are team proposals awaiting the Customer's verdict.
 
 See the [operating guide](operations.md#execution-and-recovery) for limits, cleanup, configuration and the instance-lifecycle compatibility change.
 
