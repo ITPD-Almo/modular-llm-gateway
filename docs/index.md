@@ -13,11 +13,13 @@ This is a course project of team 9 in the autumn 2026 term, and it is a work in 
 - [Project plan](project-plan.md): the milestones, the sprints, and their releases.
 - [Setup](setup.md): install and run the gateway.
 - [Plugin contract](plugins.md): plugin inputs, outputs, order, loading, and failures.
+- [Operating guide](operations.md): request correlation, lifecycle events, limits and recovery.
 
 ## Requirements
 
 - [Quality requirements](quality-requirements/README.md): the quality bars the gateway is checked against, sorted by business importance and technical risk.
 - [Functional requirements](functional-requirements/README.md): what the gateway shall do, one checkable behavior per record.
+- [Architecture](architecture/README.md): the container view and the architectural decision records.
 - [Glossary](glossary.md): the words this project uses in one way only.
 
 ## How we work
@@ -38,6 +40,6 @@ This is a course project of team 9 in the autumn 2026 term, and it is a work in 
 ## Around the project
 
 - [Source code and issues](https://github.com/ITPD-Almo/modular-llm-gateway)
-- [User stories](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=label%3Auser-story)
+- [User stories](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=is%3Aissue%20type%3A%22User%20Story%22)
 - [Sprints](https://github.com/ITPD-Almo/modular-llm-gateway/milestones)
 - [Releases](https://github.com/ITPD-Almo/modular-llm-gateway/releases)
