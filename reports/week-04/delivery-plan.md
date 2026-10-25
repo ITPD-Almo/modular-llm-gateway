@@ -23,9 +23,9 @@ Keep this question visible for genuine Customer validation.
 
 ## Parallel work and handoffs
 
-Ali12hamdan coordinates Customer evidence, the tracker/forms, contributor guidance and final report/submission preparation.
+Ali12hamdan implements core timeout/recovery and safe lifecycle diagnostics and coordinates Customer evidence, the tracker/forms and final report/submission preparation.
 Mohammed-Nour leads requirements and glossary, setup/plugin guidance, the matched existing-tool comparison, and collection of retrospective/AI-use input.
-atkond2point0 leads architecture/ADRs, runtime resilience and the release mechanics.
+atkond2point0 leads architecture/ADRs, contributor guidance/navigation and release mechanics and independently reviews Ali's coding work.
 The [development workflow](../../docs/development-workflow.md#stewardship-and-review) names backup/review stewardship and file boundaries.
 Each scheduled task's actual Responsible and Accountable fields remain authoritative; a different member verifies every task.
 
@@ -48,15 +48,35 @@ The table maps assignment coverage to those tasks; it is not a completion checkl
 | Part 7: coordinated historical-issue migration after the specifications exist | [Tracker and forms](https://github.com/ITPD-Almo/modular-llm-gateway/issues/59) |
 | Part 8 contributor instructions and report/site discoverability | [Repository guidance](https://github.com/ITPD-Almo/modular-llm-gateway/issues/60) |
 | Parts 9 and 10: previous outcomes, genuine decisions and validation | [Meeting evidence](https://github.com/ITPD-Almo/modular-llm-gateway/issues/53), [matched comparison](https://github.com/ITPD-Almo/modular-llm-gateway/issues/58) |
-| Working increment and criterion-based demo for current and future meetings | [Runtime resilience](https://github.com/ITPD-Almo/modular-llm-gateway/issues/56), [setup and demo](https://github.com/ITPD-Almo/modular-llm-gateway/issues/57) |
+| Working increment and criterion-based demo for current and future meetings | [Safe lifecycle diagnostics](https://github.com/ITPD-Almo/modular-llm-gateway/issues/70), [runtime resilience](https://github.com/ITPD-Almo/modular-llm-gateway/issues/56), [setup and demo](https://github.com/ITPD-Almo/modular-llm-gateway/issues/57) |
 | Part 11: REL-04 and the release/changelog/plan sequence | [Release and changelog](https://github.com/ITPD-Almo/modular-llm-gateway/issues/62), [sprint close and release line](https://github.com/ITPD-Almo/modular-llm-gateway/issues/63) |
 | Parts 12 and 13: retrospective and actual AI-use records | [Retrospective and AI usage](https://github.com/ITPD-Almo/modular-llm-gateway/issues/61) |
 | Public report, private PDF and matching final-main snapshot preparation | [Report and submission](https://github.com/ITPD-Almo/modular-llm-gateway/issues/64) |
 
-The newly created planning issues use the authenticated API with the required form sections because the browser session was not authenticated.
-This is a creation-method deviation from opening through the issue-form UI; the final report records it once.
+The planning issues use the authenticated API with the required form sections; the original batch was prepared while the browser initially showed sign-in, and the later diagnostics task reused that publishing workflow.
+This remains a creation-method deviation from opening through the issue-form UI; the final report records it once, and new issues should use the form UI where available.
 Field creation does not prove pinning: the tracker task verifies type pins, visibility and the full one-time migration.
-Pending specification links in planned issues are explicit dependencies, not claims of finished refinement; replace them with resolving main links before implementing or declaring readiness.
+Pending specification links in planned issues are explicit dependencies, not claims of finished refinement; replace them with resolving main links before implementation approval or declaring readiness.
+Five functional requirements is the assignment minimum, rather than a limit: the specification owner must cover every active non-Won't Have story, including the future candidates, before the coordinated migration can claim their links complete.
+
+## Customer alignment
+
+The October 23 discussion requests an understandable plugin-management system, installation/run documentation, a documented way to add a plugin, useful diagnostics, and resilience to badly written or slow hooks.
+The live extension example replaces incoming text with A characters and replaces the provider's response with B characters; a plugin returning A text on both paths does not demonstrate that example.
+The Customer prioritizes the management system over a fixed count of example plugins, and wants another DevOps operator to be able to maintain it.
+Automatic discovery and hot reload were not required by the discussion; exact timeouts and the fail-versus-skip policy remain team proposals for validation.
+The transcript contains no individual acceptance verdicts on the carried stories and no approval of a complete A4 requirements/architecture set.
+The meeting report must preserve that distinction while reporting every Week 3 action/question outcome and assigning at least two concrete Week 5 follow-ups.
+
+## Assignment acceptance checks
+
+The final report links the actual artifacts and evidence; this plan's coverage mapping does not itself complete a deliverable.
+Before declaring A4 complete, verify the [pinned assignment checklist](https://github.com/inno-itpd/itpd/blob/35c9294415d31c81a8598042b8b7419ea4481a46/assignments/assignment-4.md#checklist) against main.
+In particular, check the distinct quality characteristics and scenario headings, exact requirement/index fields, three Accepted ADRs and their quality tradeoffs, image plus editable source, and the complete historical issue migration.
+The matrix must prioritize rather than rate everything High; the testability requirement names real critical gateway modules because the detailed rule uses frontend/payment paths only as examples.
+Use real runtime containers; the detailed rule explicitly permits a genuinely single-container product with an explanation, so code modules or the in-process fake provider are not invented deployments.
+Resolve the next two sprints' specification gaps before claiming full refinement, and keep those candidates without milestones, role values or assignees until selected at planning.
+The original pre-meeting script, original sprint-start estimates and missing Customer verdicts cannot be reconstructed as earlier evidence; the actual gaps and late replanning are declared.
 
 ## Tonight's gates
 

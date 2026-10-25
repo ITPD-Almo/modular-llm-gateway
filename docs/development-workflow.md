@@ -22,9 +22,9 @@ The owner confirmed that all three members are available for the October 25 deli
 
 | Member | Main stewardship | Independent review and backup |
 | --- | --- | --- |
-| Ali12hamdan | Customer evidence, decision records, sprint/tracker coordination, report and private submission | Verify requirements and runtime recovery; coordinate integrations |
+| Ali12hamdan | Core timeout/recovery code, safe plugin lifecycle diagnostics, Customer evidence, sprint/tracker coordination and submission | Verify requirements; coordinate integration and operational checks |
 | Mohammed-Nour | Functional/quality requirements, glossary, setup/plugin guide, matched comparison, retrospective and AI-use collection | Verify architecture, delivery plan and release evidence |
-| atkond2point0 | Gateway runtime, timeout isolation, architecture, ADRs and release mechanics | Verify the demo recipe, tracker migration, sprint close and final report |
+| atkond2point0 | Architecture, ADRs, contributor guidance/navigation and release mechanics | Independently review Ali's runtime/diagnostic code, the demo recipe, tracker migration, sprint close and final report |
 
 `Responsible` implements a scheduled issue; `Accountable` is a different member who verifies it and reviews the PR.
 The two assignees exactly match those values.
@@ -45,7 +45,8 @@ Do not assign the entire future backlog to a sprint just to show ownership.
    The reviewer reproduces the important checks, ticks verified task criteria, and merges only after required CI and independent approval.
 
 Keep files with one active editor during an integration window.
-The architecture owner edits the architecture tree and its vision link; the requirement owner edits the requirement trees and glossary; the runtime owner edits gateway code and its runtime tests.
+atkond2point0 edits the architecture tree and its vision link; Mohammed-Nour edits the requirement trees and glossary; Ali12hamdan implements the gateway timeout and diagnostics code and their tests.
+Ali is Responsible for the coding tasks and atkond2point0 is Accountable for their independent verification; both appear as assignees because those roles are different.
 The guide owner edits setup/plugin instructions and the synthetic demo recipe; the evidence owner edits the decision log and meeting account.
 Coordinate changes to `docs/project-plan.md`, `CHANGELOG.md`, navigation and shared templates before rebasing or merging another branch.
 Never force-push a teammate's branch or bypass protection to settle a deadline.
