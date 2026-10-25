@@ -62,6 +62,9 @@ The next request starts a new worker and does not inherit the timed-out plugin's
 Malformed or non-JSON hook outputs fail with a named 500 instead of passing damaged data to a later stage.
 If the OS has not reaped a worker after termination and kill, its capacity slot stays reserved until reaped; repeated requests cannot grow an unbounded set of unreaped workers.
 When all slots are unavailable, chat returns 503 while `/health` stays responsive.
+This also rejects ordinary healthy bursts: the default four-request capacity returned four 503 responses in an eight-request burst and sixteen in a twenty-request burst in the recorded synthetic checks.
+This is an explicit capacity cost compared with the earlier thread-based baseline; it is not merely a timeout limit.
+Configure capacity deliberately and retry after load falls; the gateway adds no admission queue.
 
 The complete pipeline shares plugin instances within one request, so a request hook can prepare state for its response hook.
 This changes the earlier process-global instance lifecycle: mutable instance state resets between requests.

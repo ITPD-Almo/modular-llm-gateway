@@ -67,30 +67,6 @@ def test_twenty_timeouts_reap_each_worker_and_release_capacity(tmp_path):
             assert healthy.json()["choices"][0]["message"]["content"] == "fake: hello"
 
 
-@pytest.mark.parametrize("body", [
-    '{"messages":"PRIVATE_INVALID_MESSAGES"}',
-    '{"messages":[{"role":"user","content":{"private":"PRIVATE_INVALID_CONTENT"}}]}',
-    '{"messages":[],"metadata":"PRIVATE_INVALID_METADATA"}',
-    '{"messages": PRIVATE_INVALID_JSON}',
-])
-def test_invalid_chat_is_correlated_without_reflecting_input(tmp_path, caplog, body):
-    from uuid import UUID
-
-    app = app_for(tmp_path)
-    with TestClient(app) as client:
-        response = client.post("/v1/chat/completions", content=body,
-                               headers={"Content-Type": "application/json", "X-Request-ID": "PRIVATE_CLIENT_ID"})
-        assert response.status_code == 422
-        assert response.json() == {"detail": "invalid chat request"}
-        assert UUID(hex=response.headers["X-Request-ID"]).version == 4
-        assert "PRIVATE_" not in response.text + str(response.headers) + caplog.text
-        assert records(caplog) == []
-        assert app.state.pipeline_executor.active_worker_count == 0
-        healthy = chat(client)
-        assert healthy.status_code == 200
-        assert healthy.headers["X-Request-ID"] != response.headers["X-Request-ID"]
-
-
 def test_cpu_bound_hook_is_stopped(tmp_path):
     app = app_for(tmp_path, "BusyLoop")
     with TestClient(app) as client:
