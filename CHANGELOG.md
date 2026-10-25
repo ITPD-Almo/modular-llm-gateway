@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 
 ## [Unreleased]
 
+### Added
+
+- Content-free plugin lifecycle events and gateway-generated `X-Request-ID` correlation for chat results and handled failures; see the [operating guide](docs/operations.md).
+
 ## [0.1.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.1.0) - 2026-10-17
 
 ### Added
@@ -16,3 +20,5 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 - A public documentation site with the project plan, risks, and workflow documents.
 
 Customer validation was not completed for this release. The three candidate stories remain open for a later verdict.
+
+<!-- markdownlint-disable-file MD024 -->
