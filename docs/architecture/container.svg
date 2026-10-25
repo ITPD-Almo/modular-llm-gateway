@@ -12,7 +12,7 @@
 <text x="72" y="235" font-size="16">HTTP JSON chat + /health</text>
 <text x="72" y="266" font-size="16">Configured request / response plugins</text>
 <text x="72" y="297" font-size="16">Internal deterministic fake provider</text>
-<text x="72" y="328" font-size="16">Request-local workers (proposed)</text>
+<text x="72" y="328" font-size="16">Request-local workers (target)</text>
 <text x="72" y="359" font-size="16">Memory: request state + bounded slots</text>
 <text x="72" y="390" font-size="16">JSON events → logging handlers / stderr</text>
 <rect id="provider" x="790" y="112" width="286" height="136" rx="12" fill="#f8fafc" stroke="#64748b" stroke-width="2" stroke-dasharray="8 5"/>
