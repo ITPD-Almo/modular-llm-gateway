@@ -14,12 +14,19 @@ This is a course project of team 9 in the autumn 2026 term, and it is a work in 
 - [Setup](setup.md): install and run the gateway.
 - [Plugin contract](plugins.md): plugin inputs, outputs, order, loading, and failures.
 
+## Requirements
+
+- [Quality requirements](quality-requirements/README.md): the quality bars the gateway is checked against, sorted by business importance and technical risk.
+- [Functional requirements](functional-requirements/README.md): what the gateway shall do, one checkable behavior per record.
+- [Glossary](glossary.md): the words this project uses in one way only.
+
 ## How we work
 
 - [Definition of done](definition-of-done.md): when a story, a task, and a pull request are done.
 - [Risks](risks.md): what could take the plan away, and the fallback for each.
 - [Decisions](decisions.md) and [assumptions](assumptions.md): what we agreed with the Customer, and what we still need to check.
 - Contributing guide: `CONTRIBUTING.md` in the repository root says how a change gets into the repository.
+- Agent instructions: `AGENTS.md` in the repository root gives the layout, checks, conventions and off-limits files to whoever edits the repository next.
 
 ## Research
 

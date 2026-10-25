@@ -1,6 +1,6 @@
 # Modular LLM Gateway
 
-Status: [v0.1.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.1.0) is released, with configurable plugins and a fake provider. Customer validation was not completed for the Week 3 submission.
+Status: [v0.1.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.1.0) is the latest release, with configurable plugins and a fake provider. It runs only locally against the fake provider; there is no shared deployment. No user story has a recorded Customer acceptance yet.
 
 ## Project
 
@@ -26,7 +26,7 @@ Course team: **9**. Real names and university emails belong only in the private 
 
 ## Documentation
 
-Start with the [online documentation](https://itpd-almo.github.io/modular-llm-gateway/), [setup guide](docs/setup.md), and [documentation index](docs/index.md). See the [Week 03 report](reports/week-03/README.md) for the release and remaining gaps. Course project documentation includes the [Week 02 report](reports/week-02/README.md), [product vision](docs/product-vision.md), [decisions](docs/decisions.md), and [assumptions](docs/assumptions.md). Research includes the [Week 01 report](reports/week-01/README.md), [alternatives](docs/research/alternatives.md), [comparison](docs/research/comparison.md), [gap analysis](docs/research/gap-analysis.md), and [value propositions](docs/research/value-proposition.md).
+Start with the [online documentation](https://itpd-almo.github.io/modular-llm-gateway/), [setup guide](docs/setup.md), [plugin contract](docs/plugins.md), and [documentation index](docs/index.md). The [project plan](docs/project-plan.md) holds the sprints and releases, the [Sprint table](https://github.com/orgs/ITPD-Almo/projects/1/views/2) shows who does and who checks each scheduled issue, and the [product backlog](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=is%3Aissue%20is%3Aopen%20no%3Amilestone) holds the unscheduled stories. The [quality requirements](docs/quality-requirements/README.md), [functional requirements](docs/functional-requirements/README.md) and [glossary](docs/glossary.md) specify the product. Agents start from [`AGENTS.md`](AGENTS.md). See the [Week 03 report](reports/week-03/README.md) for the release and remaining gaps. Course project documentation includes the [Week 02 report](reports/week-02/README.md), [product vision](docs/product-vision.md), [decisions](docs/decisions.md), and [assumptions](docs/assumptions.md). Research includes the [Week 01 report](reports/week-01/README.md), [alternatives](docs/research/alternatives.md), [comparison](docs/research/comparison.md), [gap analysis](docs/research/gap-analysis.md), and [value propositions](docs/research/value-proposition.md).
 
 ## Contribution workflow
 
