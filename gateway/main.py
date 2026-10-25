@@ -1,12 +1,15 @@
 import os
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, HTTPException, Response
 from pydantic import BaseModel, Field
 
-from .config import load_plugins
-from .diagnostics import HookContext, PluginFailure, configure_diagnostics, new_request_id, run_hook
+from .config import instantiate_plugins, read_plugin_paths
+from .diagnostics import configure_diagnostics, new_request_id
+from .execution import ExecutionFailure, ExecutionSettings, PipelineExecutor
+from .provider import fake_provider as fake_provider  # Keep the existing import path available.
 
 
 class Message(BaseModel):
@@ -20,25 +23,45 @@ class ChatRequest(BaseModel):
     metadata: dict[str, Any] = Field(default_factory=dict)
 
 
-def fake_provider(request: dict[str, Any]) -> dict[str, Any]:
-    messages = request.get("messages", [])
-    prompt = messages[-1].get("content", "") if messages else ""
-    return {
-        "id": "fake-response",
-        "model": request.get("model", "fake"),
-        "provider": "fake",
-        "choices": [{"message": {"role": "assistant", "content": f"fake: {prompt}"}}],
-    }
-
-
-def create_app(config_path: str | None = None) -> FastAPI:
-    app = FastAPI(title="Modular LLM Gateway")
+def create_app(
+    config_path: str | None = None,
+    *,
+    plugin_timeout_ms: int | None = None,
+    max_workers: int | None = None,
+    startup_timeout_ms: int | None = None,
+) -> FastAPI:
     configure_diagnostics()
     selected_path = config_path or os.getenv("GATEWAY_CONFIG", str(Path(__file__).resolve().parent.parent / "config" / "plugins.json"))
     try:
-        plugins = load_plugins(selected_path)
+        paths = read_plugin_paths(selected_path)
+        plugins = instantiate_plugins(paths)
     except (OSError, ValueError, ImportError, AttributeError) as exc:
         raise RuntimeError(f"could not load plugins from {selected_path}: {exc}") from exc
+
+    def setting(value: int | None, name: str, default: int) -> int:
+        if value is not None:
+            return value
+        try:
+            return int(os.getenv(name, str(default)))
+        except ValueError:
+            raise ValueError(f"{name} must contain an integer") from None
+
+    settings = ExecutionSettings(
+        plugin_timeout_ms=setting(plugin_timeout_ms, "GATEWAY_PLUGIN_TIMEOUT_MS", 250),
+        max_workers=setting(max_workers, "GATEWAY_MAX_WORKERS", 4),
+        startup_timeout_ms=setting(startup_timeout_ms, "GATEWAY_WORKER_STARTUP_TIMEOUT_MS", 1000),
+    )
+    executor = PipelineExecutor(paths, tuple(type(plugin).__name__ for plugin in plugins), settings)
+
+    @asynccontextmanager
+    async def lifespan(app: FastAPI):
+        try:
+            yield
+        finally:
+            executor.close()
+
+    app = FastAPI(title="Modular LLM Gateway", lifespan=lifespan)
+    app.state.pipeline_executor = executor
 
     @app.get("/health")
     def health() -> dict[str, str]:
@@ -49,19 +72,9 @@ def create_app(config_path: str | None = None) -> FastAPI:
         request_id = new_request_id()
         headers = {"X-Request-ID": request_id}
         http_response.headers.update(headers)
-        transformed = request.model_dump()
         try:
-            for plugin in plugins:
-                transformed = run_hook(plugin, transformed, HookContext(request_id, type(plugin).__name__, "request"))
-            try:
-                response = fake_provider(transformed)
-            except Exception as exc:
-                raise HTTPException(status_code=502, detail="provider failed", headers=headers) from None
-            for plugin in plugins:
-                response = run_hook(plugin, response, HookContext(request_id, type(plugin).__name__, "response"))
-            response["plugin_changes"] = transformed.get("plugin_changes", []) + response.get("plugin_changes", [])
-            return response
-        except PluginFailure as failure:
-            raise HTTPException(status_code=500, detail=str(failure), headers=headers) from None
+            return executor.execute(request.model_dump(), request_id)
+        except ExecutionFailure as failure:
+            raise HTTPException(status_code=failure.status_code, detail=failure.detail, headers=headers) from None
 
     return app

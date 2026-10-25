@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 ### Added
 
 - Content-free plugin lifecycle events and gateway-generated `X-Request-ID` correlation for chat results and handled failures; see the [operating guide](docs/operations.md).
+- Supervised request workers with configurable hook deadlines, bounded admission, worker termination/reaping and safe malformed-output errors.
+
+### Changed
+
+- Plugin instances are shared between the hooks of one request and reset for each new request, isolating failure recovery from later requests.
 
 ## [0.1.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.1.0) - 2026-10-17
 
