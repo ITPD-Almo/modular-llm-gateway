@@ -10,16 +10,15 @@ Modular LLM Gateway, team 9, Assignment 4: quality, requirements, architecture a
 
 The team specified the plugin workflow, wrote the quality scenarios and architecture, and compared the same two-plugin interaction with LiteLLM.
 The Customer emphasized a plugin-management system another developer/DevOps operator can understand and support, a concrete A-input/B-output example, identifiable failing or sleeping plugins, and progress against a multiweek plan.
-The October 23 setup attempt did not establish a complete working demonstration or individual story verdicts; the later source account is under review in [PR #80](https://github.com/ITPD-Almo/modular-llm-gateway/pull/80).
+The October 23 setup attempt did not establish a complete working demonstration or individual story verdicts; the source-based account is in [reports/week-04/meeting-report.md](meeting-report.md).
 
-The integrated runtime/demo branch has 40 passing tests and an independent clean-environment replay, including a named timeout in 0.303 seconds followed by healthy requests.
-Its [main integration #81](https://github.com/ITPD-Almo/modular-llm-gateway/pull/81) is still awaiting independent approval; a feature-branch merge is not delivery to main.
+The supervised runtime and developer demo are integrated into main through independently reviewed [PR #81](https://github.com/ITPD-Almo/modular-llm-gateway/pull/81), with 40 passing tests and an independent clean-environment replay, including a named timeout in 0.303 seconds followed by healthy requests.
 The default four-worker limit deliberately rejects excess concurrent healthy requests with 503, and instances reset between requests; the accepted architecture records those costs.
 These are technical results and team design choices, not Customer acceptance.
 
 The latest published release remains [v0.1.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.1.0).
-REL-04, its new tag/changelog and final scope relocation remain pending [#62](https://github.com/ITPD-Almo/modular-llm-gateway/issues/62) and [#63](https://github.com/ITPD-Almo/modular-llm-gateway/issues/63).
-Future deployment/recovery and metrics remain unscheduled product targets; [PR #83](https://github.com/ITPD-Almo/modular-llm-gateway/pull/83) refines their contracts without claiming implementation.
+REL-04 and its new tag/changelog/plan line remain pending [#62](https://github.com/ITPD-Almo/modular-llm-gateway/issues/62) and [#63](https://github.com/ITPD-Almo/modular-llm-gateway/issues/63).
+Future deployment/recovery and metrics remain refined, estimated and unscheduled product targets; their contracts merged in [PR #83](https://github.com/ITPD-Almo/modular-llm-gateway/pull/83) and their issue links/criteria were finalized in [PR #79](https://github.com/ITPD-Almo/modular-llm-gateway/pull/79). No future capability is claimed implemented.
 
 ## Minimum usable product and Customer outcome
 
@@ -35,17 +34,17 @@ The selected sprint also adds [US-04/#52](https://github.com/ITPD-Almo/modular-l
 
 No later Customer acceptance or rejection has been confirmed.
 A planning assumption of acceptance does not supply a verdict, close a story or add accepted velocity.
-No story was removed from the original candidate; the final sprint-close record will state the actual carry-forward destinations.
-The forthcoming meeting account separates genuine scope clarifications from the still-missing verdicts.
+No story was removed from the original candidate. All four current stories, totaling 13 points, have moved to SPRINT-05 for criterion-by-criterion Customer verdicts; Actual Velocity is 0 because none was accepted.
+The [meeting account](meeting-report.md) records scope clarifications separately from those missing verdicts.
 
 ## Coverage
 
 | Deliverable | Artifact |
 | --- | --- |
-| Sprint plan and estimates | [docs/project-plan.md#sprint-04](../../docs/project-plan.md#sprint-04); late planned baseline 13, final Actual Velocity pending #61/#63. |
-| Product backlog refinement | [Sprint table grouped by milestone](https://github.com/orgs/ITPD-Almo/projects/1/views/2), no-milestone group; future contract refinement awaits #83 before completion is claimed. |
-| Issue catch-up | [User Story issues](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=is%3Aissue%20type%3A%22User%20Story%22) and [Task issues](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=is%3Aissue%20type%3ATask); final coordinated verification is owned by #59. |
-| Quality requirements | [docs/quality-requirements/qr/](../../docs/quality-requirements/qr/) and [docs/quality-requirements/README.md](../../docs/quality-requirements/README.md); additional future-target scenarios are under review in #83. |
+| Sprint plan and estimates | [docs/project-plan.md#sprint-04](../../docs/project-plan.md#sprint-04); late planned baseline 13 and Actual Velocity 0; #63 rechecks the close record when adding REL-04. |
+| Product backlog refinement | [Sprint table grouped by milestone](https://github.com/orgs/ITPD-Almo/projects/1/views/2), no-milestone group; the four future stories carry estimates 8/5/5/3, runnable criteria and main FR/ADR links, with no milestone, role values or assignees. |
+| Issue catch-up | [User Story issues](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=is%3Aissue%20type%3A%22User%20Story%22) and [Task issues](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=is%3Aissue%20type%3ATask); the coordinated migration merged in #79, closing #59; all 42 issues are typed and the six legacy labels are retired. |
+| Quality requirements | [docs/quality-requirements/qr/](../../docs/quality-requirements/qr/) and [docs/quality-requirements/README.md](../../docs/quality-requirements/README.md); seven scenarios include the future recovery/resource targets without claiming they are implemented. |
 | Functional requirements | [docs/functional-requirements/README.md](../../docs/functional-requirements/README.md) and [docs/functional-requirements/fr/](../../docs/functional-requirements/fr/). |
 | Container view | [docs/architecture/README.md#container-view](../../docs/architecture/README.md#container-view), [docs/architecture/container.png](../../docs/architecture/container.png), [docs/architecture/container.svg](../../docs/architecture/container.svg) and [docs/architecture/README.md#container-responsibilities](../../docs/architecture/README.md#container-responsibilities). |
 | Architecture and drivers | [docs/architecture/README.md](../../docs/architecture/README.md). |
@@ -54,27 +53,27 @@ The forthcoming meeting account separates genuine scope clarifications from the 
 | Team AGENTS.md | [AGENTS.md](../../AGENTS.md), merged through independently reviewed PR #78, closing #60. |
 | Issue fields in the project view | [Sprint table](https://github.com/orgs/ITPD-Almo/projects/1/views/2): Responsible, Accountable, MoSCoW, Story Points, Priority, Assignees, Milestone and Status. |
 | Documentation site | [Published documentation](https://itpd-almo.github.io/modular-llm-gateway/): the QR/FR/architecture/glossary/operating links and post-#78 deployment were verified; #64 repeats the final check after all remaining integrations. |
-| Week 3 action points | Pending the Previous action points section in [PR #80](https://github.com/ITPD-Almo/modular-llm-gateway/pull/80). |
-| Week 3 open questions | Pending the Previous open questions section in [PR #80](https://github.com/ITPD-Almo/modular-llm-gateway/pull/80). |
-| Meeting script | Original October 22 history preserved in [PR #80](https://github.com/ITPD-Almo/modular-llm-gateway/pull/80), alongside separately dated future follow-up preparation. |
-| Customer validation | Meeting account and permitted sanitized public transcript in [PR #80](https://github.com/ITPD-Almo/modular-llm-gateway/pull/80); individual story verdicts remain unreceived. |
+| Week 3 action points | [reports/week-04/meeting-report.md#previous-action-points](meeting-report.md#previous-action-points). |
+| Week 3 open questions | [reports/week-04/meeting-report.md#previous-open-questions](meeting-report.md#previous-open-questions). |
+| Meeting script | [reports/week-04/meeting-script.md](meeting-script.md), with separately dated future preparation in [reports/week-04/meeting-script-2.md](meeting-script-2.md). |
+| Customer validation | [reports/week-04/meeting-report.md](meeting-report.md) and permitted public [reports/week-04/meeting-transcript.md](meeting-transcript.md); individual story verdicts remain unreceived. |
 | REL-04 | Pending protected tag/release and [CHANGELOG.md](../../CHANGELOG.md), followed by [docs/project-plan.md#rel-04](../../docs/project-plan.md#rel-04). |
-| Sprint retrospective | Pending [task #61](https://github.com/ITPD-Almo/modular-llm-gateway/issues/61); write it after Actual Velocity is set. |
-| AI usage | Pending [task #61](https://github.com/ITPD-Almo/modular-llm-gateway/issues/61); actual contributor statements and agent-run checks must remain distinct. |
-| Reproducible developer demo | Reviewed in [PR #76](https://github.com/ITPD-Almo/modular-llm-gateway/pull/76), with final main integration/evidence in [PR #81](https://github.com/ITPD-Almo/modular-llm-gateway/pull/81). |
+| Sprint retrospective | [reports/week-04/sprint-retrospective.md](sprint-retrospective.md), written with Actual Velocity set and reviewed in #85, closing #61. |
+| AI usage | [reports/week-04/ai-usage.md](ai-usage.md); contributor statements and agent-run/personal checks are distinguished, and the missing third-member statement is explicit. |
+| Reproducible developer demo | [docs/demo.md](../../docs/demo.md), [docs/setup.md](../../docs/setup.md), [docs/plugins.md](../../docs/plugins.md), [docs/operations.md](../../docs/operations.md) and [reports/week-04/gateway-check.md](gateway-check.md). |
 
 ## Contribution
 
 | Member | Evidenced work |
 | --- | --- |
-| Ali12hamdan | [Planning #69](https://github.com/ITPD-Almo/modular-llm-gateway/pull/69), [diagnostics #71](https://github.com/ITPD-Almo/modular-llm-gateway/pull/71), [runtime #72](https://github.com/ITPD-Almo/modular-llm-gateway/pull/72), [architecture #77](https://github.com/ITPD-Almo/modular-llm-gateway/pull/77), [integration #81](https://github.com/ITPD-Almo/modular-llm-gateway/pull/81), [tracker #79](https://github.com/ITPD-Almo/modular-llm-gateway/pull/79), [meeting account #80](https://github.com/ITPD-Almo/modular-llm-gateway/pull/80), [future contracts #83](https://github.com/ITPD-Almo/modular-llm-gateway/pull/83), and independent specification/comparison/guide reviews. Unmerged work remains marked above. |
-| Mohammed-Nour | [Requirements/glossary #73](https://github.com/ITPD-Almo/modular-llm-gateway/pull/73), [matched comparison #75](https://github.com/ITPD-Almo/modular-llm-gateway/pull/75), [guide/examples #76](https://github.com/ITPD-Almo/modular-llm-gateway/pull/76), [agent guidance/navigation #78](https://github.com/ITPD-Almo/modular-llm-gateway/pull/78), preserved original script history, and independent diagnostics/runtime/architecture reviews. |
+| Ali12hamdan | [Planning #69](https://github.com/ITPD-Almo/modular-llm-gateway/pull/69), [diagnostics #71](https://github.com/ITPD-Almo/modular-llm-gateway/pull/71), [runtime #72](https://github.com/ITPD-Almo/modular-llm-gateway/pull/72), [architecture #77](https://github.com/ITPD-Almo/modular-llm-gateway/pull/77), [integration #81](https://github.com/ITPD-Almo/modular-llm-gateway/pull/81), [tracker #79](https://github.com/ITPD-Almo/modular-llm-gateway/pull/79), [meeting account #80](https://github.com/ITPD-Almo/modular-llm-gateway/pull/80), [future contracts #83](https://github.com/ITPD-Almo/modular-llm-gateway/pull/83), and independent specification/comparison/guide reviews. The final report remains under review. |
+| Mohammed-Nour | [Requirements/glossary #73](https://github.com/ITPD-Almo/modular-llm-gateway/pull/73), [matched comparison #75](https://github.com/ITPD-Almo/modular-llm-gateway/pull/75), [guide/examples #76](https://github.com/ITPD-Almo/modular-llm-gateway/pull/76), [agent guidance/navigation #78](https://github.com/ITPD-Almo/modular-llm-gateway/pull/78), [retrospective/AI-use/velocity #85](https://github.com/ITPD-Almo/modular-llm-gateway/pull/85), preserved original script history, and independent diagnostics/runtime/architecture reviews. |
 | atkond2point0 | Participation in the October 23 review, recorded in the source-based [meeting account #80](https://github.com/ITPD-Almo/modular-llm-gateway/pull/80). |
 
 ## Repository evidence
 
 [PR #73](https://github.com/ITPD-Almo/modular-llm-gateway/pull/73) merged after independent review and closed requirements task #54.
-At this draft's writing, main revision `916c0e6` has green [link checks](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40212987326), [Markdown checks](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40212987322), [tests](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40212987343) and [documentation build/deployment](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40212987310).
+At this draft's writing, main revision `9606161` has green [link checks](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40214576371), [Markdown checks](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40214576381), [tests](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40214576399) and [documentation build/deployment](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40214576384).
 Replace these with the final pre-report main evidence after the remaining integrations and release records merge.
 GitHub issue/project UI links and the course Git submodule are handled by the existing link-check exclusions; authenticated dynamic views are checked separately and upstream course content is not linted as team content.
 
@@ -86,9 +85,9 @@ GitHub issue/project UI links and the course Git submodule are handled by the ex
 - Original script commits have October 22 author/commit metadata and were transferred/inspected on October 25; actual use and role execution remain unestablished. Its agenda totals 42 minutes instead of the required 30-minute plan. The separately dated follow-up is future preparation.
 - Separate recording/publication/private-sharing answers are not captured in the call. The owner confirmed sharing on October 25; this later confirmation is not backdated. The public transcript uses explicitly coarse elapsed-minute markers, keeping exact recording timecodes and access details private.
 - The original planning issues were created through the API with the form's required sections when the browser initially showed sign-in; the later diagnostics issue reused that workflow. The remaining specification task #82 was created through the repository form. The browser was not blocked for every creation.
-- Runtime/demo dependency PRs merged into feature branches, and some approval/checkbox gates were not finalized before those branch merges. Original branches and review evidence are retained; the complete main integration receives its own independent review. Reviewer boxes must reflect actual verification, including any late recording.
-- Future deployment/recovery and metrics are targets, not capabilities delivered by this increment. Their new contracts require reviewed merge and final issue-link/refinement checks before readiness is claimed; future assignments may change them at weekly intake.
-- This is a review draft: REL-04, sprint-close/retrospective/AI-use records and final report evidence are pending. These draft-state gaps must be replaced with their actual outcomes before final approval.
+- Runtime/demo dependency PRs merged into feature branches, and some approval/checkbox gates were not finalized before those branch merges. Original branches and review evidence are retained; the complete main integration received its own independent review. Reviewer boxes record actual verification, including late recording.
+- Future deployment/recovery and metrics are targets, not capabilities delivered by this increment. Their contracts and final issue refinements are merged; future assignments may change those targets at weekly intake.
+- This is a review draft: the real REL-04 tag/changelog/plan line and final report evidence are pending. The draft banner and this temporary gap must be removed only after those gates are met.
 
 ## Privacy
 
