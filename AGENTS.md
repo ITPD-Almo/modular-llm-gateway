@@ -7,17 +7,20 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
 - `gateway/` is the product: one FastAPI application.
   - `main.py`: app factory and HTTP endpoints.
   - `config.py`: plugin loading.
+  - `execution.py`: supervised request-local worker pipeline and cleanup.
+  - `validation.py`: chat/plugin output shape and JSON-size validation.
   - `provider.py`: the deterministic fake provider.
   - `diagnostics.py`: lifecycle events.
   - `plugins/`: the `Plugin` protocol in `base.py` and the bundled plugins.
   - The [testability requirement](docs/quality-requirements/qr/QR-01.md) names the critical modules it covers.
 - `config/plugins.json` is the default plugin list; `GATEWAY_CONFIG` selects another file.
+- `examples/` holds the third-party A/B and slow-hook examples and their configuration files; they load without editing gateway core.
 - `tests/` holds the pytest suite; every test uses synthetic plugins and the fake provider, never a provider key or the network.
 - `docs/` holds the maintained artifacts and the documentation site:
   - the vision, the plan and the decisions
   - the assumptions and the research
   - `quality-requirements/`, `functional-requirements/` and the glossary
-  - the setup, plugin and operations guides
+  - the setup, plugin, operations and demo guides
   - `architecture/`: the container view (`container.svg` source and rendered `container.png`) and the decision records in `architecture/adr/`, with `TEMPLATE.md` for a new `ADR-nnn`
 
   New maintained documents go here, never into `reports/` first.
