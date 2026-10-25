@@ -1,0 +1,7 @@
+{
+  "plugins": [
+    "gateway.plugins.add_metadata.MetadataPlugin",
+    "examples.slow_plugin.SlowPlugin",
+    "gateway.plugins.uppercase.UppercasePlugin"
+  ]
+}

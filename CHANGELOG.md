@@ -10,6 +10,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 
 - Content-free plugin lifecycle events and gateway-generated `X-Request-ID` correlation for chat results and handled failures; see the [operating guide](docs/operations.md).
 - Supervised request workers with configurable hook deadlines, bounded admission, worker termination/reaping and safe malformed-output errors.
+- A third-party A/B example plugin loaded by configuration, a slow-plugin demo example, a step-by-step [demo](docs/demo.md), and a fuller [plugin guide](docs/plugins.md) and [setup guide](docs/setup.md) with a reset procedure.
 
 ### Changed
 
