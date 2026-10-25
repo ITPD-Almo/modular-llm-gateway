@@ -51,9 +51,9 @@ The forthcoming meeting account separates genuine scope clarifications from the 
 | Architecture and drivers | [docs/architecture/README.md](../../docs/architecture/README.md). |
 | Architectural decisions | [docs/architecture/adr/](../../docs/architecture/adr/) and [docs/architecture/README.md#architectural-decisions](../../docs/architecture/README.md#architectural-decisions). |
 | Glossary | [docs/glossary.md](../../docs/glossary.md). |
-| Team AGENTS.md | Pending [PR #78](https://github.com/ITPD-Almo/modular-llm-gateway/pull/78), which adds the root instructions and site navigation. |
+| Team AGENTS.md | [AGENTS.md](../../AGENTS.md), merged through independently reviewed PR #78, closing #60. |
 | Issue fields in the project view | [Sprint table](https://github.com/orgs/ITPD-Almo/projects/1/views/2): Responsible, Accountable, MoSCoW, Story Points, Priority, Assignees, Milestone and Status. |
-| Documentation site | [Published documentation](https://itpd-almo.github.io/modular-llm-gateway/); final new navigation/deployment verification follows #78 and #64. |
+| Documentation site | [Published documentation](https://itpd-almo.github.io/modular-llm-gateway/): the QR/FR/architecture/glossary/operating links and post-#78 deployment were verified; #64 repeats the final check after all remaining integrations. |
 | Week 3 action points | Pending the Previous action points section in [PR #80](https://github.com/ITPD-Almo/modular-llm-gateway/pull/80). |
 | Week 3 open questions | Pending the Previous open questions section in [PR #80](https://github.com/ITPD-Almo/modular-llm-gateway/pull/80). |
 | Meeting script | Original October 22 history preserved in [PR #80](https://github.com/ITPD-Almo/modular-llm-gateway/pull/80), alongside separately dated future follow-up preparation. |
@@ -74,7 +74,7 @@ The forthcoming meeting account separates genuine scope clarifications from the 
 ## Repository evidence
 
 [PR #73](https://github.com/ITPD-Almo/modular-llm-gateway/pull/73) merged after independent review and closed requirements task #54.
-At this draft's writing, main revision `b14f774` has green [link checks](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40210684962), [Markdown checks](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40210684969), [tests](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40210684955) and [documentation build/deployment](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40210684947).
+At this draft's writing, main revision `916c0e6` has green [link checks](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40212987326), [Markdown checks](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40212987322), [tests](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40212987343) and [documentation build/deployment](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/40212987310).
 Replace these with the final pre-report main evidence after the remaining integrations and release records merge.
 GitHub issue/project UI links and the course Git submodule are handled by the existing link-check exclusions; authenticated dynamic views are checked separately and upstream course content is not linted as team content.
 
