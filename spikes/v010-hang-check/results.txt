@@ -1,0 +1,8 @@
+v0.1.0 at 6bd7eef, Python 3.12.3
+== one hung request (plugin sleeps 60 s, client limit 10 s)
+health during the hang: HTTP 200 in 0.001341s (curl exit 0)
+hung request: HTTP 000 in 10.002381s (curl exit 28)
+== 45 concurrent hung requests (plugin sleeps 30 s), then health and a healthy request (limit 10 s)
+health: HTTP 000 in 10.002745s (curl exit 28)
+healthy request: HTTP 000 in 10.002113s (curl exit 28)
+server threads: 45

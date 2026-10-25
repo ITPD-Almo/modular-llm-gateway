@@ -1,0 +1,1 @@
+{"plugins": ["gateway.plugins.add_metadata.MetadataPlugin", "hang_plugin.HangingPlugin", "gateway.plugins.uppercase.UppercasePlugin"]}
