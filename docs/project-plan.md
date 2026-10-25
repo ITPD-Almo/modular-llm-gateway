@@ -56,6 +56,7 @@ A DevOps operator can add a documented plugin without editing the gateway core, 
 - **Due:** 2026-10-24
 - **Sprint Backlog:** [the issues scheduled into SPRINT-04](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/2)
 - **Planned Velocity:** 13
+- **Actual Velocity:** 0; no Customer verdict on US-01 to US-04 arrived by the sprint close, so the four stories (13 points) moved to SPRINT-05 for their criterion-by-criterion verdicts.
 
 The formal sprint date above follows Assignment 4; the team owner confirmed an operational submission extension to 2026-10-25, 23:59 Europe/Moscow.
 The planned velocity was computed by hand as 2 + 3 + 3 + 5 from the selected stories' `Story Points` during late replanning on October 25.
