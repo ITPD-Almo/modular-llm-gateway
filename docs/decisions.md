@@ -77,7 +77,7 @@ Prioritize a documented plugin-management system for developers and DevOps opera
 - **Status:** Active
 - **Date:** 2026-10-23
 - **Made by:** Customer
-- **Source:** [the October 23 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/6ada5a340e42e926e5447c3082ee3818cbcda4b6/reports/week-04/meeting-report.md).
+- **Source:** [the October 23 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/41530d7c5ad25028dcfe5a0d28d8103802b14a5d/reports/week-04/meeting-report.md).
 - **Why:** The Customer clarified the intended developer/DevOps users and asked for enough documentation to create a compatible plugin and hand the system to another operator; a larger set of examples alone does not provide that value.
 
 ## DEC-009
@@ -87,7 +87,7 @@ Use a simple plugin that replaces incoming content with A text and the provider 
 - **Status:** Active
 - **Date:** 2026-10-23
 - **Made by:** Customer
-- **Source:** [the October 23 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/6ada5a340e42e926e5447c3082ee3818cbcda4b6/reports/week-04/meeting-report.md).
+- **Source:** [the October 23 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/41530d7c5ad25028dcfe5a0d28d8103802b14a5d/reports/week-04/meeting-report.md).
 - **Why:** The plugin-addition process remained unclear in the attempted demonstration. The requested two-stage replacement is a concrete explanation/test example, not a new default transformation or a requirement for automatic discovery.
 
 ## DEC-010
@@ -97,7 +97,7 @@ Handle badly written or sleeping plugins without leaving the gateway unusable, i
 - **Status:** Active
 - **Date:** 2026-10-23
 - **Made by:** Customer
-- **Source:** [the October 23 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/6ada5a340e42e926e5447c3082ee3818cbcda4b6/reports/week-04/meeting-report.md).
+- **Source:** [the October 23 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/41530d7c5ad25028dcfe5a0d28d8103802b14a5d/reports/week-04/meeting-report.md).
 - **Why:** The Customer agreed that management includes a plugin which stalls and an operator who must locate the problem. The meeting did not select a timeout number, status code, isolation design, capacity or fail-versus-skip policy.
 
 ## DEC-011
@@ -107,5 +107,5 @@ Show progress against a plan beyond one iteration and use asynchronous questions
 - **Status:** Active
 - **Date:** 2026-10-23
 - **Made by:** Customer
-- **Source:** [the October 23 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/6ada5a340e42e926e5447c3082ee3818cbcda4b6/reports/week-04/meeting-report.md).
+- **Source:** [the October 23 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/41530d7c5ad25028dcfe5a0d28d8103802b14a5d/reports/week-04/meeting-report.md).
 - **Why:** The Customer wants evidence of planning, execution, progress tracking and adjustment over several weeks, and explicitly allowed questions between meetings. Flexibility about presentations does not waive the course requirements.
