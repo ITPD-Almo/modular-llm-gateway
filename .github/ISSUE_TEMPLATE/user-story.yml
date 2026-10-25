@@ -1,13 +1,13 @@
 name: User story
 description: One user need, with its value proposition, origins, assumptions, priority reason, and acceptance criteria.
 title: "US-nn: <story title>"
-labels: ["user-story"]
+type: User Story
 body:
   - type: markdown
     attributes:
       value: |
-        Title the issue `US-nn: <story title>`, where `US-nn` is one above the highest `US-nn` in the [story list](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=label%3Auser-story), open and closed issues alike.
-        After opening it, apply exactly one `moscow:*` label.
+        Title the issue `US-nn: <story title>`, where `US-nn` is one above the highest `US-nn` in the [story list](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=is%3Aissue%20type%3A%22User%20Story%22), open and closed issues alike.
+        After opening it, set the single-select `MoSCoW` field; refine and estimate before scheduling. Do not assign a milestone, roles or assignees to an unscheduled story.
         Link every file on `main`, for example `https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/docs/assumptions.md#asm-01`.
   - type: textarea
     id: story
@@ -39,6 +39,14 @@ body:
     validations:
       required: false
   - type: textarea
+    id: specified-by
+    attributes:
+      label: Specified by
+      description: "One FR-nnn or ADR-nnn link on main per line. Non-Won't Have stories need resolving specifications before they are ready; never guess a future file URL."
+      placeholder: "- https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/docs/functional-requirements/fr/FR-001.md"
+    validations:
+      required: false
+  - type: textarea
     id: priority-reason
     attributes:
       label: Priority reason
@@ -50,10 +58,10 @@ body:
     id: acceptance-criteria
     attributes:
       label: Acceptance criteria
-      description: At least two observable pass/fail checks, unless the story is Won't Have. Start each with its AC-nn.
+      description: At least two observable pass/fail checks unless the story is Won't Have. Preserve AC identifiers and check only verified criteria.
       value: |
-        1. AC-01: Given ..., when ..., then ...
-        2. AC-02: Given ..., when ..., then ...
+        - [ ] AC-01: Given ..., when ..., then ...
+        - [ ] AC-02: Given ..., when ..., then ...
     validations:
       required: false
   - type: textarea

@@ -1,0 +1,6 @@
+{
+  "plugins": [
+    "gateway.plugins.add_metadata.MetadataPlugin",
+    "examples.ab_plugin.ABReplacePlugin"
+  ]
+}

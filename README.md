@@ -30,6 +30,8 @@ Start with the [online documentation](https://itpd-almo.github.io/modular-llm-ga
 
 ## Contribution workflow
 
+For a runnable plugin-extension and recovery walkthrough, follow the [developer demo](docs/demo.md).
+
 Create a branch, make a focused change, and open a pull request. Another team member reviews and approves it before merging to `main`.
 
 ## License
