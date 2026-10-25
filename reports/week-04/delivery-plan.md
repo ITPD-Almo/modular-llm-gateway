@@ -1,7 +1,8 @@
 # Week 4 delivery plan
 
 This is the October 25 remaining-work plan, prepared after the October 23 Customer meeting.
-The owner confirmed that all three current contributors are available and that Assignment 4 is extended to **October 25, 23:59 Europe/Moscow**.
+The owner updated A4 capacity to two active contributors, Ali12hamdan and Mohammed-Nour, and confirmed the operational submission extension to **October 25, 23:59 Europe/Moscow**.
+The formal SPRINT-04 due field and milestone remain October 24 as printed in Assignment 4; the extension is recorded separately.
 It replaces the earlier deadline assumption; it does not backdate sprint planning, estimates or meeting preparation.
 The [project plan](../../docs/project-plan.md#sprint-04) owns the goal and velocity baseline, and the [Sprint table](https://github.com/orgs/ITPD-Almo/projects/1/views/2) owns live issue assignments and state.
 
@@ -23,9 +24,9 @@ Keep this question visible for genuine Customer validation.
 
 ## Parallel work and handoffs
 
-Ali12hamdan implements core timeout/recovery and safe lifecycle diagnostics and coordinates Customer evidence, the tracker/forms and final report/submission preparation.
-Mohammed-Nour leads requirements and glossary, setup/plugin guidance, the matched existing-tool comparison, and collection of retrospective/AI-use input.
-atkond2point0 leads architecture/ADRs, contributor guidance/navigation and release mechanics and independently reviews Ali's coding work.
+Ali12hamdan implements core timeout/recovery and safe lifecycle diagnostics, owns architecture/ADRs and release mechanics, and coordinates Customer evidence, tracker/forms and final report/submission preparation.
+Mohammed-Nour owns requirements and glossary, setup/plugin guidance, contributor instructions/navigation, the matched comparison, retrospective/AI-use collection and the post-release sprint-close record.
+Each reviews the other's work; independent approval remains required with two active contributors.
 The [development workflow](../../docs/development-workflow.md#stewardship-and-review) names backup/review stewardship and file boundaries.
 Each scheduled task's actual Responsible and Accountable fields remain authoritative; a different member verifies every task.
 
@@ -76,7 +77,8 @@ In particular, check the distinct quality characteristics and scenario headings,
 The matrix must prioritize rather than rate everything High; the testability requirement names real critical gateway modules because the detailed rule uses frontend/payment paths only as examples.
 Use real runtime containers; the detailed rule explicitly permits a genuinely single-container product with an explanation, so code modules or the in-process fake provider are not invented deployments.
 Resolve the next two sprints' specification gaps before claiming full refinement, and keep those candidates without milestones, role values or assignees until selected at planning.
-The original pre-meeting script, original sprint-start estimates and missing Customer verdicts cannot be reconstructed as earlier evidence; the actual gaps and late replanning are declared.
+Mohammed-Nour reports original October 22 local script commits in the [meeting-task discussion](https://github.com/ITPD-Almo/modular-llm-gateway/issues/53#issuecomment-6398983646); their source is pending transfer and verification, and whether the script was used is not established.
+Original sprint-start estimates and missing Customer verdicts cannot be reconstructed as earlier evidence; the actual gaps and late replanning are declared.
 
 ## Tonight's gates
 

@@ -18,13 +18,13 @@ Use an existing gateway if the matched extension exercise shows it delivers the 
 ## Stewardship and review
 
 Stewardship gives each member a place to start and a backup; it does not replace the two role values on a scheduled issue.
-The owner confirmed that all three members are available for the October 25 delivery window.
+The owner updated the October 25 execution capacity to two active A4 contributors, Ali12hamdan and Mohammed-Nour.
+This allocation applies to A4; future sprint capacity is confirmed at its planning.
 
 | Member | Main stewardship | Independent review and backup |
 | --- | --- | --- |
-| Ali12hamdan | Core timeout/recovery code, safe plugin lifecycle diagnostics, Customer evidence, sprint/tracker coordination and submission | Verify requirements; coordinate integration and operational checks |
-| Mohammed-Nour | Functional/quality requirements, glossary, setup/plugin guide, matched comparison, retrospective and AI-use collection | Verify architecture, delivery plan and release evidence |
-| atkond2point0 | Architecture, ADRs, contributor guidance/navigation and release mechanics | Independently review Ali's runtime/diagnostic code, the demo recipe, tracker migration, sprint close and final report |
+| Ali12hamdan | Core timeout/recovery and diagnostics code, architecture/ADRs, Customer evidence, tracker/admin work, release and submission | Verify Mohammed's requirements, developer guide, contributor guidance, comparison, retrospective and sprint-close record |
+| Mohammed-Nour | Functional/quality requirements, glossary, setup/plugin guide, contributor guidance/navigation, matched comparison, retrospective and sprint-close record | Verify Ali's planning, architecture, runtime/diagnostic code, tracker changes, release and final report |
 
 `Responsible` implements a scheduled issue; `Accountable` is a different member who verifies it and reviews the PR.
 The two assignees exactly match those values.
@@ -45,8 +45,8 @@ Do not assign the entire future backlog to a sprint just to show ownership.
    The reviewer reproduces the important checks, ticks verified task criteria, and merges only after required CI and independent approval.
 
 Keep files with one active editor during an integration window.
-atkond2point0 edits the architecture tree and its vision link; Mohammed-Nour edits the requirement trees and glossary; Ali12hamdan implements the gateway timeout and diagnostics code and their tests.
-Ali is Responsible for the coding tasks and atkond2point0 is Accountable for their independent verification; both appear as assignees because those roles are different.
+Ali12hamdan edits the architecture tree and its vision link and implements the gateway timeout and diagnostics code and tests; Mohammed-Nour edits the requirement trees, glossary, developer guide and contributor guidance/navigation.
+Ali is Responsible for the coding tasks and Mohammed is Accountable for their independent verification; both appear as assignees because those roles are different.
 The guide owner edits setup/plugin instructions and the synthetic demo recipe; the evidence owner edits the decision log and meeting account.
 Coordinate changes to `docs/project-plan.md`, `CHANGELOG.md`, navigation and shared templates before rebasing or merging another branch.
 Never force-push a teammate's branch or bypass protection to settle a deadline.

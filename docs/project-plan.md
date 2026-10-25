@@ -53,15 +53,15 @@ Released as [v0.1.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/t
 
 A DevOps operator can add a documented plugin without editing the gateway core, identify a failed or timed-out hook, and use the gateway again, with testable requirements and architecture explaining the result.
 
-- **Due:** 2026-10-25
+- **Due:** 2026-10-24
 - **Sprint Backlog:** [the issues scheduled into SPRINT-04](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/2)
-- **Planned Velocity:** 13, computed by hand as 2 + 3 + 3 + 5 from the selected stories' `Story Points` during late replanning on 2026-10-25.
+- **Planned Velocity:** 13
 
-The team owner confirmed an extension to 2026-10-25, 23:59 Europe/Moscow.
+The formal sprint date above follows Assignment 4; the team owner confirmed an operational submission extension to 2026-10-25, 23:59 Europe/Moscow.
+The planned velocity was computed by hand as 2 + 3 + 3 + 5 from the selected stories' `Story Points` during late replanning on October 25.
 This is a remaining-work planning baseline recorded on October 25, before the newly planned work; it is not evidence of a sprint-start estimate made earlier in the week.
 The three stories carried from SPRINT-03 have implementation in v0.1.0 and still await Customer verdicts.
 The new resilience outcome and its numerical targets are team proposals pending specification review and the Customer's verdict.
-At close, add `Actual Velocity` from genuinely completed stories and state what moved out and where; do not count technical checks as Customer acceptance.
 The [planning task](https://github.com/ITPD-Almo/modular-llm-gateway/issues/51) links the reviewable Week 4 delivery gates; issue fields and the milestone remain the source of assignments and schedule.
 
 #### REL-04
@@ -71,9 +71,6 @@ The [planning task](https://github.com/ITPD-Almo/modular-llm-gateway/issues/51) 
 Provisional: an operator can use a shared gateway deployed from a tested, identifiable build and verify or recover that deployment without relying on a presenter's laptop.
 
 - **Due:** 2026-10-31
-
-Choose the deployment destination and the sprint backlog at planning, after reading Assignment 5 when published.
-Refined candidate stories remain in the product backlog until then; no future sprint is a parking place for estimates.
 
 #### REL-05
 
@@ -90,8 +87,6 @@ Provisional: an operator can compare latency, errors and timeouts across a contr
 Provisional: the usability protocol is ready and has been rehearsed, and an outside participant can attempt setup and plugin authoring from the documentation with observable success measures.
 
 - **Due:** 2026-11-14
-
-The existing November 13 threshold dates remain visible in the threshold document; schedule the relevant exercise before them or record an actual change through the normal decision process.
 
 #### REL-07
 
@@ -117,3 +112,4 @@ Provisional: the final release incorporates the selected usability findings, has
 - **Checked by:** the `Accountable` member of each scheduled issue reports its state, and the team walks the sprint's GitHub milestone against the sprint's goal.
 - **Visible at:** the [GitHub project's Sprint table](https://github.com/orgs/ITPD-Almo/projects/1/views/2), grouped by milestone, and the [sprints' GitHub milestones](https://github.com/ITPD-Almo/modular-llm-gateway/milestones).
 - **Continuation:** the [development workflow](development-workflow.md) records the next-assignment intake, file ownership, review and demonstration routine; each new assignment replaces provisional detail at planning rather than rewriting earlier reports.
+- **Threshold dates:** unchanged by this replan: TOS-01 remains due October 23, TOS-04 October 30, and TOS-02 and TOS-03 November 13. The Saturday release dates do not move these goal dates; actual outcomes or agreed changes are recorded in the threshold document.
