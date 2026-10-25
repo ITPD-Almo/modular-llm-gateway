@@ -6,12 +6,18 @@ from typing import Any
 from .plugins.base import Plugin
 
 
-def load_plugins(path: str | Path) -> list[Any]:
+def read_plugin_paths(path: str | Path) -> tuple[str, ...]:
     config_path = Path(path)
     data = json.loads(config_path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError("configuration must be an object")
     names = data.get("plugins")
     if not isinstance(names, list) or not all(isinstance(name, str) for name in names):
         raise ValueError("config.plugins must be a list of import paths")
+    return tuple(names)
+
+
+def instantiate_plugins(names: tuple[str, ...]) -> list[Any]:
     plugins: list[Plugin] = []
     for name in names:
         module_name, separator, class_name = name.rpartition(".")
@@ -26,3 +32,7 @@ def load_plugins(path: str | Path) -> list[Any]:
             raise ValueError(f"plugin {name} must define process_request and process_response")
         plugins.append(plugin)
     return plugins
+
+
+def load_plugins(path: str | Path) -> list[Any]:
+    return instantiate_plugins(read_plugin_paths(path))
