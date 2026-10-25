@@ -1,6 +1,6 @@
 name: Task
 description: One unit of work that one pull request closes.
-labels: ["task"]
+type: Task
 body:
   - type: markdown
     attributes:
@@ -21,6 +21,14 @@ body:
       description: "Optional. One bullet per story issue the task works toward, with the story's AC-nn in parentheses, such as `- #42 (AC-01, AC-02)`. Leave empty for a workflow, a document, or a report."
     validations:
       required: false
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements
+      description: "One FR-nnn or ADR-nnn link on main per line. For repository upkeep or specification authoring, explain None in one line. Merge target records before linking them."
+      placeholder: "- https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/docs/functional-requirements/fr/FR-001.md"
+    validations:
+      required: true
   - type: textarea
     id: acceptance-criteria
     attributes:
