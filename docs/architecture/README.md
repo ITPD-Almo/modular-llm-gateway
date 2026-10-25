@@ -35,6 +35,9 @@ Its JSON configuration is operator-managed input, and its operating events leave
 A company store owns retention, access control and durable storage when the operator connects one.
 Provider credentials and real-provider data are absent from the synthetic baseline.
 
+The future delivery target in [ADR-005](adr/ADR-005.md) packages this same application for an operator-provided host; [ADR-006](adr/ADR-006.md) keeps future aggregate metrics inside its parent process.
+Neither adds a product application or data store, and neither capability is implemented by this architecture document.
+
 ## Diagrams And Legends
 
 - **Blue rounded rectangle:** the product's single deployable application container; the label gives its name and technology.
@@ -51,3 +54,5 @@ Provider credentials and real-provider data are absent from the synthetic baseli
 | [ADR-002](adr/ADR-002.md) | Accepted | [FR-001](../functional-requirements/fr/FR-001.md), [FR-002](../functional-requirements/fr/FR-002.md), [FR-003](../functional-requirements/fr/FR-003.md), [FR-005](../functional-requirements/fr/FR-005.md), [QR-01](../quality-requirements/qr/QR-01.md), [QR-04](../quality-requirements/qr/QR-04.md) | Explicit import-path configuration and ordered dictionary hooks |
 | [ADR-003](adr/ADR-003.md) | Accepted | [FR-006](../functional-requirements/fr/FR-006.md), [FR-007](../functional-requirements/fr/FR-007.md), [QR-01](../quality-requirements/qr/QR-01.md), [QR-02](../quality-requirements/qr/QR-02.md), [QR-05](../quality-requirements/qr/QR-05.md) | Request-local supervised workers and fail-request timeouts |
 | [ADR-004](adr/ADR-004.md) | Accepted | [FR-008](../functional-requirements/fr/FR-008.md), [QR-01](../quality-requirements/qr/QR-01.md), [QR-03](../quality-requirements/qr/QR-03.md) | Parent-generated allowlisted lifecycle events |
+| [ADR-005](adr/ADR-005.md) | Accepted | [FR-009](../functional-requirements/fr/FR-009.md), [FR-010](../functional-requirements/fr/FR-010.md), [QR-01](../quality-requirements/qr/QR-01.md), [QR-03](../quality-requirements/qr/QR-03.md), [QR-06](../quality-requirements/qr/QR-06.md) | Identified image delivery and retained known-good recovery on an operator-provided host |
+| [ADR-006](adr/ADR-006.md) | Accepted | [FR-008](../functional-requirements/fr/FR-008.md), [FR-011](../functional-requirements/fr/FR-011.md), [QR-01](../quality-requirements/qr/QR-01.md), [QR-03](../quality-requirements/qr/QR-03.md), [QR-07](../quality-requirements/qr/QR-07.md) | Bounded process-local aggregate metrics using the existing safe event contract |
