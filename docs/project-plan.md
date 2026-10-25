@@ -67,6 +67,8 @@ The [planning task](https://github.com/ITPD-Almo/modular-llm-gateway/issues/51) 
 
 #### REL-04
 
+Released as [v0.2.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.2.0) on 2026-10-25, from [the checked main commit](https://github.com/ITPD-Almo/modular-llm-gateway/commit/960616128ca88159a003aa772dd198c4c0f515ea), with its [dated changelog section](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/CHANGELOG.md#020---2026-10-25). Customer validation was not completed for this submission, so the release adds no accepted velocity. Stories #40 to #42 and #52 moved to SPRINT-05 for their Customer verdicts, and the unscheduled candidates #65 to #68 stay in the product backlog. The release-line task #63 and report task #64 stay in SPRINT-04 until they merge; the SPRINT-04 milestone is closed after that, once no open issue remains in it.
+
 ### SPRINT-05
 
 Provisional: an operator can use a shared gateway deployed from a tested, identifiable build and verify or recover that deployment without relying on a presenter's laptop.
