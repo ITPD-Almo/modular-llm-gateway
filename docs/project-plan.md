@@ -62,10 +62,12 @@ The formal sprint date above follows Assignment 4; the team owner confirmed an o
 The planned velocity was computed by hand as 2 + 3 + 3 + 5 from the selected stories' `Story Points` during late replanning on October 25.
 This is a remaining-work planning baseline recorded on October 25, before the newly planned work; it is not evidence of a sprint-start estimate made earlier in the week.
 The three stories carried from SPRINT-03 have implementation in v0.1.0 and still await Customer verdicts.
-The new resilience outcome and its numerical targets are team proposals pending specification review and the Customer's verdict.
+The resilience outcome and numerical targets have accepted specifications and reviewed implementation; the Customer's verdict remains pending.
 The [planning task](https://github.com/ITPD-Almo/modular-llm-gateway/issues/51) links the reviewable Week 4 delivery gates; issue fields and the milestone remain the source of assignments and schedule.
 
 #### REL-04
+
+Released as [v0.2.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.2.0) on 2026-10-25, from [the checked main commit](https://github.com/ITPD-Almo/modular-llm-gateway/commit/960616128ca88159a003aa772dd198c4c0f515ea), with its [dated changelog section](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/CHANGELOG.md#020---2026-10-25). Customer validation was not completed for this submission, so the release adds no accepted velocity. Stories #40 to #42 and #52 moved to SPRINT-05 for their Customer verdicts, and the unscheduled candidates #65 to #68 stay in the product backlog. The release-line task #63 and report task #64 stay in SPRINT-04 until they merge; the SPRINT-04 milestone is closed after that, once no open issue remains in it.
 
 ### SPRINT-05
 

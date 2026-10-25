@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 
 ## [Unreleased]
 
+## [0.2.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.2.0) - 2026-10-25
+
 ### Added
 
 - Content-free plugin lifecycle events and gateway-generated `X-Request-ID` correlation for chat results and handled failures; see the [operating guide](docs/operations.md).
