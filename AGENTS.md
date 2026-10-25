@@ -7,26 +7,25 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
 - `gateway/` is the product: one FastAPI application.
   - `main.py`: app factory and HTTP endpoints.
   - `config.py`: plugin loading.
-  - `execution.py`: supervised worker pipeline.
-  - `validation.py`: chat request, plugin output and JSON size validation.
   - `provider.py`: the deterministic fake provider.
   - `diagnostics.py`: lifecycle events.
   - `plugins/`: the `Plugin` protocol in `base.py` and the bundled plugins.
-  - The testability quality requirement names these modules.
+  - The [testability requirement](docs/quality-requirements/qr/QR-01.md) names the critical modules it covers.
 - `config/plugins.json` is the default plugin list; `GATEWAY_CONFIG` selects another file.
-- `examples/` holds third-party example plugins and their configuration files; they must load without edits to `gateway/`.
 - `tests/` holds the pytest suite; every test uses synthetic plugins and the fake provider, never a provider key or the network.
 - `docs/` holds the maintained artifacts and the documentation site:
   - the vision, the plan and the decisions
   - the assumptions and the research
   - `quality-requirements/`, `functional-requirements/` and the glossary
-  - the setup, plugin, operations and demo guides
+  - the setup, plugin and operations guides
   - `architecture/`: the container view (`container.svg` source and rendered `container.png`) and the decision records in `architecture/adr/`, with `TEMPLATE.md` for a new `ADR-nnn`
 
   New maintained documents go here, never into `reports/` first.
 - `reports/week-NN/` holds each week's evidence and report, and is not rewritten after its week.
 - `.github/` holds the CI workflows, the issue forms and the pull request template.
 - `.claude/skills/itpd/` is the course repository as a Git submodule.
+
+Keep this map and the documentation entry points current in the same pull request that introduces a module, example directory or guide; do not describe an unmerged path as already present.
 
 ## Checks
 
