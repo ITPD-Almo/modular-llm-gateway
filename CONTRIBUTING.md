@@ -6,6 +6,10 @@ What "done" means for a story, a task, and a pull request is in the [Definition 
 ## Issues
 
 - Open every issue from a form: **User story** for a story, **Task** for one unit of work. Blank issues are disabled.
+- The forms apply the `User Story` or `Task` issue type. Use `MoSCoW` for a story's value priority, `Story Points` for its refined estimate (1, 2, 3, 5, 8 or 13), and `Priority` (High, Medium or Low) for a task's work order. These are public organization issue fields, not project-only fields or labels.
+- A story's `Specified by` lists its FR/ADR specifications; a task's required `Requirements` field lists the FR/ADR records it works on, or explains `None` for upkeep or authoring. Target files must already exist on `main`.
+- Keep acceptance criteria as `- [ ] AC-nn: ...` checklists; preserve IDs and checked states. A different Accountable member verifies before ticking; technical tests do not create Customer acceptance.
+- Leave unscheduled product-backlog issues without a milestone, role values or assignees. Refine a story and set its estimate before scheduling; split a story larger than 13 points.
 - Schedule an issue by putting it in its sprint's milestone, `SPRINT-nn: <focus>`, and set its `Responsible` and `Accountable` fields in the same step.
   `Responsible` does the work and `Accountable` verifies it; they are two different members.
 - The issue's assignees are exactly those two members.
@@ -14,7 +18,8 @@ What "done" means for a story, a task, and a pull request is in the [Definition 
 ## How a change gets in
 
 1. Open or pick a task issue. Every change, including documentation and CI, goes through a pull request; direct pushes to `main` are blocked.
-2. Create a branch from `main` named `<issue-number>-<short-description>`, such as `44-write-week-03-plan`.
+2. Normally create a branch from `main` named `<issue-number>-<short-description>`, such as `44-write-week-03-plan`.
+   For a dependency stack, name the base PR in the description, keep the dependent PR draft until its required records exist on `main`, then merge current dependency changes without rewriting history, retarget to `main` and rerun the checks.
 3. Keep the pull request to one change. Open it with the [pull request template](.github/pull_request_template.md), and start the description with `Closes #<issue-number>`.
    One pull request closes exactly one task issue.
 4. Fill in the template: what changed and why, what you checked and how, and what the reviewer should look at. This is the change's implementation notes.
@@ -40,7 +45,13 @@ The reviewer approves and merges. The author cannot approve their own pull reque
 
 The team's work is visible in the organization's [GitHub project](https://github.com/orgs/ITPD-Almo/projects/1/views/2), which holds every open issue.
 
-- **Sprint table, grouped by milestone:** columns `Responsible`, `Accountable`, `Assignees`, and `Milestone`. We use it at the weekly review to walk each sprint's issues and see who does and who checks each one.
+- **Sprint table, grouped by milestone:** columns `Responsible`, `Accountable`, `MoSCoW`, `Story Points`, `Priority`, `Assignees`, `Milestone` and `Status`. We use it at the weekly review to walk each sprint's issues and see who does and who checks each one.
+
+## Code conventions
+
+Use Python 3.12 with type hints. Plugin hooks are synchronous and take and return dictionaries; prefer a new dictionary to preserve ownership between stages. Tests use synthetic inputs and the fake provider, with no provider key or outbound provider call. Preserve documented hook order and compatibility, and update the contract and meaningful tests when either changes.
+
+Do not delete evidence branches or rewrite history to tidy it. Protect published tags and release records; a new release follows reviewed product changes, its tag, dated changelog, plan release line and weekly report in that order.
 
 ## Course materials
 
