@@ -2,10 +2,11 @@ import os
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
 from pydantic import BaseModel, Field
 
 from .config import load_plugins
+from .diagnostics import HookContext, PluginFailure, configure_diagnostics, new_request_id, run_hook
 
 
 class Message(BaseModel):
@@ -32,6 +33,7 @@ def fake_provider(request: dict[str, Any]) -> dict[str, Any]:
 
 def create_app(config_path: str | None = None) -> FastAPI:
     app = FastAPI(title="Modular LLM Gateway")
+    configure_diagnostics()
     selected_path = config_path or os.getenv("GATEWAY_CONFIG", str(Path(__file__).resolve().parent.parent / "config" / "plugins.json"))
     try:
         plugins = load_plugins(selected_path)
@@ -43,26 +45,23 @@ def create_app(config_path: str | None = None) -> FastAPI:
         return {"status": "ok"}
 
     @app.post("/v1/chat/completions")
-    def chat(request: ChatRequest) -> dict[str, Any]:
+    def chat(request: ChatRequest, http_response: Response) -> dict[str, Any]:
+        request_id = new_request_id()
+        headers = {"X-Request-ID": request_id}
+        http_response.headers.update(headers)
         transformed = request.model_dump()
         try:
             for plugin in plugins:
-                try:
-                    transformed = plugin.process_request(transformed)
-                except Exception as exc:
-                    raise HTTPException(status_code=500, detail=f"plugin {type(plugin).__name__} failed during request processing") from exc
+                transformed = run_hook(plugin, transformed, HookContext(request_id, type(plugin).__name__, "request"))
             try:
                 response = fake_provider(transformed)
             except Exception as exc:
-                raise HTTPException(status_code=502, detail="provider failed") from exc
+                raise HTTPException(status_code=502, detail="provider failed", headers=headers) from None
             for plugin in plugins:
-                try:
-                    response = plugin.process_response(response)
-                except Exception as exc:
-                    raise HTTPException(status_code=500, detail=f"plugin {type(plugin).__name__} failed during response processing") from exc
+                response = run_hook(plugin, response, HookContext(request_id, type(plugin).__name__, "response"))
             response["plugin_changes"] = transformed.get("plugin_changes", []) + response.get("plugin_changes", [])
             return response
-        except HTTPException:
-            raise
+        except PluginFailure as failure:
+            raise HTTPException(status_code=500, detail=str(failure), headers=headers) from None
 
     return app
