@@ -62,7 +62,7 @@ The formal sprint date above follows Assignment 4; the team owner confirmed an o
 The planned velocity was computed by hand as 2 + 3 + 3 + 5 from the selected stories' `Story Points` during late replanning on October 25.
 This is a remaining-work planning baseline recorded on October 25, before the newly planned work; it is not evidence of a sprint-start estimate made earlier in the week.
 The three stories carried from SPRINT-03 have implementation in v0.1.0 and still await Customer verdicts.
-The new resilience outcome and its numerical targets are team proposals pending specification review and the Customer's verdict.
+The resilience outcome and numerical targets have accepted specifications and reviewed implementation; the Customer's verdict remains pending.
 The [planning task](https://github.com/ITPD-Almo/modular-llm-gateway/issues/51) links the reviewable Week 4 delivery gates; issue fields and the milestone remain the source of assignments and schedule.
 
 #### REL-04
