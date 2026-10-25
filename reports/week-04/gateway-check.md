@@ -6,7 +6,7 @@ Checked on October 25, 2026, by Mohammed-Nour, on the runtime branch of [#56](ht
 
 - **Machine:** Linux 7.0, Python 3.12.3, no provider key, no `.env` file.
 - **Clean install:** a fresh `git clone --recurse-submodules`, then the [setup guide](../../docs/setup.md)'s POSIX steps. Clone, virtual environment, install and `python -m pytest` took 58 seconds, and all 34 tests of that branch passed.
-- **Not run:** Windows PowerShell. A second member has not yet followed the recipe.
+- **Not run at this initial check:** Windows PowerShell and a second-member replay. The later independent replay is recorded below.
 - **Demo:** every step of the [demo](../../docs/demo.md) was run against `python -m uvicorn gateway.main:create_app --factory` over real HTTP with curl, restarting between configurations. Its expected outputs are copied from this run.
 - **Cleanup:** the tracked configuration was restored afterwards.
 
@@ -30,3 +30,16 @@ Checked on October 25, 2026, by Mohammed-Nour, on the runtime branch of [#56](ht
 ## Before this runtime
 
 On v0.1.0 (`6bd7eef`), one request held by a sleeping plugin never returned. With 45 such requests in flight, `/health` and a healthy request also got no answer within 10 seconds. The matched comparison of [#58](https://github.com/ITPD-Almo/modular-llm-gateway/issues/58) records how these numbers were measured.
+
+## Independent replay after review
+
+Ali12hamdan's coding agent repeated the recipe in an isolated clean checkout with Python 3.12.3 on October 25 at [bb66c18](https://github.com/ITPD-Almo/modular-llm-gateway/commit/bb66c18df621fa232b1cbc86a90de74733d9f3da), after the documentation fixes and latest runtime merge.
+These are agent-run technical checks, not a claim that Ali12hamdan personally typed every command or that the Customer accepted a story.
+The [review record](https://github.com/ITPD-Almo/modular-llm-gateway/pull/76#pullrequestreview-5644071255) distinguishes this replay from the original author's measurements above.
+
+- The documented editable install passed; the combined suite had **40 passing tests**, with one upstream Starlette/httpx deprecation warning.
+- Default, reversed and metadata-only configurations produced their documented content, trace and change order.
+- The third-party example returned `BBBB` and recorded provider input `AAAA`, without changing gateway core.
+- The five-second slow hook returned a named HTTP 504 in **0.303 seconds**, followed by health 200 and a healthy chat 200.
+- All servers were stopped, the tracked configuration was restored, and the review checkout was clean.
+- Windows remains unverified; deployment and Customer acceptance are separate checks.
