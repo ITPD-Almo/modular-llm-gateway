@@ -69,3 +69,43 @@ Build the first gateway as a Python 3.12 FastAPI service with plugins loaded fro
 - **Made by:** Team
 - **Source:** task #43 acceptance criteria.
 - **Why:** a small in-process interface makes plugin order, transformations, and failure behaviour explicit and testable before a real provider or production deployment is added.
+
+## DEC-008
+
+Prioritize a documented plugin-management system for developers and DevOps operators that another operator can support, rather than a fixed catalogue of example plugins.
+
+- **Status:** Active
+- **Date:** 2026-10-23
+- **Made by:** Customer
+- **Source:** [the October 23 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/6ada5a340e42e926e5447c3082ee3818cbcda4b6/reports/week-04/meeting-report.md).
+- **Why:** The Customer clarified the intended developer/DevOps users and asked for enough documentation to create a compatible plugin and hand the system to another operator; a larger set of examples alone does not provide that value.
+
+## DEC-009
+
+Use a simple plugin that replaces incoming content with A text and the provider reply with B text to explain how a new plugin enters the gateway.
+
+- **Status:** Active
+- **Date:** 2026-10-23
+- **Made by:** Customer
+- **Source:** [the October 23 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/6ada5a340e42e926e5447c3082ee3818cbcda4b6/reports/week-04/meeting-report.md).
+- **Why:** The plugin-addition process remained unclear in the attempted demonstration. The requested two-stage replacement is a concrete explanation/test example, not a new default transformation or a requirement for automatic discovery.
+
+## DEC-010
+
+Handle badly written or sleeping plugins without leaving the gateway unusable, identifying the problematic plugin and providing diagnostic information.
+
+- **Status:** Active
+- **Date:** 2026-10-23
+- **Made by:** Customer
+- **Source:** [the October 23 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/6ada5a340e42e926e5447c3082ee3818cbcda4b6/reports/week-04/meeting-report.md).
+- **Why:** The Customer agreed that management includes a plugin which stalls and an operator who must locate the problem. The meeting did not select a timeout number, status code, isolation design, capacity or fail-versus-skip policy.
+
+## DEC-011
+
+Show progress against a plan beyond one iteration and use asynchronous questions when clarification is needed.
+
+- **Status:** Active
+- **Date:** 2026-10-23
+- **Made by:** Customer
+- **Source:** [the October 23 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/6ada5a340e42e926e5447c3082ee3818cbcda4b6/reports/week-04/meeting-report.md).
+- **Why:** The Customer wants evidence of planning, execution, progress tracking and adjustment over several weeks, and explicitly allowed questions between meetings. Flexibility about presentations does not waive the course requirements.

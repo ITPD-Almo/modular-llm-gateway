@@ -34,6 +34,7 @@ The product is a modular core with replaceable plugins for request and response 
 - **Decision:** [DEC-003](decisions.md#dec-003).
 - **Changed:**
   - The next design must show plugin inputs, outputs, execution order, and loading, per [DEC-006](decisions.md#dec-006). Masking alone does not explain the interface.
+  - The October 23 review clarified developer/DevOps handover, the A-input/B-output extension example, and operability when plugins fail or hang, per [DEC-008](decisions.md#dec-008), [DEC-009](decisions.md#dec-009) and [DEC-010](decisions.md#dec-010). These requests do not mandate a non-developer UI or automatic discovery.
 
 ### CON-02
 
