@@ -81,17 +81,24 @@ def run_hook(
     context: HookContext,
     *,
     emit: Callable[..., None] = emit_hook_event,
+    validate: Callable[[dict[str, Any]], None] | None = None,
 ) -> dict[str, Any]:
     """Instrument one synchronous hook without retaining its exception text."""
     emit(context, "started")
     started = perf_counter()
     try:
         result = getattr(plugin, "process_" + context.stage)(payload)
-    except Exception:
+    except BaseException:
         emit(context, "failed", elapsed_ms=(perf_counter() - started) * 1000, reason="plugin_exception")
         raise PluginFailure(context, "plugin_exception") from None
     if not isinstance(result, dict):
         emit(context, "failed", elapsed_ms=(perf_counter() - started) * 1000, reason="invalid_output")
         raise PluginFailure(context, "invalid_output")
+    if validate is not None:
+        try:
+            validate(result)
+        except (TypeError, ValueError, RecursionError):
+            emit(context, "failed", elapsed_ms=(perf_counter() - started) * 1000, reason="invalid_output")
+            raise PluginFailure(context, "invalid_output") from None
     emit(context, "completed", elapsed_ms=(perf_counter() - started) * 1000)
     return result

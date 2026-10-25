@@ -13,6 +13,7 @@ This is a course project of team 9 in the autumn 2026 term, and it is a work in 
 - [Project plan](project-plan.md): the milestones, the sprints, and their releases.
 - [Setup](setup.md): install and run the gateway.
 - [Plugin contract](plugins.md): plugin inputs, outputs, order, loading, and failures.
+- [Developer demo](demo.md): normal and changed plugin order, a third-party A/B plugin, timeout recovery and reset.
 - [Operating guide](operations.md): request correlation, lifecycle events, limits and recovery.
 
 ## Requirements
