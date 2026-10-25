@@ -14,7 +14,7 @@ The Customer needs policy revision and decision evidence but can accept a narrow
 A LiteLLM callback or existing Azure controls do not already satisfy the same workflow with acceptable effort.
 
 - **Status:** Open
-- **How to check:** In Week 3, atkond2point0 will check a LiteLLM callback with the same event fields, and Mohammed-Nour will check Azure policy-version correlation. [DEC-004](decisions.md#dec-004) allows using an existing tool if it fits; the check still needs evidence. The LiteLLM half was run in Week 4 as the [Week 3 action point](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-03/meeting-report.md#action-points): LiteLLM Proxy ran the same two-plugin workflow with comparable effort, which is evidence against this assumption ([the matched comparison](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-04/prototypes.md#two-plugin-workflow-on-litellm-proxy)). It stays Open until the Customer reacts to that evidence; the Azure half was not checked.
+- **How to check:** In Week 3, atkond2point0 will check a LiteLLM callback with the same event fields, and Mohammed-Nour will check Azure policy-version correlation. [DEC-004](decisions.md#dec-004) allows using an existing tool if it fits; the check still needs evidence. The LiteLLM half was run in Week 4 as the [Week 3 action point](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-03/meeting-report.md#action-points): LiteLLM Proxy ran the same two-plugin workflow with comparable effort, which is evidence against this assumption ([the matched comparison](https://github.com/ITPD-Almo/modular-llm-gateway/blob/cf340ec954266c322c046ffae6abfe0d9c772e31/reports/week-04/prototypes.md#two-plugin-workflow-on-litellm-proxy)). It stays Open until the Customer reacts to that evidence; the Azure half was not checked.
 
 ## ASM-03
 
@@ -28,7 +28,7 @@ Static caller credentials and one provider are acceptable for the initial trial.
 The narrow starter takes fewer mandatory services or manual steps than a matched existing gateway setup.
 
 - **Status:** Open
-- **How to check:** Ali12hamdan and Mohammed-Nour, who took over spaghetti-n-spaghetti's tasks, will compare services and manual steps for the same policy job in Week 3, following the team plan. Report the result even if LiteLLM wins. The Week 4 [matched comparison](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-04/prototypes.md#two-plugin-workflow-on-litellm-proxy) measured the plugin workflow, not the policy job: both need one install command and one configuration file, and LiteLLM adds a master key and installs 118 packages (730 MB) against our 30 (75 MB). No second person timed either setup, so this remains Open.
+- **How to check:** Ali12hamdan and Mohammed-Nour, who took over spaghetti-n-spaghetti's tasks, will compare services and manual steps for the same policy job in Week 3, following the team plan. Report the result even if LiteLLM wins. The Week 4 [matched comparison](https://github.com/ITPD-Almo/modular-llm-gateway/blob/cf340ec954266c322c046ffae6abfe0d9c772e31/reports/week-04/prototypes.md#two-plugin-workflow-on-litellm-proxy) measured the plugin workflow, not the policy job: both need one install command and one configuration file, and LiteLLM adds a master key and installs 118 packages (730 MB) against our 30 (75 MB). No second person timed either setup, so this remains Open.
 
 ## ASM-05
 
