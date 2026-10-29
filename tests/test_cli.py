@@ -5,12 +5,14 @@ from pathlib import Path
 import subprocess
 import sys
 import socket
+import os
 from time import monotonic, sleep
 
 
 def cli(*args: str, cwd: Path) -> subprocess.CompletedProcess:
     return subprocess.run([sys.executable, "-m", "gateway", *args], cwd=cwd, text=True,
-                          capture_output=True, timeout=90)
+                          capture_output=True, timeout=90,
+                          env={**os.environ, "XDG_CONFIG_HOME": str(cwd / "private-config")})
 
 
 def test_installed_cli_demo_from_an_unrelated_directory(tmp_path):
@@ -56,7 +58,8 @@ def test_custom_workspace_is_served_from_an_unrelated_directory(tmp_path):
         port = reservation.getsockname()[1]
     server = subprocess.Popen([sys.executable, "-m", "gateway", "serve", "--port", str(port),
                                "--config", str(workspace / "plugins.json")], cwd=tmp_path,
-                              stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                              stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                              env={**os.environ, "XDG_CONFIG_HOME": str(tmp_path / "private-config")})
     url = f"http://127.0.0.1:{port}"
     try:
         deadline = monotonic() + 15

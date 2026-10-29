@@ -8,6 +8,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 
 ### Added
 
+- Guided `llmgw setup` with hidden API-key entry, read-only DeepSeek model discovery, private local persistence, provider status and logout; no `.env` editing is needed.
+- An opt-in DeepSeek adapter using the saved model, a 128-output-token cap, no automatic retries and a separate supervised provider deadline, while `llmgw demo` remains offline.
 - An installed `llmgw` terminal command for serving, chat, health checks, plugin inspection, workspace creation and a self-contained five-scenario demo.
 - A Linux/macOS installer that provisions an isolated Python runtime without requiring Git, system Python, Docker, sudo or a provider key; runtime dependencies are pinned for the installer.
 

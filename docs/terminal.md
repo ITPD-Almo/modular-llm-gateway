@@ -2,7 +2,7 @@
 
 Install once, then run `llmgw` from any directory. The installer downloads a private uv toolchain and Python 3.12.13, installs the gateway in an isolated environment and runs a real HTTP demo. It does not change system Python, install a system service, edit shell profiles or require sudo, Git, Docker, an account or a provider key.
 
-This is a preview of the next version, not a production deployment or a new published release. The provider is deterministic and fake. Authentication, TLS, real-provider integration, persistence and fleet deployment are not delivered by this installer.
+This is a preview of the next version, not a production deployment or a new published release. It starts with a deterministic fake provider. Users may explicitly connect their own DeepSeek account using the guided setup below. Gateway client authentication, server TLS, persistent request storage and fleet deployment are not delivered by this installer; outbound DeepSeek calls use HTTPS.
 
 ## Supported targets and requirements
 
@@ -52,7 +52,7 @@ llmgw demo
 llmgw serve
 ```
 
-Leave the server running. In another terminal:
+Without a saved DeepSeek profile, this starts the fake provider. Leave the server running. In another terminal:
 
 ```sh
 export PATH="$HOME/.local/bin:$PATH"
@@ -64,6 +64,45 @@ llmgw chat "hello supervisor"
 The health result is `{"status":"ok"}`. Chat shows `fake: HELLO`, the ordered plugin trace, the plugin changes and a generated request ID. Open `http://127.0.0.1:8000/docs` for interactive API documentation. Ctrl+C stops the server. If port 8000 is occupied, use `llmgw serve --port 8080` and `llmgw chat "hello" --url http://127.0.0.1:8080`.
 
 The server binds to `127.0.0.1` by default. The CLI allows a longer worker-startup budget of five seconds for laptops, while the individual hook deadline remains 250 ms. This is a local development tool with no authentication; keep it on loopback. See the [operating guide](operations.md) for the existing limits and cleanup policy.
+
+## Connect your own DeepSeek account
+
+No file editing, environment variables or key command-line arguments are needed:
+
+```sh
+llmgw setup
+```
+
+The guide asks you to paste your API key into a hidden terminal prompt and choose a model from your account's available models. Press Enter for the default model. Obtain a key from [DeepSeek's platform](https://platform.deepseek.com) if needed. Do not paste keys into chat, shell commands or the API documentation's request body.
+
+Setup checks the key with the [read-only models endpoint](https://api-docs.deepseek.com/api/list-models/). It makes no paid chat-generation request and does not verify your balance. An invalid key, network failure, bad model choice or Ctrl+C leaves the previous saved profile unchanged. It refuses to accept the key when hidden input is unavailable.
+
+After setup, stop and restart the gateway:
+
+```sh
+llmgw serve
+```
+
+It prints `Provider: deepseek` and your selected model. In another terminal:
+
+```sh
+llmgw chat "Say hello in one short sentence"
+```
+
+This sends the plugin-transformed conversation to DeepSeek and uses your account balance. Provider/model selection comes from your local profile, not the chat request's `model` field. Responses are limited to 128 generated tokens with thinking disabled and no automatic retries. Network/model/account errors are reported without echoing upstream error bodies. Provider waiting has its own 45-second supervised deadline; plugin hooks keep their separate 250 ms limit. An interrupted upstream request may still have been processed/billed by DeepSeek.
+
+Check or remove saved settings without showing the key:
+
+```sh
+llmgw status
+llmgw logout
+```
+
+`logout` removes the saved key. Restart any running server to clear the old credential from its memory; removing the file cannot revoke a key held by an existing process. Rotate/revoke a key in your DeepSeek account if needed. To run offline regardless of saved settings, use `llmgw serve --provider fake`. `llmgw demo` always uses fake providers and never reads or spends your saved DeepSeek account.
+
+The profile is stored outside the project at `${XDG_CONFIG_HOME:-$HOME/.config}/llmgw/provider.json`, with directory permissions 0700 and file permissions 0600. Writes are atomic and symlink/unsafe-permission profiles are rejected. This is permission-protected local storage, **not encryption or an OS keychain**. The key is never passed in plugin dictionaries or logged. Plugins remain trusted Python code running as your OS user and share the worker process with the provider adapter; this is not credential isolation from malicious plugins. Install only plugins you trust.
+
+The real-provider adapter is a new owner-requested preview beyond the released fake-provider scope. Automated tests use synthetic credentials and mocked provider responses, including failure and timeout cases; they make no paid DeepSeek calls and do not establish Customer acceptance or a live account success.
 
 ## Show an editable plugin without touching gateway core
 
@@ -86,7 +125,7 @@ The reply is `BBBB`; the plugin change records show that the provider received `
 
 Run the installer again with a new explicit ref to update. The isolated toolchain lives in `${XDG_DATA_HOME:-$HOME/.local/share}/llmgw`; its launcher is `~/.local/bin/llmgw`. `GATEWAY_BIN_DIR` selects another launcher directory. The installer refuses to replace an unrelated command and never edits shell startup files.
 
-For a default installation, stop the server and remove `~/.local/bin/llmgw` and `~/.local/share/llmgw`. If you set XDG_DATA_HOME or GATEWAY_BIN_DIR, use the actual paths printed at installation instead. Keep or remove your own plugin workspace separately. Shared uv download caches may remain; removing the app does not require deleting other tools' caches.
+For a default installation, run `llmgw logout` if you want to remove the saved key, stop the server and remove `~/.local/bin/llmgw` and `~/.local/share/llmgw`. If you set XDG_DATA_HOME or GATEWAY_BIN_DIR, use the actual paths printed at installation instead. Keep or remove your own plugin workspace separately. Shared uv download caches may remain; removing the app does not require deleting other tools' caches.
 
 ## Contributor verification
 

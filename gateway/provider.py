@@ -1,4 +1,11 @@
-from typing import Any
+from typing import Any, Protocol
+
+
+class ChatProvider(Protocol):
+    name: str
+    timeout_ms: int
+
+    def __call__(self, request: dict[str, Any]) -> dict[str, Any]: ...
 
 
 def fake_provider(request: dict[str, Any]) -> dict[str, Any]:

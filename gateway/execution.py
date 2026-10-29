@@ -12,7 +12,8 @@ from typing import Any
 
 from .config import instantiate_plugins
 from .diagnostics import HookContext, PluginFailure, emit_hook_event, run_hook
-from .provider import fake_provider
+from .provider import ChatProvider, fake_provider
+from .deepseek import ERROR_MESSAGES, ProviderError
 from .validation import MAX_PAYLOAD_BYTES, validate_json, validate_request, validate_response
 
 
@@ -52,7 +53,8 @@ def _send(connection: Connection, message: dict[str, Any]) -> None:
     connection.send_bytes(frame)
 
 
-def _pipeline_worker(connection: Connection, paths: tuple[str, ...], payload: dict[str, Any], request_id: str) -> None:
+def _pipeline_worker(connection: Connection, paths: tuple[str, ...], payload: dict[str, Any], request_id: str,
+                     provider: ChatProvider | None = None) -> None:
     # Only the explicit protocol reaches the parent. Plugin print/logging is not an operating event.
     with open(os.devnull, "w") as sink:
         os.dup2(sink.fileno(), 1)
@@ -74,8 +76,16 @@ def _pipeline_worker(connection: Connection, paths: tuple[str, ...], payload: di
             context = HookContext(request_id, type(plugin).__name__, "request")
             transformed = run_hook(plugin, transformed, context, emit=forward, validate=validate_request)
         try:
-            response = fake_provider(transformed)
+            if provider is not None:
+                _send(connection, {"kind": "provider_started"})
+            response = provider(transformed) if provider is not None else fake_provider(transformed)
             validate_response(response)
+            if provider is not None:
+                _send(connection, {"kind": "provider_completed"})
+        except ProviderError as error:
+            reason = error.reason if error.reason in ERROR_MESSAGES else "unavailable"
+            _send(connection, {"kind": "provider_failed", "reason": reason})
+            return
         except BaseException:
             _send(connection, {"kind": "provider_failed"})
             return
@@ -101,10 +111,14 @@ def _pipeline_worker(connection: Connection, paths: tuple[str, ...], payload: di
 
 
 class PipelineExecutor:
-    def __init__(self, paths: tuple[str, ...], labels: tuple[str, ...], settings: ExecutionSettings):
+    def __init__(self, paths: tuple[str, ...], labels: tuple[str, ...], settings: ExecutionSettings,
+                 *, provider: ChatProvider | None = None):
         self.paths = paths
         self.labels = labels
         self.settings = settings
+        self.provider = provider
+        if provider is not None and (type(provider.timeout_ms) is not int or not 1 <= provider.timeout_ms <= 60000):
+            raise ValueError("provider timeout must be an integer between 1 and 60000 ms")
         self._context = mp.get_context("spawn")
         self._slots = threading.BoundedSemaphore(settings.max_workers)
         self._lock = threading.Lock()
@@ -159,7 +173,7 @@ class PipelineExecutor:
         receiver = sender = None
         try:
             receiver, sender = self._context.Pipe(duplex=False)
-            process = self._context.Process(target=_pipeline_worker, args=(sender, self.paths, payload, request_id), daemon=True)
+            process = self._context.Process(target=_pipeline_worker, args=(sender, self.paths, payload, request_id, self.provider), daemon=True)
         except Exception:
             if receiver is not None:
                 receiver.close()
@@ -213,7 +227,8 @@ class PipelineExecutor:
         hook_budget = self.settings.plugin_timeout_ms / 1000
         deadline = monotonic() + idle_budget
         # A faulty protocol cannot prolong a request by emitting endless progress packets.
-        overall = deadline + 2 * len(self.paths) * hook_budget + idle_budget
+        provider_budget = self.provider.timeout_ms / 1000 if self.provider is not None else 0
+        overall = deadline + 2 * len(self.paths) * hook_budget + idle_budget + provider_budget
         expected = [(index, stage, event) for stage in ("request", "response")
                     for index in range(len(self.paths)) for event in ("started", "completed")]
         position = 0
@@ -222,6 +237,8 @@ class PipelineExecutor:
         last: HookContext | None = None
         hook_started = 0.0
         result_data = bytearray()
+        provider_started = False
+        provider_finished = self.provider is None
 
         def fail_worker() -> None:
             if current is not None:
@@ -235,6 +252,8 @@ class PipelineExecutor:
                 if current is not None:
                     emit_hook_event(current, "timed_out", elapsed_ms=(monotonic() - hook_started) * 1000, reason="timeout")
                     raise ExecutionFailure(504, f"plugin {current.plugin} timed out during {current.stage} processing", current)
+                if provider_started and not provider_finished:
+                    raise ExecutionFailure(504, "provider timed out; no automatic retry was made")
                 raise ExecutionFailure(503, "plugin worker startup or transfer timed out")
             try:
                 message = json.loads(receiver.recv_bytes(MAX_FRAME_BYTES))
@@ -246,8 +265,16 @@ class PipelineExecutor:
             if kind == "ready" and not ready:
                 ready = True
                 deadline = monotonic() + idle_budget
+            elif kind == "provider_started" and self.provider is not None and ready and position == 2 * len(self.paths) and not provider_started:
+                provider_started = True
+                deadline = monotonic() + provider_budget
+            elif kind == "provider_completed" and provider_started and not provider_finished and position == 2 * len(self.paths):
+                provider_finished = True
+                deadline = monotonic() + idle_budget
             elif kind == "event" and ready and position < len(expected):
                 index, stage, event = expected[position]
+                if stage == "response" and not provider_finished:
+                    fail_worker()
                 actual = message.get("event")
                 if message.get("index") != index or message.get("stage") != stage:
                     fail_worker()
@@ -279,7 +306,7 @@ class PipelineExecutor:
                 else:
                     current = None
                     deadline = monotonic() + idle_budget
-            elif kind == "result_chunk" and ready and position == len(expected):
+            elif kind == "result_chunk" and ready and position == len(expected) and provider_finished:
                 try:
                     data = message.get("data")
                     if not isinstance(data, str) or len(data) > 4 * ((RESULT_CHUNK_BYTES + 2) // 3):
@@ -291,7 +318,7 @@ class PipelineExecutor:
                 except ValueError:
                     fail_worker()
                 # Result transfer retains one fixed deadline; chunks do not keep extending it.
-            elif kind == "result_end" and ready and position == len(expected):
+            elif kind == "result_end" and ready and position == len(expected) and provider_finished:
                 try:
                     response = json.loads(result_data)
                 except (ValueError, RecursionError):
@@ -304,6 +331,10 @@ class PipelineExecutor:
                     fail_worker()
                 return response, last
             elif kind == "provider_failed" and ready and position == 2 * len(self.paths):
-                raise ExecutionFailure(502, "provider failed")
+                reason = message.get("reason")
+                if reason is not None and reason not in ERROR_MESSAGES:
+                    fail_worker()
+                detail = ERROR_MESSAGES[reason] if reason is not None else "provider failed"
+                raise ExecutionFailure(504 if reason == "timeout" else 502, detail)
             else:
                 fail_worker()

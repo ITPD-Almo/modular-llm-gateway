@@ -25,7 +25,7 @@ def prepare_config(value: str | None) -> Path:
     return path
 
 
-def request_json(base: str, prompt: str | None = None, timeout: float = 10) -> tuple[int, dict, str | None]:
+def request_json(base: str, prompt: str | None = None, timeout: float = 60) -> tuple[int, dict, str | None]:
     url = urlparse(base)
     if url.scheme not in ("http", "https") or not url.hostname or url.username or url.password:
         raise ValueError("URL must be http(s)://host:port without embedded credentials")
@@ -64,6 +64,7 @@ def main(argv: list[str] | None = None) -> int:
     serve.add_argument("--host", default="127.0.0.1")
     serve.add_argument("--port", type=int, default=8000)
     serve.add_argument("--config", help="JSON plugin list; sibling Python plugins are importable")
+    serve.add_argument("--provider", choices=("fake", "deepseek"), help="override saved provider selection")
     serve.add_argument("--startup-timeout-ms", type=int, default=5000,
                        help="worker startup budget for laptops; hook deadline stays 250 ms")
     commands.add_parser("demo", help="run isolated HTTP checks including plugin timeout and recovery, then exit")
@@ -78,16 +79,36 @@ def main(argv: list[str] | None = None) -> int:
     init.add_argument("directory", nargs="?", default="gateway-demo")
     plugins = commands.add_parser("plugins", help="validate and list configured plugins in execution order")
     plugins.add_argument("--config")
+    commands.add_parser("setup", help="connect DeepSeek with hidden key entry; no file editing")
+    commands.add_parser("status", help="show selected provider/model without showing the key")
+    commands.add_parser("logout", help="remove your saved provider key; restart any running server")
     args = parser.parse_args(argv)
     try:
+        if args.command == "setup":
+            from .setup import run_setup
+            run_setup()
+            return 0
+        if args.command == "logout":
+            from .credentials import remove_credentials
+            removed = remove_credentials()
+            print("Saved key removed. Restart any running gateway; existing server memory is unchanged." if removed else "No saved key to remove.")
+            return 0
+        if args.command == "status":
+            from .credentials import load_credentials
+            credentials = load_credentials()
+            print(f"Provider: deepseek | Model: {credentials.model} | Key: saved (hidden)" if credentials else "Provider: fake | No key saved. Run llmgw setup to connect DeepSeek.")
+            return 0
         if args.command in ("serve", "doctor", "plugins"):
             path = prepare_config(args.config)
             from .config import instantiate_plugins, read_plugin_paths
             paths = read_plugin_paths(path)
             instantiate_plugins(paths)
             if args.command == "doctor":
+                from .credentials import load_credentials
+                credentials = load_credentials()
                 print(f"Gateway {version('modular-llm-gateway')} | {platform.system()} {platform.machine()} | Python {platform.python_version()}")
-                print(f"Runtime: {sys.executable}\nConfig: {path}\nProvider: fake (no account or API key required)")
+                print(f"Runtime: {sys.executable}\nConfig: {path}")
+                print(f"Provider: deepseek | Model: {credentials.model} | Key: saved (hidden)" if credentials else "Provider: fake (no account or API key required). Connect with llmgw setup.")
                 print(f"PASS: {len(paths)} configured plugins are importable")
                 return 0
             if args.command == "plugins":
@@ -97,9 +118,18 @@ def main(argv: list[str] | None = None) -> int:
             if not 1 <= args.port <= 65535:
                 raise ValueError("port must be between 1 and 65535")
             from .main import create_app
+            from .credentials import load_credentials
+            from .deepseek import DeepSeekProvider
             import uvicorn
-            app = create_app(str(path), startup_timeout_ms=args.startup_timeout_ms)
-            print(f"Gateway: http://{args.host}:{args.port} | API docs: /docs | Provider: fake", flush=True)
+            credentials = None if args.provider == "fake" else load_credentials()
+            if args.provider == "deepseek" and credentials is None:
+                raise ValueError("No DeepSeek key saved. Run llmgw setup first.")
+            provider = DeepSeekProvider(credentials) if credentials else None
+            app = create_app(str(path), startup_timeout_ms=args.startup_timeout_ms, provider=provider)
+            selected = f"deepseek ({credentials.model})" if credentials else "fake"
+            print(f"Gateway: http://{args.host}:{args.port} | API docs: /docs | Provider: {selected}", flush=True)
+            if credentials is None:
+                print("To connect your DeepSeek account, run llmgw setup once, then restart the server.", flush=True)
             print("Ctrl+C to stop. This local demo has no authentication; keep it on loopback.", flush=True)
             uvicorn.run(app, host=args.host, port=args.port, access_log=False)
         elif args.command == "demo":
@@ -114,6 +144,9 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"Request ID: {correlation}", file=sys.stderr)
             return 0 if code == 200 else 1
         return 0
+    except (KeyboardInterrupt, EOFError):
+        print("\nCanceled. Saved provider settings were not changed.", file=sys.stderr)
+        return 130
     except (OSError, ValueError, RuntimeError, ImportError, AttributeError, URLError) as error:
         print(f"llmgw: {error}", file=sys.stderr)
         return 1
