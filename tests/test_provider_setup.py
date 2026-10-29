@@ -72,7 +72,8 @@ def test_real_terminal_key_entry_has_no_echo_and_no_live_api_call():
     code = ('import gateway.setup as setup; '
             'setup.available_models=lambda credentials: ["deepseek-flash"]; '
             'from gateway.cli import main; raise SystemExit(main(["setup"]))')
-    process = subprocess.Popen([sys.executable, "-c", code], stdin=slave, stdout=slave, stderr=slave)
+    process = subprocess.Popen([sys.executable, "-c", code], stdin=slave, stdout=slave, stderr=slave,
+                               start_new_session=True)
     os.close(slave)
     output = bytearray()
     key_sent = model_sent = False
@@ -210,7 +211,7 @@ def test_deepseek_transport_keeps_key_only_in_header_and_limits_payload(monkeypa
     assert seen["closed"]
 
 
-@pytest.mark.parametrize("status,reason", [(401, "authentication"), (402, "balance"), (429, "rate_limit"), (500, "unavailable"), (302, "unavailable")])
+@pytest.mark.parametrize("status,reason", [(400, "request"), (401, "authentication"), (402, "balance"), (429, "rate_limit"), (500, "unavailable"), (302, "unavailable")])
 def test_remote_error_bodies_and_redirects_are_never_exposed(monkeypatch, status, reason):
     seen = []
     class Reply:

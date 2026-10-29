@@ -31,7 +31,7 @@ def authenticated_json(credentials: Credentials, path: str, payload: dict | None
                            headers={"Authorization": "Bearer " + credentials.api_key, "Content-Type": "application/json"})
         response = connection.getresponse()
         if response.status != 200:
-            reason = {401: "authentication", 403: "authentication", 402: "balance", 429: "rate_limit"}.get(response.status, "unavailable")
+            reason = {400: "request", 401: "authentication", 403: "authentication", 402: "balance", 422: "request", 429: "rate_limit"}.get(response.status, "unavailable")
             raise ProviderError(reason)
         content = bytearray()
         while True:
@@ -80,9 +80,10 @@ ERROR_MESSAGES = {
     "authentication": "DeepSeek rejected the key. Run llmgw setup to replace it.",
     "balance": "DeepSeek reports insufficient balance. Check your DeepSeek account.",
     "rate_limit": "DeepSeek is rate limiting requests. Wait and try again.",
+    "request": "DeepSeek rejected the request or selected model. Run llmgw setup to check the model.",
     "timeout": "DeepSeek did not respond in time. No automatic retry was made.",
     "invalid_response": "DeepSeek returned an unsupported response.",
-    "unavailable": "Cannot reach DeepSeek. Check internet access and try again.",
+    "unavailable": "DeepSeek is unavailable or cannot be reached. Check internet access and try again.",
 }
 
 
