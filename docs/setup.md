@@ -1,5 +1,7 @@
 # Setup and run
 
+For a terminal demo on Linux/macOS without a Git checkout or preinstalled Python, use the [terminal installation guide](terminal.md). The source-development recipe below remains available for contributors.
+
 This recipe installs the gateway in a clean Python 3.12 virtual environment and sends one request through two plugins. It needs no provider key, no account and no local file that is not in the repository: the gateway answers with a built-in fake provider.
 
 ## Prerequisites

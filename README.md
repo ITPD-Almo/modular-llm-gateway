@@ -12,6 +12,10 @@ The first version uses Python 3.12 and FastAPI, with two example plugins and a d
 
 Repository: [ITPD-Almo/modular-llm-gateway](https://github.com/ITPD-Almo/modular-llm-gateway).
 
+## Terminal preview for Linux and macOS
+
+The next-version [terminal installer and supervisor walkthrough](docs/terminal.md) provide an isolated runtime and the `llmgw` command without requiring Git, Python or Docker in advance. The installed demo checks plugin order, disabling, A/B transformation and timeout recovery against the fake provider. This is an unreleased local demo; the latest published release remains v0.2.0.
+
 ## Team
 
 Organization: [ITPD-Almo](https://github.com/ITPD-Almo).

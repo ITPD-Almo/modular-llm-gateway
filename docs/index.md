@@ -16,6 +16,8 @@ This is a course project of team 9 in the autumn 2026 term, and it is a work in 
 - [Developer demo](demo.md): normal and changed plugin order, a third-party A/B plugin, timeout recovery and reset.
 - [Operating guide](operations.md): request correlation, lifecycle events, limits and recovery.
 
+- [Terminal installation and supervisor demo](terminal.md): install on Linux/macOS without preinstalled Python, Git or Docker.
+
 ## Requirements
 
 - [Quality requirements](quality-requirements/README.md): the quality bars the gateway is checked against, sorted by business importance and technical risk.
