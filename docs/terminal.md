@@ -73,7 +73,7 @@ No file editing, environment variables or key command-line arguments are needed:
 llmgw setup
 ```
 
-The guide asks you to paste your API key into a hidden terminal prompt and choose a model from your account's available models. Press Enter for the default model. Obtain a key from [DeepSeek's platform](https://platform.deepseek.com) if needed. Do not paste keys into chat, shell commands or the API documentation's request body.
+The guide asks you to paste your API key into a hidden terminal prompt and choose a model from your account's available models. Press Enter for the default model. [DeepSeek's first-call guide](https://api-docs.deepseek.com/) links to the account console where you can obtain a key. Do not paste keys into chat, shell commands or the API documentation's request body.
 
 Setup checks the key with the [read-only models endpoint](https://api-docs.deepseek.com/api/list-models/). It makes no paid chat-generation request and does not verify your balance. An invalid key, network failure, bad model choice or Ctrl+C leaves the previous saved profile unchanged. It refuses to accept the key when hidden input is unavailable.
 
