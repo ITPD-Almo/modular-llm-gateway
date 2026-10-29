@@ -54,3 +54,23 @@ jobs:
             exit 1
           fi
           echo 'PASS: installer, isolated runtime, five HTTP scenarios, custom plugin, restart and safe repeat installation'
+      - name: Verify guided key setup with synthetic keys and no external API calls
+        shell: bash
+        run: |
+          set -euo pipefail
+          export XDG_DATA_HOME="$RUNNER_TEMP/gateway data"
+          cd "$RUNNER_TEMP"
+          curl --fail --location --silent --show-error \
+            "https://github.com/ITPD-Almo/modular-llm-gateway/archive/$SOURCE_REF.tar.gz" -o test-source.tar.gz
+          mkdir test-source
+          tar -xzf test-source.tar.gz -C test-source --strip-components=1
+          if [ ! -f test-source/tests/test_provider_setup.py ]; then
+            echo 'Guided setup is not included in this source ref; installer checks above remain the baseline.'
+            exit 0
+          fi
+          uv="$XDG_DATA_HOME/llmgw/uv/uv"
+          "$uv" venv --python "$XDG_DATA_HOME/llmgw/tools/modular-llm-gateway/bin/python" "$RUNNER_TEMP/guided-test-env"
+          "$uv" pip install --python "$RUNNER_TEMP/guided-test-env/bin/python" \
+            --constraint test-source/requirements-runtime.txt -e 'test-source[test]'
+          cd test-source
+          "$RUNNER_TEMP/guided-test-env/bin/python" -m pytest -q tests/test_provider_setup.py
