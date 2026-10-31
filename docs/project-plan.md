@@ -71,9 +71,16 @@ Released as [v0.2.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/t
 
 ### SPRINT-05
 
-Provisional: an operator can use a shared gateway deployed from a tested, identifiable build and verify or recover that deployment without relying on a presenter's laptop.
+The Customer opens the gateway on the university VM from the university network, the team proves its two High business-importance quality requirements in the CI and against staging, and a newcomer can install and try the gateway with one command.
 
 - **Due:** 2026-10-31
+- **Sprint Backlog:** [the issues scheduled into SPRINT-05](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/3)
+- **Planned Velocity:** 18
+
+The planned velocity was computed by hand as 2 + 3 + 3 + 5 + 5 from the `Story Points` of [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41), [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42), [US-04](https://github.com/ITPD-Almo/modular-llm-gateway/issues/52) and [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96).
+The first four stories carried over from SPRINT-04 for their Customer verdicts; US-09 is new this sprint.
+[US-10](https://github.com/ITPD-Almo/modular-llm-gateway/issues/97) is refined for SPRINT-06 and stays in the product backlog with no milestone, together with the refined candidates US-05 to US-08.
+The work is split into one task per member: [#98](https://github.com/ITPD-Almo/modular-llm-gateway/issues/98) for the CI checks and the quality requirement tests, [#99](https://github.com/ITPD-Almo/modular-llm-gateway/issues/99) for the deployment and the Sprint Review, and [#100](https://github.com/ITPD-Almo/modular-llm-gateway/issues/100) for the plan, the features and the sprint close.
 
 #### REL-05
 
@@ -109,9 +116,16 @@ Provisional: the final release incorporates the selected usability findings, has
 
 #### REL-09
 
+## Quality Requirement Testing Plan
+
+| QR | QRT | Status | Checked | Planned for sprint | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Not verified | None | [SPRINT-05](#sprint-05) | None |
+| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Not verified | None | [SPRINT-05](#sprint-05) | None |
+
 ## Progress Monitoring
 
-- **Review:** proposed weekly review, Wednesdays at 19:00 Europe/Moscow, before the weekly customer meeting, with the time still to be confirmed by the team; it reads [threshold-of-success.md](threshold-of-success.md) and [risks.md](risks.md) and settles what changed.
+- **Review:** proposed weekly review, Wednesdays at 19:00 Europe/Moscow, before the weekly customer meeting, with the time still to be confirmed by the team; it reads [threshold-of-success.md](threshold-of-success.md), [risks.md](risks.md) and the [testing plan](#quality-requirement-testing-plan) rows that are not `Passes`, and settles what changed.
 - **Checked by:** the `Accountable` member of each scheduled issue reports its state, and the team walks the sprint's GitHub milestone against the sprint's goal.
 - **Visible at:** the [GitHub project's Sprint table](https://github.com/orgs/ITPD-Almo/projects/1/views/2), grouped by milestone, and the [sprints' GitHub milestones](https://github.com/ITPD-Almo/modular-llm-gateway/milestones).
 - **Continuation:** the [development workflow](development-workflow.md) records the next-assignment intake, file ownership, review and demonstration routine; each new assignment replaces provisional detail at planning rather than rewriting earlier reports. The Customer asked for progress beyond one iteration and welcomed asynchronous clarification in [DEC-011](decisions.md#dec-011).
