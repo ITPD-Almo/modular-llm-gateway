@@ -12,7 +12,9 @@ The plan's milestones already place the next increments: [MLS-05](../../docs/pro
 Both were already in the plan, so no milestone was added this week.
 SPRINT-05 added [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96) (install and try the gateway with one command), scheduled this sprint, and [US-10](https://github.com/ITPD-Almo/modular-llm-gateway/issues/97) (connect your own provider account), refined for SPRINT-06.
 
-TODO (after Sergey's PR): the product CI runs lint, format, type check, build and tests on pull requests and on main, together with `actionlint`; the checks that do not apply and why: TODO.
+The product CI runs named lint (`ruff check`), format (`ruff format --check`), type check (`mypy gateway`), build (`python -m build --wheel`) and test (`python -m pytest`) steps on pull requests and on main, together with `actionlint` over the workflows, per [#103](https://github.com/ITPD-Almo/modular-llm-gateway/pull/103).
+Every one of these checks applies to the Python package, so none is recorded as not applicable, and there is no deploy job because the CI cannot reach the university network.
+The CI task [#98](https://github.com/ITPD-Almo/modular-llm-gateway/issues/98) was taken over and finished by Mohammed-Nour, as declared in [Deviations](#deviations).
 [QR-01 QRT-01](../../docs/quality-requirements/qr/QR-01.md#qrt-01) runs in the CI and [QR-02 QRT-01](../../docs/quality-requirements/qr/QR-02.md#qrt-01) against staging; the tests that are not `Passes` are in the [testing plan](../../docs/project-plan.md#quality-requirement-testing-plan).
 
 TODO (after the tag): REL-05 is [v0.5.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.5.0), cut on the commit production runs.
@@ -53,8 +55,8 @@ The implemented tests' results are recorded in the [testing plan](../../docs/pro
 | Member | Evidenced work |
 | --- | --- |
 | Ali12hamdan | [One-command installer #92](https://github.com/ITPD-Almo/modular-llm-gateway/pull/92), [install check #93](https://github.com/ITPD-Almo/modular-llm-gateway/pull/93), [provider setup #95](https://github.com/ITPD-Almo/modular-llm-gateway/pull/95), [deployment runbook #102](https://github.com/ITPD-Almo/modular-llm-gateway/pull/102) for [#99](https://github.com/ITPD-Almo/modular-llm-gateway/issues/99), the VM deploy and the v0.5.0 release. |
-| Mohammed-Nour | [Plan, testing plan, features and sprint close #101](https://github.com/ITPD-Almo/modular-llm-gateway/pull/101), the Week 5 split and issues [#96](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96) to [#100](https://github.com/ITPD-Almo/modular-llm-gateway/issues/100), and reviews of #92, #93 and #95. |
-| atkond2point0 | TODO: the CI checks and quality requirement tests pull request for [#98](https://github.com/ITPD-Almo/modular-llm-gateway/issues/98). |
+| Mohammed-Nour | [Plan, testing plan, features and sprint close #101](https://github.com/ITPD-Almo/modular-llm-gateway/pull/101), the Week 5 split and issues [#96](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96) to [#100](https://github.com/ITPD-Almo/modular-llm-gateway/issues/100), and reviews of #92, #93, #95 and #102; finished the CI checks, critical-module tests and quality requirement tests in [#103](https://github.com/ITPD-Almo/modular-llm-gateway/pull/103) for [#98](https://github.com/ITPD-Almo/modular-llm-gateway/issues/98) after taking the task over. |
+| atkond2point0 | Opened [#103](https://github.com/ITPD-Almo/modular-llm-gateway/pull/103) for [#98](https://github.com/ITPD-Almo/modular-llm-gateway/issues/98) with a first draft of the `actionlint` workflow, the CI steps and the plugin tests (commit 43c28e2); the task was then taken over, as declared in [Deviations](#deviations). |
 
 ## Repository evidence
 
@@ -74,6 +76,12 @@ GitHub issue and project links and the course Git submodule are handled by the e
   - REL-05 is cut on the deployed and tested commit without a Customer review, so it carries no accepted story.
 - The course VM from the university portal had not been supplied by 2026-10-31. The owner reports that the TA approved a temporary university VM which is directly reachable on campus, with Tailscale/Funnel providing outside access, and that the assignment VM is expected on Monday, November 2; see [docs/deployment.md](../../docs/deployment.md#vm-and-campus-access). These are owner-reported facts, not a completed campus deployment or test. TODO: record the actual staging QRT and production verification at their real access level, and the later migration.
 - The deployment pull request [#102](https://github.com/ITPD-Almo/modular-llm-gateway/pull/102) says `Refs #99` instead of `Closes #99`, because it merges as the runbook before the deployment it describes. [#99](https://github.com/ITPD-Almo/modular-llm-gateway/issues/99) stays open until the real deployment, the campus verification and the tag exist, and is then closed by hand with #102 and this report's evidence linked, rather than by its pull request.
+- The CI and quality requirement test task [#98](https://github.com/ITPD-Almo/modular-llm-gateway/issues/98) was assigned to atkond2point0, who opened [#103](https://github.com/ITPD-Almo/modular-llm-gateway/pull/103) on the evening of 2026-10-31 but could not finish it before the deadline. Mohammed-Nour took the task over and finished it on the same branch, as new commits without rewriting history:
+  - the branch had started from a Week 3 commit, so `main` was merged in and main's QR-01, QR-02, Definition of Done, example configuration and `pyproject.toml` were kept;
+  - files from another course's case study that the first commit included by mistake (`output/latex/`, `report_revised.html`, `revised_deck.html`, `tmp/`) were removed, and they remain only in the branch history;
+  - the CI checks were made to pass on the real code, a test was added for the validation module and the default plugin list, and both `QRT-01` sections were rewritten in the course format.
+
+  Because Mohammed-Nour, the task's Accountable member, wrote most of the change, Ali12hamdan reviewed and merged #103 instead, so the author did not verify their own work.
 - TODO: any other fallback (a `scripted` or `CI` test instead of `deployed`), rework deferred to SPRINT-06, or other deviation from the day.
 
 ## Privacy
