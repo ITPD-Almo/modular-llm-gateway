@@ -1,8 +1,8 @@
 """Fixed-origin DeepSeek transport; credentials never enter plugin dictionaries."""
 
-from dataclasses import dataclass, field
 import http.client
 import json
+from dataclasses import dataclass, field
 from time import monotonic
 from typing import Any
 
@@ -27,11 +27,25 @@ def authenticated_json(credentials: Credentials, path: str, payload: dict | None
     deadline = monotonic() + 40
     try:
         data = None if payload is None else json.dumps(payload, allow_nan=False).encode("utf-8")
-        connection.request("GET" if data is None else "POST", path, body=data,
-                           headers={"Authorization": "Bearer " + credentials.api_key, "Content-Type": "application/json"})
+        connection.request(
+            "GET" if data is None else "POST",
+            path,
+            body=data,
+            headers={
+                "Authorization": "Bearer " + credentials.api_key,
+                "Content-Type": "application/json",
+            },
+        )
         response = connection.getresponse()
         if response.status != 200:
-            reason = {400: "request", 401: "authentication", 403: "authentication", 402: "balance", 422: "request", 429: "rate_limit"}.get(response.status, "unavailable")
+            reason = {
+                400: "request",
+                401: "authentication",
+                403: "authentication",
+                402: "balance",
+                422: "request",
+                429: "rate_limit",
+            }.get(response.status, "unavailable")
             raise ProviderError(reason)
         content = bytearray()
         while True:
@@ -69,7 +83,12 @@ def available_models(credentials: Credentials) -> list[str]:
     for row in rows[:64]:
         if isinstance(row, dict) and isinstance(row.get("id"), str):
             name = row["id"]
-            if name and credentials.api_key not in name and len(name) <= 128 and all(c.isascii() and (c.isalnum() or c in "._-") for c in name):
+            if (
+                name
+                and credentials.api_key not in name
+                and len(name) <= 128
+                and all(c.isascii() and (c.isalnum() or c in "._-") for c in name)
+            ):
                 names.append(name)
     if not names:
         raise ProviderError("invalid_response")
@@ -95,16 +114,33 @@ class DeepSeekProvider:
 
     def __call__(self, request: dict[str, Any]) -> dict[str, Any]:
         messages = request.get("messages", [])
-        if not messages or any(m.get("role") not in ("system", "user", "assistant") or not isinstance(m.get("content"), str) for m in messages):
+        if not messages or any(
+            m.get("role") not in ("system", "user", "assistant")
+            or not isinstance(m.get("content"), str)
+            for m in messages
+        ):
             raise ProviderError("invalid_response")
         # No metadata, diagnostics, plugin state or caller-selected endpoint/model
         # is forwarded. Authorization belongs only to the transport header.
-        body = {"model": self.credentials.model, "messages": [{"role": m["role"], "content": m["content"]} for m in messages],
-                "stream": False, "max_tokens": 128, "thinking": {"type": "disabled"}}
+        body = {
+            "model": self.credentials.model,
+            "messages": [{"role": m["role"], "content": m["content"]} for m in messages],
+            "stream": False,
+            "max_tokens": 128,
+            "thinking": {"type": "disabled"},
+        }
         result = authenticated_json(self.credentials, "/chat/completions", body)
         try:
-            choices = [{"message": {"role": "assistant", "content": c["message"]["content"]}} for c in result["choices"]]
-            response = {"id": "deepseek-response", "model": self.credentials.model, "provider": self.name, "choices": choices}
+            choices = [
+                {"message": {"role": "assistant", "content": c["message"]["content"]}}
+                for c in result["choices"]
+            ]
+            response = {
+                "id": "deepseek-response",
+                "model": self.credentials.model,
+                "provider": self.name,
+                "choices": choices,
+            }
             validate_response(response)
             if self.credentials.api_key in json.dumps(response):
                 raise ProviderError("invalid_response")

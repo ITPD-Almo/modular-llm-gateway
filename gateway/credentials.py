@@ -1,11 +1,11 @@
 """Private per-user provider profile, outside any project or plugin configuration."""
 
-from dataclasses import dataclass, field
 import json
 import os
-from pathlib import Path
 import stat
 import tempfile
+from dataclasses import dataclass, field
+from pathlib import Path
 
 
 @dataclass(frozen=True)
@@ -16,7 +16,11 @@ class Credentials:
     def __post_init__(self) -> None:
         if not 8 <= len(self.api_key) <= 512 or not all(33 <= ord(c) <= 126 for c in self.api_key):
             raise ValueError("The API key must be nonempty ASCII text without spaces or newlines")
-        if not self.model or len(self.model) > 128 or not all(c.isascii() and (c.isalnum() or c in "._-") for c in self.model):
+        if (
+            not self.model
+            or len(self.model) > 128
+            or not all(c.isascii() and (c.isalnum() or c in "._-") for c in self.model)
+        ):
             raise ValueError("Invalid model identifier")
 
 
@@ -31,7 +35,9 @@ def _check(path: Path, directory: bool = False) -> None:
     info = path.lstat()
     correct_type = stat.S_ISDIR(info.st_mode) if directory else stat.S_ISREG(info.st_mode)
     if not correct_type or info.st_uid != os.getuid() or stat.S_IMODE(info.st_mode) & 0o077:
-        raise ValueError("Provider profile must be owned by you with private permissions; run llmgw setup")
+        raise ValueError(
+            "Provider profile must be owned by you with private permissions; run llmgw setup"
+        )
 
 
 def load_credentials() -> Credentials | None:
@@ -65,7 +71,14 @@ def save_credentials(credentials: Credentials) -> None:
     fd, temporary = tempfile.mkstemp(prefix=".provider-", dir=directory)
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as destination:
-            json.dump({"provider": "deepseek", "model": credentials.model, "api_key": credentials.api_key}, destination)
+            json.dump(
+                {
+                    "provider": "deepseek",
+                    "model": credentials.model,
+                    "api_key": credentials.api_key,
+                },
+                destination,
+            )
             destination.write("\n")
             destination.flush()
             os.fsync(destination.fileno())

@@ -2,8 +2,11 @@ from typing import Any, Protocol
 
 
 class ChatProvider(Protocol):
-    name: str
-    timeout_ms: int
+    @property
+    def name(self) -> str: ...
+
+    @property
+    def timeout_ms(self) -> int: ...
 
     def __call__(self, request: dict[str, Any]) -> dict[str, Any]: ...
 
