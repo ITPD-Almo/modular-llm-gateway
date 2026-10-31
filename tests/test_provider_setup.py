@@ -1,7 +1,7 @@
 """No live credentials or external API calls: local profiles and synthetic transports only."""
 
-import getpass
 import errno
+import getpass
 import json
 import os
 import pty
@@ -11,11 +11,17 @@ import subprocess
 import sys
 from time import monotonic
 
-from fastapi.testclient import TestClient
 import pytest
+from fastapi.testclient import TestClient
 
 from gateway.cli import main
-from gateway.credentials import Credentials, load_credentials, profile_directory, remove_credentials, save_credentials
+from gateway.credentials import (
+    Credentials,
+    load_credentials,
+    profile_directory,
+    remove_credentials,
+    save_credentials,
+)
 from gateway.deepseek import DeepSeekProvider, ProviderError, authenticated_json, available_models
 from gateway.main import create_app
 from tests.provider_fixtures import SyntheticProvider
@@ -30,7 +36,9 @@ def private_profile(tmp_path, monkeypatch):
 
 def test_setup_hides_key_checks_models_and_saves_private_profile(monkeypatch, capsys):
     monkeypatch.setattr(getpass, "getpass", lambda prompt: KEY)
-    monkeypatch.setattr("gateway.setup.available_models", lambda credentials: ["deepseek-flash", "other-model"])
+    monkeypatch.setattr(
+        "gateway.setup.available_models", lambda credentials: ["deepseek-flash", "other-model"]
+    )
     monkeypatch.setattr("builtins.input", lambda prompt: "")
     assert main(["setup"]) == 0
     saved = load_credentials()
@@ -49,8 +57,10 @@ def test_setup_failure_never_replaces_a_working_profile(monkeypatch, capsys, fai
     old = Credentials("previous-synthetic-test-key")
     save_credentials(old)
     monkeypatch.setattr(getpass, "getpass", lambda prompt: KEY)
+
     def rejected(credentials):
         raise ProviderError(failure)
+
     monkeypatch.setattr("gateway.setup.available_models", rejected)
     assert main(["setup"]) == 1
     assert load_credentials() == old
@@ -61,6 +71,7 @@ def test_setup_failure_never_replaces_a_working_profile(monkeypatch, capsys, fai
 def test_setup_refuses_visible_getpass_fallback(monkeypatch, capsys):
     def unavailable(prompt):
         raise getpass.GetPassWarning("cannot hide input")
+
     monkeypatch.setattr(getpass, "getpass", unavailable)
     assert main(["setup"]) == 1
     assert load_credentials() is None
@@ -69,11 +80,18 @@ def test_setup_refuses_visible_getpass_fallback(monkeypatch, capsys):
 
 def test_real_terminal_key_entry_has_no_echo_and_no_live_api_call():
     master, slave = pty.openpty()
-    code = ('import gateway.setup as setup; '
-            'setup.available_models=lambda credentials: ["deepseek-flash"]; '
-            'from gateway.cli import main; raise SystemExit(main(["setup"]))')
-    process = subprocess.Popen([sys.executable, "-c", code], stdin=slave, stdout=slave, stderr=slave,
-                               start_new_session=True)
+    code = (
+        "import gateway.setup as setup; "
+        'setup.available_models=lambda credentials: ["deepseek-flash"]; '
+        'from gateway.cli import main; raise SystemExit(main(["setup"]))'
+    )
+    process = subprocess.Popen(
+        [sys.executable, "-c", code],
+        stdin=slave,
+        stdout=slave,
+        stderr=slave,
+        start_new_session=True,
+    )
     os.close(slave)
     output = bytearray()
     key_sent = model_sent = False
@@ -81,7 +99,7 @@ def test_real_terminal_key_entry_has_no_echo_and_no_live_api_call():
         deadline = monotonic() + 15
         while process.poll() is None:
             assert monotonic() < deadline, "setup did not finish in a real PTY"
-            if select.select([master], [], [], .1)[0]:
+            if select.select([master], [], [], 0.1)[0]:
                 try:
                     chunk = os.read(master, 65536)
                 except OSError as error:
@@ -117,8 +135,14 @@ def test_real_terminal_key_entry_has_no_echo_and_no_live_api_call():
 
 
 def test_redirected_input_never_falls_back_to_echoing_or_saving_key():
-    result = subprocess.run([sys.executable, "-m", "gateway", "setup"], input=KEY + "\n", text=True,
-                            capture_output=True, timeout=15, start_new_session=True)
+    result = subprocess.run(
+        [sys.executable, "-m", "gateway", "setup"],
+        input=KEY + "\n",
+        text=True,
+        capture_output=True,
+        timeout=15,
+        start_new_session=True,
+    )
     assert result.returncode == 1 and KEY not in result.stdout + result.stderr
     assert load_credentials() is None
 
@@ -126,8 +150,10 @@ def test_redirected_input_never_falls_back_to_echoing_or_saving_key():
 def test_cancel_setup_keeps_existing_key(monkeypatch):
     old = Credentials(KEY)
     save_credentials(old)
+
     def canceled(prompt):
         raise KeyboardInterrupt
+
     monkeypatch.setattr(getpass, "getpass", canceled)
     assert main(["setup"]) == 130
     assert load_credentials() == old
@@ -171,9 +197,18 @@ def test_profile_symlink_and_public_permissions_are_rejected(tmp_path):
 
 def test_models_are_discovered_without_chat_and_untrusted_identifiers_are_not_printed(monkeypatch):
     calls = []
+
     def transport(credentials, path, payload=None):
         calls.append((path, payload))
-        return {"data": [{"id": KEY}, {"id": "unsafe\x1bcommand"}, {"id": "other"}, {"id": "deepseek-flash"}]}
+        return {
+            "data": [
+                {"id": KEY},
+                {"id": "unsafe\x1bcommand"},
+                {"id": "other"},
+                {"id": "deepseek-flash"},
+            ]
+        }
+
     monkeypatch.setattr("gateway.deepseek.authenticated_json", transport)
     assert available_models(Credentials(KEY)) == ["deepseek-flash", "other"]
     assert calls == [("/models", None)]
@@ -181,26 +216,40 @@ def test_models_are_discovered_without_chat_and_untrusted_identifiers_are_not_pr
 
 def test_deepseek_transport_keeps_key_only_in_header_and_limits_payload(monkeypatch):
     seen = {}
+
     class Reply:
         status = 200
+
         def read1(self, size):
             if seen.get("read"):
                 return b""
             seen["read"] = True
             return b'{"choices":[{"message":{"content":"synthetic answer"}}]}'
+
     class Connection:
         sock = None
+
         def __init__(self, host, timeout):
             seen["host"] = host
+
         def request(self, method, path, body, headers):
             seen.update(method=method, path=path, body=body, headers=headers)
+
         def getresponse(self):
             return Reply()
+
         def close(self):
             seen["closed"] = True
+
     monkeypatch.setattr("gateway.deepseek.http.client.HTTPSConnection", Connection)
-    result = DeepSeekProvider(Credentials(KEY))({"model": "caller-model", "messages": [{"role": "user", "content": "synthetic prompt"}],
-                                               "metadata": {"do_not_forward": True}, "api_key": KEY})
+    result = DeepSeekProvider(Credentials(KEY))(
+        {
+            "model": "caller-model",
+            "messages": [{"role": "user", "content": "synthetic prompt"}],
+            "metadata": {"do_not_forward": True},
+            "api_key": KEY,
+        }
+    )
     payload = json.loads(seen["body"])
     assert seen["host"] == "api.deepseek.com" and seen["path"] == "/chat/completions"
     assert seen["headers"]["Authorization"] == "Bearer " + KEY
@@ -211,23 +260,40 @@ def test_deepseek_transport_keeps_key_only_in_header_and_limits_payload(monkeypa
     assert seen["closed"]
 
 
-@pytest.mark.parametrize("status,reason", [(400, "request"), (401, "authentication"), (402, "balance"), (429, "rate_limit"), (500, "unavailable"), (302, "unavailable")])
+@pytest.mark.parametrize(
+    "status,reason",
+    [
+        (400, "request"),
+        (401, "authentication"),
+        (402, "balance"),
+        (429, "rate_limit"),
+        (500, "unavailable"),
+        (302, "unavailable"),
+    ],
+)
 def test_remote_error_bodies_and_redirects_are_never_exposed(monkeypatch, status, reason):
     seen = []
+
     class Reply:
         def __init__(self):
             self.status = status
+
         def read1(self, size):
             pytest.fail("error bodies should not be read or reflected")
+
     class Connection:
         def __init__(self, host, timeout):
             seen.append(host)
+
         def request(self, *args, **kwargs):
             pass
+
         def getresponse(self):
             return Reply()
+
         def close(self):
             pass
+
     monkeypatch.setattr("gateway.deepseek.http.client.HTTPSConnection", Connection)
     with pytest.raises(ProviderError) as caught:
         authenticated_json(Credentials(KEY), "/models")
@@ -242,11 +308,15 @@ def configured_app(tmp_path, provider, plugins=()):
 
 
 def chat(client, message="hello"):
-    return client.post("/v1/chat/completions", json={"messages": [{"role": "user", "content": message}]})
+    return client.post(
+        "/v1/chat/completions", json={"messages": [{"role": "user", "content": message}]}
+    )
 
 
 def test_provider_wait_is_not_mistaken_for_worker_startup_or_hook_timeout(tmp_path):
-    app = configured_app(tmp_path, SyntheticProvider(delay=1.15), ["gateway.plugins.uppercase.UppercasePlugin"])
+    app = configured_app(
+        tmp_path, SyntheticProvider(delay=1.15), ["gateway.plugins.uppercase.UppercasePlugin"]
+    )
     with TestClient(app) as client:
         response = chat(client)
         assert response.status_code == 200
