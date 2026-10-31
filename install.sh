@@ -62,7 +62,7 @@ main() {
     case ":$PATH:" in *":$bindir:"*) ;; *)
         printf '%s\n' "For this shell: export PATH=\"$bindir:\$PATH\"" "Or run directly: '$bindir/llmgw' serve"
     esac
-    printf '%s\n' 'No shell profile was edited. No provider key or account is needed for the fake-provider demo.'
+    printf '%s\n' 'No shell profile was edited. No provider key or account is needed for the fake-provider demo.' 'Connect your own DeepSeek account: llmgw setup'
 }
 
 die() { printf 'llmgw installer: %s\n' "$*" >&2; exit 1; }
