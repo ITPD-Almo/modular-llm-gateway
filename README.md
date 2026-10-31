@@ -16,6 +16,8 @@ Repository: [ITPD-Almo/modular-llm-gateway](https://github.com/ITPD-Almo/modular
 
 The next-version [terminal installer and supervisor walkthrough](docs/terminal.md) provide an isolated runtime and the `llmgw` command without requiring Git, Python or Docker in advance. The installed demo checks plugin order, disabling, A/B transformation and timeout recovery against the fake provider. This is an unreleased local demo; the latest published release remains v0.2.0.
 
+Connect your own DeepSeek account with `llmgw setup`: paste the key into a hidden prompt, choose a model and start `llmgw serve`. The [guided setup](docs/terminal.md#connect-your-own-deepseek-account) stores the key privately outside the project; no `.env` editing is needed. `llmgw demo` stays offline and `llmgw logout` removes saved credentials.
+
 ## Team
 
 Organization: [ITPD-Almo](https://github.com/ITPD-Almo).

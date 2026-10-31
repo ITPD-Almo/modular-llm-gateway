@@ -6,6 +6,8 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
 
 - `gateway/` is the product: one FastAPI application.
   - `cli.py` and `__main__.py`: installed `llmgw` and module commands.
+  - `setup.py` and `credentials.py`: guided hidden-input setup and private per-user provider profile.
+  - `deepseek.py`: fixed-origin HTTPS adapter and safe provider failures; never add keys to plugin dictionaries.
   - `demo.py`: isolated real HTTP demo with ephemeral ports and cleanup.
   - `data/`: default configuration shipped in the wheel.
   - `main.py`: app factory and HTTP endpoints.
@@ -20,7 +22,7 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
 - `install.sh` bootstraps the Linux/macOS terminal tool into user-owned directories;
   `requirements-runtime.txt` pins its runtime dependencies. `docs/terminal.md` owns that install/demo recipe.
 - `examples/` holds the third-party A/B and slow-hook examples and their configuration files; they load without editing gateway core.
-- `tests/` holds the pytest suite; every test uses synthetic plugins and the fake provider, never a provider key or the network.
+- `tests/` holds the pytest suite; tests use synthetic plugins, fake providers and mocked transports, never a real provider key or an external API call. Isolate XDG_CONFIG_HOME when exercising CLI provider selection so a developer's saved profile cannot trigger a paid call.
 - `docs/` holds the maintained artifacts and the documentation site:
   - the vision, the plan and the decisions
   - the assumptions and the research

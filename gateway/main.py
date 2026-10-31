@@ -12,6 +12,7 @@ from .config import instantiate_plugins, read_plugin_paths
 from .diagnostics import configure_diagnostics, new_request_id
 from .execution import ExecutionFailure, ExecutionSettings, PipelineExecutor
 from .provider import fake_provider as fake_provider  # Keep the existing import path available.
+from .provider import ChatProvider
 
 
 class Message(BaseModel):
@@ -31,6 +32,7 @@ def create_app(
     plugin_timeout_ms: int | None = None,
     max_workers: int | None = None,
     startup_timeout_ms: int | None = None,
+    provider: ChatProvider | None = None,
 ) -> FastAPI:
     configure_diagnostics()
     source_default = Path(__file__).resolve().parent.parent / "config" / "plugins.json"
@@ -57,7 +59,7 @@ def create_app(
         max_workers=setting(max_workers, "GATEWAY_MAX_WORKERS", 4),
         startup_timeout_ms=setting(startup_timeout_ms, "GATEWAY_WORKER_STARTUP_TIMEOUT_MS", 1000),
     )
-    executor = PipelineExecutor(paths, tuple(type(plugin).__name__ for plugin in plugins), settings)
+    executor = PipelineExecutor(paths, tuple(type(plugin).__name__ for plugin in plugins), settings, provider=provider)
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
