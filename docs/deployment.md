@@ -95,8 +95,11 @@ git rev-parse origin/main
 On the VM, paste that SHA and define this function once in the same Bash session:
 
 ```sh
-read -r -p 'Reviewed full commit SHA: ' RELEASE_COMMIT
-[[ "$RELEASE_COMMIT" =~ ^[0-9a-f]{40}$ ]] || exit 1
+while true; do
+    read -r -p 'Reviewed full commit SHA: ' RELEASE_COMMIT || break
+    [[ "$RELEASE_COMMIT" =~ ^[0-9a-f]{40}$ ]] && break
+    printf '%s\n' 'Enter exactly 40 lowercase hexadecimal characters.' >&2
+done
 export RELEASE_COMMIT
 
 deploy_environment() (
@@ -282,22 +285,13 @@ To return specifically to `v0.2.0`, use its [versioned source setup](https://git
 Re-verify from campus before treating the rollback as recovered.
 Do not claim that an older tag supports commands introduced later.
 
-## Review, rework and release gate
+## Rework and release records
 
-The Week 5 Customer meeting is postponed to Week 6 because a meeting time was not agreed in time; the new date is unconfirmed.
-Record this deviation in the week's report; no Customer verdict, meeting transcript or accepted velocity follows from technical checks.
-Prepare the script before the rescheduled meeting and carry the Week 4 actions and questions forward.
+The [project plan](project-plan.md) owns the testing plan and the `REL-05` release record.
+The Week 5 report owns the actual deployment evidence, access network and meeting/deployment deviations.
+After code or configuration rework, repeat staging, the affected test and same-SHA production verification before tagging the commit production runs.
+Verify that `llmgw --version` matches the intended release version before promotion.
 
-Any code or configuration rework requires a new reviewed main SHA: deploy staging, rerun the affected test, promote that same SHA, then repeat campus production verification.
-Keep unfinished rework open in the next sprint.
-
-After deployment evidence is complete, cut `v0.5.0` on the exact main commit production runs, with the meeting postponement declared.
-Check the package version as well as the tag before release: the current installer preview identifies itself as `0.3.0.dev0`, which must not silently be presented as an installed `0.5.0`.
-Protect the tag against updates/deletion and title the GitHub release `v0.5.0`.
-Use a short customer-facing summary, explain remaining limitations, and put `[Full changelog](<absolute URL to the released 0.5.0 section>)` last, with nothing after it.
-The release task's owner merges the dated changelog section, the plan's `REL-05` block and the report in the required order; validate the final link once those records exist.
-The plan's `Released` and `Checked QRs` fields index the tag/day and requirements actually checked this sprint; the testing-plan rows own results, including failures and partial verification.
-
-If VM access is unavailable, record the reason, the announced postponement date when known, and the deployment deviation.
-Keep a deployed QRT `Not verified`, or agree and document a genuine scripted/CI fallback at its actual level.
-Do not label a local or overlay check as a campus deployment, tag an unverified production commit, or close a story without a recorded Customer verdict.
+If the course VM is unavailable or the alternative host is reachable only over the overlay, record the reason and the announced postponement date when known.
+Coordinate a genuine `scripted`/`CI` fallback and its definition/result with the QR-test owner, or keep the deployed test `Not verified`.
+Upgrade it when campus staging is available; an overlay check does not establish campus access.
