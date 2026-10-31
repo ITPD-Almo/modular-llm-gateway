@@ -128,8 +128,8 @@ Provisional: the final release incorporates the selected usability findings, has
 
 | QR | QRT | Status | Checked | Planned for sprint | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Passes | 2026-10-31 | [SPRINT-05](#sprint-05) | [Campus HTTPS timeout/recovery evidence](https://github.com/ITPD-Almo/modular-llm-gateway/pull/102) |
-| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Passes | 2026-10-31 | [SPRINT-05](#sprint-05) | [CI: 81 tests in 20.90 seconds](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/41227201276) |
+| [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Passes | [SPRINT-05](#sprint-05) | [SPRINT-05](#sprint-05) | [Campus staging run on 2026-10-31](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c7dce8ff876d31a57ee0ca93d9428d8444473f6c/reports/week-05/deployment-evidence.md#qr-02-qrt-01-passes) |
+| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Passes | [SPRINT-05](#sprint-05) | [SPRINT-05](#sprint-05) | [CI: 81 tests in 20.90 seconds](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/41227201276) |
 
 ## Progress Monitoring
 
