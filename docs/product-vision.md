@@ -7,10 +7,11 @@ Modular LLM Gateway
 DevOps staff in a medium or large company can start a gateway, add company-specific plugins, and control employee LLM requests and responses, including routing requests to a provider.
 
 **Supports:** [VP-01](research/value-proposition.md#vp-01), [VP-02](research/value-proposition.md#vp-02).
+**Threshold:** [the threshold of success](threshold-of-success.md).
 
-The [October 9 meeting](../reports/week-02/meeting-report.md) changed our focus from a masking and policy-record example to the plugin workflow, per [DEC-003](decisions.md#dec-003) and [DEC-006](decisions.md#dec-006). The two value propositions remain provisional; the Customer did not confirm them as competitive advantages.
+The [October 9 meeting](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-02/meeting-report.md) changed our focus from a masking and policy-record example to the plugin workflow, per [DEC-003](decisions.md#dec-003) and [DEC-006](decisions.md#dec-006). The two value propositions remain provisional; the Customer did not confirm them as competitive advantages.
 
-For the first usable interaction, the operator should start the system, add two simple plugins, send a request, and see the result. Restarting after adding plugins and using a fake provider are acceptable, per [DEC-005](decisions.md#dec-005). We still need to turn this into a linked story candidate and confirm its scope. An existing tool may be used if it fits, per [DEC-004](decisions.md#dec-004); we have not chosen a new core or an extension yet.
+For the first usable interaction, the operator should start the system, add two simple plugins, send a request, and see the result. Restarting after adding plugins and using a fake provider are acceptable, per [DEC-005](decisions.md#dec-005). The current workflow is specified by [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41) and [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42), whose Customer verdicts remain pending. An existing tool may be used if it fits, per [DEC-004](decisions.md#dec-004); the current starter does not settle that product choice.
 
 ## Stakeholders
 
@@ -33,6 +34,7 @@ The product is a modular core with replaceable plugins for request and response 
 - **Decision:** [DEC-003](decisions.md#dec-003).
 - **Changed:**
   - The next design must show plugin inputs, outputs, execution order, and loading, per [DEC-006](decisions.md#dec-006). Masking alone does not explain the interface.
+  - The October 23 review clarified developer/DevOps handover, the A-input/B-output extension example, and operability when plugins fail or hang, per [DEC-008](decisions.md#dec-008), [DEC-009](decisions.md#dec-009) and [DEC-010](decisions.md#dec-010). These requests do not mandate a non-developer UI or automatic discovery.
 
 ### CON-02
 
@@ -116,6 +118,7 @@ The security or compliance officer is a stakeholder but exchanges nothing with t
 
 ## Where The Detail Lives
 
+- [Architecture](architecture/README.md)
+
 - [User stories](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=label%3Auser-story)
 - [Assumptions](assumptions.md) and [decisions](decisions.md)
-- [Week 2 report](../reports/week-02/README.md)

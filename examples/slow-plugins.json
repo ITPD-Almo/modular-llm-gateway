@@ -1,4 +1,7 @@
 {
-  "model": "fake",
-  "messages": [{"role": "user", "content": "hello"}]
+  "plugins": [
+    "gateway.plugins.add_metadata.MetadataPlugin",
+    "examples.slow_plugin.SlowPlugin",
+    "gateway.plugins.uppercase.UppercasePlugin"
+  ]
 }

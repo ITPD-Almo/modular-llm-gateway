@@ -1,6 +1,6 @@
 # Gap analysis
 
-**Status:** draft for Customer discussion, based on [three alternatives](alternatives.md) and the [comparison](comparison.md). The two entries remain provisional hypotheses, not established gaps. Our [October 9 meeting](../../reports/week-02/meeting-report.md) clarified the DevOps plugin workflow but did not establish either narrower unmet need or a competitive advantage. We still need matched extension and deployment checks. The earlier other-team transcript was background; this joint meeting included our own questions. We will revise or drop these gaps if an existing tool serves the job adequately, as allowed by [DEC-004](../decisions.md#dec-004).
+**Status:** draft for Customer discussion, based on [three alternatives](alternatives.md) and the [comparison](comparison.md). The two entries remain provisional hypotheses, not established gaps. Our [October 9 meeting](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-02/meeting-report.md) clarified the DevOps plugin workflow but did not establish either narrower unmet need or a competitive advantage. We still need matched extension and deployment checks. The earlier other-team transcript was background; this joint meeting included our own questions. We will revise or drop these gaps if an existing tool serves the job adequately, as allowed by [DEC-004](../decisions.md#dec-004).
 
 ## GAP-01
 
@@ -48,7 +48,7 @@ A small reproducible deployment for a fixed policy job
 | Gap test | Current assessment |
 | --- | --- |
 | Someone needs it | Pending. Check that the Customer values a static, single-provider pilot and does not require virtual-key administration or SSO immediately. |
-| Alternatives do not serve it well | Not established. Run the same narrow job using LiteLLM and a proposed starter; count mandatory services and manual configuration steps. |
+| Alternatives do not serve it well | Not established. Run the same narrow job using LiteLLM and a proposed starter; count mandatory services and manual configuration steps. The Week 4 [matched comparison](https://github.com/ITPD-Almo/modular-llm-gateway/blob/cf340ec954266c322c046ffae6abfe0d9c772e31/reports/week-04/prototypes.md#two-plugin-workflow-on-litellm-proxy) ran the plugin workflow, not the policy job: LiteLLM served it with one service, one YAML file and a master key, so it does not show that LiteLLM serves this gap badly. Deployment was not compared. |
 | Reachable | Yes as a proposed design: a bounded local recipe and policy fixtures instead of full gateway administration. |
 | Buildable by four people | Plausible if provider count, policy types, and deployment mode stay narrow; production HA, general PII detection, and a management UI are excluded. |
 

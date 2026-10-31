@@ -1,6 +1,6 @@
 # Value proposition
 
-**Status:** two draft positioning statements based on [provisional gaps](gap-analysis.md); neither is a validated competitive advantage or an implemented feature. In the [October 9 meeting](../../reports/week-02/meeting-report.md), the Customer clarified the plugin workflow but did not confirm these narrower advantages. The [new goal](../product-vision.md#goal) follows that feedback, while the research still needs an existing-tool comparison. [DEC-002](../decisions.md#dec-002) remains the record of our earlier research direction.
+**Status:** two draft positioning statements based on [provisional gaps](gap-analysis.md); neither is a validated competitive advantage or an implemented feature. In the [October 9 meeting](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-02/meeting-report.md), the Customer clarified the plugin workflow but did not confirm these narrower advantages. The [new goal](../product-vision.md#goal) follows that feedback, while the research still needs an existing-tool comparison. [DEC-002](../decisions.md#dec-002) remains the record of our earlier research direction.
 
 The two directions come from [DEC-002](../decisions.md#dec-002).
 

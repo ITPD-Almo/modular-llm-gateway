@@ -102,17 +102,17 @@ LiteLLM Proxy
 - **Status:** Active
 - **Kind:** Open-source/self-hosted option. A Python gateway that can run on the company's own infrastructure. It also competes directly with dedicated AI gateways.
 - **Link:** <https://docs.litellm.ai/docs/simple_proxy>
-- **Version looked at:** release [v1.104.0](https://github.com/BerriAI/litellm/releases/tag/v1.104.0), published 2026-10-03; live documentation read on 2026-10-05. Live docs may describe features newer than that release.
+- **Version looked at:** release [v1.104.0](https://github.com/BerriAI/litellm/releases/tag/v1.104.0), published 2026-10-03; live documentation read on 2026-10-05. Live docs may describe features newer than that release. The hands-on spike on 2026-10-22 ran LiteLLM Proxy 1.106.2, the version `pip install 'litellm[proxy]'` resolved that day; the call hook and timeout guides were re-read on 2026-10-25.
 - **License:** the [release's LICENSE](https://raw.githubusercontent.com/BerriAI/litellm/v1.104.0/LICENSE) applies MIT outside `enterprise/`; enterprise content has a separate license. The whole repository should not be described as unconditionally MIT-licensed.
-- **Depth of evaluation:** read the callback, custom guardrail, virtual key, routing, Presidio, logging, deployment, and OSS/Enterprise documentation. Also read the tagged `CustomLogger` source and checked that the named pre-call, response, streaming, and logging methods exist. No proxy was deployed, no paid license was used, and no requests were sent to a provider. Latency, usability, and failure behaviour are not measured.
+- **Depth of evaluation:** read the callback, custom guardrail, virtual key, routing, Presidio, logging, deployment, and OSS/Enterprise documentation. Also read the tagged `CustomLogger` source and checked that the named pre-call, response, streaming, and logging methods exist. No paid license was used and no requests were sent to a real provider. In Week 4 the proxy was run locally with a fake provider to rebuild our two-plugin workflow, including a failing and a hanging plugin ([matched comparison](https://github.com/ITPD-Almo/modular-llm-gateway/blob/cf340ec954266c322c046ffae6abfe0d9c772e31/reports/week-04/prototypes.md#two-plugin-workflow-on-litellm-proxy)). LiteLLM's own timeout settings, latency, and setup by a second person were not tested.
 - **Problem it solves:** gives developers and platform teams an OpenAI-compatible endpoint for multiple providers, with local routing, access keys, spend tracking, and custom policy hooks.
 
 **Screenshot evidence**
 
 Two screenshots of the live documentation, captured in a browser on 2026-10-05 and checked for readability:
 
-- [Callback stages](../../reports/week-01/images/alt-03-litellm-hooks.png): request modification, response modification, and separate streaming hooks (P1).
-- [OSS and Enterprise comparison](../../reports/week-01/images/alt-03-litellm-oss-enterprise.png): OSS includes custom guardrails and Presidio; management-operation logs are shown under Enterprise (P2, P4, P5, P6).
+- [Callback stages](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-01/images/alt-03-litellm-hooks.png): request modification, response modification, and separate streaming hooks (P1).
+- [OSS and Enterprise comparison](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-01/images/alt-03-litellm-oss-enterprise.png): OSS includes custom guardrails and Presidio; management-operation logs are shown under Enterprise (P2, P4, P5, P6).
 
 These images are in the repository. Ali12hamdan confirmed uploading both to the shared evidence board. Anonymous view-only access still needs checking. Screenshots show documentation, not a tested deployment.
 

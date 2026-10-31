@@ -10,6 +10,8 @@ Describe what changed and why.
 
 Link supporting sources and describe checks performed. For research, separate observations from conclusions.
 
+Changelog: say whether the change is user-visible. If it is, link its entry under `[Unreleased]` in `CHANGELOG.md`; otherwise say why no entry is needed.
+
 ## Related work
 
 Link related story issues and relevant `ALT-nn`, `GAP-nn`, `VP-nn`, `ASM-nn`, or `DEC-nnn` entries by their full URL on `main`.
