@@ -1,17 +1,24 @@
 name: Actionlint
+
 on:
   pull_request:
   push:
     branches: [main]
+
 permissions:
   contents: read
+
 jobs:
   actionlint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: "1.24"
+          cache: false
       - name: Install actionlint
-        # The release is pinned so the workflow does not install a moving version.
-        run: go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.7
-      - name: Run actionlint
-        run: "$(go env GOPATH)/bin/actionlint"
+        # Pinned to the commit of the v1.7.12 release, so the check never installs a moving version.
+        run: go install github.com/rhysd/actionlint/cmd/actionlint@914e7df21a07ef503a81201c76d2b11c789d3fca
+      - name: Check workflows
+        run: '"$(go env GOPATH)/bin/actionlint" -color'
