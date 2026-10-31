@@ -18,8 +18,9 @@ What "done" means for a story, a task, and a pull request is in the [Definition 
 ## How a change gets in
 
 1. Open or pick a task issue. Every change, including documentation and CI, goes through a pull request; direct pushes to `main` are blocked.
-2. Normally create a branch from `main` named `<issue-number>-<short-description>`, such as `44-write-week-03-plan`.
-   For a dependency stack, name the base PR in the description, keep the dependent PR draft until its required records exist on `main`, then merge current dependency changes without rewriting history, retarget to `main` and rerun the checks.
+2. Create a branch from `main` named `<issue-number>-<short-description>`, such as `44-write-week-03-plan`.
+   One task issue gets one branch and one pull request: review fixes are new commits on that branch, and there are no stacked, integration, spike or fix-up pull requests.
+   When a task needs another task's change, wait until it is on `main`, then merge `main` into your branch without rewriting history.
 3. Keep the pull request to one change. Open it with the [pull request template](.github/pull_request_template.md), and start the description with `Closes #<issue-number>`.
    One pull request closes exactly one task issue.
 4. Fill in the template: what changed and why, what you checked and how, and what the reviewer should look at. This is the change's implementation notes.

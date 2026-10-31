@@ -1,6 +1,6 @@
 # Modular LLM Gateway
 
-Status: [v0.2.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.2.0) is the latest release, with supervised plugin deadlines/recovery, safe correlated diagnostics and the A/B developer demo. It runs locally against the fake provider; there is no shared gateway deployment. No user story has a recorded Customer acceptance yet.
+Status: [v0.5.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.5.0) is the latest release, with the Linux/macOS terminal installer, guided DeepSeek setup, supervised plugin deadlines/recovery and correlated diagnostics. Separate staging and production deployments are available on the university network through a private HTTPS/code gate; instructors receive access in Moodle. No user story has a recorded Customer acceptance yet.
 
 ## Project
 
@@ -12,9 +12,9 @@ The first version uses Python 3.12 and FastAPI, with two example plugins and a d
 
 Repository: [ITPD-Almo/modular-llm-gateway](https://github.com/ITPD-Almo/modular-llm-gateway).
 
-## Terminal preview for Linux and macOS
+## Terminal installation for Linux and macOS
 
-The next-version [terminal installer and supervisor walkthrough](docs/terminal.md) provide an isolated runtime and the `llmgw` command without requiring Git, Python or Docker in advance. The installed demo checks plugin order, disabling, A/B transformation and timeout recovery against the fake provider. This is an unreleased local demo; the latest published release remains v0.2.0.
+The [terminal installer and supervisor walkthrough](docs/terminal.md) provide an isolated runtime and the `llmgw` command without requiring Git, Python or Docker in advance. The installed demo checks plugin order, disabling, A/B transformation and timeout recovery against the fake provider. The installer is included in v0.5.0; shared deployment details are in the [runbook](docs/deployment.md).
 
 Connect your own DeepSeek account with `llmgw setup`: paste the key into a hidden prompt, choose a model and start `llmgw serve`. The [guided setup](docs/terminal.md#connect-your-own-deepseek-account) stores the key privately outside the project; no `.env` editing is needed. `llmgw demo` stays offline and `llmgw logout` removes saved credentials.
 
@@ -32,7 +32,7 @@ Course team: **9**. Real names and university emails belong only in the private 
 
 ## Documentation
 
-Start with the [online documentation](https://itpd-almo.github.io/modular-llm-gateway/), [setup guide](docs/setup.md), [plugin contract](docs/plugins.md), and [documentation index](docs/index.md). The [project plan](docs/project-plan.md) holds the sprints and releases, the [Sprint table](https://github.com/orgs/ITPD-Almo/projects/1/views/2) shows who does and who checks each scheduled issue, and the [product backlog](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=is%3Aissue%20is%3Aopen%20no%3Amilestone) holds the unscheduled stories. The [quality requirements](docs/quality-requirements/README.md), [functional requirements](docs/functional-requirements/README.md), [architecture](docs/architecture/README.md) and [glossary](docs/glossary.md) specify the product, and the [operating guide](docs/operations.md) covers diagnostics and recovery. Agents start from [`AGENTS.md`](AGENTS.md). See the [Week 03 report](reports/week-03/README.md) for the release and remaining gaps. Course project documentation includes the [Week 02 report](reports/week-02/README.md), [product vision](docs/product-vision.md), [decisions](docs/decisions.md), and [assumptions](docs/assumptions.md). Research includes the [Week 01 report](reports/week-01/README.md), [alternatives](docs/research/alternatives.md), [comparison](docs/research/comparison.md), [gap analysis](docs/research/gap-analysis.md), and [value propositions](docs/research/value-proposition.md).
+Start with the [online documentation](https://itpd-almo.github.io/modular-llm-gateway/), [setup guide](docs/setup.md), [plugin contract](docs/plugins.md), and [documentation index](docs/index.md). The [project plan](docs/project-plan.md) holds the sprints and releases, the [Sprint table](https://github.com/orgs/ITPD-Almo/projects/1/views/2) shows who does and who checks each scheduled issue, and the [product backlog](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=is%3Aissue%20is%3Aopen%20no%3Amilestone) holds the unscheduled stories. The [quality requirements](docs/quality-requirements/README.md), [functional requirements](docs/functional-requirements/README.md), [architecture](docs/architecture/README.md) and [glossary](docs/glossary.md) specify the product, and the [operating guide](docs/operations.md) covers diagnostics and recovery. Agents start from [`AGENTS.md`](AGENTS.md). See the [Week 05 report](reports/week-05/README.md) for the current release and remaining gaps. Course project documentation includes the [Week 02 report](reports/week-02/README.md), [product vision](docs/product-vision.md), [decisions](docs/decisions.md), and [assumptions](docs/assumptions.md). Research includes the [Week 01 report](reports/week-01/README.md), [alternatives](docs/research/alternatives.md), [comparison](docs/research/comparison.md), [gap analysis](docs/research/gap-analysis.md), and [value propositions](docs/research/value-proposition.md).
 
 ## Contribution workflow
 

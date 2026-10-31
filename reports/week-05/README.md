@@ -1,0 +1,90 @@
+# Week 05 report
+
+## Project
+
+Modular LLM Gateway, team 9, Assignment 5: testing, verification, deployment and REL-05.
+
+## Summary
+
+The gateway runs in separate staging and production environments on a temporary university VM at the same reviewed source commit, version 0.5.0. The [deployment runbook](../../docs/deployment.md) describes manual promotion, the authenticated HTTPS frontends and loopback-only backends. Ali12hamdan confirmed campus Wi-Fi presence; Codex executed the campus checks from his workstation while the VPN stayed running. [Sanitized deployment evidence](deployment-evidence.md) records the actual administration method, QR test, access control and live DeepSeek checks; instructors receive the addresses and demo codes in Moodle.
+
+The plan's milestones already place the next increments: [MLS-05](../../docs/project-plan.md#mls-05), due in SPRINT-05, delivers a shared gateway running from a tested, identifiable build, and [MLS-07](../../docs/project-plan.md#mls-07), due in SPRINT-07, delivers people outside the team running the gateway and writing a plugin from the documentation alone.
+Both were already in the plan, so no milestone was added this week.
+SPRINT-05 added [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96) (install and try the gateway with one command), scheduled this sprint, and [US-10](https://github.com/ITPD-Almo/modular-llm-gateway/issues/97) (connect your own provider account), refined for SPRINT-06.
+
+The product CI runs named lint (`ruff check`), format (`ruff format --check`), type check (`mypy gateway`), build (`python -m build --wheel`) and test (`python -m pytest`) steps on pull requests and on main, together with `actionlint` over the workflows, per [#103](https://github.com/ITPD-Almo/modular-llm-gateway/pull/103).
+Every one of these checks applies to the Python package, so none is recorded as not applicable, and there is no deploy job because the CI cannot reach the university network.
+The CI task [#98](https://github.com/ITPD-Almo/modular-llm-gateway/issues/98) was taken over and finished by Mohammed-Nour, as declared in [Deviations](#deviations).
+[QR-01 QRT-01](../../docs/quality-requirements/qr/QR-01.md#qrt-01) runs in the CI and [QR-02 QRT-01](../../docs/quality-requirements/qr/QR-02.md#qrt-01) against staging; the tests that are not `Passes` are in the [testing plan](../../docs/project-plan.md#quality-requirement-testing-plan).
+
+REL-05 is [v0.5.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.5.0), cut on the commit production runs.
+The Week 5 Customer meeting, which is the SPRINT-05 Sprint Review, was postponed to Week 6, so no story received a verdict this week.
+Actual Velocity is 0, and US-01 to US-04 and US-09 (18 points) moved to SPRINT-06 for their criterion-by-criterion verdicts.
+The Week 4 action points and open questions that needed the meeting are carried to the Week 6 meeting.
+
+## Minimum usable product and Customer outcome
+
+The candidate remains [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41) and [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42); [US-04](https://github.com/ITPD-Almo/modular-llm-gateway/issues/52) and [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96) were planned for the same review.
+
+No Customer meeting was held in Week 5: the Sprint Review was postponed to Week 6 because the team and the Customer did not agree a meeting time in time; the new date is not yet confirmed.
+No story was shown, accepted or rejected, so no verdict `DEC-nnn` exists for this week, and all five stories moved to SPRINT-06 rather than being dropped.
+The implemented tests' results are recorded in the [testing plan](../../docs/project-plan.md#quality-requirement-testing-plan) and will be shown at their levels at the Week 6 review.
+
+## Coverage
+
+| Deliverable | Artifact |
+| --- | --- |
+| Sprint plan and milestones | [docs/project-plan.md#sprint-05](../../docs/project-plan.md#sprint-05) and [docs/project-plan.md#milestones](../../docs/project-plan.md#milestones): the goal, Planned Velocity 18, Actual Velocity 0 (the review was postponed to Week 6), and MLS-05 due 2026-10-31, MLS-07 due 2026-11-14 |
+| New stories | [User Story issues](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=is%3Aissue%20type%3A%22User%20Story%22): US-09 was initially scheduled in SPRINT-05 and carried to the [SPRINT-06 milestone](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/4) for the postponed review; US-10 remains refined and unscheduled |
+| Quality requirement tests | [docs/quality-requirements/qr/](../../docs/quality-requirements/qr/): [QR-02 QRT-01](../../docs/quality-requirements/qr/QR-02.md#qrt-01) and [QR-01 QRT-01](../../docs/quality-requirements/qr/QR-01.md#qrt-01), the two active High business-importance requirements |
+| Testing plan | [docs/project-plan.md#quality-requirement-testing-plan](../../docs/project-plan.md#quality-requirement-testing-plan) |
+| Automated tests and CI | [.github/workflows/](../../.github/workflows/), with `actionlint` and the product-code checks |
+| Deployment | [docs/deployment.md](../../docs/deployment.md) and [deployment evidence](deployment-evidence.md); private addresses, demo codes and certificate instructions are in Moodle |
+| Feature documentation | [docs/features.md](../../docs/features.md) |
+| Week 4 action points | Not closed this week: the meeting was postponed, so the [Week 4 action points](../week-04/meeting-report.md#action-points) are carried to the Week 6 meeting report's `## Previous action points` |
+| Week 4 open questions | Not closed this week: the [Week 4 open questions](../week-04/meeting-report.md#open-questions) are carried to the Week 6 meeting |
+| Meeting script | None this week: the meeting was postponed to Week 6, and its script will be written for that meeting |
+| Meeting transcript | None: no meeting was held in Week 5 |
+| Customer validation | None this week: the Sprint Review was postponed to Week 6, as recorded [above](#minimum-usable-product-and-customer-outcome) |
+| `REL-05` | The [v0.5.0 release](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.5.0), [CHANGELOG.md#050---2026-10-31](../../CHANGELOG.md#050---2026-10-31) and [docs/project-plan.md#rel-05](../../docs/project-plan.md#rel-05) |
+| Sprint retrospective | [reports/week-05/sprint-retrospective.md](sprint-retrospective.md) |
+| AI usage | [reports/week-05/ai-usage.md](ai-usage.md) |
+
+## Contribution
+
+| Member | Evidenced work |
+| --- | --- |
+| Ali12hamdan | [One-command installer #92](https://github.com/ITPD-Almo/modular-llm-gateway/pull/92), [install check #93](https://github.com/ITPD-Almo/modular-llm-gateway/pull/93), [provider setup #95](https://github.com/ITPD-Almo/modular-llm-gateway/pull/95), [deployment runbook #102](https://github.com/ITPD-Almo/modular-llm-gateway/pull/102) for [#99](https://github.com/ITPD-Almo/modular-llm-gateway/issues/99), the agent-assisted VM deploy, independent #103 review, HTTPS/code gate, authorized live-provider verification and the v0.5.0 release. |
+| Mohammed-Nour | [Plan, testing plan, features and sprint close #101](https://github.com/ITPD-Almo/modular-llm-gateway/pull/101), the Week 5 split and issues [#96](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96) to [#100](https://github.com/ITPD-Almo/modular-llm-gateway/issues/100), and reviews of #92, #93, #95 and #102; finished the CI checks, critical-module tests and quality requirement tests in [#103](https://github.com/ITPD-Almo/modular-llm-gateway/pull/103) for [#98](https://github.com/ITPD-Almo/modular-llm-gateway/issues/98) after taking the task over. |
+| atkond2point0 | Opened [#103](https://github.com/ITPD-Almo/modular-llm-gateway/pull/103) for [#98](https://github.com/ITPD-Almo/modular-llm-gateway/issues/98) with a first draft of the `actionlint` workflow, the CI steps and the plugin tests (commit 43c28e2); the task was then taken over, as declared in [Deviations](#deviations). |
+
+## Repository evidence
+
+[PR #92](https://github.com/ITPD-Almo/modular-llm-gateway/pull/92) merged after independent review and closed its task [#90](https://github.com/ITPD-Almo/modular-llm-gateway/issues/90).
+Release-code checks on `main`: [links](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/41227201222), [Markdown](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/41227201273), [actionlint](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/41227201321), [product-code CI](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/41227201276), [native installation](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/41227201286) and [docs](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/41227201291). The documentation closeout checks are on [PR #101](https://github.com/ITPD-Almo/modular-llm-gateway/pull/101).
+GitHub issue and project links and the course Git submodule are handled by the existing link-check exclusions.
+
+## Deviations
+
+- Issues [#96](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96) to [#100](https://github.com/ITPD-Almo/modular-llm-gateway/issues/100) were created through the GitHub CLI with the form's sections rather than through the issue forms; the organization issue fields were set afterwards by Ali12hamdan.
+- SPRINT-05 was planned on its due date, 2026-10-31, not at the sprint's start; the planned velocity is a same-day baseline.
+- [#94](https://github.com/ITPD-Almo/modular-llm-gateway/issues/94) moved to SPRINT-06 with its story [US-10](https://github.com/ITPD-Almo/modular-llm-gateway/issues/97); its pull request [#95](https://github.com/ITPD-Almo/modular-llm-gateway/pull/95) merged in SPRINT-05 as work done ahead of the story's sprint.
+- `docs/features.md` has no entry for the one-command install: no functional requirement owns installation yet, and the course allows no feature without one.
+- The Week 5 Customer meeting, the SPRINT-05 Sprint Review, was postponed to Week 6 because no meeting time was agreed in time; the new date is not yet confirmed. As a result:
+  - no story was shown against its criteria, no verdict `DEC-nnn` was recorded, and Actual Velocity is 0, with US-01 to US-04 and US-09 moved to SPRINT-06;
+  - `reports/week-05/meeting-script.md`, `meeting-report.md` and `meeting-transcript.md` do not exist; the Week 4 action points and open questions, including the matched LiteLLM comparison, are carried to the Week 6 meeting and closed in its report;
+  - REL-05 is cut on the deployed and tested commit without a Customer review, so it carries no accepted story.
+- The course VM from the university portal had not been supplied by 2026-10-31. The owner reports that the TA approved a temporary university VM which is directly reachable on campus, with Tailscale/Funnel providing outside access, and that the assignment VM is expected on Monday, November 2; see [docs/deployment.md](../../docs/deployment.md#vm-and-campus-access). The host permission and replacement date are owner-reported; the [campus checks](deployment-evidence.md) are actual agent-run observations. Initial staging installation preceded campus-presence confirmation; later production administration used Tailscale SSH from the confirmed campus workstation, while HTTP checks used its direct university Wi-Fi route. Migration and repeated campus checks on the assignment VM belong to Week 6.
+- The deployment pull request [#102](https://github.com/ITPD-Almo/modular-llm-gateway/pull/102) says `Refs #99` instead of `Closes #99`, because it merges as the runbook before the deployment it describes. [#99](https://github.com/ITPD-Almo/modular-llm-gateway/issues/99) was kept open for the operational evidence, then closed manually by its Accountable reviewer after the real deployment, campus verification and protected release tag existed; its meeting criterion remains explicitly deferred to Week 6.
+- The CI and quality requirement test task [#98](https://github.com/ITPD-Almo/modular-llm-gateway/issues/98) was assigned to atkond2point0, who opened [#103](https://github.com/ITPD-Almo/modular-llm-gateway/pull/103) on the evening of 2026-10-31; the first draft required rework. Mohammed-Nour took the task over and finished it on the same branch, as new commits without rewriting history:
+  - the branch had started from a Week 3 commit, so `main` was merged in and main's QR-01, QR-02, Definition of Done, example configuration and `pyproject.toml` were kept;
+  - files from another course's case study that the first commit included by mistake (`output/latex/`, `report_revised.html`, `revised_deck.html`, `tmp/`) were removed, and they remain only in the branch history;
+  - the CI checks were made to pass on the real code, a test was added for the validation module and the default plugin list, and both `QRT-01` sections were rewritten in the course format.
+
+  Because Mohammed-Nour, the task's Accountable member, wrote most of the change, Ali12hamdan reviewed and merged #103 instead, so the author did not verify their own work.
+- The retrospective is a written closeout from issue/PR records; no separate synchronous ceremony or complete set of personal feedback was recorded. The host migration and postponed Customer review remain Week 6 work.
+- The owner requested an HTTPS/code gate and live-provider setup late in the sprint. These are owner-authorized deployment configuration, not Customer acceptance. The public demo CA certificate contains no address or private key and grants no access without a private code.
+
+## Privacy
+
+No private-only material was committed to this repository.

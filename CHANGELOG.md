@@ -6,8 +6,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 
 ## [Unreleased]
 
+## [0.5.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.5.0) - 2026-10-31
+
 ### Added
 
+- A [features page](docs/features.md) that lists what the gateway lets you do, in plain words, with links to the stories and requirements behind each capability.
 - Guided `llmgw setup` with hidden API-key entry, read-only DeepSeek model discovery, private local persistence, provider status and logout; no `.env` editing is needed.
 - An opt-in DeepSeek adapter using the saved model, a 128-output-token cap, no automatic retries and a separate supervised provider deadline, while `llmgw demo` remains offline.
 - An installed `llmgw` terminal command for serving, chat, health checks, plugin inspection, workspace creation and a self-contained five-scenario demo.

@@ -1,6 +1,7 @@
 # Quality requirements
 
 The quality bars the gateway is checked against, sorted by business importance and then technical risk.
+What each requirement's tests last found is in the [testing plan](../project-plan.md#quality-requirement-testing-plan).
 
 | QR | Outcome | Business importance | Technical risk | Characteristic | Sub-characteristic | Status |
 | --- | --- | --- | --- | --- | --- | --- |
