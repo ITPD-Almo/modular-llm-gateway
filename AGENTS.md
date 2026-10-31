@@ -30,6 +30,7 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
   - `quality-requirements/`, `functional-requirements/` and the glossary
   - the setup, plugin, operations and demo guides
   - `deployment.md`: the four environments, private VM configuration, manual promotion, campus verification and rollback
+  - `deployment-tools/`: isolated installer/access-gate helpers, client evidence collectors and the public-only demo CA certificate
   - `architecture/`: the container view (`container.svg` source and rendered `container.png`) and the decision records in `architecture/adr/`, with `TEMPLATE.md` for a new `ADR-nnn`
 
   New maintained documents go here, never into `reports/` first.

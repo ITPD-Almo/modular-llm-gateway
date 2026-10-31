@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 
 ## [Unreleased]
 
+## [0.5.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.5.0) - 2026-10-31
+
 ### Added
 
 - A [features page](docs/features.md) that lists what the gateway lets you do, in plain words, with links to the stories and requirements behind each capability.

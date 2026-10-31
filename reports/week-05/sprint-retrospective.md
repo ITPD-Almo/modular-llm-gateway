@@ -1,8 +1,6 @@
 # SPRINT-05 retrospective
 
-Draft prepared by Mohammed-Nour on 2026-10-31 from the sprint's issues and pull requests.
-The final retrospective and members' personal input remain to be recorded; this draft does not establish that those contributions or a completed ceremony already exist.
-Ali12hamdan reviews this file as the Accountable member.
+Written closeout prepared by Mohammed-Nour from the sprint's issues and pull requests, then finalized for Ali12hamdan with Codex on October 31. No separate synchronous retrospective or complete set of personal member feedback was recorded; the [weekly report](README.md#deviations) declares that limitation. The observations below concern the recorded workflow, not individual ratings.
 
 ## What Went Well
 
@@ -16,9 +14,9 @@ Ali12hamdan reviews this file as the Accountable member.
 
 | Problem | Root cause |
 | --- | --- |
-| SPRINT-05 was planned, and its task issues opened, only on its due date, 2026-10-31. | After the Week 4 close, product work on the installer and provider setup started before anyone held sprint planning, and no planning slot was fixed in the calendar. |
+| SPRINT-05 was planned, and its task issues opened, only on its due date, 2026-10-31. | After the Week 4 close, product work on the installer and provider setup started before anyone held sprint planning, and the issue-backed planning baseline was recorded only on October 31. |
 | The Week 5 Customer meeting, the SPRINT-05 Sprint Review, was postponed to Week 6, so no story was shown against its criteria and Actual Velocity is 0 for the second sprint running. | The meeting time was left to be agreed during the sprint's last days instead of being fixed at sprint planning, and it was not agreed in time. |
-| The CI and test pull request ([#103](https://github.com/ITPD-Almo/modular-llm-gateway/pull/103)) was opened only on the due date, from a Week 3 branch, with unrelated files, and its owner could not finish it, so Mohammed-Nour took the task over. | No one checked the task's progress during the sprint, and with planning on the last day, the task had less than one day before the deploy and the tag depended on it. |
+| The CI and test pull request ([#103](https://github.com/ITPD-Almo/modular-llm-gateway/pull/103)) was opened only on the due date, from a Week 3 branch, with unrelated files, and it required rework, so Mohammed-Nour took the task over. | No mid-sprint checkpoint for this task was recorded in its issue; with planning on the last day, the task had less than one day before the deploy and the tag depended on it. |
 
 ## Actions
 
@@ -36,4 +34,4 @@ Ali12hamdan reviews this file as the Accountable member.
 | [reports/week-04/sprint-retrospective.md#actions](../week-04/sprint-retrospective.md#actions): "Rehearse the released demo from `docs/setup.md` on the presentation machine the day before each Customer review." | Not done: the Week 5 review was postponed to Week 6, so there was no review to rehearse for; re-listed in [Actions](#actions). |
 | [reports/week-04/sprint-retrospective.md#actions](../week-04/sprint-retrospective.md#actions): "Ask the Customer in writing for an AC-by-AC verdict on US-01 to US-04 and record the reply." | Not done: the Week 5 review was postponed to Week 6, so no verdict was asked for; re-listed in [Actions](#actions). |
 | [reports/week-04/sprint-retrospective.md#actions](../week-04/sprint-retrospective.md#actions): "Hold sprint planning on the sprint's first day: set Planned Velocity and open the task issues before any work starts." | Not done: SPRINT-05 was planned on 2026-10-31, its last day; re-listed in [Actions](#actions). |
-| [reports/week-04/sprint-retrospective.md#actions](../week-04/sprint-retrospective.md#actions): "Branch each task from main with one pull request, avoid stacked and integration pull requests, and record the rule in `CONTRIBUTING.md` through a SPRINT-05 task issue." | Done in this draft's implementation: the matching rule is in [CONTRIBUTING.md](../../CONTRIBUTING.md#how-a-change-gets-in) and [AGENTS.md](../../AGENTS.md#conventions) through [#100](https://github.com/ITPD-Almo/modular-llm-gateway/issues/100); the late #98 pull request #103 still started from an old branch, which the merge of `main` fixed. |
+| [reports/week-04/sprint-retrospective.md#actions](../week-04/sprint-retrospective.md#actions): "Branch each task from main with one pull request, avoid stacked and integration pull requests, and record the rule in `CONTRIBUTING.md` through a SPRINT-05 task issue." | Done in this closeout: the matching rule is in [CONTRIBUTING.md](../../CONTRIBUTING.md#how-a-change-gets-in) and [AGENTS.md](../../AGENTS.md#conventions) through [#100](https://github.com/ITPD-Almo/modular-llm-gateway/issues/100); the late #98 pull request #103 still started from an old branch, which the merge of `main` fixed. |

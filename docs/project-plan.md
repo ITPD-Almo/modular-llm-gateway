@@ -85,6 +85,13 @@ The work is split into one task per member: [#98](https://github.com/ITPD-Almo/m
 
 #### REL-05
 
+- **Released:** [v0.5.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.5.0) on 2026-10-31, from [the production commit](https://github.com/ITPD-Almo/modular-llm-gateway/commit/ba6d8a050e443dc13e69e4c052f4d5b766201e75).
+- **Checked QRs:**
+  - [QR-02](quality-requirements/qr/QR-02.md)
+  - [QR-01](quality-requirements/qr/QR-01.md)
+
+The [testing plan](#quality-requirement-testing-plan) owns the checked results and their scope. The release has no accepted story because the Customer review moved to Week 6. The later documentation closeout does not change the deployed product code.
+
 ### SPRINT-06
 
 Provisional: an operator can compare latency, errors and timeouts across a controlled run, then identify a failing plugin from safe events without retaining request or response bodies.
@@ -121,8 +128,8 @@ Provisional: the final release incorporates the selected usability findings, has
 
 | QR | QRT | Status | Checked | Planned for sprint | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Not verified | None | [SPRINT-05](#sprint-05) | None |
-| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Not verified | None | [SPRINT-05](#sprint-05) | None |
+| [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Passes | 2026-10-31 | [SPRINT-05](#sprint-05) | [Campus HTTPS timeout/recovery evidence](https://github.com/ITPD-Almo/modular-llm-gateway/pull/102) |
+| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Passes | 2026-10-31 | [SPRINT-05](#sprint-05) | [CI: 81 tests in 20.90 seconds](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/41227201276) |
 
 ## Progress Monitoring
 
