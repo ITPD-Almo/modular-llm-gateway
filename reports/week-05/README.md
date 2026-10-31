@@ -52,13 +52,14 @@ The implemented tests' results are recorded in the [testing plan](../../docs/pro
 
 | Member | Evidenced work |
 | --- | --- |
-| Ali12hamdan | [One-command installer #92](https://github.com/ITPD-Almo/modular-llm-gateway/pull/92), [install check #93](https://github.com/ITPD-Almo/modular-llm-gateway/pull/93), [provider setup #95](https://github.com/ITPD-Almo/modular-llm-gateway/pull/95), TODO: the deployment pull request for [#99](https://github.com/ITPD-Almo/modular-llm-gateway/issues/99), the VM deploy and the v0.5.0 release. |
+| Ali12hamdan | [One-command installer #92](https://github.com/ITPD-Almo/modular-llm-gateway/pull/92), [install check #93](https://github.com/ITPD-Almo/modular-llm-gateway/pull/93), [provider setup #95](https://github.com/ITPD-Almo/modular-llm-gateway/pull/95), [deployment runbook #102](https://github.com/ITPD-Almo/modular-llm-gateway/pull/102) for [#99](https://github.com/ITPD-Almo/modular-llm-gateway/issues/99), the VM deploy and the v0.5.0 release. |
 | Mohammed-Nour | [Plan, testing plan, features and sprint close #101](https://github.com/ITPD-Almo/modular-llm-gateway/pull/101), the Week 5 split and issues [#96](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96) to [#100](https://github.com/ITPD-Almo/modular-llm-gateway/issues/100), and reviews of #92, #93 and #95. |
 | atkond2point0 | TODO: the CI checks and quality requirement tests pull request for [#98](https://github.com/ITPD-Almo/modular-llm-gateway/issues/98). |
 
 ## Repository evidence
 
-TODO: one merged pull request that closed its task issue, and the latest green link-check, Markdown-check, `actionlint` and product-code CI runs on main.
+[PR #92](https://github.com/ITPD-Almo/modular-llm-gateway/pull/92) merged after independent review and closed its task [#90](https://github.com/ITPD-Almo/modular-llm-gateway/issues/90).
+TODO: the latest green link-check, Markdown-check, `actionlint` and product-code CI runs on main.
 GitHub issue and project links and the course Git submodule are handled by the existing link-check exclusions.
 
 ## Deviations
@@ -72,6 +73,7 @@ GitHub issue and project links and the course Git submodule are handled by the e
   - `reports/week-05/meeting-script.md`, `meeting-report.md` and `meeting-transcript.md` do not exist; the Week 4 action points and open questions, including the matched LiteLLM comparison, are carried to the Week 6 meeting and closed in its report;
   - REL-05 is cut on the deployed and tested commit without a Customer review, so it carries no accepted story.
 - The course VM from the university portal had not been supplied by 2026-10-31, so staging and production run on another university machine instead, per [docs/deployment.md](../../docs/deployment.md#vm-and-campus-access). TODO: confirm whether it is reachable from the university network, or whether the QR-02 test fell back to `scripted` or `CI`.
+- The deployment pull request [#102](https://github.com/ITPD-Almo/modular-llm-gateway/pull/102) says `Refs #99` instead of `Closes #99`, because it merges as the runbook before the deployment it describes. [#99](https://github.com/ITPD-Almo/modular-llm-gateway/issues/99) stays open until the real deployment, the campus verification and the tag exist, and is then closed by hand with #102 and this report's evidence linked, rather than by its pull request.
 - TODO: any other fallback (a `scripted` or `CI` test instead of `deployed`), rework deferred to SPRINT-06, or other deviation from the day.
 
 ## Privacy
