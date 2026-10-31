@@ -8,7 +8,9 @@ from .deepseek import ERROR_MESSAGES, ProviderError, available_models
 
 
 def run_setup() -> None:
-    print("Connect your DeepSeek account\nCreate a key at https://platform.deepseek.com if you do not have one.")
+    print(
+        "Connect your DeepSeek account\nCreate a key at https://platform.deepseek.com if you do not have one."
+    )
     print("Paste it below. Input is hidden. Ctrl+C cancels without changing your saved settings.")
     print("The connection check lists available models; it does not generate a paid chat response.")
     try:
@@ -16,7 +18,9 @@ def run_setup() -> None:
             warnings.simplefilter("error", getpass.GetPassWarning)
             key = getpass.getpass("DeepSeek API key (hidden): ").strip()
     except getpass.GetPassWarning:
-        raise ValueError("Hidden input is unavailable. Run llmgw setup in an interactive terminal.") from None
+        raise ValueError(
+            "Hidden input is unavailable. Run llmgw setup in an interactive terminal."
+        ) from None
     candidate = Credentials(key)
     print("Checking your key with DeepSeek...")
     try:
@@ -33,5 +37,9 @@ def run_setup() -> None:
     save_credentials(selected)
     print(f"Saved privately for your user. Model: {selected.model}")
     print("The key is stored in a permission-protected local file, not encrypted.")
-    print("Ready: llmgw serve\nThen use llmgw chat in another terminal. Real chats use your DeepSeek balance.")
-    print("Use llmgw logout to remove the saved key. Restart any running gateway after changing settings.")
+    print(
+        "Ready: llmgw serve\nThen use llmgw chat in another terminal. Real chats use your DeepSeek balance."
+    )
+    print(
+        "Use llmgw logout to remove the saved key. Restart any running gateway after changing settings."
+    )

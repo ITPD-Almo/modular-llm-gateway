@@ -1,8 +1,8 @@
-from concurrent.futures import ThreadPoolExecutor
 import json
 import multiprocessing as mp
 import os
 import threading
+from concurrent.futures import ThreadPoolExecutor
 from time import monotonic, sleep
 
 import pytest
@@ -19,7 +19,9 @@ def app_for(tmp_path, *names, **settings):
 
 
 def chat(client, text="hello", **extra):
-    return client.post("/v1/chat/completions", json={"messages": [{"role": "user", "content": text}], **extra})
+    return client.post(
+        "/v1/chat/completions", json={"messages": [{"role": "user", "content": text}], **extra}
+    )
 
 
 def records(caplog):
@@ -37,7 +39,9 @@ def test_real_hook_timeout_is_bounded_and_a_later_request_recovers(tmp_path, cap
         assert elapsed < 1.0
         assert result.json()["detail"] == f"plugin {plugin} timed out during {stage} processing"
         event = [r for r in records(caplog) if r["event"] == "timed_out"][-1]
-        assert event["plugin"] == plugin and event["stage"] == stage and event["reason"] == "timeout"
+        assert (
+            event["plugin"] == plugin and event["stage"] == stage and event["reason"] == "timeout"
+        )
         assert event["request_id"] == result.headers["X-Request-ID"]
         assert "DO_NOT_LOG_TIMEOUT_METADATA" not in caplog.text
         assert app.state.pipeline_executor.active_worker_count == 0
@@ -79,6 +83,7 @@ def test_cpu_bound_hook_is_stopped(tmp_path):
 
 def test_delayed_event_consumer_cannot_accept_a_hook_over_budget(tmp_path, monkeypatch):
     import gateway.execution as execution
+
     original = execution.emit_hook_event
 
     def delayed(context, event, **fields):
@@ -91,7 +96,9 @@ def test_delayed_event_consumer_cannot_accept_a_hook_over_budget(tmp_path, monke
         assert chat(client).status_code == 504
 
 
-@pytest.mark.skipif(os.name == "nt", reason="POSIX signal-ignore fixture; Windows terminate is already forceful")
+@pytest.mark.skipif(
+    os.name == "nt", reason="POSIX signal-ignore fixture; Windows terminate is already forceful"
+)
 def test_worker_ignoring_terminate_is_killed_and_reaped(tmp_path):
     app = app_for(tmp_path, "IgnoreTerminate")
     with TestClient(app) as client:
@@ -187,7 +194,16 @@ def test_large_valid_response_is_transferred_without_losing_content(tmp_path):
         assert app.state.pipeline_executor.active_worker_count == 0
 
 
-@pytest.mark.parametrize("settings", [{"plugin_timeout_ms": 0}, {"plugin_timeout_ms": True}, {"max_workers": 0}, {"max_workers": 33}, {"startup_timeout_ms": -1}])
+@pytest.mark.parametrize(
+    "settings",
+    [
+        {"plugin_timeout_ms": 0},
+        {"plugin_timeout_ms": True},
+        {"max_workers": 0},
+        {"max_workers": 33},
+        {"startup_timeout_ms": -1},
+    ],
+)
 def test_invalid_execution_settings_fail_before_serving(tmp_path, settings):
     with pytest.raises(ValueError):
         app_for(tmp_path, **settings)
