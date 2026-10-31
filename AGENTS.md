@@ -5,6 +5,9 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
 ## Layout
 
 - `gateway/` is the product: one FastAPI application.
+  - `cli.py` and `__main__.py`: installed `llmgw` and module commands.
+  - `demo.py`: isolated real HTTP demo with ephemeral ports and cleanup.
+  - `data/`: default configuration shipped in the wheel.
   - `main.py`: app factory and HTTP endpoints.
   - `config.py`: plugin loading.
   - `execution.py`: supervised request-local worker pipeline and cleanup.
@@ -14,6 +17,8 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
   - `plugins/`: the `Plugin` protocol in `base.py` and the bundled plugins.
   - The [testability requirement](docs/quality-requirements/qr/QR-01.md) names the critical modules it covers.
 - `config/plugins.json` is the default plugin list; `GATEWAY_CONFIG` selects another file.
+- `install.sh` bootstraps the Linux/macOS terminal tool into user-owned directories;
+  `requirements-runtime.txt` pins its runtime dependencies. `docs/terminal.md` owns that install/demo recipe.
 - `examples/` holds the third-party A/B and slow-hook examples and their configuration files; they load without editing gateway core.
 - `tests/` holds the pytest suite; every test uses synthetic plugins and the fake provider, never a provider key or the network.
 - `docs/` holds the maintained artifacts and the documentation site:

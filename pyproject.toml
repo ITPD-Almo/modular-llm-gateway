@@ -4,10 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "modular-llm-gateway"
-version = "0.2.0"
+version = "0.3.0.dev0"
 description = "A small configurable FastAPI gateway with request and response plugins"
 requires-python = ">=3.12"
 dependencies = ["fastapi>=0.115,<1", "uvicorn[standard]>=0.30,<1"]
+
+[project.scripts]
+llmgw = "gateway.cli:main"
+
+[tool.setuptools.package-data]
+"gateway.data" = ["*.json"]
 
 [project.optional-dependencies]
 test = ["pytest>=8,<10", "httpx>=0.27,<1"]

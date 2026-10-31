@@ -33,7 +33,11 @@ def create_app(
     startup_timeout_ms: int | None = None,
 ) -> FastAPI:
     configure_diagnostics()
-    selected_path = config_path or os.getenv("GATEWAY_CONFIG", str(Path(__file__).resolve().parent.parent / "config" / "plugins.json"))
+    source_default = Path(__file__).resolve().parent.parent / "config" / "plugins.json"
+    packaged_default = Path(__file__).resolve().parent / "data" / "plugins.json"
+    selected_path = config_path or os.getenv("GATEWAY_CONFIG") or str(
+        source_default if source_default.is_file() else packaged_default
+    )
     try:
         paths = read_plugin_paths(selected_path)
         plugins = instantiate_plugins(paths)
