@@ -26,6 +26,7 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
 - `docs/` holds the maintained artifacts and the documentation site:
   - the vision, the plan and the decisions
   - the assumptions and the research
+  - `features.md`: user-facing capabilities linked to their stories, requirements and architectural decisions
   - `quality-requirements/`, `functional-requirements/` and the glossary
   - the setup, plugin, operations and demo guides
   - `deployment.md`: the four environments, private VM configuration, manual promotion, campus verification and rollback
@@ -51,8 +52,8 @@ Install the tools with `python -m pip install -e ".[test]"` in a Python 3.12 vir
 
 ## Conventions
 
-- **Branches:** `<issue-number>-<short-description>`, normally from `main`. One pull request closes exactly one task issue with `Closes #<number>`, and never a user story.
-- **Dependency stacks:** a pull request may build on another's branch when it needs unmerged records. Name the base pull request in the description and keep the dependent one draft. After the base merges, merge `main` into the branch without rewriting history, retarget it to `main` and rerun the checks before review. A task closes only when its pull request merges into `main`.
+- **Branches:** `<issue-number>-<short-description>` from `main`. One task gets one branch and one pull request; review fixes are new commits on that branch. No stacked, integration, spike or fix-up pull requests. One pull request closes exactly one task issue with `Closes #<number>`, and never a user story.
+- **Dependencies:** wait until a required change is on `main`, then merge `main` into the task branch without rewriting history and rerun the checks. A task closes only after its implementation merges into `main` and its acceptance criteria hold; document any agreed deferred operational closure in the current week's report.
 - **Commit messages:** one imperative line of at most 72 characters, starting with a capital letter and ending without a full stop; add a body when the reason is not obvious.
 - **Pull requests:** use `.github/pull_request_template.md`. The task's `Accountable` member reviews and merges, and the author never approves their own pull request.
 - **Links:** in issues and pull requests, link a repository file by its full `https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/...` URL. Inside `docs/`, use relative links. Link a file outside `docs/` by its GitHub URL.

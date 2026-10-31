@@ -24,10 +24,11 @@ The course's required machine is the team's VM from the university portal: provi
 Recreation destroys existing VM state: these instructions do not authorize recreating a shared or already-used machine.
 Record its actual image, CPU architecture and resources in the private deployment evidence; this runbook requires Linux with systemd, a writable non-root service account, curl and tar, and internet access for the installer.
 
-As of October 31, the owner reports that the instructor VM has not been supplied and proposes an existing university work VM reached through Tailscale.
-That is an alternative-host deviation, not evidence that the course VM or campus-only access requirement is satisfied.
-The actual machine details and reachability remain to be verified; preserve existing services and use an isolated application directory.
-An overlay-network test is recorded separately from a campus client's production verification.
+As of October 31, the owner reports that the instructor VM has not been supplied, that an existing university work VM is directly reachable on the university network, and that the TA approved its temporary use.
+Tailscale/Funnel provides an additional outside access path; it does not change which client network the required deployment and tests must use.
+The assignment VM is expected on Monday, November 2, according to the same owner update.
+Record this temporary-host arrangement and its provenance in the week's report, preserve existing services and use an isolated application directory.
+Owner-reported campus reachability still needs the actual campus deployment/test evidence; record overlay/external checks separately.
 
 Read the address and login privately, then connect from the campus terminal:
 
