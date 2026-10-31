@@ -24,7 +24,7 @@ The Week 4 action points and open questions that needed the meeting are carried 
 
 The candidate remains [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41) and [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42); [US-04](https://github.com/ITPD-Almo/modular-llm-gateway/issues/52) and [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96) were planned for the same review.
 
-No Customer meeting was held in Week 5: the Sprint Review was postponed to Week 6, date TODO.
+No Customer meeting was held in Week 5: the Sprint Review was postponed to Week 6 because the team and the Customer did not agree a meeting time in time; the new date is not yet confirmed.
 No story was shown, accepted or rejected, so no verdict `DEC-nnn` exists for this week, and all five stories moved to SPRINT-06 rather than being dropped.
 The implemented tests' results are recorded in the [testing plan](../../docs/project-plan.md#quality-requirement-testing-plan) and will be shown at their levels at the Week 6 review.
 
@@ -67,11 +67,12 @@ GitHub issue and project links and the course Git submodule are handled by the e
 - SPRINT-05 was planned on its due date, 2026-10-31, not at the sprint's start; the planned velocity is a same-day baseline.
 - [#94](https://github.com/ITPD-Almo/modular-llm-gateway/issues/94) moved to SPRINT-06 with its story [US-10](https://github.com/ITPD-Almo/modular-llm-gateway/issues/97); its pull request [#95](https://github.com/ITPD-Almo/modular-llm-gateway/pull/95) merged in SPRINT-05 as work done ahead of the story's sprint.
 - `docs/features.md` has no entry for the one-command install: no functional requirement owns installation yet, and the course allows no feature without one.
-- The Week 5 Customer meeting, the SPRINT-05 Sprint Review, was postponed to Week 6, date TODO, reason TODO. As a result:
+- The Week 5 Customer meeting, the SPRINT-05 Sprint Review, was postponed to Week 6 because no meeting time was agreed in time; the new date is not yet confirmed. As a result:
   - no story was shown against its criteria, no verdict `DEC-nnn` was recorded, and Actual Velocity is 0, with US-01 to US-04 and US-09 moved to SPRINT-06;
   - `reports/week-05/meeting-script.md`, `meeting-report.md` and `meeting-transcript.md` do not exist; the Week 4 action points and open questions, including the matched LiteLLM comparison, are carried to the Week 6 meeting and closed in its report;
   - REL-05 is cut on the deployed and tested commit without a Customer review, so it carries no accepted story.
-- TODO: any fallback (a `scripted` or `CI` test instead of `deployed`), rework deferred to SPRINT-06, or other deviation from the day.
+- The course VM from the university portal had not been supplied by 2026-10-31, so staging and production run on another university machine instead, per [docs/deployment.md](../../docs/deployment.md#vm-and-campus-access). TODO: confirm whether it is reachable from the university network, or whether the QR-02 test fell back to `scripted` or `CI`.
+- TODO: any other fallback (a `scripted` or `CI` test instead of `deployed`), rework deferred to SPRINT-06, or other deviation from the day.
 
 ## Privacy
 
