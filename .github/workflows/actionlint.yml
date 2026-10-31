@@ -1,0 +1,17 @@
+name: Actionlint
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install actionlint
+        # The release is pinned so the workflow does not install a moving version.
+        run: go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.7
+      - name: Run actionlint
+        run: "$(go env GOPATH)/bin/actionlint"

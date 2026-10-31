@@ -1,0 +1,4 @@
+{
+  "model": "fake",
+  "messages": [{"role": "user", "content": "hello"}]
+}

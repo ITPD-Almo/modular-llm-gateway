@@ -1,0 +1,104 @@
+% C3 - Microsoft Office Business Unit, revised 7-slide presentation.
+% Compile with: pdflatex C3_OBU_slides_revised.tex
+% Text and layout reproduce the latest revised presentation PDF.
+\documentclass{article}
+\usepackage[paperwidth=13.2835in,paperheight=7.472in,margin=0in]{geometry}
+\usepackage[absolute,overlay]{textpos}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[scaled=0.98]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{xcolor}
+\definecolor{ink}{RGB}{24,24,24}
+\definecolor{muted}{RGB}{78,78,78}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\textblockorigin{0in}{0in}
+
+% Easy-to-edit placement macros. All coordinates are inches from top-left.
+\newcommand{\Place}[5]{%
+  \begin{textblock*}{#3in}(#1in,#2in)%
+    {\color{#5}#4}%
+  \end{textblock*}%
+}
+\newcommand{\SlideHeading}[3]{%
+  \Place{.8}{.25}{11.5}{\fontsize{12}{14}\selectfont\bfseries #1\quad #2}{muted}%
+  \Place{1.24}{.87}{11.2}{\fontsize{30}{32}\selectfont\color{ink}#3}{ink}%
+}
+\newcommand{\Item}[3]{%
+  \Place{1.17}{#1}{11.06}{\fontsize{#2}{23.8}\selectfont\raggedright\textbullet\enspace #3}{ink}%
+}
+\newcommand{\Foot}[1]{%
+  \Place{1.24}{6.90}{11.4}{\fontsize{12.4}{15}\selectfont #1}{muted}%
+}
+\newcommand{\RiskHead}[2]{%
+  \Place{1.24}{#1}{11.0}{\fontsize{19.4}{23}\selectfont\bfseries #2}{ink}%
+}
+\newcommand{\RiskBody}[2]{%
+  \Place{1.24}{#1}{11.0}{\fontsize{17.35}{21}\selectfont #2}{muted}%
+}
+
+\begin{document}
+\null
+\SlideHeading{1}{Case 3}{Opus won the reviews, but missed the original promise}
+\Item{2.52}{20.8}{Gates wanted a breakthrough word processor in about a year. [F p. 6]}
+\Item{3.41}{20.8}{Word for Windows took more than five years. [F pp. 1, 13]}
+\Item{4.30}{20.8}{It sold better than forecast and received strong reviews. [F pp. 1, 8]}
+\Item{5.19}{20.8}{Our task on 30 March 1990: decide what Raikes should do next.}
+\Foot{MSD \quad | \quad Microsoft Corporation: Office Business Unit \quad | \quad Iansiti (1994)}
+\newpage
+\null
+\SlideHeading{2}{Recommendation}{Three recommendations: expectations, requirements and risks}
+\Item{2.43}{19.8}{Option 1: aim to ship by 31 March 1991, using the existing 10 + 4 team. [F p. 12]}
+\Item{3.25}{19.8}{Meet named Windows users in person; agree on must-have work and acceptance tests.}
+\Item{4.07}{19.8}{By 15 May, let engineers estimate the work and Raikes approve the baseline and impacts.}
+\Item{4.89}{19.8}{Keep the date only if the estimate leaves time for testing and bug fixes.}
+\Item{5.71}{19.8}{Keep one risk gate: do not start a shared-code rewrite unless essential needs demand it. [F p. 11]}
+\Foot{Proposed date and 15 May gate are our choices, not dates in the case.}
+\newpage
+\null
+\SlideHeading{3}{Expectations - L3a}{Opus met some expectations and failed others}
+\Item{2.40}{19.2}{Gates: strong product, but the one-year aim failed. [F pp. 1, 6]}
+\Item{3.24}{19.2}{Marketing / Raikes: good reviews and sales; WordPerfect still led the market. [F pp. 1, 19]}
+\Item{4.08}{19.2}{Developers / QA: heavy pressure and much longer bug fixing than expected. [F pp. 7--8]}
+\Item{4.92}{19.2}{End users: reviewers liked ease of use, but direct user approval is not recorded. [F pp. 3, 8]}
+\Item{5.76}{19.2}{L3a: a product is judged against each stakeholder's expectations.}
+\Foot{``Best word processor ever'' is not a yes/no measure of success.}
+\newpage
+\null
+\SlideHeading{4}{Requirements - L3b}{The team never agreed on what ``finished'' meant}
+\Item{2.40}{19.3}{In 1986 there was no complete specification for the new team. [F p. 7]}
+\Item{3.23}{19.3}{The ``final'' specification got three later addenda. [F Ex. 6, p. 18]}
+\Item{4.06}{19.3}{No single project leader had complete authority. [F p. 5]}
+\Item{4.89}{19.3}{Our diagnosis: no agreed, testable product target and no clear change decision.}
+\Item{5.72}{19.3}{L3b: observe users, approve acceptance tests, then price each new request.}
+\Foot{The UI lab existed, but the case does not show WinWord-specific user sign-off. [F p. 3]}
+\newpage
+\null
+\SlideHeading{5}{Why Option 1}{A full rewrite risks missing the market window}
+\Item{2.38}{19.1}{WordPerfect had 45\% of the PC word-processing market; Word for DOS had 30\%. [F p. 19]}
+\Item{3.22}{19.1}{WordPerfect for Windows was expected in February 1991. [F p. 8]}
+\Item{4.06}{19.1}{Some important buyers wait for the better second release. [F p. 11]}
+\Item{4.90}{19.1}{A full redesign could delay WinWord 2.0 by another one to two years. [F p. 11]}
+\Item{5.74}{19.1}{But Exhibit 1 warns us: the first one-year plan took 2,187 days. [F p. 13]}
+\Foot{So the one-year target is a decision to test, not a reliable forecast.}
+\newpage
+\null
+\SlideHeading{6}{Threshold of success - L3a}{Four yes-or-no release checks}
+\Item{2.38}{19.1}{Scope: all agreed must-have items pass their acceptance tests.}
+\Item{3.23}{19.1}{Quality: 0 known release-blocking bugs; at least 7 of 8 test users finish five agreed tasks.}
+\Item{4.08}{19.1}{Time: Word for Windows 2.0 ships by 31 March 1991.}
+\Item{4.93}{19.1}{Cost: no extra hires; at most 168 team person-months and no spending over the signed budget.}
+\Item{5.78}{19.1}{Fail any one check $\rightarrow$ do not call the project a success.}
+\Foot{These thresholds are proposed; tasks, bug severity and budget must be signed off by 15 May.}
+\newpage
+\null
+\SlideHeading{7}{Three risks - L3c}{Watch what could make the release fail}
+\RiskHead{2.30}{1 \quad Users need more than a small update \quad [Boehm \#3--4]}
+\RiskBody{2.73}{Try five tasks with eight users; watch tasks needing a core redesign. Trigger: 4 of 8 users.}
+\RiskHead{3.62}{2 \quad Serious bugs keep appearing \quad [Boehm \#2]}
+\RiskBody{4.05}{Test changes early; watch open blocking bugs each week. Trigger: rising for two weeks.}
+\RiskHead{4.94}{3 \quad Too much knowledge sits with one developer \quad [Boehm \#1]}
+\RiskBody{5.37}{Assign a backup per critical module; watch single-owner modules. Trigger: any after 31 May.}
+\Foot{Risk 1 could change our choice: if the core needs a rewrite, revisit Option 2.}
+\end{document}

@@ -1,0 +1,94 @@
+% C3 - Microsoft Office Business Unit, revised 3-page report.
+% Compile with: pdflatex C3_OBU_report_revised.tex
+% [F] case fact; [I] interpretation; [A] assumption or estimate.
+\documentclass[11pt,a4paper]{article}
+\usepackage[left=16.6mm,right=16.6mm,top=15.2mm,bottom=15.2mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}
+\usepackage{tabularx,array,booktabs,xcolor}
+\usepackage{fancyhdr}
+\usepackage{ragged2e}
+\usepackage{microtype}
+\usepackage{setspace}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\tabcolsep}{3.6pt}
+\renewcommand{\arraystretch}{1.19}
+\setlength{\headheight}{12pt}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\footnotesize\color{gray}\thepage}
+\newcommand{\Section}[1]{\par\vspace{6pt}\noindent{\fontsize{12.1}{15}\selectfont\bfseries #1}\par\vspace{2pt}}
+\newcommand{\PageTitle}[1]{{\fontsize{16}{19.6}\selectfont\bfseries #1}\par\vspace{6pt}}
+\newcommand{\SmallPara}[1]{{\fontsize{10.3}{13.7}\selectfont #1\par}\vspace{3pt}}
+\newcommand{\TinyPara}[1]{{\fontsize{9.55}{12.6}\selectfont #1\par}\vspace{2pt}}
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+\newcolumntype{P}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcommand{\TableFont}{\fontsize{9.9}{12.9}\selectfont}
+\begin{document}
+\fontsize{11.15}{15.3}\selectfont
+\PageTitle{C3: Microsoft Corporation - Office Business Unit}
+\SmallPara{Decision date: 30 March 1990. [F] = case fact; [I] = our interpretation; [A] = assumption or estimate. Page numbers are from Iansiti (1994).}
+\Section{Recommendation: expectations, requirements and risks}
+We recommend \textbf{Option 1, but only after a feasibility check}: release a smaller WinWord 2.0 by 31 March 1991 with the same 10 programmers and four assistants. First find out what users need, agree on the must-have work, and get estimates from the people writing the code. If it cannot fit the team, testing time and budget, Raikes should not promise the date. This is a customer and delivery decision, not a plan to replace Microsoft's whole development process. [F pp. 11--12]
+
+WordPerfect for Windows was expected in February 1991, and some important customers waited for a second version before buying. A core-code redesign could add one to two years. Those are reasons to prefer a small release, not proof that the one-year estimate will work. [F pp. 8, 11]
+\Section{1. Whose expectations did Opus meet?}
+{\TableFont
+\begin{tabularx}{\linewidth}{@{}P{88pt}P{196pt}Y@{}}
+\toprule
+\textbf{Stakeholder} & \textbf{Expected / wanted} & \textbf{What happened by shipment}\\\midrule
+Gates & An outstanding new word processor, preferably within one year. [F p. 6] & Good reviews, but over five years of work. Mixed: quality good, delivery failed. [F pp. 1, 8]\\\midrule
+Raikes / marketing & Compete with WordPerfect in PC word processing. [F pp. 3, 11--12] & Sales exceeded forecast; WordPerfect still held 45\% of the market. Mixed. [F pp. 1, 19]\\\midrule
+Developers / QA & Reasonable schedules and a stable, testable product. [I, from pp. 7--9] & Heavy deadline pressure; long defect stabilization; several lead changes. Unmet. [F pp. 7--8]\\\midrule
+End users & Useful, reliable Windows word processing. [I, from pp. 3, 8] & Press praised usability and few bugs. Direct WinWord user acceptance is not recorded. [F p. 8]\\\bottomrule
+\end{tabularx}}
+\SmallPara{\textbf{L3a:} people compare what arrived with what they expected. Opus passed the market-review test but failed Gates's timing test. His instruction to create the ``best word processor ever'' was not a threshold: two people could disagree about ``best,'' and there was no agreed quality or cost test. [F p. 6]}
+\Section{Fact notes on other people}
+\TinyPara{Hunt led the first concept; Hermann brought word-processing knowledge; Arthurs covered UI/documentation (p. 6). Kurtz, Dormitzer and McDermott handled later technical/development leadership (pp. 7--8). Slyngstad was program manager and Sanderson handled marketing (p. 7). Mason wanted fully tested features (p. 9); Blumenthal criticized program management bottlenecks (p. 5). Higgins favored shared core code for long-run savings (p. 11). The case does not give every named person a separate success test.}
+\newpage
+
+\PageTitle{2. Why the requirements never settled}
+Our diagnosis [I]: the project never had \textbf{one agreed, testable product goal and a clear rule for changing it}. The new team arrived in 1986 to find feature papers rather than a full specification [F p. 7]. Product decisions were shared across several leads without one person in full control [F p. 5]. Exhibit 6 shows addenda in October 1987, March 1988 and July 1988, plus features added after a February 1988 meeting [F p. 18]. Those are symptoms of the missing agreement, not separate root causes.
+
+The end user is someone writing, editing and printing documents in Word for Windows. Microsoft had a User Interface Laboratory with observed test subjects [F p. 3], but the case does not tell us that representative \emph{WinWord} users approved Opus requirements. Press reviews are useful feedback, not a substitute for user sign-off [F p. 8]. \textbf{Assumption [A]:} a focused update is enough for users to complete their essential work; R1 is what breaks if this assumption is false.
+
+\textbf{Our change (L3b):} before agreeing on scope, Sanderson and Slyngstad arrange user sessions and a joint review with development and QA. Eight representative users try five ordinary editing tasks. The team turns what it learns into must-have requirements with a task, test and named owner. Raikes signs the list on 15 May, after bottom-up estimates. Late requests are allowed only with a written estimate of what they add and what will be removed. This uses \textbf{elicitation, validation and change-impact analysis}; it does not assume requirements will never change.
+\Section{3. A threshold of success for WinWord 2.0}
+\SmallPara{L3a says to write failure first, then invert it. Below are proposed tests, \textbf{not case facts}. They are binding only after users, engineering, QA and Raikes agree on definitions at the 15 May decision.}
+{\TableFont
+\begin{tabularx}{\linewidth}{@{}P{66pt}P{214pt}Y@{}}
+\toprule
+\textbf{Area} & \textbf{Failure statement} & \textbf{Success: the exact opposite}\\\midrule
+Scope & An approved must-have requirement fails its agreed test. & Every signed must-have test passes at release.\\\midrule
+Quality & Any known release-blocking defect remains, or fewer than 7 of 8 test users finish the five agreed tasks unaided. & Zero known release-blocking defects \textbf{and} at least 7 of 8 users complete all five tasks.\\\midrule
+Time & WinWord 2.0 reaches customers after 31 March 1991. & Customer shipment by 31 March 1991.\\\midrule
+Cost & Additional hires, over 168 allocated team person-months, or spending above the approved project cap. & No hires; at most 168 team person-months, and actual expense within the signed cost cap.\\\bottomrule
+\end{tabularx}}
+\SmallPara{The 168 is \textbf{14 people $\times$ 12 months}, a derived upper bound on team effort, not a case budget and not a total dollar cost. The case gives no salary or project cost figures. Finance must set a \textbf{separate dollar ceiling} using real rates before the 15 May go/no-go decision; without it we cannot truthfully say the full cost gate is cleared. The 7-of-8 user test is a small proposed acceptance check, not statistical proof about the whole market.}
+\Section{Why Option 1, and what would make it credible}
+Option 2 could make future Word versions easier to share, but Raikes expects one or two extra years of delay and more uncertainty [F p. 11]. That is hard to accept with WordPerfect for Windows due in early 1991 [F pp. 8, 19]. However, in September 1984 Microsoft estimated 365 days and actually needed 2,187 [F Exhibit 1, p. 13]. We therefore \textbf{do not claim Option 1 already meets the threshold}. By 15 May the team must demonstrate the required work fits the people, budget and a release plan with time reserved for stabilization. [A1] The essential improvements can be made without rebuilding Word's core; if that turns out false, revisit the decision.
+\newpage
+
+\PageTitle{4. Three risks to that threshold}
+\SmallPara{L3c asks for a risk, an owner, a response and an indicator. The risks below are different: the wrong product target, late code quality and lack of technical capacity. Our probability and impact figures are \textbf{rough starting judgments [A2]}, not historical Microsoft statistics. The team should review them weekly.}
+{\TableFont
+\begin{tabularx}{\linewidth}{@{}P{170pt}P{152pt}Y@{}}
+\toprule
+\textbf{Risk and rank} & \textbf{Mitigation / owner} & \textbf{Indicator and trigger}\\\midrule
+\textbf{R1. A small update does not meet real users' needs.}\newline [Boehm \#3--4]\newline 40\% $\times$ 5-month slip = 2.0 risk-months [A2]. & Sanderson / Slyngstad: observe 8 users, test five tasks and estimate any core redesign before approval. & Count users needing a core rewrite for essential tasks. Trigger: \textbf{4 of 8} by 15 May.\\\midrule
+\textbf{R2. Bug fixing overruns the release date.}\newline [Boehm \#2]\newline 50\% $\times$ 4 months = 2.0 risk-months [A2]. & Mason: QA reviews changes early; prioritize critical defects and reserve stabilization time. & Weekly count of open blocking defects. Trigger: count rises two consecutive weeks.\\\midrule
+\textbf{R3. A key programmer is unavailable.}\newline [Boehm \#1]\newline 30\% $\times$ 3 months = 0.9 risk-months [A2]. & Mason: give critical modules a backup owner and have them review changes before June. & Modules with only one trained owner. Trigger: any critical module still single-owner after 31 May.\\\bottomrule
+\end{tabularx}}
+\Section{Which one changes the choice?}
+\textbf{R1.} If user observation shows that important tasks need a major rewrite, the small-release idea may fail its scope and time tests. Raikes should reconsider Option 2 or a genuinely smaller interim release before signing the plan. R2 needs fewer optional changes and more bug-fixing capacity; R3 needs backup knowledge. Neither automatically argues for core-code redesign. In all cases, we should not lower the quality gate quietly just to say the date was met.
+
+\SmallPara{Boehm cross-check: R1 fits developing the wrong functions or interface (\#3--4); R2 fits unrealistic schedules and budgets (\#2), not real-time performance (\#9); R3 fits personnel shortfalls (\#1). We also watch gold plating (\#5) and continuing requirements changes (\#6) in the change log. These are checks on the three risks, not extra copies of them.}
+\Section{What we are assuming}
+\SmallPara{[A1] A focused update is enough for the target users. Strong reviews of version 1.0 make that plausible [F p. 8], but they do not prove it. [A2] Risk likelihoods and delay estimates are provisional and should be replaced with the team's estimates. We also assume eight chosen test users represent the main workflows; the sample is too small for a population claim.}
+\Section{References}
+\TinyPara{Iansiti, M. (1994). \emph{Microsoft Corporation: Office Business Unit}, HBS case 9-691-033, pp. 1--20. MSD course notes: L3a Customer Expectations; L3b Requirements Engineering; L3c Risk Management. Boehm top-ten list as covered in L3c.}
+\TinyPara{Study notes: msdbok.github.io/content/material/sn3a.html ; sn3b.html ; sn3c.html}
+\end{document}
