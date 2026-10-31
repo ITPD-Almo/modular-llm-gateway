@@ -38,7 +38,7 @@ Each environment owns `.env` (600), `config/` (700), installer runtime `data/`, 
 
 Public frontends use TLS 1.2/1.3. The project demo CA certificate is [available here](deployment-tools/demo-ca.crt); it contains no deployment address or private key. Verify its fingerprint against the Moodle PDF before trusting it in a dedicated browser profile, or supply it explicitly to curl. Never disable certificate verification. The existing CA signs a 90-day server certificate for the privately supplied VM IPv4 and loopback; administrators must renew it before expiry and distribute changed trust material privately when migrating hosts.
 
-TA/Customer chats have a six-per-minute sustained limit with a small burst (HTTP 429 when exceeded); the private Owner code is exempt for operator checks. Request bodies are capped at 16 KiB. The provider adapter caps generated output at 128 tokens and retries none. These are request/output controls, not a monetary spending cap.
+TA/Customer chats have a six-per-minute sustained limit with an initial burst of thirteen requests (HTTP 429 when exceeded); the private Owner code is exempt for operator checks. Request bodies are capped at 16 KiB. The provider adapter caps generated output at 128 tokens and retries none. These are request/output controls, not a monetary spending cap.
 
 ## Manual deployment and promotion
 

@@ -56,7 +56,7 @@ def config(servers, *, rehearsal=False):
         ssl_session_timeout 5m;
         auth_basic "LLMGW {environment}";
         auth_basic_user_file "{ROOT / (environment + ".htpasswd")}";
-        limit_req zone=LLMGW_DEMO burst=2 nodelay;
+        limit_req zone=LLMGW_DEMO burst=12 nodelay;
         limit_req_status 429;
         location / {{
             proxy_pass http://127.0.0.1:{backend};
@@ -321,9 +321,9 @@ def rehearse():
             other = "production" if env == "staging" else "staging"
             checks.append(fetch(base + "/health", ("ta", codes[other]["ta"]))[0] == 401)
             statuses = [
-                fetch(base + "/v1/chat/completions", ("ta", codes[env]["ta"]))[0] for _ in range(4)
+                fetch(base + "/v1/chat/completions", ("ta", codes[env]["ta"]))[0] for _ in range(14)
             ]
-            checks.append(statuses[:3] == [200, 200, 200] and statuses[3] == 429)
+            checks.append(statuses[:13] == [200] * 13 and statuses[13] == 429)
             checks.append(
                 fetch(base + "/v1/chat/completions", ("owner", codes[env]["owner"]))[0] == 200
             )
