@@ -1,5 +1,7 @@
-from gateway.plugins.add_metadata import MetadataPlugin
+from pathlib import Path
+
 from gateway.config import load_plugins
+from gateway.plugins.add_metadata import MetadataPlugin
 from gateway.plugins.base import Plugin
 from gateway.plugins.uppercase import UppercasePlugin
 
@@ -22,9 +24,7 @@ def test_metadata_plugin_transforms_request_and_response() -> None:
 
 
 def test_uppercase_plugin_transforms_message() -> None:
-    result = UppercasePlugin().process_request(
-        {"messages": [{"role": "user", "content": "hello"}]}
-    )
+    result = UppercasePlugin().process_request({"messages": [{"role": "user", "content": "hello"}]})
     assert result["messages"][0]["content"] == "HELLO"
 
 
@@ -43,3 +43,9 @@ def test_plugin_protocol_defines_required_methods() -> None:
     plugin: Plugin = MinimalPlugin()
     assert callable(plugin.process_request)
     assert callable(plugin.process_response)
+
+
+def test_default_plugin_list_loads_in_its_documented_order() -> None:
+    config = Path(__file__).resolve().parents[1] / "config" / "plugins.json"
+    plugins = load_plugins(config)
+    assert [type(plugin) for plugin in plugins] == [MetadataPlugin, UppercasePlugin]
