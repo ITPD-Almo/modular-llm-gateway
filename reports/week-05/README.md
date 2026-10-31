@@ -16,38 +16,34 @@ TODO (after Sergey's PR): the product CI runs lint, format, type check, build an
 [QR-01 QRT-01](../../docs/quality-requirements/qr/QR-01.md#qrt-01) runs in the CI and [QR-02 QRT-01](../../docs/quality-requirements/qr/QR-02.md#qrt-01) against staging; the tests that are not `Passes` are in the [testing plan](../../docs/project-plan.md#quality-requirement-testing-plan).
 
 TODO (after the tag): REL-05 is [v0.5.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.5.0), cut on the commit production runs.
-TODO (after the meeting): what moved out of the sprint, and to which sprint.
+The Week 5 Customer meeting, which is the SPRINT-05 Sprint Review, was postponed to Week 6, so no story received a verdict this week.
+Actual Velocity is 0, and US-01 to US-04 and US-09 (18 points) moved to SPRINT-06 for their criterion-by-criterion verdicts.
+The Week 4 action points and open questions that needed the meeting are carried to the Week 6 meeting.
 
 ## Minimum usable product and Customer outcome
 
-The candidate remains [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41) and [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42), with [US-04](https://github.com/ITPD-Almo/modular-llm-gateway/issues/52) and [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96) shown at the same review.
+The candidate remains [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41) and [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42); [US-04](https://github.com/ITPD-Almo/modular-llm-gateway/issues/52) and [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96) were planned for the same review.
 
-| Story | Customer verdict | Decision |
-| --- | --- | --- |
-| US-01 | TODO | TODO `DEC-nnn` |
-| US-02 | TODO | TODO `DEC-nnn` |
-| US-03 | TODO | TODO `DEC-nnn` |
-| US-04 | TODO | TODO `DEC-nnn` |
-| US-09 | TODO | TODO `DEC-nnn` |
-
-TODO (after the meeting): the result shown for each implemented test at its level: QR-01 QRT-01 from the CI run, and QR-02 QRT-01 against staging.
+No Customer meeting was held in Week 5: the Sprint Review was postponed to Week 6, date TODO.
+No story was shown, accepted or rejected, so no verdict `DEC-nnn` exists for this week, and all five stories moved to SPRINT-06 rather than being dropped.
+The implemented tests' results are recorded in the [testing plan](../../docs/project-plan.md#quality-requirement-testing-plan) and will be shown at their levels at the Week 6 review.
 
 ## Coverage
 
 | Deliverable | Artifact |
 | --- | --- |
-| Sprint plan and milestones | [docs/project-plan.md#sprint-05](../../docs/project-plan.md#sprint-05) and [docs/project-plan.md#milestones](../../docs/project-plan.md#milestones): the goal, Planned Velocity 18, Actual Velocity TODO, and MLS-05 due 2026-10-31, MLS-07 due 2026-11-14 |
+| Sprint plan and milestones | [docs/project-plan.md#sprint-05](../../docs/project-plan.md#sprint-05) and [docs/project-plan.md#milestones](../../docs/project-plan.md#milestones): the goal, Planned Velocity 18, Actual Velocity 0 (the review was postponed to Week 6), and MLS-05 due 2026-10-31, MLS-07 due 2026-11-14 |
 | New stories | [User Story issues](https://github.com/ITPD-Almo/modular-llm-gateway/issues?q=is%3Aissue%20type%3A%22User%20Story%22) and the [SPRINT-05 milestone](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/3) holding US-09 |
 | Quality requirement tests | [docs/quality-requirements/qr/](../../docs/quality-requirements/qr/): [QR-02 QRT-01](../../docs/quality-requirements/qr/QR-02.md#qrt-01) and [QR-01 QRT-01](../../docs/quality-requirements/qr/QR-01.md#qrt-01), the two active High business-importance requirements |
 | Testing plan | [docs/project-plan.md#quality-requirement-testing-plan](../../docs/project-plan.md#quality-requirement-testing-plan) |
 | Automated tests and CI | [.github/workflows/](../../.github/workflows/), with `actionlint` and the product-code checks |
 | Deployment | [docs/deployment.md](../../docs/deployment.md); TODO: the staging and production instances and the core-task verification |
 | Feature documentation | [docs/features.md](../../docs/features.md) |
-| Week 4 action points | [reports/week-05/meeting-report.md#previous-action-points](meeting-report.md#previous-action-points) |
-| Week 4 open questions | [reports/week-05/meeting-report.md#previous-open-questions](meeting-report.md#previous-open-questions) |
-| Meeting script | [reports/week-05/meeting-script.md](meeting-script.md) |
-| Meeting transcript | TODO: [reports/week-05/meeting-transcript.md](meeting-transcript.md), or one line saying why there is none |
-| Customer validation | [reports/week-05/meeting-report.md](meeting-report.md), and each story's verdict above |
+| Week 4 action points | Not closed this week: the meeting was postponed, so the [Week 4 action points](../week-04/meeting-report.md#action-points) are carried to the Week 6 meeting report's `## Previous action points` |
+| Week 4 open questions | Not closed this week: the [Week 4 open questions](../week-04/meeting-report.md#open-questions) are carried to the Week 6 meeting |
+| Meeting script | None this week: the meeting was postponed to Week 6, and its script will be written for that meeting |
+| Meeting transcript | None: no meeting was held in Week 5 |
+| Customer validation | None this week: the Sprint Review was postponed to Week 6, as recorded [above](#minimum-usable-product-and-customer-outcome) |
 | `REL-05` | TODO: the [v0.5.0 release](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.5.0), [CHANGELOG.md#050---2026-10-31](../../CHANGELOG.md#050---2026-10-31) and [docs/project-plan.md#rel-05](../../docs/project-plan.md#rel-05) |
 | Sprint retrospective | [reports/week-05/sprint-retrospective.md](sprint-retrospective.md) |
 | AI usage | [reports/week-05/ai-usage.md](ai-usage.md) |
@@ -56,7 +52,7 @@ TODO (after the meeting): the result shown for each implemented test at its leve
 
 | Member | Evidenced work |
 | --- | --- |
-| Ali12hamdan | [One-command installer #92](https://github.com/ITPD-Almo/modular-llm-gateway/pull/92), [install check #93](https://github.com/ITPD-Almo/modular-llm-gateway/pull/93), [provider setup #95](https://github.com/ITPD-Almo/modular-llm-gateway/pull/95), TODO: the deployment and Sprint Review pull request for [#99](https://github.com/ITPD-Almo/modular-llm-gateway/issues/99), the VM deploy and the v0.5.0 release. |
+| Ali12hamdan | [One-command installer #92](https://github.com/ITPD-Almo/modular-llm-gateway/pull/92), [install check #93](https://github.com/ITPD-Almo/modular-llm-gateway/pull/93), [provider setup #95](https://github.com/ITPD-Almo/modular-llm-gateway/pull/95), TODO: the deployment pull request for [#99](https://github.com/ITPD-Almo/modular-llm-gateway/issues/99), the VM deploy and the v0.5.0 release. |
 | Mohammed-Nour | [Plan, testing plan, features and sprint close #101](https://github.com/ITPD-Almo/modular-llm-gateway/pull/101), the Week 5 split and issues [#96](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96) to [#100](https://github.com/ITPD-Almo/modular-llm-gateway/issues/100), and reviews of #92, #93 and #95. |
 | atkond2point0 | TODO: the CI checks and quality requirement tests pull request for [#98](https://github.com/ITPD-Almo/modular-llm-gateway/issues/98). |
 
@@ -71,6 +67,10 @@ GitHub issue and project links and the course Git submodule are handled by the e
 - SPRINT-05 was planned on its due date, 2026-10-31, not at the sprint's start; the planned velocity is a same-day baseline.
 - [#94](https://github.com/ITPD-Almo/modular-llm-gateway/issues/94) moved to SPRINT-06 with its story [US-10](https://github.com/ITPD-Almo/modular-llm-gateway/issues/97); its pull request [#95](https://github.com/ITPD-Almo/modular-llm-gateway/pull/95) merged in SPRINT-05 as work done ahead of the story's sprint.
 - `docs/features.md` has no entry for the one-command install: no functional requirement owns installation yet, and the course allows no feature without one.
+- The Week 5 Customer meeting, the SPRINT-05 Sprint Review, was postponed to Week 6, date TODO, reason TODO. As a result:
+  - no story was shown against its criteria, no verdict `DEC-nnn` was recorded, and Actual Velocity is 0, with US-01 to US-04 and US-09 moved to SPRINT-06;
+  - `reports/week-05/meeting-script.md`, `meeting-report.md` and `meeting-transcript.md` do not exist; the Week 4 action points and open questions, including the matched LiteLLM comparison, are carried to the Week 6 meeting and closed in its report;
+  - REL-05 is cut on the deployed and tested commit without a Customer review, so it carries no accepted story.
 - TODO: any fallback (a `scripted` or `CI` test instead of `deployed`), rework deferred to SPRINT-06, or other deviation from the day.
 
 ## Privacy

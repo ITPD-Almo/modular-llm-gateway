@@ -76,6 +76,7 @@ The Customer opens the gateway on the university VM from the university network,
 - **Due:** 2026-10-31
 - **Sprint Backlog:** [the issues scheduled into SPRINT-05](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/3)
 - **Planned Velocity:** 18
+- **Actual Velocity:** 0; the Week 5 Customer meeting, which is the SPRINT-05 Sprint Review, was postponed to Week 6, so no story received a verdict, and US-01 to US-04 and US-09 (18 points) moved to SPRINT-06.
 
 The planned velocity was computed by hand as 2 + 3 + 3 + 5 + 5 from the `Story Points` of [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41), [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42), [US-04](https://github.com/ITPD-Almo/modular-llm-gateway/issues/52) and [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96).
 The first four stories carried over from SPRINT-04 for their Customer verdicts; US-09 is new this sprint.
