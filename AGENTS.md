@@ -5,6 +5,11 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
 ## Layout
 
 - `gateway/` is the product: one FastAPI application.
+  - `cli.py` and `__main__.py`: installed `llmgw` and module commands.
+  - `setup.py` and `credentials.py`: guided hidden-input setup and private per-user provider profile.
+  - `deepseek.py`: fixed-origin HTTPS adapter and safe provider failures; never add keys to plugin dictionaries.
+  - `demo.py`: isolated real HTTP demo with ephemeral ports and cleanup.
+  - `data/`: default configuration shipped in the wheel.
   - `main.py`: app factory and HTTP endpoints.
   - `config.py`: plugin loading.
   - `execution.py`: supervised request-local worker pipeline and cleanup.
@@ -14,13 +19,16 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
   - `plugins/`: the `Plugin` protocol in `base.py` and the bundled plugins.
   - The [testability requirement](docs/quality-requirements/qr/QR-01.md) names the critical modules it covers.
 - `config/plugins.json` is the default plugin list; `GATEWAY_CONFIG` selects another file.
+- `install.sh` bootstraps the Linux/macOS terminal tool into user-owned directories;
+  `requirements-runtime.txt` pins its runtime dependencies. `docs/terminal.md` owns that install/demo recipe.
 - `examples/` holds the third-party A/B and slow-hook examples and their configuration files; they load without editing gateway core.
-- `tests/` holds the pytest suite; every test uses synthetic plugins and the fake provider, never a provider key or the network.
+- `tests/` holds the pytest suite; tests use synthetic plugins, fake providers and mocked transports, never a real provider key or an external API call. Isolate XDG_CONFIG_HOME when exercising CLI provider selection so a developer's saved profile cannot trigger a paid call.
 - `docs/` holds the maintained artifacts and the documentation site:
   - the vision, the plan and the decisions
   - the assumptions and the research
   - `quality-requirements/`, `functional-requirements/` and the glossary
   - the setup, plugin, operations and demo guides
+  - `deployment.md`: the four environments, private VM configuration, manual promotion, campus verification and rollback
   - `architecture/`: the container view (`container.svg` source and rendered `container.png`) and the decision records in `architecture/adr/`, with `TEMPLATE.md` for a new `ADR-nnn`
 
   New maintained documents go here, never into `reports/` first.

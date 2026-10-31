@@ -12,9 +12,12 @@ This is a course project of team 9 in the autumn 2026 term, and it is a work in 
 - [Threshold of success](threshold-of-success.md): the goals the project must reach to count as a success.
 - [Project plan](project-plan.md): the milestones, the sprints, and their releases.
 - [Setup](setup.md): install and run the gateway.
+- [Deployment](deployment.md): separate staging and production, manual promotion, verification and rollback on the university VM.
 - [Plugin contract](plugins.md): plugin inputs, outputs, order, loading, and failures.
 - [Developer demo](demo.md): normal and changed plugin order, a third-party A/B plugin, timeout recovery and reset.
 - [Operating guide](operations.md): request correlation, lifecycle events, limits and recovery.
+
+- [Terminal installation and supervisor demo](terminal.md): install on Linux/macOS without preinstalled Python, Git or Docker.
 
 ## Requirements
 

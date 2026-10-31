@@ -9,6 +9,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 ### Added
 
 - A [features page](docs/features.md) that lists what the gateway lets you do, in plain words, with links to the stories and requirements behind each capability.
+- Guided `llmgw setup` with hidden API-key entry, read-only DeepSeek model discovery, private local persistence, provider status and logout; no `.env` editing is needed.
+- An opt-in DeepSeek adapter using the saved model, a 128-output-token cap, no automatic retries and a separate supervised provider deadline, while `llmgw demo` remains offline.
+- An installed `llmgw` terminal command for serving, chat, health checks, plugin inspection, workspace creation and a self-contained five-scenario demo.
+- A Linux/macOS installer that provisions an isolated Python runtime without requiring Git, system Python, Docker, sudo or a provider key; runtime dependencies are pinned for the installer.
+
+### Fixed
+
+- Ship the default plugin configuration and demo plugins inside the Python package, so an installed wheel works outside a repository checkout.
 
 ## [0.2.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.2.0) - 2026-10-25
 
