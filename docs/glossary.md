@@ -48,12 +48,6 @@ A chat attempt processed through one or more configured plugins.
 
 **Defined by:** [`FR-012`](functional-requirements/fr/FR-012.md).
 
-### Product Analytics Event
-
-A bounded, content-free record used to measure configured gateway use; it is opt-in and best effort.
-
-**Defined by:** [`FR-012`](functional-requirements/fr/FR-012.md).
-
 ### Fake Provider
 
 The built-in stand-in for an LLM provider that needs no key and replies with `fake:`, a space and the last message's content.
@@ -74,14 +68,6 @@ A content-free record the gateway writes when a hook starts, completes, fails or
 
 ## Product analytics
 
-### Event
-
-A defined record of a product action, with the fields and collection point listed in the [analytics registry](analytics.md#the-events).
-
-### Instrumentation
-
-The gateway code that observes product actions and emits their defined events.
-
 ### Focus metric
 
 The main usage measure the team uses to assess the trial's value.
@@ -98,10 +84,3 @@ A measure that guards against raising the focus metric by making the experience 
 
 The focus metric, its guard and its input metrics arranged in their explanatory order.
 
-### Analytics backend
-
-The service that receives usage events and runs the queries behind the charts.
-
-### Dashboard
-
-A view of charts or event lists from one environment scope.

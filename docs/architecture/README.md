@@ -11,12 +11,12 @@ This document records the gateway architecture serving the scope in the [product
 
 ## Container View
 
-The current product genuinely runs as one application container, `gateway`, and [ADR-001](adr/ADR-001.md) records its stack and split. Product analytics is an operator-supplied external OpenObserve boundary; [ADR-007](adr/ADR-007.md) records its protocol and separate environment scopes.
+The current product genuinely runs as one application container, `gateway`, and [ADR-001](adr/ADR-001.md) records its stack and split. The team self-hosts the OpenObserve analytics and observability backends on the university VM; it does not build either backend. [ADR-007](adr/ADR-007.md) records the analytics protocol and separate environment scopes.
 
 ![Container view showing one gateway application and the two external integration boundaries](container.png)
 
 The blue application is the deployed product; its fake provider is internal and needs no external key or service.
-The dashed external systems preserve the vision's integration boundaries: a real provider adapter is not implemented, and company log collection is operator supplied rather than a bundled store.
+The dashed external systems preserve the vision's integration boundaries: a real provider adapter is not implemented, and the team self-hosts the OpenObserve backends without building them into the product.
 Solid HTTP request handling and local diagnostic output are implemented; the diagram's dashed exchanges are integration targets, not a claim that the gateway already calls a real provider or writes to a company store.
 
 The baseline runs hooks in the application process.
@@ -42,7 +42,7 @@ Neither adds a product application or data store, and neither capability is impl
 
 - **Blue rounded rectangle:** the product's single deployable application container; the label gives its name and technology.
 - **Gray dashed rectangle:** an external system from the vision, outside the product and not supplied by the baseline.
-- **Dashed arrow:** a planned or operator-supplied integration; its label states the data and protocol boundary.
+- **Dashed arrow:** a planned or operator-supplied integration; its label states the data and protocol boundary. The solid analytics arrow is the implemented authenticated event export to the team-hosted OpenObserve backend.
 - **Boundary annotations:** the application accepts HTTP JSON chat and health requests, writes JSON diagnostic events to stderr or logging handlers, and uses an internal fake provider in the baseline. These annotations are interfaces, not extra containers or external actors.
 - **Tool and source:** [container.svg](container.svg) is editable SVG source; [container.png](container.png) is rendered from that source with CairoSVG. Edit and render them together. The system context and actors remain in the vision's existing diagram.
 
@@ -56,4 +56,4 @@ Neither adds a product application or data store, and neither capability is impl
 | [ADR-004](adr/ADR-004.md) | Accepted | [FR-008](../functional-requirements/fr/FR-008.md), [QR-01](../quality-requirements/qr/QR-01.md), [QR-03](../quality-requirements/qr/QR-03.md) | Parent-generated allowlisted lifecycle events |
 | [ADR-005](adr/ADR-005.md) | Accepted | [FR-009](../functional-requirements/fr/FR-009.md), [FR-010](../functional-requirements/fr/FR-010.md), [QR-01](../quality-requirements/qr/QR-01.md), [QR-03](../quality-requirements/qr/QR-03.md), [QR-06](../quality-requirements/qr/QR-06.md) | Identified image delivery and retained known-good recovery on an operator-provided host |
 | [ADR-006](adr/ADR-006.md) | Accepted | [FR-008](../functional-requirements/fr/FR-008.md), [FR-011](../functional-requirements/fr/FR-011.md), [QR-01](../quality-requirements/qr/QR-01.md), [QR-03](../quality-requirements/qr/QR-03.md), [QR-07](../quality-requirements/qr/QR-07.md) | Bounded process-local aggregate metrics using the existing safe event contract |
-| [ADR-007](adr/ADR-007.md) | Proposed | [FR-012](../functional-requirements/fr/FR-012.md), [QR-03](../quality-requirements/qr/QR-03.md) | Record gateway usage in a dedicated analytics backend |
+| [ADR-007](adr/ADR-007.md) | Accepted | [FR-012](../functional-requirements/fr/FR-012.md), [QR-03](../quality-requirements/qr/QR-03.md) | Record gateway usage in a dedicated analytics backend |

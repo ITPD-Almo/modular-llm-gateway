@@ -14,7 +14,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 
 ### Added
 
-- Proposed opt-in, privacy-safe configured-chat analytics with bounded export and documented metric queries.
 - A [features page](docs/features.md) that lists what the gateway lets you do, in plain words, with links to the stories and requirements behind each capability.
 - Guided `llmgw setup` with hidden API-key entry, read-only DeepSeek model discovery, private local persistence, provider status and logout; no `.env` editing is needed.
 - An opt-in DeepSeek adapter using the saved model, a 128-output-token cap, no automatic retries and a separate supervised provider deadline, while `llmgw demo` remains offline.
