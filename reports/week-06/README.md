@@ -26,7 +26,7 @@ No story was walked through its criteria and no verdict was given, so Actual Vel
 
 The candidate remains [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41) and [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42).
 At the [2026-11-07 review](meeting-report.md) the Customer saw the install and the guided provider setup from [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96) and the plugin configuration and hook code behind US-01 to US-04, but no story was shown criterion by criterion and none was accepted or rejected, so no verdict `DEC-nnn` exists.
-All scheduled stories moved to SPRINT-07 rather than being dropped.
+All scheduled stories carry over to SPRINT-07 rather than being dropped; at the time of writing they are still in the SPRINT-06 milestone, and their move is recorded when it happens.
 
 ## Dashboards and the observability test
 
@@ -35,7 +35,7 @@ What is running, what is merged and what was verified are three different states
 | Item | Running on the VM | Merged | Verified from campus |
 | --- | --- | --- | --- |
 | Observability backend, `staging` and `production` organizations, `SLI-01` dashboard in each ([#115](https://github.com/ITPD-Almo/modular-llm-gateway/issues/115), [#116](https://github.com/ITPD-Almo/modular-llm-gateway/issues/116)) | Yes | No: [PR #109](https://github.com/ITPD-Almo/modular-llm-gateway/pull/109) is in review | No: pending |
-| QR-08 QRT-01 | A VM loopback rehearsal at the #109 head returned the named 504, the matching timeout log in 0.426 s and a numeric P95 in 1.464 s; production received no test data | No | No: pending, [#117](https://github.com/ITPD-Almo/modular-llm-gateway/issues/117) |
+| QR-08 QRT-01 | A VM loopback rehearsal at commit `be5e8ce` returned the named 504, the matching timeout log in 0.426 s and a numeric P95 in 1.464 s. Staging now runs the #109 head, `1b537db`, where two VM-side HTTPS runs passed, the second an immediate rerun with the matching log in 0.432 s and a numeric P95 in 1.290 s. Production received no test data | No | No: pending, [#117](https://github.com/ITPD-Almo/modular-llm-gateway/issues/117) |
 | Analytics backend and its two dashboards ([#113](https://github.com/ITPD-Almo/modular-llm-gateway/issues/113), [#114](https://github.com/ITPD-Almo/modular-llm-gateway/issues/114)) | Yes | No: [PR #120](https://github.com/ITPD-Almo/modular-llm-gateway/pull/120) is a handoff draft | No: pending |
 | Analytics smoke | A VM loopback smoke produced staging events, with no eligible staging attempt and no production event | No | No: pending |
 
@@ -112,4 +112,4 @@ GitHub issue and project links and the course Git submodule are handled by the e
 
 ## Privacy
 
-No private-only material was committed to this repository.
+The final submission contains no private-only material. The meeting transcript is not part of it, and this pull request is squash-merged, so superseded meeting material in its intermediate commits stays out of `main`'s history.
