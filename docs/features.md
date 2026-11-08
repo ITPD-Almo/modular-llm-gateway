@@ -33,3 +33,11 @@ An operator keeps using the gateway when a [plugin](glossary.md#plugin) stops an
 - **Stories:** [`US-04`](https://github.com/ITPD-Almo/modular-llm-gateway/issues/52)
 - **Behavior:** [`FR-006`](functional-requirements/fr/FR-006.md), [`FR-007`](functional-requirements/fr/FR-007.md)
 - **Decisions:** [`ADR-003`](architecture/adr/ADR-003.md)
+
+## See how a private trial uses the gateway
+
+A product analyst can read [events](glossary.md#event) to see whether a configured chat started, completed with a visible plugin result, or failed.
+
+- **Stories:** [`US-11`](https://github.com/ITPD-Almo/modular-llm-gateway/issues/110)
+- **Behavior:** [`FR-012`](functional-requirements/fr/FR-012.md)
+- **Decisions:** [`ADR-007`](architecture/adr/ADR-007.md)

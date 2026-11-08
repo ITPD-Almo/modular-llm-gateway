@@ -53,3 +53,37 @@ The longest time the gateway waits for one hook before it ends the request with 
 A content-free record the gateway writes when a hook starts, completes, fails or times out, carrying the request identifier, plugin, stage, elapsed time and reason.
 
 **Defined by:** [`FR-008`](functional-requirements/fr/FR-008.md).
+
+## Product analytics
+
+### Event
+
+A defined record of a product action, with the fields and collection point listed in the [analytics registry](analytics.md#the-events).
+
+### Instrumentation
+
+The gateway code that observes product actions and emits their defined events.
+
+### Focus metric
+
+The main usage measure the team uses to assess the trial's value.
+
+### Input metric
+
+A measurable step the team can change to help explain movement in the focus metric.
+
+### Counter-metric
+
+A measure that guards against raising the focus metric by making the experience worse.
+
+### Metric tree
+
+The focus metric, its guard and its input metrics arranged in their explanatory order.
+
+### Analytics backend
+
+The service that receives usage events and runs the queries behind the charts.
+
+### Dashboard
+
+A view of charts or event lists from one environment scope.
