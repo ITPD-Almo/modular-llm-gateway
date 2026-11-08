@@ -14,7 +14,7 @@ Both telemetry backends run privately on the temporary university VM: an OpenObs
 The observability pipeline ([#108](https://github.com/ITPD-Almo/modular-llm-gateway/issues/108), [PR #109](https://github.com/ITPD-Almo/modular-llm-gateway/pull/109)) adds the [observability plan](../../docs/observability.md), `SLI-01` and the diagnosability requirement QR-08; it was merged on 2026-11-08 as `95c39fc`.
 The analytics pipeline ([#112](https://github.com/ITPD-Almo/modular-llm-gateway/issues/112)) was merged on 2026-11-08 as `a4c547a` from [PR #121](https://github.com/ITPD-Almo/modular-llm-gateway/pull/121), built on Ali12hamdan's handoff draft [PR #120](https://github.com/ITPD-Almo/modular-llm-gateway/pull/120); it adds the [analytics plan](../../docs/analytics.md), its event table, FR-012 and ADR-007.
 The focus metric has no value: the VM loopback smoke of the analytics draft recorded staging smoke events but no eligible staging attempt, and production stored no events; a value needs people outside the team using the gateway in the Week 7 usability test.
-QR-08 QRT-01 passed from a campus client against staging at the merged pull request's head, `1b537db`, and both observability dashboards were captured from campus; the analytics dashboards were not checked from campus. The result is in the [testing plan](../../docs/project-plan.md#quality-requirement-testing-plan) and [below](#qr-08-qrt-01-campus-run).
+QR-08 QRT-01 passed from a campus client against staging at the merged pull request's head, `1b537db`. All four dashboards were captured through the private university HTTPS routes. The result is in the [testing plan](../../docs/project-plan.md#quality-requirement-testing-plan) and [below](#qr-08-qrt-01-campus-run).
 
 The Customer review was held on 2026-11-07, before the telemetry existed.
 It showed the one-command install and a request to a real model, and it settled three decisions: a Docker Compose deployment ([DEC-012](../../docs/decisions.md#dec-012)), the terminal as the interface ([DEC-013](../../docs/decisions.md#dec-013)) and Saturday reviews with asynchronous questions ([DEC-014](../../docs/decisions.md#dec-014)).
@@ -36,8 +36,8 @@ What is running, what is merged and what was verified are three different states
 | --- | --- | --- | --- |
 | Observability backend, `staging` and `production` organizations, `SLI-01` dashboard in each ([#115](https://github.com/ITPD-Almo/modular-llm-gateway/issues/115), [#116](https://github.com/ITPD-Almo/modular-llm-gateway/issues/116)) | Yes | Yes: [PR #109](https://github.com/ITPD-Almo/modular-llm-gateway/pull/109), with the dashboard definition | Yes: both dashboards opened from campus on 2026-11-08, [screenshots below](#qr-08-qrt-01-campus-run) |
 | QR-08 QRT-01 | A VM loopback rehearsal at commit `be5e8ce` returned the named 504, the matching timeout log in 0.426 s and a numeric P95 in 1.464 s. Staging now runs the #109 head, `1b537db`, where two VM-side HTTPS runs passed, the second an immediate rerun with the matching log in 0.432 s and a numeric P95 in 1.290 s. Production received no test data | Yes: [PR #109](https://github.com/ITPD-Almo/modular-llm-gateway/pull/109), with the checker | Yes: passed on 2026-11-08 at `1b537db`, [#117](https://github.com/ITPD-Almo/modular-llm-gateway/issues/117) |
-| Analytics backend and its two dashboards ([#113](https://github.com/ITPD-Almo/modular-llm-gateway/issues/113), [#114](https://github.com/ITPD-Almo/modular-llm-gateway/issues/114)) | Yes | Yes: [PR #121](https://github.com/ITPD-Almo/modular-llm-gateway/pull/121), with both dashboard definitions | No: not checked from campus before the deadline |
-| Analytics smoke | A VM loopback smoke produced staging events, with no eligible staging attempt and no production event | No | No: pending |
+| Analytics backend and its two dashboards ([#113](https://github.com/ITPD-Almo/modular-llm-gateway/issues/113), [#114](https://github.com/ITPD-Almo/modular-llm-gateway/issues/114)) | Yes | Yes: [PR #121](https://github.com/ITPD-Almo/modular-llm-gateway/pull/121), with both dashboard definitions | Yes: both dashboards opened over university Wi-Fi on 2026-11-08, [screenshots below](#analytics-dashboard-evidence) |
+| Analytics smoke | The combined build `b769144` emitted seven staging smoke events, zero eligible staging attempts and zero production smoke events in a VM loopback rehearsal | Yes, exporter from [PR #121](https://github.com/ITPD-Almo/modular-llm-gateway/pull/121) | The staging raw events and zero attempt count were visible over HTTPS |
 
 A loopback rehearsal runs on the VM itself and is not the assessed result: QR-08 QRT-01 counts only when it is run from a machine on the university network against the staging deployment.
 
@@ -52,7 +52,7 @@ The checker came from commit `1b537dbc03f399868c7b0daf37c8231969491106`, the hea
 | Exactly one matching staging log point, with route, outcome and environment | 5 s | Found in 1.811 s: route `/v1/chat/completions`, outcome `timeout`, duration 322 ms, environment `staging` |
 | `SLI-01` returns a finite P95 for a new timeout observation | 60 s | 345 ms for the `timeout` series, returned in 1.846 s |
 
-The test passes. Restoring staging's normal provider and plugin settings, the procedure's last step, was handed to Ali12hamdan, who operates the VM.
+The test passes. Ali12hamdan restored the normal staging provider and plugin settings and verified health.
 
 The **Gateway request diagnosis** dashboard's `SLI-01 Chat response latency by outcome` chart, opened from campus in each organization over the 15 minutes after the run:
 
@@ -61,15 +61,24 @@ The **Gateway request diagnosis** dashboard's `SLI-01 Chat response latency by o
 ![Production SLI-01 chart showing No Data](images/observability-production.png)
 
 Staging shows two series: the timeout series at 345 ms, matching the query result above, and the healthy chats near 97 ms.
-Both series carry the literal legend `{{outcome}}` instead of the outcome value, so the chart does not name them; this is a defect in the dashboard definition, recorded in the [deviations](#deviations).
+The original screenshot shows the literal `{{outcome}}` legend. The live dashboard was corrected after the run, with the same SLI query.
 Production shows no data: no test traffic reached it.
+
+### Analytics dashboard evidence
+
+Ali12hamdan opened both **Gateway trial usage** dashboards using the private HTTPS route over university Wi-Fi on 2026-11-08.
+The seven-day **Configured chat attempts** query returned zero in each scope. Staging's raw table includes `source=smoke` rows, which the metric excludes. Production's raw table was empty. The focus metric still needs an eligible observation from outside the team.
+
+![Staging configured chat attempts and smoke event list](images/analytics-staging.png)
+
+![Production configured chat attempts and empty event list](images/analytics-production.png)
 
 ## Threshold review
 
 | Goal | Current measure | New data can settle it | Proposal |
 | --- | --- | --- | --- |
 | [TOS-01](../../docs/threshold-of-success.md#tos-01) | An accepted verdict, as a `DEC-nnn`, on every candidate story of MLS-03, by the end of Week 4, 2026-10-23. | No: it is settled by a Customer verdict, not by telemetry. | — |
-| [TOS-02](../../docs/threshold-of-success.md#tos-02) | One usability-test session in which a participant outside the team follows `docs/setup.md`, sends a request through two plugins and sees the result without help, by the end of Week 7, 2026-11-13. | No: it is settled by an observed session; analytics events could count the steps, but no analytics pipeline is deployed. | — |
+| [TOS-02](../../docs/threshold-of-success.md#tos-02) | One usability-test session in which a participant outside the team follows `docs/setup.md`, sends a request through two plugins and sees the result without help, by the end of Week 7, 2026-11-13. | No: it is settled by an observed session; analytics can count the steps during the session. | — |
 | [TOS-03](../../docs/threshold-of-success.md#tos-03) | One plugin, written by a developer outside the team against `docs/plugins.md`, that loads from the configuration file and changes a request, with no commit to the core, by the end of Week 7, 2026-11-13. | No: it is settled by an outside developer's plugin and the repository history, which no signal records. | — |
 | [TOS-04](../../docs/threshold-of-success.md#tos-04) | A request to the deployed gateway passes through two plugins and returns the fake provider's response, shown in the release notes of `REL-05`, by the end of Week 5, 2026-10-30. | No: its date had passed before the review; the observability data could show such a request, but not by that date. | — |
 
@@ -87,7 +96,7 @@ The team proposed no measure: the [analytics plan](../../docs/analytics.md) merg
 | Sprint plan and new stories | [docs/project-plan.md#sprint-06](../../docs/project-plan.md#sprint-06), and [US-11](https://github.com/ITPD-Almo/modular-llm-gateway/issues/110) and [US-12](https://github.com/ITPD-Almo/modular-llm-gateway/issues/111) in the [SPRINT-06 milestone](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/4) |
 | Analytics plan | [docs/analytics.md](../../docs/analytics.md) |
 | Events and instrumentation | [docs/analytics.md#the-events](../../docs/analytics.md#the-events) and the exporter in `gateway/analytics.py` |
-| Analytics dashboards | Running on the VM and not yet checked from campus, so there are no screenshots; see [Dashboards and the observability test](#dashboards-and-the-observability-test) |
+| Analytics dashboards | [Staging](images/analytics-staging.png) and [production](images/analytics-production.png), showing configured chat attempts and recent usage events |
 | Observability plan and `SLI`s | [docs/observability.md](../../docs/observability.md) |
 | Observability dashboards | [images/observability-staging.png](images/observability-staging.png) and [images/observability-production.png](images/observability-production.png), from the [campus run](#qr-08-qrt-01-campus-run) |
 | Feature documentation | [docs/features.md](../../docs/features.md) |
@@ -122,8 +131,8 @@ GitHub issue and project links and the course Git submodule are handled by the e
 ## Deviations
 
 - SPRINT-06 was planned on its due date, 2026-11-08, the day after its review; its Planned Velocity is a same-day remaining-work baseline, and the stories and tasks were created through the GitHub API with the forms' sections rather than through the issue forms. The organization's `MoSCoW`, `Story Points`, `Responsible` and `Accountable` fields are set by Ali12hamdan, because Mohammed-Nour has no organization access; the values are also in each issue's notes.
-- The analytics and observability work started on the due date. The observability pipeline, [PR #109](https://github.com/ITPD-Almo/modular-llm-gateway/pull/109), was merged on 2026-11-08, and the analytics pipeline, [PR #121](https://github.com/ITPD-Almo/modular-llm-gateway/pull/121), was merged the same evening. The focus metric has no value, because no one outside the team has used the gateway yet, and the two analytics dashboards running on the VM were not checked from campus, so `analytics-staging.png` and `analytics-production.png` are missing.
-- The `SLI-01` chart labels every series with the literal `{{outcome}}`, and on the dashboard page the panel renders too small to read, so the screenshots show the chart opened full-size. Both come from the dashboard definition merged in [PR #109](https://github.com/ITPD-Almo/modular-llm-gateway/pull/109) and are fixed in SPRINT-07; they do not change the test result, which reads the query, not the chart.
+- The analytics and observability work started on the due date. The observability pipeline, [PR #109](https://github.com/ITPD-Almo/modular-llm-gateway/pull/109), was merged on 2026-11-08, and the analytics pipeline, [PR #121](https://github.com/ITPD-Almo/modular-llm-gateway/pull/121), was merged the same evening. The focus metric has no value, because no one outside the team has used the gateway yet,.
+- The first observability captures used the full-panel view because of the narrow panel and literal outcome labels. The live dashboards were corrected later in Week 6 without changing their query. The captured evidence reflects the original campus run.
 - Seven task issues were created for Part 1, and three are planned to be closed by a pull request: [#108](https://github.com/ITPD-Almo/modular-llm-gateway/issues/108), [#112](https://github.com/ITPD-Almo/modular-llm-gateway/issues/112) and [#117](https://github.com/ITPD-Almo/modular-llm-gateway/issues/117). The four dashboard tasks are configured in the backends, not in the repository, so they are closed by their Accountable member when their criteria hold, which conflicts with the course rule that a pull request closes a task. Issue moves and closures are reported after they happen.
 - `REL-06` is not cut at the time of writing. The observability pipeline is on `main` and QR-08 QRT-01 passes, and the analytics pipeline is merged; the release member, Ali12hamdan, decides whether to cut it, and the [REL-06 block](../../docs/project-plan.md#rel-06) is filled then with the release and its checked QRs.
 - The three permission questions were not asked at the 2026-11-07 review, so its transcript is neither published nor shared with the instructors; the [meeting report](meeting-report.md#metadata) is the public record.
