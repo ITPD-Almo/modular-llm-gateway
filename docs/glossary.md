@@ -53,3 +53,29 @@ The longest time the gateway waits for one hook before it ends the request with 
 A content-free record the gateway writes when a hook starts, completes, fails or times out, carrying the request identifier, plugin, stage, elapsed time and reason.
 
 **Defined by:** [`FR-008`](functional-requirements/fr/FR-008.md).
+
+## Observability and telemetry
+
+### Observability
+
+The ability to investigate the gateway's operation using the signals it emits.
+
+### Signal
+
+A metric, log or trace used to understand how the gateway operated.
+
+### Service level indicator
+
+A defined measure of a service's behavior, with a unit, time window and query. **SLI** is its abbreviation.
+
+### SLI
+
+See [Service level indicator](#service-level-indicator).
+
+### Telemetry
+
+Operating or usage data the product emits for analysis outside the request path.
+
+### Observability backend
+
+The service that receives and stores operating signals and provides queries and visualizations over them.

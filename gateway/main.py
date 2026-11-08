@@ -1,6 +1,7 @@
 import os
 from contextlib import asynccontextmanager
 from pathlib import Path
+from time import perf_counter
 from typing import Any
 
 from fastapi import FastAPI, HTTPException, Request
@@ -11,6 +12,7 @@ from pydantic import BaseModel, Field
 from .config import instantiate_plugins, read_plugin_paths
 from .diagnostics import configure_diagnostics, new_request_id
 from .execution import ExecutionFailure, ExecutionSettings, PipelineExecutor
+from .observability import CHAT_ROUTE, ChatObservability, ObservabilitySettings
 from .provider import ChatProvider
 from .provider import fake_provider as fake_provider  # Keep the existing import path available.
 
@@ -64,27 +66,41 @@ def create_app(
     executor = PipelineExecutor(
         paths, tuple(type(plugin).__name__ for plugin in plugins), settings, provider=provider
     )
+    observability_settings = ObservabilitySettings.from_environment()
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
+        if observability_settings is not None:
+            app.state.chat_observability = ChatObservability(observability_settings)
         try:
             yield
         finally:
             executor.close()
+            if observability_settings is not None:
+                app.state.chat_observability.close()
 
     app = FastAPI(title="Modular LLM Gateway", lifespan=lifespan)
     app.state.pipeline_executor = executor
 
     @app.middleware("http")
     async def correlate_chat(http_request: Request, call_next):
-        if (
-            http_request.method != "POST"
-            or http_request.url.path.rstrip("/") != "/v1/chat/completions"
-        ):
+        if http_request.method != "POST" or http_request.url.path.rstrip("/") != CHAT_ROUTE:
             return await call_next(http_request)
-        http_request.state.gateway_request_id = new_request_id()
-        response = await call_next(http_request)
-        response.headers["X-Request-ID"] = http_request.state.gateway_request_id
+        request_id = new_request_id()
+        http_request.state.gateway_request_id = request_id
+        if observability_settings is None:
+            response = await call_next(http_request)
+        else:
+            started = perf_counter()
+            status_code = 500
+            try:
+                response = await call_next(http_request)
+                status_code = response.status_code
+            finally:
+                http_request.app.state.chat_observability.record(
+                    request_id, status_code, (perf_counter() - started) * 1000
+                )
+        response.headers["X-Request-ID"] = request_id
         return response
 
     @app.exception_handler(RequestValidationError)
@@ -97,7 +113,7 @@ def create_app(
     def health() -> dict[str, str]:
         return {"status": "ok"}
 
-    @app.post("/v1/chat/completions")
+    @app.post(CHAT_ROUTE)
     def chat(request: ChatRequest, http_request: Request) -> dict[str, Any]:
         request_id = http_request.state.gateway_request_id
         headers = {"X-Request-ID": request_id}

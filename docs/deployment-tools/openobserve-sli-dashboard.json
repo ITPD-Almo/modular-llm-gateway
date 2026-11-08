@@ -1,0 +1,37 @@
+{
+  "version": 8,
+  "title": "Gateway request diagnosis",
+  "description": "Request latency by outcome from SLI-01. The organization determines the environment.",
+  "defaultDatetimeDuration": {"type": "relative", "relativeTimePeriod": "15m"},
+  "tabs": [
+    {
+      "tabId": "default",
+      "name": "Request latency",
+      "panels": [
+        {
+          "id": "sli-01",
+          "type": "line",
+          "title": "SLI-01 Chat response latency by outcome",
+          "description": "Five-minute P95 in milliseconds. Each outcome is a separate series.",
+          "queryType": "promql",
+          "layout": {"x": 0, "y": 0, "w": 24, "h": 8, "i": 0},
+          "config": {"show_legends": true, "unit": "ms"},
+          "queries": [
+            {
+              "customQuery": true,
+              "query": "histogram_quantile(0.95, sum by (le, route, outcome) (sum_over_time(gateway_chat_duration_bucket[5m])))",
+              "fields": {
+                "stream": "gateway_chat_duration_bucket",
+                "stream_type": "metrics",
+                "x": [],
+                "y": [],
+                "filter": {"filterType": "group", "logicalOperator": "AND", "conditions": []}
+              },
+              "config": {"promql_legend": "{{outcome}}"}
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
