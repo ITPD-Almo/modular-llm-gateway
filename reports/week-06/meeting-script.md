@@ -6,7 +6,7 @@ The SPRINT-06 Sprint Review took place on Saturday 2026-11-07 with Ali12hamdan a
 No written script was prepared before that meeting, and none is preserved in the repository or the team's notes.
 This page was written on 2026-11-08, after the meeting, and contains two things:
 
-- the [reconstructed agenda](#reconstructed-agenda-of-the-2026-11-07-meeting) of what was actually covered, rebuilt from the [transcript](meeting-transcript.md); it is not a plan made beforehand;
+- the [reconstructed agenda](#reconstructed-agenda-of-the-2026-11-07-meeting) of what was actually covered, rebuilt from the Customer's automatic transcript of the call; it is not a plan made beforehand;
 - the [follow-up agenda](#agenda) for the next review on Saturday 2026-11-14, which the Customer asked to keep on Saturdays. It is used only if that meeting is held; otherwise its items carry into the Week 7 script.
 
 ## Reconstructed agenda of the 2026-11-07 meeting

@@ -99,7 +99,7 @@ An analyst sees how a trial uses the gateway from privacy-safe events, and an op
 - **Due:** 2026-11-08
 - **Sprint Backlog:** [the issues scheduled into SPRINT-06](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/4)
 - **Planned Velocity:** 24
-- **Actual Velocity:** 0; the 2026-11-07 review asked for no verdict, so no story was accepted, and US-01 to US-04, US-09, US-11 and US-12 (24 points) moved to SPRINT-07.
+- **Actual Velocity:** 0; the 2026-11-07 review asked for no verdict, so no story was accepted, and US-01 to US-04, US-09, US-11 and US-12 (24 points) carry over to SPRINT-07 when the SPRINT-06 milestone closes.
 
 The planned velocity was computed by hand as 2 + 3 + 3 + 5 + 5 + 3 + 3 from the `Story Points` of [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41), [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42), [US-04](https://github.com/ITPD-Almo/modular-llm-gateway/issues/52), [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96), [US-11](https://github.com/ITPD-Almo/modular-llm-gateway/issues/110) and [US-12](https://github.com/ITPD-Almo/modular-llm-gateway/issues/111).
 The sprint was planned on 2026-11-08, its last day and the day after its review, so the figure is a remaining-work baseline rather than a sprint-start estimate.
@@ -139,6 +139,7 @@ Provisional: the final release incorporates the selected usability findings, has
 | --- | --- | --- | --- | --- | --- |
 | [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Passes | [SPRINT-05](#sprint-05) | [SPRINT-05](#sprint-05) | [Campus staging run on 2026-10-31](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c7dce8ff876d31a57ee0ca93d9428d8444473f6c/reports/week-05/deployment-evidence.md#deployed-qr-02-rerun-through-the-https-gate) |
 | [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Passes | [SPRINT-05](#sprint-05) | [SPRINT-05](#sprint-05) | [CI: 81 tests in 20.90 seconds](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/41227201276) |
+| [QR-08](quality-requirements/qr/QR-08.md) | [QR-08 QRT-01](quality-requirements/qr/QR-08.md#qrt-01) | Not verified | None | [SPRINT-06](#sprint-06) | None |
 
 ## Progress Monitoring
 

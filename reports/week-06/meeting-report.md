@@ -10,9 +10,10 @@
 - **Not presented:** the analytics and observability dashboards, the observability test, an AC-by-AC walk through any story, the carried open questions and a threshold proposal. The telemetry did not exist yet: its first pull request, [#109](https://github.com/ITPD-Almo/modular-llm-gateway/pull/109), was opened on 2026-11-08.
 - **Preparation:** no script was written before the meeting, which is a deviation from the preparation rule.
 - **Roles:** Ali12hamdan moderated and presented. No note taker or observer role is established by the source.
-- **Recording permission:** the Customer recorded the meeting and sent the recording and the transcript afterwards; the permission questions were not asked on the recording.
-- **Transcript publication:** permitted, as confirmed to the team on 2026-11-08; the [de-identified transcript](meeting-transcript.md) uses coarse minute markers.
-- **Private instructor sharing:** permitted, as confirmed to the team on 2026-11-08; the recording link is in the Moodle submission only.
+- **Recording permission:** the Customer recorded the meeting and offered to send the team the recording and its automatic transcript; the three permission questions were not asked.
+- **Transcript publication:** not asked, so no transcript is published.
+- **Private instructor sharing:** not asked, so the recording and the transcript are not shared.
+- **Transcript:** None, because publication was not asked for. This report is written from the team's private copy of the Customer's automatic transcript.
 - **Meeting script:** [meeting-script.md](meeting-script.md), a reconstructed agenda and a follow-up agenda written after the meeting.
 - **Carried items:** the Week 5 review was postponed, so Week 5 has no meeting report; its report [carried the Week 4 action points and open questions](../week-05/README.md#deviations) to this meeting.
 - **Story verdicts:** none. The Customer gave feedback and agreed with the terminal workflow, which accepts no story's criteria.
