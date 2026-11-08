@@ -109,3 +109,33 @@ Show progress against a plan beyond one iteration and use asynchronous questions
 - **Made by:** Customer
 - **Source:** [the October 23 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/41530d7c5ad25028dcfe5a0d28d8103802b14a5d/reports/week-04/meeting-report.md).
 - **Why:** The Customer wants evidence of planning, execution, progress tracking and adjustment over several weeks, and explicitly allowed questions between meetings. Flexibility about presentations does not waive the course requirements.
+
+## DEC-012
+
+Deliver and demonstrate the gateway as a Docker container brought up with Docker Compose, so that a released version is selected as a container version rather than through local paths and environment settings.
+
+- **Status:** Active
+- **Date:** 2026-11-07
+- **Made by:** Customer
+- **Source:** [the November 7 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/7917c0181ab17b3434006ca646b2bd5bda75742c/reports/week-06/meeting-report.md#decisions).
+- **Why:** The Customer named deployment as a DevOps pain point and asked for the gateway wrapped in a container brought up with Docker Compose; Kubernetes was mentioned as an alternative and explicitly not required. It changes the deployment target refined in US-05, not an accepted story.
+
+## DEC-013
+
+Keep the terminal as the operator interface for the gateway and its plugins for now.
+
+- **Status:** Active
+- **Date:** 2026-11-07
+- **Made by:** Customer
+- **Source:** [the November 7 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/7917c0181ab17b3434006ca646b2bd5bda75742c/reports/week-06/meeting-report.md#decisions).
+- **Why:** Asked whether the plugins may keep working from the terminal, the Customer said that is fine. No graphical interface is in scope; it does not accept any story's criteria.
+
+## DEC-014
+
+Hold the customer review on Saturdays at the agreed time, without moving it, and use the asynchronous channel for questions and recorded demos between reviews.
+
+- **Status:** Active
+- **Date:** 2026-11-07
+- **Made by:** Customer
+- **Source:** [the November 7 review report](https://github.com/ITPD-Almo/modular-llm-gateway/blob/7917c0181ab17b3434006ca646b2bd5bda75742c/reports/week-06/meeting-report.md#decisions).
+- **Why:** The Customer declined an earlier extra meeting, said a missed review moves to the next week, and offered to answer questions, demos and container questions asynchronously. It extends [DEC-011](#dec-011) with the fixed review day.

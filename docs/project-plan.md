@@ -94,11 +94,27 @@ The [testing plan](#quality-requirement-testing-plan) owns the checked results a
 
 ### SPRINT-06
 
-Provisional: an operator can compare latency, errors and timeouts across a controlled run, then identify a failing plugin from safe events without retaining request or response bodies.
+An analyst sees how a trial uses the gateway from privacy-safe events, and an operator finds a failed request and its effect on latency from the gateway's signals, in four dashboards on the university network; the stories carried from SPRINT-05 are shown to the Customer for their verdicts.
 
-- **Due:** 2026-11-07
+- **Due:** 2026-11-08
+- **Sprint Backlog:** [the issues scheduled into SPRINT-06](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/4)
+- **Planned Velocity:** 24
+- **Actual Velocity:** 0; the 2026-11-07 review asked for no verdict, so no story was accepted, and US-01 to US-04, US-09, US-11 and US-12 (24 points) moved to SPRINT-07 for their verdicts.
+
+The planned velocity was computed by hand as 2 + 3 + 3 + 5 + 5 + 3 + 3 from the `Story Points` of [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41), [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42), [US-04](https://github.com/ITPD-Almo/modular-llm-gateway/issues/52), [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96), [US-11](https://github.com/ITPD-Almo/modular-llm-gateway/issues/110) and [US-12](https://github.com/ITPD-Almo/modular-llm-gateway/issues/111).
+The sprint was planned on 2026-11-08, its last day and the day after its review, so the figure is a remaining-work baseline rather than a sprint-start estimate.
+No plan milestone is due in SPRINT-06, so the goal above states the telemetry increment; MLS-07 is due in SPRINT-07.
+The tasks are [#112](https://github.com/ITPD-Almo/modular-llm-gateway/issues/112) for the analytics pipeline and [#108](https://github.com/ITPD-Almo/modular-llm-gateway/issues/108) for the observability pipeline, [#113](https://github.com/ITPD-Almo/modular-llm-gateway/issues/113) to [#116](https://github.com/ITPD-Almo/modular-llm-gateway/issues/116) for the four dashboards, and [#117](https://github.com/ITPD-Almo/modular-llm-gateway/issues/117) for the deployed observability test and the sprint close.
+The product backlog refined for the next two sprints, with no milestone, is [US-05](https://github.com/ITPD-Almo/modular-llm-gateway/issues/65) (8 points), [US-06](https://github.com/ITPD-Almo/modular-llm-gateway/issues/66) (5), [US-07](https://github.com/ITPD-Almo/modular-llm-gateway/issues/67) (5), [US-08](https://github.com/ITPD-Almo/modular-llm-gateway/issues/68) (3), [US-10](https://github.com/ITPD-Almo/modular-llm-gateway/issues/97) (3) and [US-13](https://github.com/ITPD-Almo/modular-llm-gateway/issues/118) (5), 29 points, refined on 2026-11-08 against US-11, US-12 and the Customer's [DEC-012](decisions.md#dec-012).
 
 #### REL-06
+
+- **Released:** [v0.6.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.6.0) on 2026-11-08, from [the production commit](https://github.com/ITPD-Almo/modular-llm-gateway/commit/1f166129406aac490df9b9704ca2f4171b3e8a0b).
+- **Checked QRs:**
+  - [QR-01](quality-requirements/qr/QR-01.md)
+  - [QR-08](quality-requirements/qr/QR-08.md)
+
+The release commit passed CI and the deployed QR-08 staging test over university Wi-Fi. The same commit passed protected production health and a configured DeepSeek chat through the metadata and uppercase plugins. Staging smoke events were excluded from usage counts and production received no synthetic telemetry.
 
 ### SPRINT-07
 
@@ -129,7 +145,8 @@ Provisional: the final release incorporates the selected usability findings, has
 | QR | QRT | Status | Checked | Planned for sprint | Evidence |
 | --- | --- | --- | --- | --- | --- |
 | [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Passes | [SPRINT-05](#sprint-05) | [SPRINT-05](#sprint-05) | [Campus staging run on 2026-10-31](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c7dce8ff876d31a57ee0ca93d9428d8444473f6c/reports/week-05/deployment-evidence.md#deployed-qr-02-rerun-through-the-https-gate) |
-| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Passes | [SPRINT-05](#sprint-05) | [SPRINT-05](#sprint-05) | [CI: 81 tests in 20.90 seconds](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/41227201276) |
+| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Passes | [SPRINT-06](#sprint-06) | [SPRINT-06](#sprint-06) | [REL-06 CI: 95 tests](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/42514546746) |
+| [QR-08](quality-requirements/qr/QR-08.md) | [QR-08 QRT-01](quality-requirements/qr/QR-08.md#qrt-01) | Passes | [SPRINT-06](#sprint-06) | [SPRINT-06](#sprint-06) | [Campus staging run on 2026-11-08](https://github.com/ITPD-Almo/modular-llm-gateway/blob/0073150f73e3b755f0f8a29b21cddb1685b7731d/reports/week-06/README.md#qr-08-qrt-01-campus-run) and [release staging re-run](#rel-06) |
 
 ## Progress Monitoring
 
@@ -137,4 +154,4 @@ Provisional: the final release incorporates the selected usability findings, has
 - **Checked by:** the `Accountable` member of each scheduled issue reports its state, and the team walks the sprint's GitHub milestone against the sprint's goal.
 - **Visible at:** the [GitHub project's Sprint table](https://github.com/orgs/ITPD-Almo/projects/1/views/2), grouped by milestone, and the [sprints' GitHub milestones](https://github.com/ITPD-Almo/modular-llm-gateway/milestones).
 - **Continuation:** the [development workflow](development-workflow.md) records the next-assignment intake, file ownership, review and demonstration routine; each new assignment replaces provisional detail at planning rather than rewriting earlier reports. The Customer asked for progress beyond one iteration and welcomed asynchronous clarification in [DEC-011](decisions.md#dec-011).
-- **Threshold dates:** unchanged by this replan: TOS-01 remains due October 23, TOS-04 October 30, and TOS-02 and TOS-03 November 13. The Saturday release dates do not move these goal dates; actual outcomes or agreed changes are recorded in the threshold document.
+- **Threshold dates:** unchanged by any Customer decision: TOS-01 (due October 23) and TOS-04 (due October 30) were set to `Missed` in the Week 6 threshold review, and TOS-02 and TOS-03 remain due November 13. The Saturday release dates do not move these goal dates; actual outcomes or agreed changes are recorded in the threshold document.
