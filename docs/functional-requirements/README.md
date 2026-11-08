@@ -15,4 +15,5 @@ What the gateway shall do, one independently checkable behavior per record.
 | [FR-009](fr/FR-009.md) | Deploy One Tested Build Through A Repeatable Pipeline | `gateway` | Active |
 | [FR-010](fr/FR-010.md) | Verify And Restore A Deployed Release | `gateway` | Active |
 | [FR-011](fr/FR-011.md) | Report Aggregate Latency And Plugin Failure Counts | `gateway` | Active |
+| [FR-012](fr/FR-012.md) | Record Safe Events For The Core Chat Task | `gateway` | Active |
 | [FR-013](fr/FR-013.md) | Export Safe Operating Signals | `gateway` | Active |

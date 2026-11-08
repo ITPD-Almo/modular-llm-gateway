@@ -1,0 +1,67 @@
+{
+  "version": 8,
+  "title": "Gateway trial usage",
+  "description": "Privacy-safe configured chat counts and recent events for this analytics scope.",
+  "defaultDatetimeDuration": {"type": "relative", "relativeTimePeriod": "7d"},
+  "tabs": [
+    {
+      "tabId": "default",
+      "name": "Configured chats",
+      "panels": [
+        {
+          "id": "configured-chat-attempts",
+          "type": "metric",
+          "title": "Configured chat attempts",
+          "description": "Seven-day count of validated configured chats, excluding smoke traffic.",
+          "queryType": "sql",
+          "layout": {"x": 0, "y": 0, "w": 24, "h": 5, "i": 0},
+          "config": {"show_legends": false},
+          "queries": [
+            {
+              "customQuery": true,
+              "query": "SELECT COUNT(*) AS configured_chat_attempts\nFROM gateway_usage\nWHERE event = 'gateway_chat_started' AND plugin_count > 0 AND source <> 'smoke'",
+              "fields": {
+                "stream": "gateway_usage",
+                "stream_type": "logs",
+                "x": [],
+                "y": [{"alias": "configured_chat_attempts", "label": "Configured chat attempts"}],
+                "filter": {"filterType": "group", "logicalOperator": "AND", "conditions": []}
+              },
+              "config": {"promql_legend": ""}
+            }
+          ]
+        },
+        {
+          "id": "recent-usage-events",
+          "type": "table",
+          "title": "Recent usage events",
+          "description": "Raw event rows include staging smoke traffic.",
+          "queryType": "sql",
+          "layout": {"x": 0, "y": 5, "w": 24, "h": 10, "i": 1},
+          "config": {"show_legends": false},
+          "queries": [
+            {
+              "customQuery": true,
+              "query": "SELECT _timestamp, event, source, plugin_count, outcome, visible_result FROM gateway_usage ORDER BY _timestamp DESC LIMIT 100",
+              "fields": {
+                "stream": "gateway_usage",
+                "stream_type": "logs",
+                "x": [],
+                "y": [
+                  {"alias": "_timestamp", "label": "Time"},
+                  {"alias": "event", "label": "Event"},
+                  {"alias": "source", "label": "Source"},
+                  {"alias": "plugin_count", "label": "Plugins"},
+                  {"alias": "outcome", "label": "Outcome"},
+                  {"alias": "visible_result", "label": "Visible result"}
+                ],
+                "filter": {"filterType": "group", "logicalOperator": "AND", "conditions": []}
+              },
+              "config": {"promql_legend": ""}
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -36,6 +36,18 @@ An entry a plugin adds to `plugin_changes` naming itself, the stage and what it 
 
 ## Operation
 
+### Configured Plugin
+
+A plugin identity present in the selected gateway configuration for a running application.
+
+**Defined by:** [`FR-012`](functional-requirements/fr/FR-012.md).
+
+### Configured Chat
+
+A chat attempt processed through one or more configured plugins.
+
+**Defined by:** [`FR-012`](functional-requirements/fr/FR-012.md).
+
 ### Fake Provider
 
 The built-in stand-in for an LLM provider that needs no key and replies with `fake:`, a space and the last message's content.
@@ -53,6 +65,24 @@ The longest time the gateway waits for one hook before it ends the request with 
 A content-free record the gateway writes when a hook starts, completes, fails or times out, carrying the request identifier, plugin, stage, elapsed time and reason.
 
 **Defined by:** [`FR-008`](functional-requirements/fr/FR-008.md).
+
+## Product analytics
+
+### Focus metric
+
+The main usage measure the team uses to assess the trial's value.
+
+### Input metric
+
+A measurable step the team can change to help explain movement in the focus metric.
+
+### Counter-metric
+
+A measure that guards against raising the focus metric by making the experience worse.
+
+### Metric tree
+
+The focus metric, its guard and its input metrics arranged in their explanatory order.
 
 ## Observability and telemetry
 
