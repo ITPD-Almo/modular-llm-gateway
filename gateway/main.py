@@ -1,4 +1,5 @@
 import os
+from time import perf_counter
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any
@@ -8,6 +9,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
+from .analytics import AnalyticsClient, AnalyticsSession
 from .config import instantiate_plugins, read_plugin_paths
 from .diagnostics import configure_diagnostics, new_request_id
 from .execution import ExecutionFailure, ExecutionSettings, PipelineExecutor
@@ -33,6 +35,7 @@ def create_app(
     max_workers: int | None = None,
     startup_timeout_ms: int | None = None,
     provider: ChatProvider | None = None,
+    analytics_client: AnalyticsClient | None = None,
 ) -> FastAPI:
     configure_diagnostics()
     source_default = Path(__file__).resolve().parent.parent / "config" / "plugins.json"
@@ -60,6 +63,8 @@ def create_app(
         startup_timeout_ms=setting(startup_timeout_ms, "GATEWAY_WORKER_STARTUP_TIMEOUT_MS", 1000),
     )
     executor = PipelineExecutor(paths, tuple(type(plugin).__name__ for plugin in plugins), settings, provider=provider)
+    analytics = analytics_client or AnalyticsClient()
+    analytics_session = AnalyticsSession(analytics, len(paths))
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
@@ -67,9 +72,12 @@ def create_app(
             yield
         finally:
             executor.close()
+            if analytics_client is None:
+                analytics.close()
 
     app = FastAPI(title="Modular LLM Gateway", lifespan=lifespan)
     app.state.pipeline_executor = executor
+    app.state.analytics = analytics
 
     @app.middleware("http")
     async def correlate_chat(http_request: Request, call_next):
@@ -94,9 +102,17 @@ def create_app(
     def chat(request: ChatRequest, http_request: Request) -> dict[str, Any]:
         request_id = http_request.state.gateway_request_id
         headers = {"X-Request-ID": request_id}
+        started = perf_counter()
+        analytics_session.started(request_id)
+        status_code = 200
+        response: dict[str, Any] | None = None
         try:
-            return executor.execute(request.model_dump(), request_id)
+            response = executor.execute(request.model_dump(), request_id)
+            return response
         except ExecutionFailure as failure:
+            status_code = failure.status_code
             raise HTTPException(status_code=failure.status_code, detail=failure.detail, headers=headers) from None
+        finally:
+            analytics_session.finished(request_id, status_code=status_code, duration_ms=(perf_counter() - started) * 1000, response=response)
 
     return app

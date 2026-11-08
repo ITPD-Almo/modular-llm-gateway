@@ -36,6 +36,24 @@ An entry a plugin adds to `plugin_changes` naming itself, the stage and what it 
 
 ## Operation
 
+### Configured Plugin
+
+A plugin identity present in the selected gateway configuration for a running application.
+
+**Defined by:** [`FR-012`](functional-requirements/fr/FR-012.md).
+
+### Configured Chat
+
+A chat attempt processed through one or more configured plugins.
+
+**Defined by:** [`FR-012`](functional-requirements/fr/FR-012.md).
+
+### Product Analytics Event
+
+A bounded, content-free record used to measure configured gateway use; it is opt-in and best effort.
+
+**Defined by:** [`FR-012`](functional-requirements/fr/FR-012.md).
+
 ### Fake Provider
 
 The built-in stand-in for an LLM provider that needs no key and replies with `fake:`, a space and the last message's content.
