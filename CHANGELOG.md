@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 
 ## [Unreleased]
 
+### Added
+
+- Opt-in analytics for configured chat usage, with a separate staging smoke source and a private trial dashboard for each environment.
+
 ## [0.5.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.5.0) - 2026-10-31
 
 ### Added

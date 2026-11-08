@@ -1,0 +1,18 @@
+services:
+  analytics:
+    image: public.ecr.aws/zinclabs/openobserve:v1.1.2@sha256:4a154849432f75c4fb024de32fe34163c02406c905dab22bf8d213d2e3386392
+    ports:
+      - "127.0.0.1:${ANALYTICS_LOCAL_PORT:-5081}:5080"
+    environment:
+      ZO_DATA_DIR: /data
+      ZO_ROOT_USER_EMAIL: ${ANALYTICS_ROOT_EMAIL:?Set a private analytics bootstrap account}
+      ZO_ROOT_USER_PASSWORD: ${ANALYTICS_ROOT_PASSWORD:?Set a private analytics bootstrap password}
+      ZO_TELEMETRY: "false"
+      ZO_CREATE_ORG_THROUGH_INGESTION: "false"
+      ZO_COMPACT_DATA_RETENTION_DAYS: "14"
+    volumes:
+      - analytics-data:/data
+    restart: unless-stopped
+
+volumes:
+  analytics-data:

@@ -1,67 +1,97 @@
 # Product analytics
 
-This page specifies the proposed privacy-safe analytics contract for [`FR-012`](functional-requirements/fr/FR-012.md), supporting [`US-11`](https://github.com/ITPD-Almo/modular-llm-gateway/issues/110) and [`VP-02`](research/value-proposition.md#vp-02). Customer acceptance of the telemetry story is not recorded yet. The architecture choice is [`ADR-007`](architecture/adr/ADR-007.md).
+The focus metric is **Completed plugin chats**. It measures the core task in a small private trial, where an operator runs configured plugins and sees their effect on a chat. It is one measure of [VP-02](research/value-proposition.md#vp-02).
 
-## Measurement tree
+## Metrics
 
-Nodes are listed in query order from input to outcome. A [configured plugin](glossary.md#configured-plugin) is a plugin named by the selected configuration; a [configured chat](glossary.md#configured-chat) is one chat attempt processed with at least one configured plugin.
+### The Metric Tree
 
-### Plugin configurations observed in use
+- **L0:** [Completed plugin chats](#completed-plugin-chats)
+  - **L1 (counter-metric):** [Failed configured chat rate](#failed-configured-chat-rate)
+  - **L1:** [Configured chat attempts](#configured-chat-attempts)
+    - **L2:** [Plugin configurations observed in use](#plugin-configurations-observed-in-use)
 
-- **Definition:** Count distinct `configuration_run_id` values from `gateway_configuration_used`, excluding `source=smoke`.
-- **Source:** One first-use event per application lifetime, emitted when the first real configured chat starts. It is not emitted merely because a process restarted or deployed.
-- **Query:** `count(distinct configuration_run_id) where event = 'gateway_configuration_used' and source != 'smoke'`.
+### Why This Focus Metric
 
-### Configured chat attempts
+- **Value:** it counts the moment a configured plugin chain produces a visible result in a private trial.
+- **Strategy:** it measures whether an operator can use the reusable plugin workflow described in VP-02.
+- **Leading indicator:** repeat completion gives an early signal before the team can assess trial continuation.
+- **Actionable:** the input points to trial setup and the counter-metric exposes failures that need work.
+- **Understandable:** a completion means one successful chat with a visible plugin result.
+- **Measurable:** the gateway records both the configured attempt and its terminal outcome.
+- **Grows with the product:** more useful trials can produce more completions while the failure rate guards the count.
 
-- **Definition:** Count distinct chat `run_id` values with a `gateway_chat_started` event, excluding `source=smoke`.
-- **Source:** The parent HTTP chat handler, immediately before supervised execution.
-- **Query:** `count(distinct run_id) where event = 'gateway_chat_started' and source != 'smoke'`.
+**Rejected vanity metric:** installer downloads. A download can occur without configuring any plugins or sending a chat.
 
-### Completed plugin chats per seven-day window
+The focus metric may have no value until people outside the team use the product. Smoke traffic is excluded. A staging dashboard with only smoke traffic therefore charts the L1 input and can show zero measured attempts. Treat the metric as a count of completed chats, which can include repeat chats by the same operator.
 
-- **Definition:** Count distinct configured chat `run_id` values whose finish has `http_success=true` and `configured_plugin_result_visible=true` in a rolling seven-day window.
-- **Source:** The parent HTTP chat handler's `finally` path, after success or handled failure. A visible plugin result means the response contains a non-empty `plugin_changes` list.
-- **Query:** `count(distinct run_id) where event = 'gateway_chat_finished' and http_success = true and configured_plugin_result_visible = true and source != 'smoke' and occurred_at >= now() - 7 days`.
+### Completed plugin chats
 
-This is a count, not a percentage. If there is no qualifying observation in the seven-day window, return `not meaningful` and show the observation count; do not present zero as adoption. For any rate query, a zero denominator returns `not meaningful`. Analytics retention must be at least seven days, and preferably longer to support comparison windows.
+- **Definition:** number of terminal configured chats with outcome `ok` and a visible plugin result over the previous seven days. With no eligible terminal events there is no observation yet.
+- **Source:** [`gateway_chat_finished`](#the-events).
+- **Query:** the database computes the metric using this query and the seven-day time filter:
+
+```sql
+SELECT CASE WHEN COUNT(*) = 0 THEN NULL
+       ELSE COUNT(CASE WHEN outcome = 'ok' AND visible_result = true THEN 1 END)
+       END AS completed_plugin_chats
+FROM gateway_usage
+WHERE event = 'gateway_chat_finished' AND plugin_count > 0 AND source <> 'smoke'
+```
 
 ### Failed configured chat rate
 
-- **Definition:** L1 counter-metric: failed configured chat finishes divided by configured chat attempts in the same seven-day window.
-- **Source:** `gateway_chat_finished` with `http_success=false`, divided by `gateway_chat_started`.
-- **Query:** `count(distinct failed run_id) / count(distinct started run_id)`, with `source != 'smoke'`; zero denominator is `not meaningful`.
+- **Definition:** percentage of observed terminal configured chats that end in a client error, server error or timeout over the previous seven days. It has no value when the denominator is zero.
+- **Source:** [`gateway_chat_finished`](#the-events).
+- **Query:** apply the same seven-day window to:
 
-The counter-metric prevents a rising completion count from hiding a degraded experience.
+```sql
+SELECT 100.0 * COUNT(CASE WHEN outcome <> 'ok' THEN 1 END)
+       / NULLIF(COUNT(*), 0) AS failed_configured_chat_rate
+FROM gateway_usage
+WHERE event = 'gateway_chat_finished' AND plugin_count > 0 AND source <> 'smoke'
+```
 
-## Event registry
+### Configured chat attempts
 
-The focused implementation is in [`gateway/analytics.py`](../gateway/analytics.py). The exporter is disabled by default and bounded at 256 queued events and 4096 bytes per event. It accepts only these fields:
+- **Definition:** count of validated chat attempts with at least one configured plugin over the previous seven days. This is the dashboard input chart until there is a measured focus value.
+- **Source:** [`gateway_chat_started`](#the-events).
+- **Query:** the dashboard time picker supplies the previous seven days. The panel runs:
 
-| Event | Collection point | Fields |
-| --- | --- | --- |
-| `gateway_configuration_used` | First chat start after configuration is loaded | `schema_version`, `event`, `source`, opaque `run_id`, numeric `configured_plugin_count` |
-| `gateway_chat_started` | Parent handler before `PipelineExecutor.execute` | `schema_version`, `event`, `source`, opaque chat `run_id` |
-| `gateway_chat_finished` | Parent handler `finally` after execution | `schema_version`, `event`, `source`, opaque chat `run_id`, boolean `http_success`, bounded numeric `status_code`, boolean `configured_plugin_result_visible`, bounded numeric `duration_ms` |
+```sql
+SELECT COUNT(*) AS configured_chat_attempts
+FROM gateway_usage
+WHERE event = 'gateway_chat_started' AND plugin_count > 0 AND source <> 'smoke'
+```
 
-`source` is trusted from `GATEWAY_ANALYTICS_SOURCE` and is one of `web`, `usability-test` or `smoke`; unknown values become `web`. IDs are random and never supplied by the client. Bodies, headers, IPs, usernames, free text, tokens, credentials, exception text and arbitrary metadata are excluded. The existing lifecycle logger has its own allowlist; these events do not expand it.
+### Plugin configurations observed in use
 
-The implementation currently uses an injected sink for tests and a generic opt-in HTTP endpoint. OpenPanel self-hosted is the pinned candidate for the university host, subject to Ali's host verification. Use one analytics instance with staging and production scopes and separate ingestion credentials. Keep those credentials, URLs and raw events private.
+- **Definition:** number of distinct gateway process runs with at least one configured plugin that receive their first validated chat over the previous seven days. This measures configuration use at startup rather than distinct files or operators.
+- **Source:** [`gateway_configuration_used`](#the-events).
+- **Query:** apply the same seven-day window to:
 
-## Seven acceptance checks
+```sql
+SELECT COUNT(DISTINCT run_id) AS plugin_configurations_observed_in_use
+FROM gateway_usage
+WHERE event = 'gateway_configuration_used' AND plugin_count > 0 AND source <> 'smoke'
+```
 
-- Capture only allowlisted scalar fields and opaque random IDs.
-- Capture first configured use rather than deployment restart.
-- Keep exporter failure, disabled export and queue saturation out of the normal HTTP path.
-- Exclude only `source=smoke` in queries, while retaining it in raw staging events for proof.
-- Define zero denominators and no focus observations as `not meaningful`.
-- Keep production on the same query with no test traffic.
-- Keep at least the longest seven-day window in backend retention.
+## The Events
 
-## What the metric does not prove
+Event names follow `object_action` in snake case. Common required fields are `event` (enum from this table), `_timestamp` (Unix microseconds, integer), `environment` (`staging` or `production`), `source` (`web`, `usability-test` or `smoke`), `run_id` (random opaque string) and `plugin_count` (integer). Only `smoke` is excluded by the queries. Staging source selection is controlled by deployment configuration. Production accepts only `web` as its configured source.
 
-Synthetic smoke traffic verifies instrumentation and query separation, not adoption. The focus metric requires real outside use with a configured plugin and an observable plugin result before it is meaningful. A vanity metric such as total page views was rejected because it does not show a configured chat completing or the gateway helping the operator.
+| Event | Fires when | Fields | Collected at |
+| --- | --- | --- | --- |
+| `gateway_configuration_used` | The first validated chat uses the loaded plugin configuration in this process. | Common required fields. | `gateway`, staging and production. |
+| `gateway_chat_started` | A validated chat enters the request pipeline. | Common fields; `attempt_id` (required random opaque string). | `gateway`, staging and production. |
+| `gateway_chat_finished` | The chat pipeline returns its result or fails. | Common fields; `attempt_id` (required random opaque string), `outcome` (required enum `ok`, `client_error`, `server_error` or `timeout`), `visible_result` (required boolean indicating a plugin trace or change record). | `gateway`, staging and production. |
 
-## Operations handoff
+The random IDs join events within one attempt or process run. The gateway does not derive them from a person or reuse its diagnostic request ID. The exporter sends no message text, response text, plugin names, client headers, IPs, account details or credentials in the event. Schema validation failures occur before this core task begins and are outside the analytics funnel.
 
-After this pipeline merges, Ali should extend the deployment middleware/launcher lines that export the environment settings alongside `GATEWAY_CONFIG`, `GATEWAY_HOST` and `GATEWAY_PORT`: `GATEWAY_ANALYTICS_ENABLED`, `GATEWAY_ANALYTICS_ENDPOINT`, `GATEWAY_ANALYTICS_SOURCE` and `GATEWAY_ANALYTICS_TIMEOUT_SECONDS`. Staging and production must use separate credentials and scopes. A local rehearsal is not a live dashboard claim.
+## The pipeline
+
+Use a **dedicated OpenObserve instance** as the documented self-hosted alternative to OpenPanel. It stores flat JSON events and serves the SQL chart and event list without requiring a browser tracker or user identity. The separate observability deployment receives operating signals. Analytics has its own data volume, retention and credentials.
+
+The gateway parent queues the events in batches of up to 32 for JSON over HTTPS, or loopback HTTP on a co-located VM. The queue is capped at 256 events. Export failures drop events and do not delay the request, so the charts measure observed traffic. `GATEWAY_ANALYTICS_ENABLED=0` disables collection. The analytics deployment retains events for 14 days. `staging` and `production` use separate organizations and ingestion credentials. The team and Customer use private dashboard access over the university network. The [deployment runbook](deployment.md#telemetry-pipelines) owns the installation steps.
+
+Both dashboards show the same **Configured chat attempts** chart and a recent event table. The event table includes staging smoke records for verification. Synthetic events stay in staging, and the production dashboard remains unexercised until real use.

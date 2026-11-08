@@ -1,7 +1,5 @@
 # Architecture
 
-The current architecture records decisions through [ADR-007](adr/ADR-007.md), which addresses [FR-012](../functional-requirements/fr/FR-012.md).
-
 This document records the gateway architecture serving the scope in the [product vision](../product-vision.md).
 
 ## Drivers
@@ -58,4 +56,4 @@ Neither adds a product application or data store, and neither capability is impl
 | [ADR-004](adr/ADR-004.md) | Accepted | [FR-008](../functional-requirements/fr/FR-008.md), [QR-01](../quality-requirements/qr/QR-01.md), [QR-03](../quality-requirements/qr/QR-03.md) | Parent-generated allowlisted lifecycle events |
 | [ADR-005](adr/ADR-005.md) | Accepted | [FR-009](../functional-requirements/fr/FR-009.md), [FR-010](../functional-requirements/fr/FR-010.md), [QR-01](../quality-requirements/qr/QR-01.md), [QR-03](../quality-requirements/qr/QR-03.md), [QR-06](../quality-requirements/qr/QR-06.md) | Identified image delivery and retained known-good recovery on an operator-provided host |
 | [ADR-006](adr/ADR-006.md) | Accepted | [FR-008](../functional-requirements/fr/FR-008.md), [FR-011](../functional-requirements/fr/FR-011.md), [QR-01](../quality-requirements/qr/QR-01.md), [QR-03](../quality-requirements/qr/QR-03.md), [QR-07](../quality-requirements/qr/QR-07.md) | Bounded process-local aggregate metrics using the existing safe event contract |
-| [ADR-007](adr/ADR-007.md) | Proposed | [FR-012](../functional-requirements/fr/FR-012.md), [QR-03](../quality-requirements/qr/QR-03.md) | Bounded opt-in product analytics events with separate deployment scopes |
+| [ADR-007](adr/ADR-007.md) | Proposed | [FR-012](../functional-requirements/fr/FR-012.md), [QR-03](../quality-requirements/qr/QR-03.md) | Record gateway usage in a dedicated analytics backend |
