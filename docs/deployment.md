@@ -137,6 +137,8 @@ The [observability plan](observability.md) owns the signals and queries. Dev and
 
 Temporarily use the staging fake provider and `examples/slow-plugins.json` as in the [slow-hook verification](#staging-verification-and-qr-02). Keep the observability destination on staging. If product analytics is enabled, keep these checks in its staging smoke scope. Coordinate a quiet window so another test cannot change the timeout series during this run.
 
+Run the gateway with ASGI lifespan enabled so it can start and shut down the exporters. If OpenObserve is unreachable, OpenTelemetry can emit repeated warnings or errors in the gateway's service journal while chat continues to work. Inspect the affected service's journal and verify its scoped endpoint, TLS trust and credentials privately.
+
 From a campus terminal, privately export `STAGING_URL` (the base gateway URL), `STAGING_AUTHORIZATION`, `STAGING_CA_FILE` when required, `OPENOBSERVE_URL` (the OpenObserve base URL), `OPENOBSERVE_STAGING_ORG`, `OPENOBSERVE_QUERY_AUTHORIZATION`, `OPENOBSERVE_QUERY_CA_FILE` when required, and `QRT_RELEASE_SHA` (the full staging commit). Both authorization variables carry the full HTTP Basic header value. The test queries the staging organization's `/_search?type=logs` and `/prometheus/api/v1/query` endpoints. Run:
 
 ```sh

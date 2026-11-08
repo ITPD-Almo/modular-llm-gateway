@@ -88,7 +88,8 @@ def create_app(
             return await call_next(http_request)
         request_id = new_request_id()
         http_request.state.gateway_request_id = request_id
-        if observability_settings is None:
+        observation = getattr(http_request.app.state, "chat_observability", None)
+        if observation is None:
             response = await call_next(http_request)
         else:
             started = perf_counter()
@@ -97,9 +98,7 @@ def create_app(
                 response = await call_next(http_request)
                 status_code = response.status_code
             finally:
-                http_request.app.state.chat_observability.record(
-                    request_id, status_code, (perf_counter() - started) * 1000
-                )
+                observation.record(request_id, status_code, (perf_counter() - started) * 1000)
         response.headers["X-Request-ID"] = request_id
         return response
 

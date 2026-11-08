@@ -58,6 +58,20 @@ def test_middleware_records_the_gateway_id_once_for_each_completed_chat(
     observation.close.assert_called_once()
 
 
+def test_chat_still_works_without_lifespan_when_export_is_configured(
+    observability_env, monkeypatch
+):
+    exporter = Mock()
+    monkeypatch.setattr("gateway.main.ChatObservability", exporter)
+    client = TestClient(create_app())
+
+    response = client.post(CHAT_ROUTE, json={"messages": [{"role": "user", "content": "hello"}]})
+
+    assert response.status_code == 200
+    assert response.headers["X-Request-ID"]
+    exporter.assert_not_called()
+
+
 def test_signal_uses_one_duration_and_keeps_request_id_out_of_histogram():
     observation = ChatObservability.__new__(ChatObservability)
     observation._histogram = Mock()

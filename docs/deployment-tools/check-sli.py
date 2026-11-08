@@ -19,7 +19,9 @@ P95_QUERY = (
     "histogram_quantile(0.95, sum by (le, route, outcome) "
     "(sum_over_time(gateway_chat_duration_bucket[5m])))"
 )
-TIMEOUT_COUNT_QUERY = 'sum(sum_over_time(gateway_chat_duration_count{route="/v1/chat/completions",outcome="timeout"}[5m]))'
+TIMEOUT_SAMPLES_QUERY = (
+    'gateway_chat_duration_count{route="/v1/chat/completions",outcome="timeout"}[5m]'
+)
 POINT_FIELDS = ("request_id", "route", "outcome", "duration_ms", "environment")
 
 
@@ -110,9 +112,12 @@ def metric_results(observe, prefix, query, timeout=2):
     return data["data"]["result"]
 
 
-def timeout_count(observe, prefix, timeout=2):
-    rows = metric_results(observe, prefix, TIMEOUT_COUNT_QUERY, timeout)
-    return float(rows[0]["value"][1]) if rows else 0.0
+def latest_timeout_sample(observe, prefix, timeout=2):
+    rows = metric_results(observe, prefix, TIMEOUT_SAMPLES_QUERY, timeout)
+    return max(
+        (timestamp for row in rows for timestamp, count in row["values"] if float(count) > 0),
+        default=0,
+    )
 
 
 def run(rehearsal):
@@ -144,8 +149,8 @@ def run(rehearsal):
                 "staging must use the fake provider and the documented slow-plugin fixture"
             )
 
-    # Reject old aggregate data when rerunning within the same window.
-    previous_count = timeout_count(observe, prefix)
+    # An older sample can expire as a fresh one arrives. Compare timestamps, not rolling totals.
+    previous_sample = latest_timeout_sample(observe, prefix)
     request_start_us = time_ns() // 1000
     status, error, request_id = chat(gateway, "sleep")
     failed_at = monotonic()
@@ -191,7 +196,7 @@ def run(rehearsal):
         return point
 
     def find_p95(timeout):
-        if timeout_count(observe, prefix, timeout) <= previous_count:
+        if latest_timeout_sample(observe, prefix, timeout) <= previous_sample:
             return None
         remaining = failed_at + 60 - monotonic()
         if remaining <= 0:

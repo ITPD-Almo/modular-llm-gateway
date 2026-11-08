@@ -79,3 +79,19 @@ Operating or usage data the product emits for analysis outside the request path.
 ### Observability backend
 
 The service that receives and stores operating signals and provides queries and visualizations over them.
+
+### Dashboard
+
+A view that groups charts so an analyst or operator can read usage metrics or operating signals for one environment.
+
+### Instrumentation
+
+Code that measures an operation or records a product action and emits the resulting signal or event.
+
+### Event
+
+A structured record of a named action or outcome that occurred in the product.
+
+### Analytics backend
+
+The service that receives and stores product usage events and lets analysts query them and chart usage metrics.
