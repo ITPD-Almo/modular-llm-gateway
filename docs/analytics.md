@@ -2,7 +2,9 @@
 
 The focus metric is **Completed plugin chats**. It measures the core task in a small private trial, where an operator runs configured plugins and sees their effect on a chat. It is one measure of [VP-02](research/value-proposition.md#vp-02).
 
-## Metrics
+## The Value And The Metrics
+
+The focus metric is **Completed plugin chats per seven-day window**, the count of configured chats that return HTTP success and a visible plugin result. It measures the operator benefit in [VP-02](research/value-proposition.md#vp-02); provider connectivity alone is not adoption.
 
 ### The Metric Tree
 
@@ -25,11 +27,11 @@ The focus metric is **Completed plugin chats**. It measures the core task in a s
 
 The focus metric may have no value until people outside the team use the product. Smoke traffic is excluded. A staging dashboard with only smoke traffic therefore charts the L1 input and can show zero measured attempts. Treat the metric as a count of completed chats, which can include repeat chats by the same operator.
 
-### Completed plugin chats
+### Completed plugin chats per seven-day window
 
 - **Definition:** number of terminal configured chats with outcome `ok` and a visible plugin result over the previous seven days. With no eligible terminal events there is no observation yet.
 - **Source:** [`gateway_chat_finished`](#the-events).
-- **Query:** the database computes the metric using this query and the seven-day time filter:
+- **Query:** the backend computes this metric using the following OpenObserve SQL query and its seven-day time filter:
 
 ```sql
 SELECT CASE WHEN COUNT(*) = 0 THEN NULL
@@ -38,6 +40,8 @@ SELECT CASE WHEN COUNT(*) = 0 THEN NULL
 FROM gateway_usage
 WHERE event = 'gateway_chat_finished' AND plugin_count > 0 AND source <> 'smoke'
 ```
+
+The zero-observation result is `not meaningful`, not zero adoption.
 
 ### Failed configured chat rate
 
@@ -78,7 +82,7 @@ WHERE event = 'gateway_configuration_used' AND plugin_count > 0 AND source <> 's
 
 ## The Events
 
-Event names follow `object_action` in snake case. Common required fields are `event` (enum from this table), `_timestamp` (Unix microseconds, integer), `environment` (`staging` or `production`), `source` (`web`, `usability-test` or `smoke`), `run_id` (random opaque string) and `plugin_count` (integer). Only `smoke` is excluded by the queries. Staging source selection is controlled by deployment configuration. Production accepts only `web` as its configured source.
+Event names follow the `object_action` convention in snake case. Common required fields are `event` (bounded enum), `_timestamp` (Unix microseconds, integer), `environment` (bounded enum `staging` or `production`), `source` (bounded enum `web`, `usability-test` or `smoke`), `run_id` (random opaque string) and `plugin_count` (bounded integer). Only `smoke` is excluded by the queries. Staging source selection is controlled by deployment configuration. Production accepts only `web` as its configured source.
 
 | Event | Fires when | Fields | Collected at |
 | --- | --- | --- | --- |
@@ -88,10 +92,18 @@ Event names follow `object_action` in snake case. Common required fields are `ev
 
 The random IDs join events within one attempt or process run. The gateway does not derive them from a person or reuse its diagnostic request ID. The exporter sends no message text, response text, plugin names, client headers, IPs, account details or credentials in the event. Schema validation failures occur before this core task begins and are outside the analytics funnel.
 
-## The pipeline
+## The Pipeline
 
 Use a **dedicated OpenObserve instance** as the documented self-hosted alternative to OpenPanel. It stores flat JSON events and serves the SQL chart and event list without requiring a browser tracker or user identity. The separate observability deployment receives operating signals. Analytics has its own data volume, retention and credentials.
 
 The gateway parent queues the events in batches of up to 32 for JSON over HTTPS, or loopback HTTP on a co-located VM. The queue is capped at 256 events. Export failures drop events and do not delay the request, so the charts measure observed traffic. `GATEWAY_ANALYTICS_ENABLED=0` disables collection. The analytics deployment retains events for 14 days. `staging` and `production` use separate organizations and ingestion credentials. The team and Customer use private dashboard access over the university network. The [deployment runbook](deployment.md#telemetry-pipelines) owns the installation steps.
 
 Both dashboards show the same **Configured chat attempts** chart and a recent event table. The event table includes staging smoke records for verification. Synthetic events stay in staging, and the production dashboard remains unexercised until real use.
+
+## The Dashboard
+
+The staging and production scopes use the same seven-day **Configured chat attempts** chart until real focus observations exist. Each scope also shows the focus metric, the failed configured chat rate and a recent raw-event table. The staging smoke proof appears in raw events but is excluded by every metric query; production receives no test traffic.
+
+## Collected Data
+
+The backend receives only the registry fields in the table above: bounded enums, booleans, bounded numbers and opaque random IDs. It receives no request or response bodies, headers, IPs, usernames, plugin names, free text, tokens, credentials or exception text. Retention is 14 days, longer than the seven-day metric window. The opt-in switch is `GATEWAY_ANALYTICS_ENABLED=0`; exporter failure, queue saturation and disabled collection leave the normal gateway flow working.

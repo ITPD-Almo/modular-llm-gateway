@@ -149,7 +149,7 @@ class GatewayAnalytics:
                 try:
                     self._export(batch)
                     unavailable = False
-                except (OSError, http.client.HTTPException, ValueError):
+                except Exception:
                     if not unavailable:
                         LOGGER.warning("Analytics export unavailable; dropping usage events")
                     unavailable = True

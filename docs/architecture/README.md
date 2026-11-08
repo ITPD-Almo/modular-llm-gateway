@@ -11,7 +11,7 @@ This document records the gateway architecture serving the scope in the [product
 
 ## Container View
 
-The current product genuinely runs as one application container, `gateway`, and [ADR-001](adr/ADR-001.md) records its stack and split.
+The current product genuinely runs as one application container, `gateway`, and [ADR-001](adr/ADR-001.md) records its stack and split. Product analytics is an operator-supplied external OpenObserve boundary; [ADR-007](adr/ADR-007.md) records its protocol and separate environment scopes.
 
 ![Container view showing one gateway application and the two external integration boundaries](container.png)
 
