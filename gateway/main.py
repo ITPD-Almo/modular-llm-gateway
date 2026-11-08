@@ -9,6 +9,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
+from .analytics import AnalyticsSettings, GatewayAnalytics
 from .config import instantiate_plugins, read_plugin_paths
 from .diagnostics import configure_diagnostics, new_request_id
 from .execution import ExecutionFailure, ExecutionSettings, PipelineExecutor
@@ -66,16 +67,23 @@ def create_app(
     executor = PipelineExecutor(
         paths, tuple(type(plugin).__name__ for plugin in plugins), settings, provider=provider
     )
+    analytics_settings = AnalyticsSettings.from_environment()
     observability_settings = ObservabilitySettings.from_environment()
+    analytics: GatewayAnalytics | None = None
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
+        nonlocal analytics
+        if analytics_settings is not None:
+            analytics = GatewayAnalytics(analytics_settings, len(paths))
         if observability_settings is not None:
             app.state.chat_observability = ChatObservability(observability_settings)
         try:
             yield
         finally:
             executor.close()
+            if analytics is not None:
+                analytics.close()
             if observability_settings is not None:
                 app.state.chat_observability.close()
 
@@ -116,11 +124,21 @@ def create_app(
     def chat(request: ChatRequest, http_request: Request) -> dict[str, Any]:
         request_id = http_request.state.gateway_request_id
         headers = {"X-Request-ID": request_id}
+        attempt = analytics.started() if analytics is not None else None
+        status = 500
+        visible_result = False
         try:
-            return executor.execute(request.model_dump(), request_id)
+            reply = executor.execute(request.model_dump(), request_id)
+            status = 200
+            visible_result = bool(reply.get("plugin_trace") or reply.get("plugin_changes"))
+            return reply
         except ExecutionFailure as failure:
+            status = failure.status_code
             raise HTTPException(
                 status_code=failure.status_code, detail=failure.detail, headers=headers
             ) from None
+        finally:
+            if analytics is not None and attempt is not None:
+                analytics.finished(attempt, status, visible_result)
 
     return app

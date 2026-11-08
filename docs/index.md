@@ -17,6 +17,7 @@ This is a course project of team 9 in the autumn 2026 term, and it is a work in 
 - [Plugin contract](plugins.md): plugin inputs, outputs, order, loading, and failures.
 - [Developer demo](demo.md): normal and changed plugin order, a third-party A/B plugin, timeout recovery and reset.
 - [Operating guide](operations.md): request correlation, lifecycle events, limits and recovery.
+- [Product analytics](analytics.md): privacy-safe event registry, metric queries and handoff boundaries.
 
 - [Terminal installation and supervisor demo](terminal.md): install on Linux/macOS without preinstalled Python, Git or Docker.
 
