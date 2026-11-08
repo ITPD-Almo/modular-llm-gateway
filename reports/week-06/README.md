@@ -18,15 +18,15 @@ QR-08 QRT-01 passed from a campus client against staging at the merged pull requ
 
 The Customer review was held on 2026-11-07, before the telemetry existed.
 It showed the one-command install and a request to a real model, and it settled three decisions: a Docker Compose deployment ([DEC-012](../../docs/decisions.md#dec-012)), the terminal as the interface ([DEC-013](../../docs/decisions.md#dec-013)) and Saturday reviews with asynchronous questions ([DEC-014](../../docs/decisions.md#dec-014)).
-No story was walked through its criteria and no verdict was given, so Actual Velocity is 0, and US-01 to US-04, US-09, US-11 and US-12 (24 points) carry over to SPRINT-07 when the SPRINT-06 milestone closes.
+No story was walked through its criteria and no verdict was given, so Actual Velocity is 0, and US-01 to US-04, US-09, US-11 and US-12 (24 points) moved to SPRINT-07 for their verdicts.
 
-`REL-06` is not cut at the time of writing; the [deviations](#deviations) say why, and the [REL-06 block](../../docs/project-plan.md#rel-06) is filled when it is.
+`REL-06` shipped as [v0.6.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.6.0) on 2026-11-08. [The release verification](#rel-06-release-verification) records the staged and deployed commit.
 
 ## Minimum usable product and Customer outcome
 
 The candidate remains [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41) and [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42).
 At the [2026-11-07 review](meeting-report.md) the Customer saw the install and the guided provider setup from [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96) and the plugin configuration and hook code behind US-01 to US-04, but no story was shown criterion by criterion and none was accepted or rejected, so no verdict `DEC-nnn` exists.
-All scheduled stories carry over to SPRINT-07 rather than being dropped; at the time of writing they are still in the SPRINT-06 milestone, and their move is recorded when it happens.
+The seven unfinished stories moved to [SPRINT-07](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/5).
 
 ## Dashboards and the observability test
 
@@ -35,7 +35,7 @@ What is running, what is merged and what was verified are three different states
 | Item | Running on the VM | Merged | Verified from campus |
 | --- | --- | --- | --- |
 | Observability backend, `staging` and `production` organizations, `SLI-01` dashboard in each ([#115](https://github.com/ITPD-Almo/modular-llm-gateway/issues/115), [#116](https://github.com/ITPD-Almo/modular-llm-gateway/issues/116)) | Yes | Yes: [PR #109](https://github.com/ITPD-Almo/modular-llm-gateway/pull/109), with the dashboard definition | Yes: both dashboards opened from campus on 2026-11-08, [screenshots below](#qr-08-qrt-01-campus-run) |
-| QR-08 QRT-01 | A VM loopback rehearsal at commit `be5e8ce` returned the named 504, the matching timeout log in 0.426 s and a numeric P95 in 1.464 s. Staging now runs the #109 head, `1b537db`, where two VM-side HTTPS runs passed, the second an immediate rerun with the matching log in 0.432 s and a numeric P95 in 1.290 s. Production received no test data | Yes: [PR #109](https://github.com/ITPD-Almo/modular-llm-gateway/pull/109), with the checker | Yes: passed on 2026-11-08 at `1b537db`, [#117](https://github.com/ITPD-Almo/modular-llm-gateway/issues/117) |
+| QR-08 QRT-01 | A VM loopback rehearsal at commit `be5e8ce` returned the named 504, the matching timeout log in 0.426 s and a numeric P95 in 1.464 s. Two earlier VM-side HTTPS runs at `1b537db` passed, the second an immediate rerun with the matching log in 0.432 s and a numeric P95 in 1.290 s. Production received no test data | Yes: [PR #109](https://github.com/ITPD-Almo/modular-llm-gateway/pull/109), with the checker | Yes: passed on 2026-11-08 at `1b537db`, [#117](https://github.com/ITPD-Almo/modular-llm-gateway/issues/117) |
 | Analytics backend and its two dashboards ([#113](https://github.com/ITPD-Almo/modular-llm-gateway/issues/113), [#114](https://github.com/ITPD-Almo/modular-llm-gateway/issues/114)) | Yes | Yes: [PR #121](https://github.com/ITPD-Almo/modular-llm-gateway/pull/121), with both dashboard definitions | Yes: both dashboards opened over university Wi-Fi on 2026-11-08, [screenshots below](#analytics-dashboard-evidence) |
 | Analytics smoke | The combined build `b769144` emitted seven staging smoke events, zero eligible staging attempts and zero production smoke events in a VM loopback rehearsal | Yes, exporter from [PR #121](https://github.com/ITPD-Almo/modular-llm-gateway/pull/121) | The staging raw events and zero attempt count were visible over HTTPS |
 
@@ -72,6 +72,18 @@ The seven-day **Configured chat attempts** query returned zero in each scope. St
 ![Staging configured chat attempts and smoke event list](images/analytics-staging.png)
 
 ![Production configured chat attempts and empty event list](images/analytics-production.png)
+
+## REL-06 release verification
+
+Ali12hamdan ran the release checks from university Wi-Fi on 2026-11-08. Staging and production used the same [merged commit](https://github.com/ITPD-Almo/modular-llm-gateway/commit/1f166129406aac490df9b9704ca2f4171b3e8a0b), tagged [v0.6.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.6.0).
+
+| Check | Result |
+| --- | --- |
+| Staging QR-08 QRT-01 | HTTP 504, request ID `a90f7b500b9f4a5b8108e5ab847fc896`, route `/v1/chat/completions` and outcome `timeout`. The log appeared in 2.027 s. SLI-01 returned 345 ms in 2.078 s. |
+| Analytics smoke | 7 staging smoke events, 0 eligible staging attempts and 0 production smoke events. |
+| Production campus verification | Anonymous health returned HTTP 401. Authenticated health and a DeepSeek chat through `metadata` and `uppercase` returned HTTP 200. The synthetic production chat ran with telemetry disabled. Health passed again after both production scopes were enabled. |
+
+The [testing plan](../../docs/project-plan.md#quality-requirement-testing-plan) records the checked requirements. The existing production tag rules protect `v0.6.0` from updates and deletion.
 
 ## Threshold review
 
@@ -110,7 +122,7 @@ The team proposed no measure: the [analytics plan](../../docs/analytics.md) merg
 | Meeting script | [reports/week-06/meeting-script.md](meeting-script.md): a reconstructed agenda and a follow-up agenda, written after the meeting |
 | Meeting transcript | None: the permission questions were not asked, so the transcript is neither published nor shared; see the [meeting report](meeting-report.md#metadata) |
 | Customer validation | [reports/week-06/meeting-report.md](meeting-report.md); no threshold proposal was presented, so there is no threshold decision |
-| `REL-06` | [docs/project-plan.md#rel-06](../../docs/project-plan.md#rel-06) |
+| `REL-06` | [v0.6.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.6.0), [changelog](../../CHANGELOG.md#060---2026-11-08) and [release record](../../docs/project-plan.md#rel-06) |
 | Sprint retrospective | [reports/week-06/sprint-retrospective.md](sprint-retrospective.md) |
 | AI usage | [reports/week-06/ai-usage.md](ai-usage.md) |
 
@@ -118,7 +130,7 @@ The team proposed no measure: the [analytics plan](../../docs/analytics.md) merg
 
 | Member | Evidenced work |
 | --- | --- |
-| Ali12hamdan | Responsible for [#108](https://github.com/ITPD-Almo/modular-llm-gateway/issues/108), [US-12 #111](https://github.com/ITPD-Almo/modular-llm-gateway/issues/111), [#115](https://github.com/ITPD-Almo/modular-llm-gateway/issues/115) and [#116](https://github.com/ITPD-Almo/modular-llm-gateway/issues/116). Presented at the [2026-11-07 Customer review](meeting-report.md); opened [PR #109](https://github.com/ITPD-Almo/modular-llm-gateway/pull/109) with the OTLP exporter, `SLI-01`, QR-08, FR-013, ADR-008 and the QRT checker; deployed both telemetry backends on the university VM and ran the loopback rehearsals; prepared the analytics handoff draft [PR #120](https://github.com/ITPD-Almo/modular-llm-gateway/pull/120). |
+| Ali12hamdan | Responsible for [#108](https://github.com/ITPD-Almo/modular-llm-gateway/issues/108), [US-12 #111](https://github.com/ITPD-Almo/modular-llm-gateway/issues/111), [#115](https://github.com/ITPD-Almo/modular-llm-gateway/issues/115) and [#116](https://github.com/ITPD-Almo/modular-llm-gateway/issues/116). Presented at the [2026-11-07 Customer review](meeting-report.md); opened [PR #109](https://github.com/ITPD-Almo/modular-llm-gateway/pull/109) with the OTLP exporter, `SLI-01`, QR-08, FR-013, ADR-008 and the QRT checker; deployed both telemetry backends on the university VM and ran the loopback rehearsals; prepared the analytics handoff draft [PR #120](https://github.com/ITPD-Almo/modular-llm-gateway/pull/120), integrated both exporters in #121, and prepared and deployed REL-06. |
 | Mohammed-Nour | Responsible for [#117](https://github.com/ITPD-Almo/modular-llm-gateway/issues/117) and Accountable for [#108](https://github.com/ITPD-Almo/modular-llm-gateway/issues/108) and [#112](https://github.com/ITPD-Almo/modular-llm-gateway/issues/112) to [#116](https://github.com/ITPD-Almo/modular-llm-gateway/issues/116). Planned SPRINT-06 and refined the backlog: [US-11](https://github.com/ITPD-Almo/modular-llm-gateway/issues/110), [US-12](https://github.com/ITPD-Almo/modular-llm-gateway/issues/111), [US-13](https://github.com/ITPD-Almo/modular-llm-gateway/issues/118), tasks [#112](https://github.com/ITPD-Almo/modular-llm-gateway/issues/112) to [#117](https://github.com/ITPD-Almo/modular-llm-gateway/issues/117) and the notes on #65, #67, #68 and #97; reviewed [PR #109](https://github.com/ITPD-Almo/modular-llm-gateway/pull/109) and [PR #121](https://github.com/ITPD-Almo/modular-llm-gateway/pull/121); ran QR-08 QRT-01 from campus and captured both observability dashboards; wrote the Week 6 meeting artifacts, DEC-012 to DEC-014, the threshold review, the retrospective and this report. |
 | atkond2point0 | Responsible for [US-11 #110](https://github.com/ITPD-Almo/modular-llm-gateway/issues/110), [#112](https://github.com/ITPD-Almo/modular-llm-gateway/issues/112), [#113](https://github.com/ITPD-Almo/modular-llm-gateway/issues/113) and [#114](https://github.com/ITPD-Almo/modular-llm-gateway/issues/114); opened the analytics delivery pull request [PR #121](https://github.com/ITPD-Almo/modular-llm-gateway/pull/121), which carries Ali12hamdan's exporter from the [PR #120](https://github.com/ITPD-Almo/modular-llm-gateway/pull/120) handoff and atkond2point0's review fixes; Ali12hamdan integrated it with the observability pipeline before it merged. |
 
@@ -134,7 +146,6 @@ GitHub issue and project links and the course Git submodule are handled by the e
 - The analytics and observability work started on the due date. The observability pipeline, [PR #109](https://github.com/ITPD-Almo/modular-llm-gateway/pull/109), was merged on 2026-11-08, and the analytics pipeline, [PR #121](https://github.com/ITPD-Almo/modular-llm-gateway/pull/121), was merged the same evening. The focus metric has no value, because no one outside the team has used the gateway yet,.
 - The first observability captures used the full-panel view because of the narrow panel and literal outcome labels. The live dashboards were corrected later in Week 6 without changing their query. The captured evidence reflects the original campus run.
 - Seven task issues were created for Part 1, and three are planned to be closed by a pull request: [#108](https://github.com/ITPD-Almo/modular-llm-gateway/issues/108), [#112](https://github.com/ITPD-Almo/modular-llm-gateway/issues/112) and [#117](https://github.com/ITPD-Almo/modular-llm-gateway/issues/117). The four dashboard tasks are configured in the backends, not in the repository, so they are closed by their Accountable member when their criteria hold, which conflicts with the course rule that a pull request closes a task. Issue moves and closures are reported after they happen.
-- `REL-06` is not cut at the time of writing. The observability pipeline is on `main` and QR-08 QRT-01 passes, and the analytics pipeline is merged; the release member, Ali12hamdan, decides whether to cut it, and the [REL-06 block](../../docs/project-plan.md#rel-06) is filled then with the release and its checked QRs.
 - The three permission questions were not asked at the 2026-11-07 review, so its transcript is neither published nor shared with the instructors; the [meeting report](meeting-report.md#metadata) is the public record.
 - The 2026-11-07 review was not prepared in writing, did not show the dashboards or the observability test, asked for no story verdict and presented no threshold proposal. The [meeting script](meeting-script.md) is reconstructed after the meeting and carries a follow-up agenda for 2026-11-14, which is held only if arranged.
 - Week 5 has no meeting report, so the Week 6 meeting report closes the Week 4 action points and open questions that the Week 5 report carried.

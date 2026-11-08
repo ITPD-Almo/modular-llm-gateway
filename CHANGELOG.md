@@ -6,7 +6,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 
 ## [Unreleased]
 
-## 0.6.0 - 2026-11-08
+## [0.6.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.6.0) - 2026-11-08
 
 ### Added
 
