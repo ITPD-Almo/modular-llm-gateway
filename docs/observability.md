@@ -2,7 +2,7 @@
 
 A system operator can investigate a failed chat by its gateway request ID and see whether that outcome is slow across a recent window. The gateway emits both observations from the parent application without copying message content.
 
-## Collected Data
+## The Signals
 
 | Signal | What the gateway emits |
 | --- | --- |
@@ -11,6 +11,8 @@ A system operator can investigate a failed chat by its gateway request ID and se
 | Trace | The gateway currently emits no distributed trace. `X-Request-ID` correlates one request with logs. |
 
 `route` is always `/v1/chat/completions`. `outcome` is `ok`, `client_error` (4xx), `server_error` (other 5xx), or `timeout` (504). `duration_ms` uses a monotonic clock from the chat middleware to the response headers being ready. Both signals use that same observation. Client disconnects before a response and failures rejected at the reverse proxy are outside this application measurement. Existing [hook lifecycle events](operations.md#event-contract) continue to identify the hook and stage in operator logs.
+
+## Collected Data
 
 The log uses the gateway-generated request ID and the fixed record name shown above. Both signals carry a timestamp and the OpenTelemetry resource attributes `service.name` (`modular-llm-gateway`) and `environment` (`staging` or `production`). They live in that environment's OpenObserve organization.
 

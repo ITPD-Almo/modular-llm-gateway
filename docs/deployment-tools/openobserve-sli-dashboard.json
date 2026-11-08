@@ -14,7 +14,7 @@
           "title": "SLI-01 Chat response latency by outcome",
           "description": "Five-minute P95 in milliseconds. Each outcome is a separate series.",
           "queryType": "promql",
-          "layout": {"x": 0, "y": 0, "w": 24, "h": 8, "i": 0},
+          "layout": {"x": 0, "y": 0, "w": 192, "h": 8, "i": 0},
           "config": {"show_legends": true, "unit": "ms"},
           "queries": [
             {
@@ -27,7 +27,7 @@
                 "y": [],
                 "filter": {"filterType": "group", "logicalOperator": "AND", "conditions": []}
               },
-              "config": {"promql_legend": "{{outcome}}"}
+              "config": {"promql_legend": "{outcome}"}
             }
           ]
         }

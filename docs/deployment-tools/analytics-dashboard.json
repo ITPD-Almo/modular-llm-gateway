@@ -14,7 +14,7 @@
           "title": "Configured chat attempts",
           "description": "Seven-day count of validated configured chats, excluding smoke traffic.",
           "queryType": "sql",
-          "layout": {"x": 0, "y": 0, "w": 24, "h": 5, "i": 0},
+          "layout": {"x": 0, "y": 0, "w": 192, "h": 8, "i": 0},
           "config": {"show_legends": false},
           "queries": [
             {
@@ -37,7 +37,7 @@
           "title": "Recent usage events",
           "description": "Raw event rows include staging smoke traffic.",
           "queryType": "sql",
-          "layout": {"x": 0, "y": 5, "w": 24, "h": 10, "i": 1},
+          "layout": {"x": 0, "y": 8, "w": 192, "h": 16, "i": 1},
           "config": {"show_legends": false},
           "queries": [
             {
