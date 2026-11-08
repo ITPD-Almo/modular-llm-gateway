@@ -1,0 +1,14 @@
+{
+  "fields": [
+    {"name": "_timestamp", "type": "Int64"},
+    {"name": "event", "type": "Utf8"},
+    {"name": "environment", "type": "Utf8"},
+    {"name": "source", "type": "Utf8"},
+    {"name": "run_id", "type": "Utf8"},
+    {"name": "plugin_count", "type": "Int64"},
+    {"name": "attempt_id", "type": "Utf8"},
+    {"name": "outcome", "type": "Utf8"},
+    {"name": "visible_result", "type": "Boolean"}
+  ],
+  "settings": {"data_retention": 14, "store_original_data": false}
+}
