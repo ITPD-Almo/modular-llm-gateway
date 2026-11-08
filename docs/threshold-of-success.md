@@ -6,7 +6,7 @@ The Customer accepts the first usable plugin workflow: start the gateway, add tw
 
 - **Status:** Missed
 - **Measure:** an accepted verdict, recorded as a `DEC-nnn`, on every candidate story of [MLS-03](project-plan.md#mls-03), by the end of Week 4, 2026-10-23.
-- **Outcome:** no story of MLS-03 had an accepted verdict by 2026-10-23: the [Week 4 review](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-04/meeting-report.md) ended with a failed local setup, the Week 5 review was postponed, and the [2026-11-07 review](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-06/meeting-report.md) asked for no verdict. No `DEC-nnn` moved the date. US-01 to US-03 stay open in the product backlog for their verdicts.
+- **Outcome:** no story of MLS-03 had an accepted verdict by 2026-10-23: the [Week 4 review](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/reports/week-04/meeting-report.md) ended with a failed local setup, the Week 5 review was postponed, and the [2026-11-07 review](https://github.com/ITPD-Almo/modular-llm-gateway/blob/7917c0181ab17b3434006ca646b2bd5bda75742c/reports/week-06/meeting-report.md) asked for no verdict. No `DEC-nnn` moved the date. US-01 to US-03 stay open in the product backlog for their verdicts.
 
 ## TOS-02
 
