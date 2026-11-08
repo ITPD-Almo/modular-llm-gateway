@@ -121,6 +121,32 @@ For an optional live provider, run hidden-input `llmgw setup` with the target en
 
 The October 31 deployment uses separate private profile files containing the same owner-supplied `deepseek-flash` account key, so both environments spend that account's balance. TA/Customer codes grant HTTP access only and are not provider keys. Users installing their own copy retain `llmgw setup`; shared per-visitor provider-key storage is not implemented. A changed/removed profile requires a service restart, and local logout does not revoke other copies of the key. Revoke/rotate at the provider when necessary. Prefer distinct provider keys/accounts for later staging/production operation.
 
+## Telemetry pipelines
+
+### OpenObserve
+
+The [observability plan](observability.md) owns the signals and queries. Dev and CI leave export off. On the approved university VM, deploy the pinned [OpenObserve Compose service](deployment-tools/compose.openobserve.yml) as its own project. It binds to loopback and persists data in the project volume. Publish the dashboard and query endpoints through an authenticated, CA-verified HTTPS campus route. Keep the existing gateway access gate and network policy intact.
+
+1. Create a mode-600 `openobserve.env` outside the repository. Set `OPENOBSERVE_ROOT_EMAIL`, `OPENOBSERVE_ROOT_PASSWORD` and, if required, `OPENOBSERVE_LOCAL_PORT`. Use a strong bootstrap password with uppercase, lowercase, digit and special characters. Start with `docker compose --env-file /private/path/openobserve.env -p llmgw-observe -f docs/deployment-tools/compose.openobserve.yml up -d`. Check its loopback `/healthz` and campus HTTPS login.
+2. Create two organizations named `staging` and `production` in OpenObserve. Record their **displayed IDs**, which can differ from their names. Provision separate organization-scoped ingestion credentials and dashboard/query access. Keep bootstrap privileges private. Use a read/query credential for the test instead of an ingestion-only token.
+3. In each gateway service's private `.env`, set `GATEWAY_OBSERVABILITY_ENABLED=1`, `GATEWAY_OBSERVABILITY_ENVIRONMENT` to the environment name and `GATEWAY_OBSERVABILITY_ORGANIZATION` to its displayed ID. Set `GATEWAY_OBSERVABILITY_ENDPOINT` to the organization's base URL ending in `/api/ORGANIZATION_ID` and `GATEWAY_OBSERVABILITY_AUTHORIZATION` to its private HTTP Basic header value. A co-located gateway may export over loopback HTTP. Use verified HTTPS for remote transport and `GATEWAY_OBSERVABILITY_CA_FILE` for a private CA when needed. The app appends `/v1/logs` and `/v1/metrics`. Keep values out of public configuration and shell history. Restart each environment and inspect its private receipt and service status.
+4. Import the same [SLI-01 dashboard definition](deployment-tools/openobserve-sli-dashboard.json) into each organization. The definition is also suitable as the JSON body for `POST /api/{org_id}/dashboards`. Verify the chart title and the exact [documented query](observability.md#sli-01). The log stream is `gateway_requests`. Logs are batched every 500 ms, and metrics every two seconds. Before running the QRT, produce a staging timeout and confirm the chart has a numeric timeout P95. Leave production unexercised. For a synthetic production core verification, keep export off for that check, then enable it and verify deployment/scoping without a test chat.
+5. Verify the template's seven-day retention on the deployed backend and use the same policy on both organizations. Provide verified campus access to the dashboard readers and the staging query runner. Put dashboard/backend addresses, credentials and access instructions in the private Moodle wrapper, and capture separate sanitized staging and production screenshots after the campus check. The production chart may be empty until real traffic arrives.
+
+### Run the staging diagnosability test
+
+Temporarily use the staging fake provider and `examples/slow-plugins.json` as in the [slow-hook verification](#staging-verification-and-qr-02). Keep the observability destination on staging. If product analytics is enabled, keep these checks in its staging smoke scope. Coordinate a quiet window so another test cannot change the timeout series during this run.
+
+Run the gateway with ASGI lifespan enabled so it can start and shut down the exporters. If OpenObserve is unreachable, OpenTelemetry can emit repeated warnings or errors in the gateway's service journal while chat continues to work. Inspect the affected service's journal and verify its scoped endpoint, TLS trust and credentials privately.
+
+From a campus terminal, privately export `STAGING_URL` (the base gateway URL), `STAGING_AUTHORIZATION`, `STAGING_CA_FILE` when required, `OPENOBSERVE_URL` (the OpenObserve base URL), `OPENOBSERVE_STAGING_ORG`, `OPENOBSERVE_QUERY_AUTHORIZATION`, `OPENOBSERVE_QUERY_CA_FILE` when required, and `QRT_RELEASE_SHA` (the full staging commit). Both authorization variables carry the full HTTP Basic header value. The test queries the staging organization's `/_search?type=logs` and `/prometheus/api/v1/query` endpoints. Run:
+
+```sh
+python3 docs/deployment-tools/check-sli.py
+```
+
+Record the result and campus route, then restore staging's normal provider and plugin configuration regardless of the result. For local rehearsal, `--rehearsal` permits loopback URLs and labels the receipt accordingly. Use the [QR-08 procedure](quality-requirements/qr/QR-08.md#qrt-01) for the assessed run.
+
 ## Rollback and continuity
 
 Resolve the previous known-good tag to its full SHA and reinstall it in staging with the helper, rerun the appropriate QRT and normal checks, then promote that same SHA to production. Keep the HTTPS gate, loopback bindings, private profiles and normal plugin configuration throughout. On first deployment there may be no previously verified shared release; stop the affected service and report the failure rather than claiming an unavailable rollback was tested. Do not move a published tag to repair a deployment.
