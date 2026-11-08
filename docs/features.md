@@ -38,6 +38,6 @@ An operator keeps using the gateway when a [plugin](glossary.md#plugin) stops an
 
 A system operator can use [observability](glossary.md#observability) to find a failed chat by request ID and inspect recent latency for that failure outcome.
 
-- **Stories:** `US-12`
+- **Stories:** [`US-12`](https://github.com/ITPD-Almo/modular-llm-gateway/issues/111)
 - **Behavior:** [`FR-013`](functional-requirements/fr/FR-013.md), [`QR-08`](quality-requirements/qr/QR-08.md)
 - **Decisions:** [`ADR-008`](architecture/adr/ADR-008.md)
