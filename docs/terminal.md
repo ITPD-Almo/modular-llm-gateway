@@ -2,7 +2,7 @@
 
 Install once, then run `llmgw` from any directory. The installer downloads a private uv toolchain and Python 3.12.13, installs the gateway in an isolated environment and runs a real HTTP demo. It does not change system Python, install a system service, edit shell profiles or require sudo, Git, Docker, an account or a provider key.
 
-This is a preview of the next version, not a production deployment or a new published release. It starts with a deterministic fake provider. Users may explicitly connect their own DeepSeek account using the guided setup below. Gateway client authentication, server TLS, persistent request storage and fleet deployment are not delivered by this installer; outbound DeepSeek calls use HTTPS.
+The installed tool is included in v0.5.0. Its demo uses a deterministic fake provider. Users may explicitly connect their own DeepSeek account using the guided setup below. Gateway client authentication, server TLS, persistent request storage and fleet deployment are not delivered by this installer; outbound DeepSeek calls use HTTPS. The shared university deployment adds its own HTTPS/access gate, described in the [runbook](deployment.md).
 
 ## Supported targets and requirements
 
@@ -12,13 +12,13 @@ Windows, older systems, restricted networks and other CPU architectures are not 
 
 ## One-line installation
 
-After the terminal changes are reviewed and merged, the main-branch command is:
+Install the published v0.5.0 release:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/ITPD-Almo/modular-llm-gateway/main/install.sh | sh && export PATH="$HOME/.local/bin:$PATH"
+curl -fsSL https://raw.githubusercontent.com/ITPD-Almo/modular-llm-gateway/v0.5.0/install.sh | sh -s -- --ref v0.5.0 && export PATH="$HOME/.local/bin:$PATH"
 ```
 
-For a preview, use the full commit from the reviewed branch in both places below. `FULL_COMMIT_SHA` is a placeholder to replace, not an executable example:
+For another reviewed candidate, use its full commit in both places below. `FULL_COMMIT_SHA` is a placeholder to replace, not an executable example:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/ITPD-Almo/modular-llm-gateway/FULL_COMMIT_SHA/install.sh | sh -s -- --ref FULL_COMMIT_SHA && export PATH="$HOME/.local/bin:$PATH"
@@ -102,7 +102,7 @@ llmgw logout
 
 The profile is stored outside the project at `${XDG_CONFIG_HOME:-$HOME/.config}/llmgw/provider.json`, with directory permissions 0700 and file permissions 0600. Writes are atomic and symlink/unsafe-permission profiles are rejected. This is permission-protected local storage, **not encryption or an OS keychain**. The key is never passed in plugin dictionaries or logged. Plugins remain trusted Python code running as your OS user and share the worker process with the provider adapter; this is not credential isolation from malicious plugins. Install only plugins you trust.
 
-The real-provider adapter is a new owner-requested preview beyond the released fake-provider scope. Automated tests use synthetic credentials and mocked provider responses, including failure and timeout cases; they make no paid DeepSeek calls and do not establish Customer acceptance or a live account success.
+The real-provider adapter is included in v0.5.0. Automated tests use synthetic credentials and mocked provider responses, including failure and timeout cases; they make no paid DeepSeek calls. Separate owner-authorized live checks are recorded in [the deployment evidence](https://github.com/ITPD-Almo/modular-llm-gateway/pull/102); neither kind of check establishes Customer acceptance.
 
 ## Show an editable plugin without touching gateway core
 

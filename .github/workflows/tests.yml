@@ -1,10 +1,16 @@
 name: Tests
+
 on:
   pull_request:
   push:
     branches: [main]
+
 permissions:
   contents: read
+
+# Every product check below applies to this Python package, so none is recorded as not applicable.
+# There is no deploy job: the CI cannot reach the university network, so the deployment is manual
+# from a campus machine, per docs/deployment.md.
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -13,6 +19,18 @@ jobs:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: "3.12"
-      - run: python -m pip install --upgrade pip
-      - run: python -m pip install -e ".[test]"
-      - run: python -m pytest
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[test]"
+      - name: Lint
+        run: ruff check .
+      - name: Format
+        run: ruff format --check .
+      - name: Type check
+        run: mypy gateway
+      - name: Build
+        run: python -m build --wheel
+      - name: Tests
+        # QR-01 QRT-01: the whole suite from this clean checkout, with no provider key and no network.
+        run: python -m pytest

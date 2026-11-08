@@ -1,18 +1,23 @@
 """Behavioral checks for terminal users, including a third-party plugin workspace."""
 
 import json
-from pathlib import Path
+import os
+import socket
 import subprocess
 import sys
-import socket
-import os
+from pathlib import Path
 from time import monotonic, sleep
 
 
 def cli(*args: str, cwd: Path) -> subprocess.CompletedProcess:
-    return subprocess.run([sys.executable, "-m", "gateway", *args], cwd=cwd, text=True,
-                          capture_output=True, timeout=90,
-                          env={**os.environ, "XDG_CONFIG_HOME": str(cwd / "private-config")})
+    return subprocess.run(
+        [sys.executable, "-m", "gateway", *args],
+        cwd=cwd,
+        text=True,
+        capture_output=True,
+        timeout=90,
+        env={**os.environ, "XDG_CONFIG_HOME": str(cwd / "private-config")},
+    )
 
 
 def test_installed_cli_demo_from_an_unrelated_directory(tmp_path):
@@ -40,7 +45,9 @@ def test_workspace_init_is_editable_importable_and_never_overwrites(tmp_path):
     assert result.returncode == 0, result.stderr
     plugin = directory / "my_plugin.py"
     original = plugin.read_bytes()
-    assert json.loads((directory / "plugins.json").read_text())["plugins"] == ["my_plugin.ABReplacePlugin"]
+    assert json.loads((directory / "plugins.json").read_text())["plugins"] == [
+        "my_plugin.ABReplacePlugin"
+    ]
     configured = cli("plugins", "--config", str(directory / "plugins.json"), cwd=tmp_path)
     assert configured.returncode == 0, configured.stderr
     assert "1. my_plugin.ABReplacePlugin" in configured.stdout
@@ -56,16 +63,28 @@ def test_custom_workspace_is_served_from_an_unrelated_directory(tmp_path):
     with socket.socket() as reservation:
         reservation.bind(("127.0.0.1", 0))
         port = reservation.getsockname()[1]
-    server = subprocess.Popen([sys.executable, "-m", "gateway", "serve", "--port", str(port),
-                               "--config", str(workspace / "plugins.json")], cwd=tmp_path,
-                              stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-                              env={**os.environ, "XDG_CONFIG_HOME": str(tmp_path / "private-config")})
+    server = subprocess.Popen(
+        [
+            sys.executable,
+            "-m",
+            "gateway",
+            "serve",
+            "--port",
+            str(port),
+            "--config",
+            str(workspace / "plugins.json"),
+        ],
+        cwd=tmp_path,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        env={**os.environ, "XDG_CONFIG_HOME": str(tmp_path / "private-config")},
+    )
     url = f"http://127.0.0.1:{port}"
     try:
         deadline = monotonic() + 15
         while cli("health", "--url", url, cwd=tmp_path).returncode != 0:
             assert server.poll() is None and monotonic() < deadline, "CLI server failed to start"
-            sleep(.05)
+            sleep(0.05)
         chat = cli("chat", "hello", "--url", url, cwd=tmp_path)
         assert chat.returncode == 0, chat.stderr
         assert json.loads(chat.stdout)["choices"][0]["message"]["content"] == "BBBB"
@@ -91,4 +110,6 @@ def test_cli_failure_is_actionable_without_a_traceback(tmp_path):
 
 def test_installed_default_preserves_tracked_default():
     root = Path(__file__).resolve().parent.parent
-    assert json.loads((root / "gateway/data/plugins.json").read_text()) == json.loads((root / "config/plugins.json").read_text())
+    assert json.loads((root / "gateway/data/plugins.json").read_text()) == json.loads(
+        (root / "config/plugins.json").read_text()
+    )

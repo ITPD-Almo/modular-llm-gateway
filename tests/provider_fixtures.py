@@ -1,7 +1,7 @@
 """Synthetic provider callable, importable by spawned workers; never uses a key/network."""
 
-from dataclasses import dataclass, field
 import json
+from dataclasses import dataclass, field
 from time import sleep
 
 from gateway.deepseek import ProviderError
@@ -23,5 +23,9 @@ class SyntheticProvider:
         if text == "provider-fail":
             raise ProviderError("authentication")
         sleep(self.delay)
-        return {"id": "test", "model": "synthetic", "provider": self.name,
-                "choices": [{"message": {"role": "assistant", "content": "upstream:" + text}}]}
+        return {
+            "id": "test",
+            "model": "synthetic",
+            "provider": self.name,
+            "choices": [{"message": {"role": "assistant", "content": "upstream:" + text}}],
+        }

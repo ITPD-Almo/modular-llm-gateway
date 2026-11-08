@@ -28,7 +28,9 @@ def instantiate_plugins(names: tuple[str, ...]) -> list[Any]:
             plugin = cls()
         except Exception as exc:
             raise ValueError(f"could not construct plugin {name}: {exc}") from exc
-        if not callable(getattr(plugin, "process_request", None)) or not callable(getattr(plugin, "process_response", None)):
+        if not callable(getattr(plugin, "process_request", None)) or not callable(
+            getattr(plugin, "process_response", None)
+        ):
             raise ValueError(f"plugin {name} must define process_request and process_response")
         plugins.append(plugin)
     return plugins

@@ -13,8 +13,8 @@ from .analytics import AnalyticsClient, AnalyticsSession
 from .config import instantiate_plugins, read_plugin_paths
 from .diagnostics import configure_diagnostics, new_request_id
 from .execution import ExecutionFailure, ExecutionSettings, PipelineExecutor
-from .provider import fake_provider as fake_provider  # Keep the existing import path available.
 from .provider import ChatProvider
+from .provider import fake_provider as fake_provider  # Keep the existing import path available.
 
 
 class Message(BaseModel):
@@ -40,8 +40,10 @@ def create_app(
     configure_diagnostics()
     source_default = Path(__file__).resolve().parent.parent / "config" / "plugins.json"
     packaged_default = Path(__file__).resolve().parent / "data" / "plugins.json"
-    selected_path = config_path or os.getenv("GATEWAY_CONFIG") or str(
-        source_default if source_default.is_file() else packaged_default
+    selected_path = (
+        config_path
+        or os.getenv("GATEWAY_CONFIG")
+        or str(source_default if source_default.is_file() else packaged_default)
     )
     try:
         paths = read_plugin_paths(selected_path)
@@ -81,7 +83,10 @@ def create_app(
 
     @app.middleware("http")
     async def correlate_chat(http_request: Request, call_next):
-        if http_request.method != "POST" or http_request.url.path.rstrip("/") != "/v1/chat/completions":
+        if (
+            http_request.method != "POST"
+            or http_request.url.path.rstrip("/") != "/v1/chat/completions"
+        ):
             return await call_next(http_request)
         http_request.state.gateway_request_id = new_request_id()
         response = await call_next(http_request)

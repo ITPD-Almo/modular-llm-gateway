@@ -1,220 +1,101 @@
-# Deployment and environments
+# Deployment
 
-This is the manual deployment runbook for an operator on the university network.
-Use [setup](setup.md) for source development, building and running locally, and [terminal installation](terminal.md) for installer prerequisites and supported platforms.
-The commands below add the VM layout, separate service configuration, promotion and rollback.
+Use [setup](setup.md) for source development and [terminal installation](terminal.md) for supported platforms, the installer and hidden-input provider setup. This guide owns the shared deployment; it does not repeat the local build recipe.
 
-## Environment map
+## Four environments
 
-| Environment | Product and checks | Access and state |
+| Environment | Purpose | Access and configuration |
 | --- | --- | --- |
-| Development | Local source checkout; synthetic tests and developer demo | Contributor machine; local configuration, no production state |
-| Integration | GitHub Actions product checks and QR-01's CI test | Hosted runners outside campus; no VM credentials and no deployment job |
-| Staging | Candidate on the university VM; QR-02's deployed test | Campus clients; port 8001 by example, its own runtime, configuration and provider profile |
-| Production | The same commit that passed staging; core-task verification | Customer on campus; port 8002 by example, separate runtime, configuration and provider profile |
+| Development | Local implementation and synthetic plugin checks | Developer workstation, loopback by default |
+| Integration | GitHub Actions lint, formatting, types, wheel build and tests | Hosted runners; synthetic credentials/providers; no deployment job or VM secrets |
+| Staging | The reviewed candidate and deployed QR tests | University VM, HTTPS frontend 8001, separate runtime/profile/settings, private backend 18001 |
+| Production | The identical source commit after staging verification | University VM, HTTPS frontend 8002, separate runtime/profile/settings, private backend 18002 |
 
-The two ports are examples; check they are free before use.
-A CI or local result does not prove campus reachability, and a staging result does not accept a story.
-The product currently has no client authentication or TLS termination; this deployment uses the fake provider, synthetic messages and campus-restricted access.
-Do not expose these ports to the public internet.
+The gateway application itself has no client authentication or TLS termination. The shared deployment puts an independent Nginx HTTPS/Basic-auth gate in front of both loopback-only backends. Anonymous health, documentation, OpenAPI and chat requests are denied. Codes prove possession, not a person's identity; `owner`, `ta` and `customer` have the same gateway API permissions. Each environment has different codes.
 
 ## VM and campus access
 
-The course's required machine is the team's VM from the university portal: provision or recreate the assigned machine, set its password privately, and connect over SSH from campus.
-Recreation destroys existing VM state: these instructions do not authorize recreating a shared or already-used machine.
-Record its actual image, CPU architecture and resources in the private deployment evidence; this runbook requires Linux with systemd, a writable non-root service account, curl and tar, and internet access for the installer.
+The required host is the team's university-portal VM, with SSH and production verification from a campus machine. Never recreate a shared VM or change its existing services without authorization.
 
-As of October 31, the owner reports that the instructor VM has not been supplied and proposes an existing university work VM reached through Tailscale.
-That is an alternative-host deviation, not evidence that the course VM or campus-only access requirement is satisfied.
-The actual machine details and reachability remain to be verified; preserve existing services and use an isolated application directory.
-An overlay-network test is recorded separately from a campus client's production verification.
+On October 31, the owner reported that the TA approved temporary use of an existing university VM because the assignment VM had not been supplied. The replacement is expected November 2. Ali12hamdan confirmed campus Wi-Fi presence; Codex executed the recorded HTTP checks from that workstation with the VPN left running. The initial staging installation preceded that campus confirmation. Administration used Tailscale SSH; HTTP verification used the direct university IPv4 over Wi-Fi. These access levels and the host exception are recorded in the [Week 5 evidence](https://github.com/ITPD-Almo/modular-llm-gateway/pull/102).
 
-Read the address and login privately, then connect from the campus terminal:
+Use `<university-vm-ipv4>` or a privately supplied SSH alias, never a real address in the repository. Real addresses, codes, route output and instructor access instructions belong in the private Moodle PDF. The administrator maintains network restrictions and account lingering; the recorded host has lingering enabled. The runbook does not change firewall rules or existing Nginx/Tailscale services.
 
-```sh
-read -r -p 'University VM IPv4 (private): ' VM_HOST
-read -r -p 'VM service account: ' VM_USER
-ssh "$VM_USER@$VM_HOST"
-```
+The VM needs Linux with systemd user services, a non-root account, curl, tar, Python 3, OpenSSL and Nginx with SSL/Basic-auth support. An administrator supplies missing system packages. The helpers run as the service account without sudo and never write `/etc/nginx`.
 
-Verify the SSH host key against the portal or the machine administrator's trusted record.
-The real address is in the private Moodle submission; there is no assumed domain name.
-Keep actual IPv4 addresses, host names, overlay addresses, credentials and SSH configuration out of repository files, issue comments, CI logs and link-check exclusions.
-
-The VM administrator must restrict the two HTTP ports to the university network and allow SSH as the university requires.
-Check the existing firewall policy before changing it; preserve other applications' rules.
-The administrator enables the service account's user services to survive logout and reboot once with `sudo loginctl enable-linger "$USER"` while logged in as that account.
-Without lingering, do not claim that the user services survive logout.
-
-## Configuration and service layout
-
-Run the following VM commands as the unprivileged service account in Bash.
-Do not use a shared home-wide `llmgw` installation for the two services.
+## Configuration and layout
 
 ```sh
 umask 077
-export DEPLOY_ROOT="$HOME/.local/share/llmgw-deploy"
-mkdir -p "$DEPLOY_ROOT" "$HOME/.config/systemd/user"
+DEPLOY_ROOT="$HOME/.local/share/llmgw-deploy"
+mkdir -p "$DEPLOY_ROOT"
 chmod 700 "$DEPLOY_ROOT"
-ss -ltn
 ```
 
-Each of `$DEPLOY_ROOT/staging` and `$DEPLOY_ROOT/production` owns:
+Each environment owns `.env` (600), `config/` (700), installer runtime `data/`, `bin/llmgw`, `run`, `plugins.json`, versioned source under `releases/<sha>/source/`, and `current-ref`/`previous-ref` receipts. The launcher exports `.env`; `llmgw serve` does not load it itself. `.env.example` contains placeholders only. A provider key belongs only in the private profile, never `.env`, arguments, plugin dictionaries or public evidence.
 
-- `.env` (mode 600), the exported service settings; never inside the source repository.
-- `data/llmgw/`, the private installer runtime and its source-ref receipt.
-- `config/`, its private provider profile root, separate even while no key is saved.
-- `bin/llmgw`, its managed launcher; `run`, the service launcher.
-- `releases/<full-sha>/source/`, the exact source used for example plugins.
-- `current-ref`, `previous-ref`, and `plugins.json`, the installed source record and editable normal plugin list.
+`access-control/` owns its independent Nginx configuration, PID, disabled access log, private error log, temporary directories, salted SHA-512 password hashes and TLS files. Its private export contains the original high-entropy demo codes for private distribution. Protect it as a credential store. Server/CA keys and exports are mode 600 under a 700 directory. The user service is `llmgw-demo-access.service`; it leaves system Nginx unchanged.
 
-The repository's `.env.example` lists the configuration shape; it contains no secrets.
-`llmgw serve` does not read `.env` automatically: the `run` script below exports it and passes the host, port, provider and startup budget explicitly.
-`GATEWAY_PLUGIN_TIMEOUT_MS` and `GATEWAY_MAX_WORKERS` are read by the application.
-The CLI's explicit startup budget takes precedence over `GATEWAY_WORKER_STARTUP_TIMEOUT_MS`.
-`PYTHONPATH` makes the pinned source's `examples.slow_plugin` importable; example modules are not part of the installed wheel.
+Public frontends use TLS 1.2/1.3. The project demo CA certificate is [available here](deployment-tools/demo-ca.crt); it contains no deployment address or private key. Verify its fingerprint against the Moodle PDF before trusting it in a dedicated browser profile, or supply it explicitly to curl. Never disable certificate verification. The existing CA signs a 90-day server certificate for the privately supplied VM IPv4 and loopback; administrators must renew it before expiry and distribute changed trust material privately when migrating hosts.
 
-For this release, `GATEWAY_PROVIDER=fake` prevents saved credentials from selecting a paid provider.
-No API key is needed or stored for the core task.
-If a later release uses DeepSeek, run `llmgw setup` with that environment's `XDG_CONFIG_HOME` and use distinct accounts/profiles; never put a key in `.env`, command arguments, a plugin dictionary or public evidence.
-See [provider setup](terminal.md) for profile permissions and limitations.
+TA/Customer chats have a six-per-minute sustained limit with an initial burst of thirteen requests (HTTP 429 when exceeded); the private Owner code is exempt for operator checks. Request bodies are capped at 16 KiB. The provider adapter caps generated output at 128 tokens and retries none. These are request/output controls, not a monetary spending cap.
 
-## Install a candidate in staging
+## Manual deployment and promotion
 
-Before deploying, merge #92, #93, #95, #89 and the CI/QR-test task #98, and require green checks on the selected `main` commit.
-Resolve and record a full 40-character SHA, rather than allowing `main` to move during promotion.
-Do not pass a branch containing `/` to the installer.
+Use the maintained [installer helper](deployment-tools/deploy-on-vm.sh), [access-gate helper](deployment-tools/configure-demo-access.py), [QRT helper](deployment-tools/campus-qr02.sh) and [normal core collector](deployment-tools/collect-core-evidence.py). Review their source before execution and copy them into a private VM operator directory. Keep the reviewed operator-tool revision with the private deployment receipt. `export` writes secrets: redirect its output to a private file and never paste it into chat or a PR.
 
-In the campus terminal, determine the candidate from the reviewed repository and keep the value for both deployments:
+Before installing, require reviewed `main` and green CI, resolve a full 40-character SHA once, and keep it for both environments. `--ref` accepts a SHA or tag, not a branch containing `/`. Choose free ports, preserve existing applications, and enable account lingering through the administrator if needed.
+
+On the VM, using the copied helpers:
 
 ```sh
-git fetch origin main
-git rev-parse origin/main
+read -r -p 'Reviewed full source SHA: ' RELEASE_COMMIT
+bash deploy-on-vm.sh staging "$RELEASE_COMMIT" 8001
+read -r -p 'University VM IPv4 (private): ' VM_HOST
+python3 configure-demo-access.py prepare --vm-ip "$VM_HOST" --ref "$RELEASE_COMMIT"
+python3 configure-demo-access.py rehearse
+python3 configure-demo-access.py activate --ref "$RELEASE_COMMIT"
+umask 077
+python3 configure-demo-access.py export > private-demo-access.json
 ```
 
-On the VM, paste that SHA and define this function once in the same Bash session:
+The initial installer binds staging to loopback. The gate moves that backend to loopback 18001 and exposes authenticated HTTPS on 8001. It also prepares the protected production frontend, which is not ready until the production backend is installed. Activation is first-time only and refuses to overwrite an existing access service. Preparation rehearses TLS/auth against an isolated stub; it is not the deployed QRT. A startup failure leaves backends private rather than silently restoring anonymous LAN access.
 
-```sh
-while true; do
-    read -r -p 'Reviewed full commit SHA: ' RELEASE_COMMIT || break
-    [[ "$RELEASE_COMMIT" =~ ^[0-9a-f]{40}$ ]] && break
-    printf '%s\n' 'Enter exactly 40 lowercase hexadecimal characters.' >&2
-done
-export RELEASE_COMMIT
-
-deploy_environment() (
-    set -eu
-    environment=$1
-    port=$2
-    [[ "$RELEASE_COMMIT" =~ ^[0-9a-f]{40}$ ]]
-    case "$environment" in staging|production) ;; *) exit 1 ;; esac
-    [[ "$port" =~ ^[0-9]+$ ]] && ((port > 1024 && port < 65536))
-    root="$DEPLOY_ROOT/$environment"
-    source_dir="$root/releases/$RELEASE_COMMIT/source"
-    mkdir -p "$root/bin" "$root/config" "$source_dir"
-    chmod 700 "$root" "$root/config"
-    curl -fsSL "https://github.com/ITPD-Almo/modular-llm-gateway/archive/$RELEASE_COMMIT.tar.gz" \
-        -o "$root/releases/$RELEASE_COMMIT/source.tar.gz"
-    tar -xzf "$root/releases/$RELEASE_COMMIT/source.tar.gz" -C "$source_dir" --strip-components=1
-    test -f "$source_dir/install.sh"
-    # Stop only this application's service before replacing its private runtime.
-    if systemctl --user cat "llmgw-$environment.service" >/dev/null 2>&1; then
-        systemctl --user stop "llmgw-$environment.service"
-    fi
-    if test -f "$root/current-ref"; then
-        cp "$root/current-ref" "$root/previous-ref"
-        cp "$root/.env" "$root/previous.env"
-    fi
-    XDG_DATA_HOME="$root/data" XDG_CONFIG_HOME="$root/config" GATEWAY_BIN_DIR="$root/bin" \
-        sh "$source_dir/install.sh" --ref "$RELEASE_COMMIT" --no-demo
-    # Keep the operator's normal plugin configuration across upgrades.
-    test -f "$root/plugins.json" || cp "$source_dir/config/plugins.json" "$root/plugins.json"
-    cat > "$root/.env" <<ENV
-GATEWAY_CONFIG="$root/plugins.json"
-GATEWAY_PLUGIN_TIMEOUT_MS=250
-GATEWAY_MAX_WORKERS=4
-GATEWAY_WORKER_STARTUP_TIMEOUT_MS=5000
-GATEWAY_HOST=0.0.0.0
-GATEWAY_PORT=$port
-GATEWAY_PROVIDER=fake
-GATEWAY_STARTUP_TIMEOUT_MS=5000
-XDG_DATA_HOME="$root/data"
-XDG_CONFIG_HOME="$root/config"
-GATEWAY_BIN_DIR="$root/bin"
-PYTHONPATH="$source_dir"
-ENV
-    chmod 600 "$root/.env"
-    cat > "$root/run" <<'RUN'
-#!/bin/sh
-set -eu
-cd -- "$(dirname -- "$0")"
-set -a
-. ./.env
-set +a
-exec ./bin/llmgw serve --host "$GATEWAY_HOST" --port "$GATEWAY_PORT" \
-    --provider "$GATEWAY_PROVIDER" --config "$GATEWAY_CONFIG" \
-    --startup-timeout-ms "$GATEWAY_STARTUP_TIMEOUT_MS"
-RUN
-    chmod 700 "$root/run"
-    cat > "$HOME/.config/systemd/user/llmgw-$environment.service" <<UNIT
-[Unit]
-Description=Modular LLM Gateway $environment
-After=network.target
-
-[Service]
-Type=simple
-WorkingDirectory=$root
-ExecStart="$root/run"
-Restart=on-failure
-RestartSec=2
-UMask=0077
-
-[Install]
-WantedBy=default.target
-UNIT
-    systemctl --user daemon-reload
-    printf '%s\n' "$RELEASE_COMMIT" > "$root/current-ref"
-    systemctl --user enable --now "llmgw-$environment.service"
-    systemctl --user is-active "llmgw-$environment.service"
-)
-
-deploy_environment staging 8001
-```
-
-The function resets the service settings to the values above on each deploy; review them against the saved `previous.env` when promoting or rolling back an environment with intentional custom settings.
-The existing `plugins.json` and private provider directory are retained.
-An installer or startup failure stops this procedure: restore the prior deployment before trying a forward fix.
-Do not deploy production yet.
+On an already protected host, the installer helper detects the gate, keeps loopback backend ports, retains the selected provider and private profiles, and stops only the environment being upgraded. It downloads the pinned source, installs that ref in its own runtime, retains the normal plugin list and writes its receipt. An install failure stops promotion; follow rollback below.
 
 ## Staging verification and QR-02
 
-In the campus terminal, set `STAGING_URL` privately to `http://<university-vm-ipv4>:8001`.
-First verify normal operation:
+From the campus client, set `STAGING_URL=https://<university-vm-ipv4>:8001` privately. Supply the verified CA and stage code using a mode-600 curl configuration, not a password in shell history:
 
-```sh
-curl --fail-with-body --max-time 5 "$STAGING_URL/health"
-curl --fail-with-body --max-time 10 -i "$STAGING_URL/v1/chat/completions" \
-    -H 'Content-Type: application/json' \
-    -d '{"messages":[{"role":"user","content":"hello"}]}'
+```text
+cacert = "/private/path/demo-ca.crt"
+user = "owner:PRIVATE_STAGING_CODE"
 ```
 
-Expect HTTP 200, `{"status":"ok"}`, then `provider: fake`, the answer `fake: HELLO`, an `X-Request-ID`, the trace `metadata, uppercase`, and four request/response change records.
-Health alone is only liveness and does not verify the plugin pipeline.
+A private environment-specific `CURL_HOME` containing this as `.curlrc` also lets the exact curl commands in [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) use those credentials. Do not share that file publicly. The supplied QRT helper accepts the same private configuration through `GATEWAY_CURL_CONFIG` and bypasses HTTP proxies; neither mechanism overrides VPN routing. Confirm physical campus presence and inspect the destination route; the recorded checks also matched the actual socket source to Wi-Fi.
 
-After #98 merges, run the exact QRT-01 procedure in [QR-02](quality-requirements/qr/QR-02.md) from campus.
-To temporarily select that commit's slow-plugin configuration on staging, use the VM terminal:
+The QRT uses the prescribed fake provider and slow-plugin configuration. On the VM:
 
 ```sh
 stage="$DEPLOY_ROOT/staging"
+test ! -e "$stage/normal.env"
 cp "$stage/.env" "$stage/normal.env"
-printf '\nGATEWAY_CONFIG="%s"\n' \
-    "$stage/releases/$RELEASE_COMMIT/source/examples/slow-plugins.json" >> "$stage/.env"
+printf '\nGATEWAY_PROVIDER=fake\nGATEWAY_CONFIG="%s"\n' \
+  "$stage/releases/$RELEASE_COMMIT/source/examples/slow-plugins.json" >> "$stage/.env"
+chmod 600 "$stage/.env" "$stage/normal.env"
 systemctl --user restart llmgw-staging.service
 ```
 
-The last setting overrides the normal config when the launcher sources `.env`.
-Wait for staging health, then run QRT-01 without changing its commands or inventing a passing result.
-After the run, including a failed run, restore the normal configuration and repeat the normal health/chat verification:
+After authenticated staging health is ready, run from the campus client:
+
+```sh
+GATEWAY_CURL_CONFIG=/private/path/staging-curl.conf \
+  bash campus-qr02.sh "$STAGING_URL" "$RELEASE_COMMIT" YOUR_GITHUB_USERNAME campus
+```
+
+Keep its raw bodies/errors privately and publish only sanitized statuses, timings, runner, date, source receipt and the actual client network. The pass criterion is named HTTP 504 within one second, subsequent health 200 within one second and ten correct healthy chats. This QRT does not measure the full scenario's thread/process-growth condition.
+
+Whatever the result, restore normal staging on the VM, then verify its normal pipeline:
 
 ```sh
 mv "$stage/normal.env" "$stage/.env"
@@ -222,76 +103,28 @@ chmod 600 "$stage/.env"
 systemctl --user restart llmgw-staging.service
 ```
 
-Keep the command, date, candidate SHA, environment, HTTP status/body, measured timings and the exact pass/fail comparison in private raw evidence.
-Publish a sanitized result in the deployment PR description or a week-local evidence file and link it from the testing-plan row; keep QRT definitions free of results.
-Remove actual addresses and host names, including those in connection errors or journal lines, before publication.
-An overlay-only rehearsal is labelled as such and does not replace the deployed test from campus.
-QRT-01's result covers its own criterion; it does not establish unmeasured parts of the full QR-02 scenario.
+For fake normal operation, the [core collector](deployment-tools/collect-core-evidence.py) accepts `--ca-cert`, `--access-file` (the private export), `--access-user`, `--expected-sha`, environment and actual network. Expect health, `fake: HELLO`, the `metadata, uppercase` trace, four change records and a request ID. For a configured live provider, verify HTTP 200, the selected provider/model, a nonempty synthetic reply and the same trace/change/request-ID fields; do not apply the collector's fake-answer assertion to a real provider. Served Swagger HTML is distinct from a browser-rendering check.
 
-## Promote the same commit and verify production
+## Production and provider profiles
 
-Proceed only after the candidate's main CI and staging QRT pass, and normal staging is restored.
-In the same VM session, retain the exact `RELEASE_COMMIT` and run:
+Only after the actual campus staging QRT passes and normal staging is restored:
 
 ```sh
-deploy_environment production 8002
-cmp "$DEPLOY_ROOT/staging/current-ref" "$DEPLOY_ROOT/production/current-ref"
-systemctl --user is-active llmgw-staging.service llmgw-production.service
+STAGING_QRT_PASSED=1 bash deploy-on-vm.sh production "$RELEASE_COMMIT" 8002
 ```
 
-In a separate campus terminal, set `PRODUCTION_URL` privately to `http://<university-vm-ipv4>:8002` and perform the core task:
+The guard checks the staged ref, active service and normal-configuration restoration. The gate is already present, so the new production backend binds to loopback 18002 and its protected frontend remains 8002. Match server-side `current-ref`/install receipts in both environments; HTTP metadata alone cannot prove the deployed source SHA.
 
-```sh
-curl --fail-with-body --max-time 5 "$PRODUCTION_URL/health"
-curl --fail-with-body --max-time 10 -i "$PRODUCTION_URL/v1/chat/completions" \
-    -H 'Content-Type: application/json' \
-    -d '{"messages":[{"role":"user","content":"hello"}]}'
-```
+Verify production from campus at `https://<university-vm-ipv4>:8002`: health, one chat through the actual plugins, provider/model, response content, both plugin stages and request ID. Record status, timings, exact commit and access network. If it fails, roll back before release. Do not infer Customer acceptance from passing tests.
 
-Check the same normal response, trace and change records as staging, and open `$PRODUCTION_URL/docs` from campus.
-Record the date, actual access network, exact deployed SHA and observed core-task outcome in sanitized release evidence for the week's report.
-Share the real staging and production addresses privately for Moodle; do not commit them.
-Do not run the slow-plugin quality test against production.
+For an optional live provider, run hidden-input `llmgw setup` with the target environment's `XDG_CONFIG_HOME` set to its private `config/` directory. This validates the key by listing models, not paid generation. After success set only `GATEWAY_PROVIDER=deepseek` in `.env`, restart staging, run one bounded synthetic live chat, then repeat for production. An owner-authorized profile may instead be copied over encrypted SSH stdin through `save_credentials`; never embed the value in arguments, `.env`, curl bodies or logs. Stored profiles are permission-protected plaintext, not encrypted; administrators and trusted plugins running as that user can read them.
 
-## Restart, inspect and roll back
+The October 31 deployment uses separate private profile files containing the same owner-supplied `deepseek-flash` account key, so both environments spend that account's balance. TA/Customer codes grant HTTP access only and are not provider keys. Users installing their own copy retain `llmgw setup`; shared per-visitor provider-key storage is not implemented. A changed/removed profile requires a service restart, and local logout does not revoke other copies of the key. Revoke/rotate at the provider when necessary. Prefer distinct provider keys/accounts for later staging/production operation.
 
-```sh
-systemctl --user restart llmgw-production.service
-systemctl --user status llmgw-production.service --no-pager
-journalctl --user -u llmgw-production.service -n 50 --no-pager
-```
+## Rollback and continuity
 
-The launcher exports only its own `.env`; it does not depend on the operator's terminal state.
-Journal output is private until sanitized.
-Check `current-ref`, `previous-ref`, the install receipt, file permissions, selected port and plugin imports when startup fails.
-Never restart an unrelated service or kill whatever happens to use a port.
+Resolve the previous known-good tag to its full SHA and reinstall it in staging with the helper, rerun the appropriate QRT and normal checks, then promote that same SHA to production. Keep the HTTPS gate, loopback bindings, private profiles and normal plugin configuration throughout. On first deployment there may be no previously verified shared release; stop the affected service and report the failure rather than claiming an unavailable rollback was tested. Do not move a published tag to repair a deployment.
 
-For a previous tag that includes `install.sh`, resolve the tag to its full commit in the reviewed local repository and use the same deployment function:
+For `v0.2.0`, which predates the installed CLI, use its [versioned setup](https://github.com/ITPD-Almo/modular-llm-gateway/blob/v0.2.0/docs/setup.md) in a separate private runtime and launch its app on the same loopback backend port behind the gate. Preserve a compatible normal configuration and verify before switching. Never restore the older public-bind recipe on a protected host.
 
-```sh
-git fetch origin --tags
-git rev-parse 'PREVIOUS_TAG^{commit}'
-```
-
-On the VM, set `RELEASE_COMMIT` to that resolved SHA, then `deploy_environment production 8002`.
-Repeat the campus core-task verification; roll back staging separately if necessary.
-Restore any required custom settings from the saved environment file before restarting.
-Do not move a published tag.
-
-The existing `v0.2.0` predates the terminal installer, so it cannot be restored with `install.sh`.
-For this first terminal release, keep the prior source deployment intact until verification passes.
-If no prior deployment exists, record that fact; a first install has no previous running instance to restore.
-To return specifically to `v0.2.0`, use its [versioned source setup](https://github.com/ITPD-Almo/modular-llm-gateway/blob/v0.2.0/docs/setup.md) in a separate directory and environment, and change this service's `run` launcher to execute that environment's `python -m uvicorn gateway.main:create_app --factory --host 0.0.0.0 --port "$GATEWAY_PORT"` from that checkout with its own default config.
-Re-verify from campus before treating the rollback as recovered.
-Do not claim that an older tag supports commands introduced later.
-
-## Rework and release records
-
-The [project plan](project-plan.md) owns the testing plan and the `REL-05` release record.
-The Week 5 report owns the actual deployment evidence, access network and meeting/deployment deviations.
-After code or configuration rework, repeat staging, the affected test and same-SHA production verification before tagging the commit production runs.
-Verify that `llmgw --version` matches the intended release version before promotion.
-
-If the course VM is unavailable or the alternative host is reachable only over the overlay, record the reason and the announced postponement date when known.
-Coordinate a genuine `scripted`/`CI` fallback and its definition/result with the QR-test owner, or keep the deployed test `Not verified`.
-Upgrade it when campus staging is available; an overlay check does not establish campus access.
+When the assignment VM arrives, prepare it without recreating this shared host, deploy the reviewed ref, provision new private credentials/certificates as required, and repeat staging QRT plus campus production verification. Update instructor access privately and preserve old submitted endpoints until instructors have usable replacement access. Keep all addresses, hostname mappings, private keys and codes out of the repository.

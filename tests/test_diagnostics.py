@@ -5,9 +5,8 @@ from uuid import UUID
 import pytest
 from fastapi.testclient import TestClient
 
-from gateway.diagnostics import HookContext, LOGGER, emit_hook_event, new_request_id
+from gateway.diagnostics import LOGGER, HookContext, emit_hook_event, new_request_id
 from gateway.main import create_app
-
 
 PROMPT_SECRET = "DO_NOT_LOG_PROMPT_123"
 METADATA_SECRET = "DO_NOT_LOG_METADATA_456"
@@ -47,16 +46,22 @@ def configuration(tmp_path, names):
 
 
 def events(caplog):
-    return [json.loads(record.getMessage()) for record in caplog.records if record.name == LOGGER.name]
+    return [
+        json.loads(record.getMessage()) for record in caplog.records if record.name == LOGGER.name
+    ]
 
 
 def test_success_events_have_one_safe_schema_and_follow_hook_order(caplog):
     caplog.set_level(logging.INFO, logger=LOGGER.name)
     client = TestClient(create_app())
-    result = client.post("/v1/chat/completions", json={
-        "messages": [{"role": "user", "content": PROMPT_SECRET}],
-        "metadata": {"secret": METADATA_SECRET},
-    }, headers={"X-Request-ID": "untrusted-client-value"})
+    result = client.post(
+        "/v1/chat/completions",
+        json={
+            "messages": [{"role": "user", "content": PROMPT_SECRET}],
+            "metadata": {"secret": METADATA_SECRET},
+        },
+        headers={"X-Request-ID": "untrusted-client-value"},
+    )
     assert result.status_code == 200
     request_id = result.headers["X-Request-ID"]
     assert UUID(hex=request_id).version == 4
@@ -69,23 +74,35 @@ def test_success_events_have_one_safe_schema_and_follow_hook_order(caplog):
         for plugin in ("MetadataPlugin", "UppercasePlugin")
         for event in ("started", "completed")
     ]
-    assert all(set(r) == {"schema_version", "event", "request_id", "plugin", "stage", "elapsed_ms", "reason"} for r in records)
+    assert all(
+        set(r)
+        == {"schema_version", "event", "request_id", "plugin", "stage", "elapsed_ms", "reason"}
+        for r in records
+    )
     assert all(r["request_id"] == request_id and r["elapsed_ms"] >= 0 for r in records)
     encoded = json.dumps(records)
     assert PROMPT_SECRET not in encoded and METADATA_SECRET not in encoded
     assert "untrusted-client-value" not in encoded
     assert all(r.exc_info is None for r in caplog.records if r.name == LOGGER.name)
-    another = client.post("/v1/chat/completions", json={"messages": [{"role": "user", "content": "hello"}]})
+    another = client.post(
+        "/v1/chat/completions", json={"messages": [{"role": "user", "content": "hello"}]}
+    )
     assert another.headers["X-Request-ID"] != request_id
 
 
-@pytest.mark.parametrize("name,stage", [("RequestFailure", "request"), ("ResponseFailure", "response")])
+@pytest.mark.parametrize(
+    "name,stage", [("RequestFailure", "request"), ("ResponseFailure", "response")]
+)
 def test_failed_hook_is_identified_without_logging_content(tmp_path, caplog, name, stage):
     caplog.set_level(logging.INFO, logger=LOGGER.name)
     client = TestClient(create_app(configuration(tmp_path, [f"tests.test_diagnostics.{name}"])))
-    result = client.post("/v1/chat/completions", json={
-        "messages": [{"role": "user", "content": PROMPT_SECRET}], "metadata": {"private": METADATA_SECRET},
-    })
+    result = client.post(
+        "/v1/chat/completions",
+        json={
+            "messages": [{"role": "user", "content": PROMPT_SECRET}],
+            "metadata": {"private": METADATA_SECRET},
+        },
+    )
     assert result.status_code == 500
     assert result.json()["detail"] == f"plugin {name} failed during {stage} processing"
     records = events(caplog)
@@ -99,8 +116,12 @@ def test_failed_hook_is_identified_without_logging_content(tmp_path, caplog, nam
 
 def test_non_dictionary_hook_result_is_a_named_failure(tmp_path, caplog):
     caplog.set_level(logging.INFO, logger=LOGGER.name)
-    client = TestClient(create_app(configuration(tmp_path, ["tests.test_diagnostics.InvalidOutput"])))
-    result = client.post("/v1/chat/completions", json={"messages": [{"role": "user", "content": "hello"}]})
+    client = TestClient(
+        create_app(configuration(tmp_path, ["tests.test_diagnostics.InvalidOutput"]))
+    )
+    result = client.post(
+        "/v1/chat/completions", json={"messages": [{"role": "user", "content": "hello"}]}
+    )
     assert result.status_code == 500
     assert "InvalidOutput" in result.json()["detail"]
     assert events(caplog)[-1]["reason"] == "invalid_output"
@@ -108,26 +129,38 @@ def test_non_dictionary_hook_result_is_a_named_failure(tmp_path, caplog):
 
 def test_event_helper_rejects_arbitrary_exception_reason(caplog):
     with pytest.raises(ValueError, match="unknown diagnostic"):
-        emit_hook_event(HookContext(new_request_id(), "ExamplePlugin", "request"), "failed", reason=EXCEPTION_SECRET)
+        emit_hook_event(
+            HookContext(new_request_id(), "ExamplePlugin", "request"),
+            "failed",
+            reason=EXCEPTION_SECRET,
+        )
     assert EXCEPTION_SECRET not in caplog.text
 
 
-@pytest.mark.parametrize("body", [
-    '{"messages":"PRIVATE_INVALID_MESSAGES"}',
-    '{"messages":[{"role":"user","content":{"private":"PRIVATE_INVALID_CONTENT"}}]}',
-    '{"messages":[],"metadata":"PRIVATE_INVALID_METADATA"}',
-    '{"messages": PRIVATE_INVALID_JSON}',
-    '{"messages":[{"content":"PRIVATE_MISSING_ROLE"}]}',
-])
+@pytest.mark.parametrize(
+    "body",
+    [
+        '{"messages":"PRIVATE_INVALID_MESSAGES"}',
+        '{"messages":[{"role":"user","content":{"private":"PRIVATE_INVALID_CONTENT"}}]}',
+        '{"messages":[],"metadata":"PRIVATE_INVALID_METADATA"}',
+        '{"messages": PRIVATE_INVALID_JSON}',
+        '{"messages":[{"content":"PRIVATE_MISSING_ROLE"}]}',
+    ],
+)
 def test_invalid_chat_is_correlated_without_reflecting_input(caplog, body):
     with TestClient(create_app()) as client:
-        response = client.post("/v1/chat/completions", content=body,
-                               headers={"Content-Type": "application/json", "X-Request-ID": "PRIVATE_CLIENT_ID"})
+        response = client.post(
+            "/v1/chat/completions",
+            content=body,
+            headers={"Content-Type": "application/json", "X-Request-ID": "PRIVATE_CLIENT_ID"},
+        )
         assert response.status_code == 422
         assert response.json() == {"detail": "invalid chat request"}
         assert UUID(hex=response.headers["X-Request-ID"]).version == 4
         assert "PRIVATE_" not in response.text + str(response.headers) + caplog.text
         assert events(caplog) == []
-        healthy = client.post("/v1/chat/completions", json={"messages": [{"role": "user", "content": "hello"}]})
+        healthy = client.post(
+            "/v1/chat/completions", json={"messages": [{"role": "user", "content": "hello"}]}
+        )
         assert healthy.status_code == 200
         assert healthy.headers["X-Request-ID"] != response.headers["X-Request-ID"]

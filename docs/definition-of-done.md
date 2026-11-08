@@ -24,7 +24,7 @@ We keep no task tracker in the repository: every task is a GitHub issue opened f
 - A pull request closes exactly one task issue and links it with `Closes #<number>`.
 - The accountable reviewer ticks every task acceptance criterion before approving.
 - The approval comes from a member other than the author.
-- The documentation site builds strictly; the repository checks are green: the link check, the Markdown check, and the tests workflow once the change touches product code.
+- The documentation site builds strictly; the repository checks are green: the link check, the Markdown check, `actionlint` over the workflows, and the product-code checks of the tests workflow: lint (`ruff check`), format (`ruff format --check`), type check (`mypy gateway`), build (`python -m build --wheel`) and tests (`python -m pytest`).
 - A user-visible change updates the `[Unreleased]` section of `CHANGELOG.md`.
 - The acceptance criteria this pull request claims pass on its branch, and on `main` after it merges.
 - No secret, provider key, recording, or private-only material is committed.
