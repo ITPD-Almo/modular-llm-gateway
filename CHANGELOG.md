@@ -6,10 +6,16 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 
 ## [Unreleased]
 
+## 0.6.0 - 2026-11-08
+
 ### Added
 
 - Opt-in analytics for configured chat usage, with a separate staging smoke source and a private trial dashboard for each environment.
 - Opt-in OpenObserve export of chat outcomes and latency, with separate staging and production configuration and a documented staging diagnosis check.
+
+### Fixed
+
+- Use full-width panels on the telemetry dashboards and readable outcome labels on the request diagnosis chart.
 
 ## [0.5.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.5.0) - 2026-10-31
 
