@@ -41,3 +41,11 @@ A product analyst can read [events](glossary.md#event) to see whether a configur
 - **Stories:** [`US-11`](https://github.com/ITPD-Almo/modular-llm-gateway/issues/110)
 - **Behavior:** [`FR-012`](functional-requirements/fr/FR-012.md)
 - **Decisions:** [`ADR-007`](architecture/adr/ADR-007.md)
+
+## Diagnose a failed chat from operating signals
+
+A system operator can use [observability](glossary.md#observability) to find a failed chat by request ID and inspect recent latency for that failure outcome.
+
+- **Stories:** [`US-12`](https://github.com/ITPD-Almo/modular-llm-gateway/issues/111)
+- **Behavior:** [`FR-013`](functional-requirements/fr/FR-013.md), [`QR-08`](quality-requirements/qr/QR-08.md)
+- **Decisions:** [`ADR-008`](architecture/adr/ADR-008.md)

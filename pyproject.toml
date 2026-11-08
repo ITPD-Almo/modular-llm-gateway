@@ -7,7 +7,12 @@ name = "modular-llm-gateway"
 version = "0.5.0"
 description = "A small configurable FastAPI gateway with request and response plugins"
 requires-python = ">=3.12"
-dependencies = ["fastapi>=0.115,<1", "uvicorn[standard]>=0.30,<1"]
+dependencies = [
+    "fastapi>=0.115,<1",
+    "uvicorn[standard]>=0.30,<1",
+    "opentelemetry-sdk>=1.45.1,<1.46",
+    "opentelemetry-exporter-otlp-proto-http>=1.45.1,<1.46",
+]
 
 [project.scripts]
 llmgw = "gateway.cli:main"
