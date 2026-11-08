@@ -139,7 +139,7 @@ Provisional: the final release incorporates the selected usability findings, has
 | --- | --- | --- | --- | --- | --- |
 | [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Passes | [SPRINT-05](#sprint-05) | [SPRINT-05](#sprint-05) | [Campus staging run on 2026-10-31](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c7dce8ff876d31a57ee0ca93d9428d8444473f6c/reports/week-05/deployment-evidence.md#deployed-qr-02-rerun-through-the-https-gate) |
 | [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Passes | [SPRINT-05](#sprint-05) | [SPRINT-05](#sprint-05) | [CI: 81 tests in 20.90 seconds](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/41227201276) |
-| [QR-08](quality-requirements/qr/QR-08.md) | [QR-08 QRT-01](quality-requirements/qr/QR-08.md#qrt-01) | Not verified | None | [SPRINT-06](#sprint-06) | None |
+| [QR-08](quality-requirements/qr/QR-08.md) | [QR-08 QRT-01](quality-requirements/qr/QR-08.md#qrt-01) | Passes | [SPRINT-06](#sprint-06) | [SPRINT-06](#sprint-06) | [Campus staging run on 2026-11-08](https://github.com/ITPD-Almo/modular-llm-gateway/blob/0073150f73e3b755f0f8a29b21cddb1685b7731d/reports/week-06/README.md#qr-08-qrt-01-campus-run) |
 
 ## Progress Monitoring
 
