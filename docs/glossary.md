@@ -48,12 +48,6 @@ A chat attempt processed through one or more configured plugins.
 
 **Defined by:** [`FR-012`](functional-requirements/fr/FR-012.md).
 
-### Product Analytics Event
-
-A bounded, content-free record used to measure configured gateway use; it is opt-in and best effort.
-
-**Defined by:** [`FR-012`](functional-requirements/fr/FR-012.md).
-
 ### Fake Provider
 
 The built-in stand-in for an LLM provider that needs no key and replies with `fake:`, a space and the last message's content.
@@ -74,14 +68,6 @@ A content-free record the gateway writes when a hook starts, completes, fails or
 
 ## Product analytics
 
-### Event
-
-A defined record of a product action, with the fields and collection point listed in the [analytics registry](analytics.md#the-events).
-
-### Instrumentation
-
-The gateway code that observes product actions and emits their defined events.
-
 ### Focus metric
 
 The main usage measure the team uses to assess the trial's value.
@@ -98,10 +84,44 @@ A measure that guards against raising the focus metric by making the experience 
 
 The focus metric, its guard and its input metrics arranged in their explanatory order.
 
-### Analytics backend
+## Observability and telemetry
 
-The service that receives usage events and runs the queries behind the charts.
+### Observability
+
+The ability to investigate the gateway's operation using the signals it emits.
+
+### Signal
+
+A metric, log or trace used to understand how the gateway operated.
+
+### Service level indicator
+
+A defined measure of a service's behavior, with a unit, time window and query. **SLI** is its abbreviation.
+
+### SLI
+
+See [Service level indicator](#service-level-indicator).
+
+### Telemetry
+
+Operating or usage data the product emits for analysis outside the request path.
+
+### Observability backend
+
+The service that receives and stores operating signals and provides queries and visualizations over them.
 
 ### Dashboard
 
-A view of charts or event lists from one environment scope.
+A view that groups charts so an analyst or operator can read usage metrics or operating signals for one environment.
+
+### Instrumentation
+
+Code that measures an operation or records a product action and emits the resulting signal or event.
+
+### Event
+
+A structured record of a named action or outcome that occurred in the product.
+
+### Analytics backend
+
+The service that receives and stores product usage events and lets analysts query them and chart usage metrics.

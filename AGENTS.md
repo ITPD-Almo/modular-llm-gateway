@@ -17,6 +17,7 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
   - `provider.py`: the deterministic fake provider.
   - `diagnostics.py`: lifecycle events.
   - `analytics.py`: opt-in core-task events with a bounded exporter.
+  - `observability.py`: opt-in, content-free request logs and latency histogram for OpenObserve.
   - `plugins/`: the `Plugin` protocol in `base.py` and the bundled plugins.
   - The [testability requirement](docs/quality-requirements/qr/QR-01.md) names the critical modules it covers.
 - `config/plugins.json` is the default plugin list; `GATEWAY_CONFIG` selects another file.
@@ -31,7 +32,7 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
   - `quality-requirements/`, `functional-requirements/` and the glossary
   - the setup, plugin, operations and demo guides
   - `deployment.md`: the four environments, private VM configuration, manual promotion, campus verification and rollback
-  - `deployment-tools/`: isolated installer/access-gate helpers, analytics configuration, client evidence collectors and the public-only demo CA certificate
+  - `deployment-tools/`: isolated installer/access-gate helpers, OpenObserve analytics and observability configuration, client evidence collectors and the public-only demo CA certificate
   - `architecture/`: the container view (`container.svg` source and rendered `container.png`) and the decision records in `architecture/adr/`, with `TEMPLATE.md` for a new `ADR-nnn`
 
   New maintained documents go here, never into `reports/` first.

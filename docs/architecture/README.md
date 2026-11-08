@@ -11,16 +11,13 @@ This document records the gateway architecture serving the scope in the [product
 
 ## Container View
 
-The current product genuinely runs as one application container, `gateway`, and [ADR-001](adr/ADR-001.md) records its stack and split. Product analytics is an operator-supplied external OpenObserve boundary; [ADR-007](adr/ADR-007.md) records its protocol and separate environment scopes.
+The product runs as one application container, `gateway`, and [ADR-001](adr/ADR-001.md) records its stack and split. [ADR-007](adr/ADR-007.md) and [ADR-008](adr/ADR-008.md) record the analytics and observability interfaces.
 
-![Container view showing one gateway application and the two external integration boundaries](container.png)
+![Container view of the gateway and its external integrations](container.png)
 
-The blue application is the deployed product; its fake provider is internal and needs no external key or service.
-The dashed external systems preserve the vision's integration boundaries: a real provider adapter is not implemented, and company log collection is operator supplied rather than a bundled store.
-Solid HTTP request handling and local diagnostic output are implemented; the diagram's dashed exchanges are integration targets, not a claim that the gateway already calls a real provider or writes to a company store.
+The gateway is the deployed product. The fake provider runs internally, and the DeepSeek adapter uses HTTPS when enabled. The team self-hosts both OpenObserve backends and builds the gateway. The gateway can serve with telemetry off. Company collection of the local lifecycle events remains operator supplied.
 
-The baseline runs hooks in the application process.
-The accepted target execution decision in [ADR-003](adr/ADR-003.md) adds disposable internal worker processes to the same deployed application; it adds no separately deployed service or database.
+The execution boundary in [ADR-003](adr/ADR-003.md) uses disposable internal worker processes within the same deployed application.
 Each request owns its worker and its plugin instances; those instances are shared across that request's request and response stages and discarded before the next request.
 The execution deadline covers hooks in those workers; initial application-factory import and constructor validation remains trusted startup work outside that deadline.
 
@@ -28,12 +25,10 @@ The execution deadline covers hooks in those workers; initial application-factor
 
 | Container | Responsibilities |
 | --- | --- |
-| `gateway` | Validate incoming chat requests and the selected plugin configuration; run the configured request and response hooks in order around provider forwarding; own request-local payloads, plugin instances and bounded execution slots in memory; return replies or named failures and emit safe operating events. |
+| `gateway` | Validate incoming chat requests and the selected plugin configuration; run the configured request and response hooks in order around provider forwarding; own request-local payloads, plugin instances and bounded execution slots in memory; return replies or named failures and export safe operating signals. |
 
 The application owns no durable user-data store.
-Its JSON configuration is operator-managed input, and its operating events leave through the configured logging handlers or stderr.
-A company store owns retention, access control and durable storage when the operator connects one.
-Provider credentials and real-provider data are absent from the synthetic baseline.
+Its JSON configuration is operator-managed input. Local lifecycle events leave through the configured logging handlers or stderr. The optional OpenObserve exporters send usage events to the analytics backend and request outcomes and latency to the observability backend. Each backend owns retention, access control and durable storage.
 
 The future delivery target in [ADR-005](adr/ADR-005.md) packages this same application for an operator-provided host; [ADR-006](adr/ADR-006.md) keeps future aggregate metrics inside its parent process.
 Neither adds a product application or data store, and neither capability is implemented by this architecture document.
@@ -41,9 +36,10 @@ Neither adds a product application or data store, and neither capability is impl
 ## Diagrams And Legends
 
 - **Blue rounded rectangle:** the product's single deployable application container; the label gives its name and technology.
-- **Gray dashed rectangle:** an external system from the vision, outside the product and not supplied by the baseline.
-- **Dashed arrow:** a planned or operator-supplied integration; its label states the data and protocol boundary.
-- **Boundary annotations:** the application accepts HTTP JSON chat and health requests, writes JSON diagnostic events to stderr or logging handlers, and uses an internal fake provider in the baseline. These annotations are interfaces, not extra containers or external actors.
+- **Gray dashed rectangle:** an external system outside the product boundary. The team self-hosts the two OpenObserve instances using the upstream software.
+- **Solid arrow:** an implemented interface. Its label states the data and protocol.
+- **Dashed arrow:** an operator-supplied integration.
+- **Boundary annotations:** the application accepts HTTP JSON chat and health requests, writes JSON diagnostic events to stderr or logging handlers, and can use an internal fake provider.
 - **Tool and source:** [container.svg](container.svg) is editable SVG source; [container.png](container.png) is rendered from that source with CairoSVG. Edit and render them together. The system context and actors remain in the vision's existing diagram.
 
 ## Architectural Decisions
@@ -56,4 +52,5 @@ Neither adds a product application or data store, and neither capability is impl
 | [ADR-004](adr/ADR-004.md) | Accepted | [FR-008](../functional-requirements/fr/FR-008.md), [QR-01](../quality-requirements/qr/QR-01.md), [QR-03](../quality-requirements/qr/QR-03.md) | Parent-generated allowlisted lifecycle events |
 | [ADR-005](adr/ADR-005.md) | Accepted | [FR-009](../functional-requirements/fr/FR-009.md), [FR-010](../functional-requirements/fr/FR-010.md), [QR-01](../quality-requirements/qr/QR-01.md), [QR-03](../quality-requirements/qr/QR-03.md), [QR-06](../quality-requirements/qr/QR-06.md) | Identified image delivery and retained known-good recovery on an operator-provided host |
 | [ADR-006](adr/ADR-006.md) | Accepted | [FR-008](../functional-requirements/fr/FR-008.md), [FR-011](../functional-requirements/fr/FR-011.md), [QR-01](../quality-requirements/qr/QR-01.md), [QR-03](../quality-requirements/qr/QR-03.md), [QR-07](../quality-requirements/qr/QR-07.md) | Bounded process-local aggregate metrics using the existing safe event contract |
-| [ADR-007](adr/ADR-007.md) | Proposed | [FR-012](../functional-requirements/fr/FR-012.md), [QR-03](../quality-requirements/qr/QR-03.md) | Record gateway usage in a dedicated analytics backend |
+| [ADR-007](adr/ADR-007.md) | Accepted | [FR-012](../functional-requirements/fr/FR-012.md), [QR-03](../quality-requirements/qr/QR-03.md) | Record gateway usage in a dedicated analytics backend |
+| [ADR-008](adr/ADR-008.md) | Accepted | [FR-013](../functional-requirements/fr/FR-013.md), [QR-08](../quality-requirements/qr/QR-08.md), [QR-03](../quality-requirements/qr/QR-03.md) | Export request outcomes to OpenObserve |
