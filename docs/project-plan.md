@@ -118,19 +118,32 @@ The release commit passed CI and the deployed QR-08 staging test over university
 
 ### SPRINT-07
 
-Provisional: the usability protocol is ready and has been rehearsed, and an outside participant can attempt setup and plugin authoring from the documentation with observable success measures.
+A rehearsed, customer-reviewed and instrumented `UT-01` design, with its Week 8 execution path scheduled, and `REL-07`; the stories carried from SPRINT-06 are shown to the Customer AC by AC for their verdicts.
 
-- **Due:** 2026-11-14
+- **Due:** 2026-11-15
+- **Sprint Backlog:** [the issues scheduled into SPRINT-07](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/5)
+- **Planned Velocity:** 24
+
+The planned velocity was computed by hand as 2 + 3 + 3 + 5 + 5 + 3 + 3 from the `Story Points` of [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41), [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42), [US-04](https://github.com/ITPD-Almo/modular-llm-gateway/issues/52), [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96), [US-11](https://github.com/ITPD-Almo/modular-llm-gateway/issues/110) and [US-12](https://github.com/ITPD-Almo/modular-llm-gateway/issues/111), carried from SPRINT-06 for their verdicts; tasks contribute zero points.
+The sprint was planned on 2026-11-12, four days into the sprint and three days before its due date.
+The tasks are [#128](https://github.com/ITPD-Almo/modular-llm-gateway/issues/128) for the versioned Compose image and the `UT-01` staging instrumentation, [#131](https://github.com/ITPD-Almo/modular-llm-gateway/issues/131) for the `UT-01` design, its `QR-09` requirement, the consent, the private repository and recordings folder, the recruitment, the dry run and the analysis plan, and [#130](https://github.com/ITPD-Almo/modular-llm-gateway/issues/130) for the planning, the Sprint Review, `REL-07` and the sprint close.
+The counted sessions run in SPRINT-08, so MLS-07's outside-participant observation is completed by the SPRINT-08 sessions rather than by 2026-11-14.
+The product backlog refined on 2026-11-12 for the next two sprints, with no milestone, is unchanged from SPRINT-06: [US-05](https://github.com/ITPD-Almo/modular-llm-gateway/issues/65) (8 points; #128 implements its Compose criterion), [US-06](https://github.com/ITPD-Almo/modular-llm-gateway/issues/66) (5), [US-07](https://github.com/ITPD-Almo/modular-llm-gateway/issues/67) (5), [US-08](https://github.com/ITPD-Almo/modular-llm-gateway/issues/68) (3), [US-10](https://github.com/ITPD-Almo/modular-llm-gateway/issues/97) (3) and [US-13](https://github.com/ITPD-Almo/modular-llm-gateway/issues/118) (5), 29 points.
 
 #### REL-07
 
 ### SPRINT-08
 
-Provisional: an operator can rebuild a tagged release with its recorded configuration and plugin versions and rehearse a controlled upgrade and rollback.
+Provisional: the in-person `UT-01` sessions run on staging, their results and findings are written and triaged, `QR-09 QRT-01` gets its verdict, and `REL-08` is cut.
 
 - **Due:** 2026-11-21
+- **Sprint Backlog:** [the issues scheduled into SPRINT-08](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/6)
+
+The execution tasks are [#132](https://github.com/ITPD-Almo/modular-llm-gateway/issues/132) for the instrumentation verification before the first counted session, [#133](https://github.com/ITPD-Almo/modular-llm-gateway/issues/133) for the counted sessions, [#134](https://github.com/ITPD-Almo/modular-llm-gateway/issues/134) for the private custody and the sanitized notes, [#135](https://github.com/ITPD-Almo/modular-llm-gateway/issues/135) for the results and findings, [#136](https://github.com/ITPD-Almo/modular-llm-gateway/issues/136) for the triage, [#137](https://github.com/ITPD-Almo/modular-llm-gateway/issues/137) for the `QR-09 QRT-01` verdict and [#138](https://github.com/ITPD-Almo/modular-llm-gateway/issues/138) for `REL-08`.
 
 #### REL-08
+
+Planned: `REL-08` is cut on the reviewed green `main` commit at the end of SPRINT-08, and its `**Checked QRs:**` lists `QR-09` when the `QRT-01` verdict is recorded with the results.
 
 ### SPRINT-09
 
