@@ -1,0 +1,14 @@
+**
+!.dockerignore
+!Dockerfile
+!pyproject.toml
+!requirements-runtime.txt
+!gateway/
+!gateway/**/*.py
+!gateway/data/
+!gateway/data/plugins.json
+!examples/
+!examples/ab_plugin.py
+!examples/ab-plugins.json
+!examples/slow_plugin.py
+!examples/slow-plugins.json
