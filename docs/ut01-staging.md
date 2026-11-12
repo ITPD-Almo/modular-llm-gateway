@@ -30,6 +30,14 @@ ut01() {
 
 Use `ut01 config --quiet` for validation. Keep rendered Compose configuration private because it can contain ingestion settings.
 
+## Participant bring-up
+
+For the main task, the participant starts the gateway from a clean workspace on an isolated campus test workstation. Before timing starts, the facilitator supplies the reviewed checkout and preloaded image, a free loopback port, and the location of the private `UT01_COMPOSE_SETTINGS` file. The reviewed Compose file and UT-01 override in that checkout select the packaged default plugin fixture. The settings file points at the session's separate ingestion file and, when needed, the public CA certificate.
+
+Give the workstation only a short-lived, ingestion-only credential for the dedicated UT-01 organization. Use a facilitator-managed ingest relay when the backend cannot issue an ingestion-only credential. Query credentials, administrator accounts and provider keys stay on the facilitator's side. Revoke the session credential or disable its relay during cleanup. Use the provided workstation, separate from the shared VM's operator account and Docker access.
+
+The participant follows the setup documentation, defines `ut01` above, and starts the gateway with `ut01 up -d --wait`. This launches the instrumented Compose service with `environment=staging` and `source=usability-test`. The participant then checks the gateway and sends the synthetic configured chat. The facilitator records the window and observes the work. A hint, command, or start performed by the facilitator after timing begins is recorded as assistance. Keep the exact rehearsal steps below in facilitator material.
+
 ## Reset and run a synthetic rehearsal
 
 Run one session at a time in a quiet window. Use the gateway host's synchronized UTC clock to record boundaries in Unix microseconds. Reset to the packaged default plugin configuration before each session. Start the window before any chat. For the Week 7 technical rehearsal and the pre-session instrumentation check, exercise these exact requests in order. During the usability session, the participant uses the facilitator's scenario and supplied setup documentation.
@@ -85,4 +93,4 @@ The query and exporter both apply the half-open UTC window `[start, end)`. The e
 
 For verification, `--check-rehearsal` requires two distinct configuration runs and matching chat pairs in the order `ok`, `timeout`, `ok`. The timeout and recovery must share a run ID. Query a second window that excludes the rehearsal and confirm it returns no rehearsal events. Check the offline probe boolean and the actual result against the observer's notes. If delivery is still settling, retry the same query after it becomes visible. A missing pair or a backend error leaves the verification incomplete. Use `export` without `--check-rehearsal` for a counted session, since its attempts and outcomes can vary.
 
-Record a sanitized verification summary with date, runner, image identity, network, checks and evidence location. Keep the raw export, local probe record and participant mapping private. The Sprint 07 teammate rehearsal is uncounted. If the first counted session is in Sprint 08, repeat the instrumentation check in Sprint 08 before that session. The Week 8 manual usability verdict uses the observer's measured task outcomes.
+Record a sanitized verification summary with date, runner, image identity, network, checks and evidence location. Keep the raw export, local probe record and participant mapping private. The Sprint 07 teammate rehearsal is uncounted. The [Sprint 08 pre-session check](https://github.com/ITPD-Almo/modular-llm-gateway/issues/132) repeats the instrumentation check before the first counted session. The Week 8 manual usability verdict uses the observer's measured task outcomes.

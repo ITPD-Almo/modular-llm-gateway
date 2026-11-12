@@ -4,6 +4,8 @@ For a terminal demo on Linux/macOS without a Git checkout or preinstalled Python
 
 This recipe installs the gateway in a clean Python 3.12 virtual environment and sends one request through two plugins. It needs no provider key, no account and no local file that is not in the repository: the gateway answers with a built-in fake provider.
 
+If you are completing the UT-01 main task, start with the [participant Compose setup](ut01-staging.md#participant-bring-up) and the session settings your facilitator supplies.
+
 ## Prerequisites
 
 - Git.
