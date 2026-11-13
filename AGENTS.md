@@ -35,6 +35,7 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
   - `deployment.md`: the four environments, private VM configuration, manual promotion, campus verification and rollback
   - `ut01-staging.md`: the isolated usability fixture, UTC-window export and offline custom-plugin probe
   - `deployment-tools/`: isolated installer/access-gate helpers, OpenObserve analytics and observability configuration, client evidence collectors and the public-only demo CA certificate
+  - `usability-tests/`: maintained usability-test records; identities, recordings, raw notes and private telemetry stay outside the repository.
   - `architecture/`: the container view (`container.svg` source and rendered `container.png`) and the decision records in `architecture/adr/`, with `TEMPLATE.md` for a new `ADR-nnn`
 
   New maintained documents go here, never into `reports/` first.
