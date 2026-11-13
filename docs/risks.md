@@ -1,11 +1,16 @@
 # Risks
 
-| ID                  | Status | Impact | Likelihood | Risk                                                                                                                                                                                     |
-| ------------------- | ------ | ------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [RISK-01](#risk-01) | Open   | High   | Medium     | The candidate was not shown running at the Week 3 meeting, so the Customer's verdict on the stories may not arrive before the release, which would leave the MUP unaccepted.             |
-| [RISK-02](#risk-02) | Open   | High   | Medium     | The plugin interface was designed before the Customer saw it run, so the Customer may reject its inputs or outputs, which would force us to rewrite the plugins and their documentation. |
-| [RISK-03](#risk-03) | Open   | High   | Low        | The team already lost one of four members, so another member may become unavailable for a sprint, which would leave that sprint's release unfinished.                                    |
-| [RISK-04](#risk-04) | Open   | Medium | Medium     | The gateway's deployment target and pipeline are untested, so deploying it may take longer than one sprint, which would miss TOS-04 in Week 5.                                           |
+|ID|Status|Impact|Likelihood|Risk|
+|---|---|---|---|---|
+|[RISK-01](#risk-01)|Open|High|Medium|The candidate was not shown running at the Week 3 meeting, so the Customer's verdict on the stories may not arrive before the release, which would leave the MUP unaccepted.|
+|[RISK-02](#risk-02)|Open|High|Medium|The plugin interface was designed before the Customer saw it run, so the Customer may reject its inputs or outputs, which would force us to rewrite the plugins and their documentation.|
+|[RISK-03](#risk-03)|Open|High|Low|The team already lost one of four members, so another member may become unavailable for a sprint, which would leave that sprint's release unfinished.|
+|[RISK-04](#risk-04)|Open|Medium|Medium|The gateway's deployment target and pipeline are untested, so deploying it may take longer than one sprint, which would miss TOS-04 in Week 5.|
+|[RISK-05](#risk-05)|Open|High|Medium|The team may recruit too few eligible participants or a session may not be valid, leaving the QR-09 denominator below the required three.|
+|[RISK-06](#risk-06)|Open|High|Medium|A participant may not understand the recording, sanitized-results or private-access terms, invalidating the session.|
+|[RISK-07](#risk-07)|Open|High|Low|Raw notes, recordings or telemetry may be inaccessible to instructors or may expose identity.|
+|[RISK-08](#risk-08)|Open|High|Medium|The staging bring-up or event link may fail during a counted session, confounding usability with instrumentation failure.|
+|[RISK-09](#risk-09)|Open|Medium|Medium|Recruiting and arranging in-person campus sessions may slip beyond the SPRINT-08 analysis window.|
 
 ## RISK-01
 
@@ -62,3 +67,53 @@ The gateway's deployment target and pipeline are untested, so deploying it may t
 - **Window:** [SPRINT-05](project-plan.md#sprint-05).
 - **Mitigation:** package the gateway as a container image in SPRINT-04, so the Week 5 work is only to run that image.
 - **Contingency:** deploy the container by hand to one virtual machine, and automate the deployment in SPRINT-06.
+
+## RISK-05
+
+Recruitment may produce fewer than three eligible, valid sessions.
+
+- **Status:** Open
+- **Impact:** High
+- **Likelihood:** Medium
+- **Mitigation:** recruit five people against the observable UT-01 profile and pre-screen eligibility without collecting identity in the public record.
+- **Contingency:** schedule replacements under the next unused participant code and do not claim a QR-09 result until three valid sessions exist.
+
+## RISK-06
+
+A participant may not understand or accept the recording, sanitized-results or private-access terms.
+
+- **Status:** Open
+- **Impact:** High
+- **Likelihood:** Medium
+- **Mitigation:** read the consent summary, answer questions before recording and obtain durable consent before every counted session.
+- **Contingency:** stop and exclude the session; offer a fresh session only after consent is complete.
+
+## RISK-07
+
+Private raw notes, recordings or telemetry may be inaccessible to instructors or expose identity.
+
+- **Status:** Open
+- **Impact:** High
+- **Likelihood:** Low
+- **Mitigation:** keep text in the private usability-data repository and recordings in the team-owned folder, test instructor access before sessions, and publish only sanitized evidence.
+- **Contingency:** preserve a private Moodle archive and record the access deviation before submission.
+
+## RISK-08
+
+The staging bring-up or event link may fail during a counted session.
+
+- **Status:** Open
+- **Impact:** High
+- **Likelihood:** Medium
+- **Mitigation:** reset the seed, use the reviewed image and verify the named events, source and session link in a teammate run before the first counted session.
+- **Contingency:** stop the technical run, mark it invalid rather than failed usability evidence, repair instrumentation and reschedule.
+
+## RISK-09
+
+Recruiting and arranging in-person campus sessions may slip beyond the SPRINT-08 analysis window.
+
+- **Status:** Open
+- **Impact:** Medium
+- **Likelihood:** Medium
+- **Mitigation:** arrange sessions in a shared schedule immediately after design approval and hold multiple campus slots.
+- **Contingency:** move the run and analysis to the next planned sprint and declare the schedule deviation.

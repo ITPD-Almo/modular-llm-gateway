@@ -125,3 +125,78 @@ A structured record of a named action or outcome that occurred in the product.
 ### Analytics backend
 
 The service that receives and stores product usage events and lets analysts query them and chart usage metrics.
+
+## Usability testing
+
+### Usability test
+
+A structured evaluation in which representative participants attempt predefined product tasks while completion, help and
+friction are recorded.
+
+### Participant
+
+An eligible person outside the team who attempts the UT-01 tasks.
+
+### Usability session
+
+One participant's complete run of the fixed UT-01 protocol.
+
+### Consent
+
+Durable agreement to participate, be recorded and allow sanitized results to be used, with the private-data terms understood.
+
+### Recording
+
+The private audio or video evidence of a usability session, kept in the team-owned recordings folder.
+
+### Measure
+
+A defined observation collected from a participant or session, such as task time or a SEQ response.
+
+### Metric
+
+A measure aggregated or calculated across sessions for a stated purpose, such as an unaided-completion rate.
+
+### Statistic
+
+A numerical summary of observed measures, such as a median or mean, reported with its sample count.
+
+### Usability test task
+
+A participant scenario with a goal and start point, run in a fixed order without telling the participant how to use the interface.
+
+### Main task
+
+The first UT-01 task: the product's primary flow, which is the subject of QR-09.
+
+### Secondary task
+
+An adjacent flow run after the main task to reveal related friction; it does not determine the QR-09 verdict.
+
+### Unaided completion
+
+Reaching a task's predefined end state within its time limit without a hint, command, explanation or facilitator action.
+
+### Assisted completion
+
+Reaching a task's predefined end state after help that the observer records.
+
+### Failed task
+
+Not reaching a task's predefined end state within its time limit.
+
+### Think-aloud
+
+The instruction for a participant to say what they are trying and noticing while the observer records behavior.
+
+### SEQ
+
+The seven-point Single Ease Question asked after each task: higher scores mean the task was easier.
+
+### SUS
+
+The ten-item System Usability Scale, scored from its standard responses with `2.5 × (20 + sum(odd) - sum(even))`.
+
+### Valid participant
+
+An eligible participant whose consent, recording, profile match and complete, technically usable session data permit inclusion in the predeclared analysis.
