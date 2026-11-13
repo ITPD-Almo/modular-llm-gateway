@@ -11,23 +11,28 @@ Target: get a verdict on each SPRINT-07 story and the Customer's agreement that 
 
 ## Agenda
 
-1. **Permissions** (3 min). Nothing is shown. Ask questions 1, 2 and 3 one at a time, and start recording only if question 1 is answered yes.
-2. **Production and the Compose workflow** (7 min). Ali12hamdan shows the production gateway on the university route from the campus network. He then brings up a versioned image with `docker compose up` per the [deployment guide](../../docs/deployment.md), sends a chat through two plugins and shows the named 504 from the slow plugin. Question 4.
-3. **Dashboards and QR-08** (4 min). Ali12hamdan shows the four [Week 6 dashboards](../week-06/README.md) and the [QR-08 QRT-01](../../docs/quality-requirements/qr/QR-08.md#qrt-01) result, and says which evidence is live and which comes from the 2026-11-08 run. Question 5.
-4. **Stories AC by AC** (8 min). Ali12hamdan runs [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41), [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42), [US-04](https://github.com/ITPD-Almo/modular-llm-gateway/issues/52), [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96), [US-11](https://github.com/ITPD-Almo/modular-llm-gateway/issues/110) and [US-12](https://github.com/ITPD-Almo/modular-llm-gateway/issues/111) on the screen, one `AC-nn` at a time. Question 6 is asked after each story.
-5. **Why this gateway** (5 min). Mohammed-Nour presents the [comparison](../../docs/research/comparison.md) and the [LiteLLM Proxy spike](../week-04/prototypes.md#two-plugin-workflow-on-litellm-proxy), and what the gateway adds over a list of functions. Questions 7 and 8.
-6. **`UT-01` design on staging** (10 min). atkond2point0 walks through the `UT-01` record:
+1. **Permissions** (2 min). Nothing is shown. Ask questions 1, 2 and 3 one at a time, and start recording only if question 1 is answered yes.
+2. **Production and the Compose workflow** (6 min). Ali12hamdan shows the production gateway on the university route from the campus network. He then brings up a versioned image with `docker compose up` per the [Compose instructions](https://github.com/ITPD-Almo/modular-llm-gateway/blob/a8752ecb5434338670554dde47f3b678432dc9c3/docs/deployment.md#versioned-compose-deployment) of the [#129](https://github.com/ITPD-Almo/modular-llm-gateway/pull/129) candidate at `a8752ec`, sends a chat through two plugins and shows the named 504 from the slow plugin. This is the live demo of the unreleased candidate. Question 4.
+3. **Dashboards and quality-test results** (4 min). Ali12hamdan shows the four [Week 6 dashboards](../week-06/README.md), then the recorded result of each checked quality test, with the version or date it was tested on. These are release evidence, not part of Saturday's live demo:
+   - [QR-02 QRT-01](../../docs/quality-requirements/qr/QR-02.md#qrt-01): Passes on the [campus staging run of 2026-10-31](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c7dce8ff876d31a57ee0ca93d9428d8444473f6c/reports/week-05/deployment-evidence.md#deployed-qr-02-rerun-through-the-https-gate), `REL-05` (`v0.5.0`);
+   - [QR-01 QRT-01](../../docs/quality-requirements/qr/QR-01.md#qrt-01): Passes in [the `REL-06` CI run, 95 tests](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/42514546746), `v0.6.0`;
+   - [QR-08 QRT-01](../../docs/quality-requirements/qr/QR-08.md#qrt-01): Passes on the [campus staging run of 2026-11-08](https://github.com/ITPD-Almo/modular-llm-gateway/blob/0073150f73e3b755f0f8a29b21cddb1685b7731d/reports/week-06/README.md#qr-08-qrt-01-campus-run), `v0.6.0`, reading the [`SLI-01`](../../docs/observability.md#sli-01) timeout-series P95.
+
+   Question 5.
+4. **Stories AC by AC** (14 min). Ali12hamdan runs [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41), [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42), [US-04](https://github.com/ITPD-Almo/modular-llm-gateway/issues/52), [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96), [US-11](https://github.com/ITPD-Almo/modular-llm-gateway/issues/110) and [US-12](https://github.com/ITPD-Almo/modular-llm-gateway/issues/111) on the screen, one `AC-nn` at a time: 24 criteria, about 25 seconds each with the verdicts. A criterion already shown live in parts 2 and 3, such as US-04's named 504 or US-11's dashboards, is pointed back to rather than run again. Question 6 is asked after each story. A story whose criteria or verdict could not be covered stays open and is named in the read-back. The rehearsal times this part on its own.
+5. **Why this gateway** (4 min). Mohammed-Nour presents the [comparison](../../docs/research/comparison.md) and the [LiteLLM Proxy spike](../week-04/prototypes.md#two-plugin-workflow-on-litellm-proxy), and what the gateway adds over a list of functions. Questions 7 and 8.
+6. **`UT-01` design on staging** (10 min). atkond2point0 walks through the [`UT-01` record](https://github.com/ITPD-Almo/modular-llm-gateway/blob/a6fedaf03981b79b06c06ce18c0c82383ac71db8/docs/usability-tests/ut-01/README.md) from [#140](https://github.com/ITPD-Almo/modular-llm-gateway/pull/140), pinned to its reviewed head before the rehearsal:
    - the goal and research questions, the participant profile, and the target of five sessions with three as the minimum;
    - the three fixed tasks, the surveys and the consent;
    - the private repository and the recordings folder, by name only;
    - the session plan and `QR-09 QRT-01`.
 
-   Ali12hamdan then shows the staging seed reset, the `source=usability-test` events in their UTC session window and the custom-plugin marker probe. He states what has actually been verified and when the pre-session check runs ([#132](https://github.com/ITPD-Almo/modular-llm-gateway/issues/132)). No participant data or private access details are on the shared screen. Questions 9 to 13.
-7. **Open questions from Week 6** (6 min). Mohammed-Nour reads each [open question](../week-06/meeting-report.md#open-questions). If one was already answered in the asynchronous channel, he reads the reply back for confirmation. Questions 14 to 17.
-8. **Week 8 plan and threshold** (6 min). Mohammed-Nour shows the [SPRINT-08 tasks](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/6) and the [threshold](../../docs/threshold-of-success.md) for TOS-02 and TOS-03. Both are due 2026-11-13, before any counted session. Questions 18, 19 and 20.
+   Ali12hamdan then shows the staging seed reset, the `source=usability-test` events in their UTC session window and the custom-plugin marker probe, following the [staging runbook](https://github.com/ITPD-Almo/modular-llm-gateway/blob/a8752ecb5434338670554dde47f3b678432dc9c3/docs/ut01-staging.md) at `a8752ec`. He states what has actually been verified and when the pre-session check runs ([#132](https://github.com/ITPD-Almo/modular-llm-gateway/issues/132)). No participant data or private access details are on the shared screen. Questions 9 to 13.
+7. **Open questions from Week 6** (4 min). Mohammed-Nour reads each [open question](../week-06/meeting-report.md#open-questions). If one was already answered in the asynchronous channel, he reads the reply back for confirmation. Questions 14 to 17.
+8. **Week 8 plan and threshold** (5 min). Mohammed-Nour shows the [SPRINT-08 tasks](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/6) and the [threshold](../../docs/threshold-of-success.md) for TOS-02 and TOS-03. Both are due 2026-11-13, before any counted session. Questions 18, 19 and 20.
 9. **Read-back** (1 min). Nothing new is shown. Mohammed-Nour reads back each decision and action point, with its owner and date. No questions.
 
-The timeboxes add up to 50 minutes.
+The timeboxes add up to 50 minutes: 2 + 6 + 4 + 14 + 4 + 10 + 4 + 5 + 1.
 Questions 6, 9 and 12 are the three that would change the project most; ask them even if time runs short.
 
 ## Questions
@@ -59,7 +64,7 @@ Questions 6, 9 and 12 are the three that would change the project most; ask them
 - **Note taker:** atkond2point0, except during the `UT-01` walkthrough, where Mohammed-Nour takes notes.
 - **Observer and timekeeper:** Ali12hamdan outside his demonstrations. During his demonstrations, atkond2point0 keeps time.
 - **Demonstrations:** Ali12hamdan shows production, Compose, the dashboards, the stories and staging. atkond2point0 shows the `UT-01` design.
-- **Rehearsal:** the whole agenda is run on the presentation machine by 2026-11-13.
+- **Rehearsal:** the whole agenda is run on the presentation machine by 2026-11-13, from the pinned `#129` and `#140` refs above, with part 4 timed on its own.
 
 ## Key improvements
 
