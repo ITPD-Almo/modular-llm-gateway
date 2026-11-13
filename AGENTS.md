@@ -19,7 +19,6 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
   - `analytics.py`: opt-in core-task events with a bounded exporter.
   - `observability.py`: opt-in, content-free request logs and latency histogram for OpenObserve.
   - `plugins/`: the `Plugin` protocol in `base.py` and the bundled plugins.
-  - `usability-tests/`: the public UT-01 design, surveys, consent template, session template and sanitized results.
   - The [testability requirement](docs/quality-requirements/qr/QR-01.md) names the critical modules it covers.
 - `config/plugins.json` is the default plugin list; `GATEWAY_CONFIG` selects another file.
 - `install.sh` bootstraps the Linux/macOS terminal tool into user-owned directories;

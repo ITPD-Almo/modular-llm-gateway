@@ -155,11 +155,12 @@ A defined observation collected from a participant or session, such as task time
 
 ### Metric
 
-A measure aggregated or calculated across sessions for a stated purpose, such as an unaided-completion rate.
+A product-analytics number computed from gateway events for a stated purpose, such as the count of completed chats in a
+time window.
 
 ### Statistic
 
-A numerical summary of observed measures, such as a median or mean, reported with its sample count.
+A numerical summary of observed measures, such as an unaided-completion rate, median or mean, reported with its sample count.
 
 ### Usability test task
 

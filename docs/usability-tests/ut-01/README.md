@@ -74,8 +74,10 @@ procedure steps and step counts remain in facilitator material, not in the parti
 
 Define `Unaided` as reaching the full end state within the limit with only supplied materials and neutral facilitation.
 Define `Assisted` as reaching it within the limit after a hint, suggested command or facilitator action that advances the
-task. Define `Failed` as a valid attempt ending without the full end state. Stop on the limit, withdrawal, missing consent or
-a broken environment; distinguish an invalid session from a valid failed task.
+task. Define `Failed` as a valid attempt ending without the full end state. When a task reaches its time limit, record that
+task as `Failed`, ask the SEQ question and continue with the next task. A valid participant who fails a task remains in the
+Learnability denominator. Exclude a session only for withdrawal, missing consent, an unusable recording, missing required
+data or a broken test environment; distinguish an invalid session from a valid failed task.
 
 The 2026-11-13 teammate dry run is uncounted and is not evidence. Its actual wording, timing, reset and telemetry outcome
 must be recorded in the private session record and applied here before the first counted session.
@@ -90,8 +92,9 @@ the [SEQ](surveys.md#seq-after-each-task) after each task, then administers [SUS
 [open-ended post-test](surveys.md#open-ended-post-test), and closes with a debrief.
 
 The facilitator reads the scenario verbatim, answers only questions about the scenario and does not solve the task. At least
-two team members attend each session. Stop on the time limit, participant withdrawal, missing consent or a broken
-environment; record the reason. A session stopped before complete data is not a valid completed session.
+two team members attend each session. A time limit ends only the current task: record `Failed`, ask SEQ and continue with the
+next task. Stop the session for participant withdrawal, missing consent, an unusable recording, missing required data or a
+broken environment; record the reason. A valid participant with a failed task remains valid for analysis.
 
 ## Measures
 
@@ -109,18 +112,25 @@ plugin timeout and recovery are kept in the staging export. Operational usage qu
 funnel is read separately.
 
 Before timing, the facilitator supplies the reviewed checkout, preloaded image, free port and private Compose settings path.
-The participant starts the instrumented service, checks health and sends the synthetic chat. The session window is captured
-as `[start, end)` in UTC Unix microseconds. Another facilitator retrieves the allowlisted slice by those bounds, then joins
-opaque run and attempt IDs; the `P-nn` and window mapping remain private. The export contains no names, content, IP,
-location, user agent, referrer, credentials or raw logs.
+The dedicated OpenObserve organization is `ut01` and the stream is `gateway_usage`. Run one session at a time. Take the
+window start before the first chat and the end after the secondary-task-2 offline probe, using the same synchronized UTC
+clock; let the exporter buffer drain before the facilitator exports. Use ordinary `export` for counted sessions and use
+`--check-rehearsal` only for its fixed synthetic sequence. The participant starts the instrumented service, checks health
+and sends the synthetic chat. The session window is captured as `[start, end)` in UTC Unix microseconds. Another facilitator
+retrieves the allowlisted slice by those bounds, then joins opaque run and attempt IDs; the `P-nn` and window mapping remain
+private. The export contains no names, content, IP, location, user agent, referrer, credentials or raw logs. Follow the
+[participant bring-up](../../ut01-staging.md#participant-bring-up) and [private export procedure](../../ut01-staging.md#export-and-verify-a-private-session-window).
 
 Secondary task 2 uses a separate disposable fake-provider workspace with telemetry disabled and no shared credentials. Ali's
 facilitator-side `ut01_plugin_probe` writes a private timestamped `marker_seen` record joined by the same session window; it
 stays outside the analytics registry. HTTP events and the local probe cannot establish documentation discovery, help,
 reasoning or the source of plugin-workflow friction; the observer and surveys cover those blind spots.
 
-The uncounted teammate dry run checks wording, limits, reset and telemetry delivery/linking. With the default SPRINT-08 run,
-a separate instrumentation verification is required before the first counted session and by the start of SPRINT-09.
+The uncounted teammate dry run checks wording, limits, reset and telemetry delivery/linking from the actual campus
+workstation with session-scoped access. Link [issue #132](https://github.com/ITPD-Almo/modular-llm-gateway/issues/132) in the
+private session record and record the 2026-11-12 VM rehearsal and teammate dry run as distinct checks; the dry run remains
+planned until its actual observations are available. With the default SPRINT-08 run, a separate instrumentation verification
+is required before the first counted session and by the start of SPRINT-09.
 
 ## Analysis Plan
 

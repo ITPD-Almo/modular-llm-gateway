@@ -9,14 +9,18 @@ Use one private copy per session. Do not put identity, recording links or raw te
 3. Complete the pre-test.
 4. Ask the participant to think aloud; do not coach.
 5. Read the main scenario verbatim, start timing, observe, record help and stop timing at the end state or time limit.
-6. Ask the SEQ. Repeat for secondary task 1 and secondary task 2.
+6. Ask the SEQ. If a task reaches its limit, record `Failed`, ask SEQ and continue with the next task. For secondary task 1,
+   supply the reset slow fixture, use the fixed synthetic input `sleep`, record the named 504, then verify health and a
+   successful follow-up chat on the same process before resetting. For secondary task 2, link the [offline probe](../../ut01-staging.md#check-a-custom-plugin-offline), use its fixed input `usability example` and supply an assigned marker absent from that input. Record the probe separately from the observer's check that the plugin changed the request and left core untouched.
 7. Administer SUS and the open-ended post-test.
 8. Debrief, explain the purpose, confirm where withdrawal requests go and reset the synthetic seed and private workspace.
 
 Record the session window, participant code, profile match, task outcomes, assistance, times, friction, sanitized quotes,
 SEQ responses, SUS responses/score, post-test themes, stop reason if any, and instrumentation verification status. The
-facilitator may clarify the scenario but may not answer interface questions or perform a step. Stop on participant request
-or a critical/security-sensitive problem; an incomplete stopped session is not a completed valid session.
+facilitator may clarify the scenario but may not answer interface questions or perform a step. A time limit ends only the
+current task as `Failed`; the facilitator asks SEQ and continues. Stop the session on participant request, withdrawal,
+missing consent, an unusable recording, missing required data or a critical/security-sensitive problem; an incomplete stopped
+session is not a completed valid session.
 
 ## Blank note
 

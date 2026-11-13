@@ -5,12 +5,14 @@
 Complete without a name, email, phone number or other identifying free text.
 
 1. Are you 18 or older? Yes / No. A `No` response is not eligible.
-2. What kind of software setup or operations work do you do? [predefined role choices]
+2. What kind of software setup or operations work do you do? Developer / DevOps or SRE / Data or ML / Student / Other.
 3. How often do you use a terminal or command-line tool? Never / Rarely / Monthly / Weekly / Daily.
 4. How familiar are you with starting a documented local service? Not at all / Slightly / Moderately / Very.
 5. Which device will you use today? Team laptop / Campus workstation / Other approved workstation.
 6. What do you expect this test to be like? [short non-identifying response]
-7. What kind of integration or plugin work have you done before? [predefined choices]
+7. What kind of integration or plugin work have you done before? None / Configuration or API integration / Plugin or
+   middleware development / Other.
+8. How often have you used an LLM gateway or proxy, API middleware, or LiteLLM? Never / Once / Monthly / Weekly / Daily.
 
 ## SEQ after each task
 
@@ -36,8 +38,9 @@ applying this formula.
 
 ## Open-ended post-test
 
-1. What friction did you encounter?
-2. What did you expect to happen, and where did that expectation differ?
-3. What guidance or documentation was missing?
-4. What would you change first?
-5. What did we not ask that would help us understand your experience?
+1. What is your overall impression of the gateway after these tasks?
+2. What friction did you encounter?
+3. What did you expect to happen, and where did that expectation differ?
+4. What guidance or documentation was missing?
+5. What would you change first?
+6. What did we not ask that would help us understand your experience?
