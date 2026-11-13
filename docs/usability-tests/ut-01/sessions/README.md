@@ -11,7 +11,7 @@ Use one private copy per session. Do not put identity, recording links or raw te
 5. Read the main scenario verbatim, start timing, observe, record help and stop timing at the end state or time limit.
 6. Ask the SEQ. If a task reaches its limit, record `Failed`, ask SEQ and continue with the next task. For secondary task 1,
    supply the reset slow fixture, use the fixed synthetic input `sleep`, record the named 504, then verify health and a
-   successful follow-up chat on the same process before resetting. For secondary task 2, link the [offline probe](../../ut01-staging.md#check-a-custom-plugin-offline), use its fixed input `usability example` and supply an assigned marker absent from that input. Record the probe separately from the observer's check that the plugin changed the request and left core untouched.
+   successful follow-up chat on the same process before resetting. For secondary task 2, link the [offline probe](../../../ut01-staging.md#check-a-custom-plugin-offline), use its fixed input `usability example` and supply an assigned marker absent from that input. Record the probe separately from the observer's check that the plugin changed the request and left core untouched.
 7. Administer SUS and the open-ended post-test.
 8. Debrief, explain the purpose, confirm where withdrawal requests go and reset the synthetic seed and private workspace.
 
