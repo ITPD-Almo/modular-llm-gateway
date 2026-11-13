@@ -1,0 +1,21 @@
+services:
+  gateway:
+    # The UT-01 instance reads only its own private ingestion settings.
+    env_file: !override
+      - ${UT01_INGEST_ENV_FILE:?Set UT01_INGEST_ENV_FILE to the private UT-01 settings file}
+    command: [serve, --host, 0.0.0.0, --port, "8000", --provider, fake]
+    environment:
+      GATEWAY_CONFIG: "${UT01_FIXTURE:-}"
+      GATEWAY_ANALYTICS_ENABLED: "1"
+      GATEWAY_ANALYTICS_ENVIRONMENT: staging
+      GATEWAY_ANALYTICS_ORGANIZATION: ${UT01_ORGANIZATION:?Set UT01_ORGANIZATION to the dedicated test organization ID}
+      GATEWAY_ANALYTICS_SOURCE: usability-test
+      GATEWAY_OBSERVABILITY_ENABLED: "0"
+      XDG_CONFIG_HOME: /tmp/llmgw-config
+    volumes:
+      - type: bind
+        source: ${UT01_CA_DIR:-./config}
+        target: /run/llmgw
+        read_only: true
+        bind:
+          create_host_path: false

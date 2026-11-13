@@ -23,7 +23,7 @@ The focus metric is **Completed plugin chats**, the count of configured chats th
 
 **Rejected vanity metric:** installer downloads. A download can occur without configuring any plugins or sending a chat.
 
-The focus metric may have no value until people outside the team use the product. Smoke traffic is excluded. A staging dashboard with only smoke traffic therefore charts the L1 input and can show zero measured attempts. Treat the metric as a count of completed chats, which can include repeat chats by the same operator.
+The focus metric may have no value until people outside the team use the product. All usage metrics exclude smoke and usability-test traffic. When staging has only test traffic, the configured-attempt count can be zero and the focus metric has no observation. Completed chats can include repeat chats by the same operator.
 
 ### Completed plugin chats
 
@@ -36,7 +36,7 @@ SELECT CASE WHEN COUNT(*) = 0 THEN NULL
        ELSE COUNT(CASE WHEN outcome = 'ok' AND visible_result = true THEN 1 END)
        END AS completed_plugin_chats
 FROM gateway_usage
-WHERE event = 'gateway_chat_finished' AND plugin_count > 0 AND source <> 'smoke'
+WHERE event = 'gateway_chat_finished' AND plugin_count > 0 AND source NOT IN ('smoke', 'usability-test')
 ```
 
 The zero-observation result is `not meaningful`, not zero adoption.
@@ -51,7 +51,7 @@ The zero-observation result is `not meaningful`, not zero adoption.
 SELECT 100.0 * COUNT(CASE WHEN outcome <> 'ok' THEN 1 END)
        / NULLIF(COUNT(*), 0) AS failed_configured_chat_rate
 FROM gateway_usage
-WHERE event = 'gateway_chat_finished' AND plugin_count > 0 AND source <> 'smoke'
+WHERE event = 'gateway_chat_finished' AND plugin_count > 0 AND source NOT IN ('smoke', 'usability-test')
 ```
 
 ### Configured chat attempts
@@ -63,7 +63,7 @@ WHERE event = 'gateway_chat_finished' AND plugin_count > 0 AND source <> 'smoke'
 ```sql
 SELECT COUNT(*) AS configured_chat_attempts
 FROM gateway_usage
-WHERE event = 'gateway_chat_started' AND plugin_count > 0 AND source <> 'smoke'
+WHERE event = 'gateway_chat_started' AND plugin_count > 0 AND source NOT IN ('smoke', 'usability-test')
 ```
 
 ### Plugin configurations observed in use
@@ -75,12 +75,12 @@ WHERE event = 'gateway_chat_started' AND plugin_count > 0 AND source <> 'smoke'
 ```sql
 SELECT COUNT(DISTINCT run_id) AS plugin_configurations_observed_in_use
 FROM gateway_usage
-WHERE event = 'gateway_configuration_used' AND plugin_count > 0 AND source <> 'smoke'
+WHERE event = 'gateway_configuration_used' AND plugin_count > 0 AND source NOT IN ('smoke', 'usability-test')
 ```
 
 ## The Events
 
-Event names follow the `object_action` convention in snake case. Common required fields are `event` (bounded enum), `_timestamp` (Unix microseconds, integer), `environment` (bounded enum `staging` or `production`), `source` (bounded enum `web`, `usability-test` or `smoke`), `run_id` (random opaque string) and `plugin_count` (bounded integer). Only `smoke` is excluded by the queries. Staging source selection is controlled by deployment configuration. Production accepts only `web` as its configured source.
+Event names follow the `object_action` convention in snake case. Common required fields are `event` (bounded enum), `_timestamp` (Unix microseconds, integer), `environment` (bounded enum `staging` or `production`), `source` (bounded enum `web`, `usability-test` or `smoke`), `run_id` (random opaque string) and `plugin_count` (bounded integer). Staging source selection is controlled by deployment configuration. Production accepts only `web` as its configured source. The [UT-01 fixture](ut01-staging.md) reuses the three events below in its dedicated staging scope and links them by a private UTC time window.
 
 | Event | Fires when | Fields | Collected at |
 | --- | --- | --- | --- |
@@ -96,11 +96,11 @@ Use a **dedicated OpenObserve instance** as the documented self-hosted alternati
 
 The gateway parent queues the events in batches of up to 32 for JSON over HTTPS, or loopback HTTP on a co-located VM. The queue is capped at 256 events. Export failures drop events and do not delay the request, so the charts measure observed traffic. Shutdown attempts one final batch of up to 32 events. `GATEWAY_ANALYTICS_ENABLED=0` disables collection. The analytics deployment retains events for 14 days. `staging` and `production` use separate organizations and ingestion credentials. The team and Customer use private dashboard access over the university network. The [deployment runbook](deployment.md#telemetry-pipelines) owns the installation steps.
 
-Both dashboards show the same **Configured chat attempts** chart and a recent event table. The event table includes staging smoke records for verification. Synthetic events stay in staging, and the production dashboard remains unexercised until real use.
+Both dashboards show the same **Configured chat attempts** chart and a recent event table. The event table includes staging smoke records for verification. The `ut01` organization has its own stream and access. The production dashboard remains unexercised until real use.
 
 ## The Dashboard
 
-The staging and production **Gateway trial usage** dashboards use the same seven-day **Configured chat attempts** chart until real focus observations exist. Each scope also shows the focus metric, the failed configured chat rate and a recent raw-event table. The staging smoke proof appears in raw events but is excluded by every metric query; production receives no test traffic.
+The staging and production **Gateway trial usage** dashboard template includes the seven-day **Configured chat attempts** chart and the recent event table. Use the documented SQL for any other usage metric panels. Every metric query excludes `smoke` and `usability-test`. The staging event table can show smoke traffic for verification.
 
 ## Collected Data
 
