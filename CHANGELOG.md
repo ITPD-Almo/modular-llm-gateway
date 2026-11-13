@@ -6,6 +6,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 
 ## [Unreleased]
 
+### Added
+
+- Deploy a selected gateway image with Docker Compose and rehearse the usability session on a separate fake-provider staging instance.
+
+### Fixed
+
+- Keep usability-test chats out of the usage metrics while preserving the private session export.
+
 ## [0.6.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.6.0) - 2026-11-08
 
 ### Added

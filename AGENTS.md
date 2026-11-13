@@ -23,6 +23,7 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
 - `config/plugins.json` is the default plugin list; `GATEWAY_CONFIG` selects another file.
 - `install.sh` bootstraps the Linux/macOS terminal tool into user-owned directories;
   `requirements-runtime.txt` pins its runtime dependencies. `docs/terminal.md` owns that install/demo recipe.
+- `Dockerfile` packages the same CLI with pinned runtime dependencies. `compose.yaml` starts the selected local image on a loopback port.
 - `examples/` holds the third-party A/B and slow-hook examples and their configuration files; they load without editing gateway core.
 - `tests/` holds the pytest suite; tests use synthetic plugins, fake providers and mocked transports, never a real provider key or an external API call. Isolate XDG_CONFIG_HOME when exercising CLI provider selection so a developer's saved profile cannot trigger a paid call.
 - `docs/` holds the maintained artifacts and the documentation site:
@@ -32,6 +33,7 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
   - `quality-requirements/`, `functional-requirements/` and the glossary
   - the setup, plugin, operations and demo guides
   - `deployment.md`: the four environments, private VM configuration, manual promotion, campus verification and rollback
+  - `ut01-staging.md`: the isolated usability fixture, UTC-window export and offline custom-plugin probe
   - `deployment-tools/`: isolated installer/access-gate helpers, OpenObserve analytics and observability configuration, client evidence collectors and the public-only demo CA certificate
   - `architecture/`: the container view (`container.svg` source and rendered `container.png`) and the decision records in `architecture/adr/`, with `TEMPLATE.md` for a new `ADR-nnn`
 

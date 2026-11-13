@@ -40,6 +40,37 @@ Public frontends use TLS 1.2/1.3. The project demo CA certificate is [available 
 
 TA/Customer chats have a six-per-minute sustained limit with an initial burst of thirteen requests (HTTP 429 when exceeded); the private Owner code is exempt for operator checks. Request bodies are capped at 16 KiB. The provider adapter caps generated output at 128 tokens and retries none. These are request/output controls, not a monetary spending cap.
 
+## Versioned Compose deployment
+
+Docker Engine or Docker Desktop and Docker Compose are required for this path. Use Compose 2.24.4 or newer for the [UT-01 override](ut01-staging.md). The root `compose.yaml` starts a locally available image, as UID `10001`, on a host loopback port. It uses the fake provider and the packaged plugin configuration by default. The image has a health check, and its Docker build uses the existing pinned runtime dependencies. The native installer remains available for existing deployments.
+
+Build an image from an identified commit on the build machine. For a candidate, use the full reviewed SHA. Set the target platform to match the deployment host, for example `linux/amd64` for an x86-64 Linux VM.
+
+```sh
+GATEWAY_SOURCE_SHA=$(git rev-parse HEAD)
+export GATEWAY_IMAGE="llmgw:sha-$GATEWAY_SOURCE_SHA"
+git archive "$GATEWAY_SOURCE_SHA" | docker build --platform linux/amd64 \
+  --build-arg SOURCE_COMMIT="$GATEWAY_SOURCE_SHA" --tag "$GATEWAY_IMAGE" -
+docker image inspect "$GATEWAY_IMAGE" \
+  --format '{{.Id}} {{index .Config.Labels "org.opencontainers.image.revision"}}'
+```
+
+For a local rehearsal, choose a free port and a separate project name.
+
+```sh
+export GATEWAY_HOST_PORT=18107
+docker compose -p llmgw-compose-demo up -d --wait
+docker compose -p llmgw-compose-demo exec -T gateway llmgw health
+docker compose -p llmgw-compose-demo exec -T gateway llmgw chat 'hello'
+docker compose -p llmgw-compose-demo down
+```
+
+The synthetic chat returns `fake: HELLO` with the `metadata` and `uppercase` plugins in its trace. For a shared host, save the reviewed image with `docker image save -o gateway-image.tar "$GATEWAY_IMAGE"`, record the SHA-256 of the archive, image ID and source SHA, and transfer them over the approved private route. On the destination verify the archive checksum, run `docker image load -i gateway-image.tar`, and compare its image ID and source revision label. Use the Compose file and default `config/` directory from the same reviewed checkout. Keep the previous verified image and settings for rollback.
+
+Keep a separate private Compose environment file for each deployment. Set `GATEWAY_IMAGE` to the verified local tag, `GATEWAY_HOST_PORT` to that environment's loopback backend port, and `GATEWAY_RUNTIME_ENV_FILE` to its private container settings if needed. Set `GATEWAY_SETTINGS_DIR` to the environment's read-only settings directory if it needs a mounted config or trusted CA. Container paths in the runtime settings use `/run/llmgw`, for example `GATEWAY_CONFIG=/run/llmgw/plugins.json`. Use `GATEWAY_COMPOSE_PROVIDER=deepseek` only with an existing private profile owned by UID `10001` under that environment's settings directory. Keep provider keys in the profile.
+
+Start the image in staging first with `docker compose --env-file "$STAGING_COMPOSE_SETTINGS" -p llmgw-staging up -d --wait`. From campus, verify the existing authenticated HTTPS route, check health and send one synthetic configured chat. Compare the running container's image ID with the build receipt. Promote the same image ID using production's distinct private settings, loopback port and project, then repeat the campus checks. An existing service must release the selected backend port before switching that environment. Keep the HTTPS gate in front of both backends. For rollback, select the prior verified image and its matching runtime settings, run Compose `up -d --wait` again and repeat the health, chat and image checks. If the previous version is installer-based, stop the Compose project and follow the [installer rollback](#rollback-and-continuity).
+
 ## Manual deployment and promotion
 
 Use the maintained [installer helper](deployment-tools/deploy-on-vm.sh), [access-gate helper](deployment-tools/configure-demo-access.py), [QRT helper](deployment-tools/campus-qr02.sh) and [normal core collector](deployment-tools/collect-core-evidence.py). Review their source before execution and copy them into a private VM operator directory. Keep the reviewed operator-tool revision with the private deployment receipt. `export` writes secrets: redirect its output to a private file and never paste it into chat or a PR.
@@ -130,7 +161,7 @@ The [analytics plan](analytics.md) owns the registry and chart query. On the app
 1. In a private mode-600 env file, set `ANALYTICS_ROOT_EMAIL`, `ANALYTICS_ROOT_PASSWORD` and optionally `ANALYTICS_LOCAL_PORT`. Use a strong bootstrap password with uppercase, lowercase, a digit and a special character. Run `docker compose --env-file /private/path/analytics.env -p llmgw-analytics -f docs/deployment-tools/compose.analytics.yml up -d` and verify loopback `/healthz`.
 2. Create organizations named `staging` and `production`, record their displayed IDs, and issue a distinct non-root ingestion credential scoped to each organization. Use an ingestion-only credential if available, and separate access for dashboard readers. Create the empty `gateway_usage` stream in both organizations with the [stream definition](deployment-tools/analytics-stream.json) as the body for `POST /api/{org_id}/streams/gateway_usage?type=logs`. This lets the production chart query the schema before any real data exists. Verify the 14-day retention.
 3. Import the [dashboard definition](deployment-tools/analytics-dashboard.json) in both organizations. To import through the API, send the JSON as the body of `POST /api/{org_id}/dashboards`. Verify the default seven-day window, the named input chart, and the recent event table. Use the same chart query in both environments.
-4. In the private gateway env file, set `GATEWAY_ANALYTICS_ENABLED=1`, the environment in `GATEWAY_ANALYTICS_ENVIRONMENT`, its ID in `GATEWAY_ANALYTICS_ORGANIZATION`, its base URL ending in `/api/ORG_ID` in `GATEWAY_ANALYTICS_ENDPOINT`, and its HTTP Basic ingestion header in `GATEWAY_ANALYTICS_AUTHORIZATION`. The app appends `/gateway_usage/_json`. A co-located gateway may use loopback HTTP. Use verified HTTPS for remote export and `GATEWAY_ANALYTICS_CA_FILE` if a private CA is required. Use `GATEWAY_ANALYTICS_SOURCE=smoke` only on staging for synthetic checks and set it to `web` afterward. For a planned usability session use `usability-test` in staging. Production accepts only `web`. Restart the corresponding service after changing its env file.
+4. In the private gateway env file, set `GATEWAY_ANALYTICS_ENABLED=1`, the environment in `GATEWAY_ANALYTICS_ENVIRONMENT`, its ID in `GATEWAY_ANALYTICS_ORGANIZATION`, its base URL ending in `/api/ORG_ID` in `GATEWAY_ANALYTICS_ENDPOINT`, and its HTTP Basic ingestion header in `GATEWAY_ANALYTICS_AUTHORIZATION`. The app appends `/gateway_usage/_json`. A co-located gateway may use loopback HTTP. Use verified HTTPS for remote export and `GATEWAY_ANALYTICS_CA_FILE` if a private CA is required. Use `GATEWAY_ANALYTICS_SOURCE=smoke` only on staging for synthetic checks and set it to `web` afterward. For a usability session use the [isolated UT-01 staging instance](ut01-staging.md), which sets `source=usability-test`. Production accepts only `web`. Restart the corresponding service after changing its env file.
 5. In staging, use the fake provider to send one healthy configured chat. Verify the event list shows its smoke-tagged configuration, start and finish records, and the input chart has no increase. Compare the actual query result before and after. Verify both dashboards from campus and confirm that the production stream and chart received no test traffic. For a synthetic production core check, keep collection off during the check, then verify the final enabled settings without another synthetic chat. Save two sanitized screenshots for the report and keep the connection details in the private Moodle wrapper.
 
 ### OpenObserve
