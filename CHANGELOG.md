@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 
 ## [Unreleased]
 
+## [0.7.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.7.0) - 2026-11-15
+
 ### Added
 
 - Deploy a selected gateway image with Docker Compose and rehearse the usability session on a separate fake-provider staging instance.

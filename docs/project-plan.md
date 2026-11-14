@@ -133,6 +133,12 @@ The product backlog refined on 2026-11-12 for the next two sprints, with no mile
 
 #### REL-07
 
+- **Released:** [v0.7.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.7.0) on 2026-11-15, from [the release commit](https://github.com/ITPD-Almo/modular-llm-gateway/commit/614c9d5f88cd5f372a06a3c58e7e9376c46044d1).
+- **Checked QRs:**
+  - [QR-01](quality-requirements/qr/QR-01.md)
+
+See the [quality requirement testing plan](#quality-requirement-testing-plan) for the CI run and verdict.
+
 ### SPRINT-08
 
 Provisional: the in-person `UT-01` sessions run on staging, their results and findings are written and triaged, `QR-09 QRT-01` gets its verdict, and `REL-08` is cut.
@@ -159,7 +165,7 @@ Provisional: the final release incorporates the selected usability findings, has
 | QR | QRT | Status | Checked | Planned for sprint | Evidence |
 | --- | --- | --- | --- | --- | --- |
 | [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Passes | [SPRINT-05](#sprint-05) | [SPRINT-05](#sprint-05) | [Campus staging run on 2026-10-31](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c7dce8ff876d31a57ee0ca93d9428d8444473f6c/reports/week-05/deployment-evidence.md#deployed-qr-02-rerun-through-the-https-gate) |
-| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Passes | [SPRINT-07](#sprint-07) | [SPRINT-07](#sprint-07) | [Main CI at d717bb2: 102 passed in 23.27 s](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/43639740129) |
+| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Passes | [SPRINT-07](#sprint-07) | [SPRINT-07](#sprint-07) | [Release CI at 614c9d5, 102 passed in 18.85 s](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/43648314095) |
 | [QR-08](quality-requirements/qr/QR-08.md) | [QR-08 QRT-01](quality-requirements/qr/QR-08.md#qrt-01) | Passes | [SPRINT-06](#sprint-06) | [SPRINT-06](#sprint-06) | [Campus staging run on 2026-11-08](https://github.com/ITPD-Almo/modular-llm-gateway/blob/0073150f73e3b755f0f8a29b21cddb1685b7731d/reports/week-06/README.md#qr-08-qrt-01-campus-run) and [release staging re-run](#rel-06) |
 | [QR-09](quality-requirements/qr/QR-09.md) | [QR-09 QRT-01](quality-requirements/qr/QR-09.md#qrt-01) | Not verified | None | [SPRINT-08](#sprint-08) | None |
 

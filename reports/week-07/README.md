@@ -68,7 +68,7 @@ The counted UT-01 sessions are the next opportunity to observe both activities. 
 
 ## Repository evidence
 
-[QR-01 QRT-01 passed on main](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/43639740129) with 102 tests in 23.27 seconds. The [link-check configuration](../../.lycheeignore) excludes the private usability-data repository because it requires GitHub authentication.
+[QR-01 QRT-01 passed on the release commit](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/43648314095) with 102 tests in 18.85 seconds. The [link-check configuration](../../.lycheeignore) excludes the private usability-data repository because it requires GitHub authentication.
 
 On November 15 the TA's existing HTTPS staging route served Swagger, its schema and assets, and health with the staging credential. Anonymous requests and the wrong code returned HTTP 401. The routing check used the deployed `v0.6.0` service. The remote staging link and its access instructions are private.
 
