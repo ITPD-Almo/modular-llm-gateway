@@ -79,8 +79,8 @@ task as `Failed`, ask the SEQ question and continue with the next task. A valid 
 Learnability denominator. Exclude a session only for withdrawal, missing consent, an unusable recording, missing required
 data or a broken test environment; distinguish an invalid session from a valid failed task.
 
-The 2026-11-13 teammate dry run is uncounted and is not evidence. Its actual wording, timing, reset and telemetry outcome
-must be recorded in the private session record and applied here before the first counted session.
+Record the teammate dry run separately from the counted sessions. Capture the actual wording, timing, reset and telemetry
+outcome in the private session record, then apply any changes here before the first counted session.
 
 ## Protocol
 
@@ -128,9 +128,10 @@ reasoning or the source of plugin-workflow friction; the observer and surveys co
 
 The uncounted teammate dry run checks wording, limits, reset and telemetry delivery/linking from the actual campus
 workstation with session-scoped access. Link [issue #132](https://github.com/ITPD-Almo/modular-llm-gateway/issues/132) in the
-private session record and record the 2026-11-12 VM rehearsal and teammate dry run as distinct checks; the dry run remains
-planned until its actual observations are available. With the default SPRINT-08 run, a separate instrumentation verification
-is required before the first counted session and by the start of SPRINT-09.
+private session record. The [November 12 VM rehearsal](https://github.com/ITPD-Almo/modular-llm-gateway/pull/129#issuecomment-6854627777)
+verified the implementation with synthetic data. The teammate dry run remains planned until its actual observations are
+available. For the planned SPRINT-08 sessions, complete the separate instrumentation verification before the first counted
+session and by the start of SPRINT-09.
 
 ## Analysis Plan
 
@@ -146,8 +147,8 @@ Publish only sanitized evidence in SPRINT-08; no result is claimed in this desig
 
 ## Schedule
 
-The teammate dry run is Friday 2026-11-13 and is explicitly uncounted. Recruit five eligible participants and arrange at
-least three valid in-person sessions in SPRINT-08 on the university network against staging. Results are due by 2026-11-21.
+Record the actual date of the uncounted teammate dry run after it is performed. Recruit five eligible participants and arrange
+at least three valid in-person sessions in SPRINT-08 on the university network against staging. Results are due by 2026-11-21.
 Reset the clean seed and verify instrumentation before the first counted session. If sessions move into another sprint,
 update this field and the index.
 

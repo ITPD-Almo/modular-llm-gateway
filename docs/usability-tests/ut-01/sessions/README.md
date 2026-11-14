@@ -2,18 +2,25 @@
 
 Use one private copy per session. Do not put identity, recording links or raw telemetry in the public repository.
 
+## Script
+
 1. Welcome the participant and explain the synthetic, non-production setting. Mohammed-Nour facilitates; Ali12hamdan
    observes and operates the environment; atkond2point0 keeps raw notes and recordings.
 2. Confirm age, durable consent, consent to recording and consent to sanitized public results; record the separate quote
    choice.
-3. Complete the pre-test.
-4. Ask the participant to think aloud; do not coach.
+3. Complete the [pre-test](../surveys.md#pre-test).
+4. Say “Please tell me what you’re looking for, what you’re trying and what you expect to happen.”
 5. Read the main scenario verbatim, start timing, observe, record help and stop timing at the end state or time limit.
 6. Ask the SEQ. If a task reaches its limit, record `Failed`, ask SEQ and continue with the next task. For secondary task 1,
    supply the reset slow fixture, use the fixed synthetic input `sleep`, record the named 504, then verify health and a
    successful follow-up chat on the same process before resetting. For secondary task 2, link the [offline probe](../../../ut01-staging.md#check-a-custom-plugin-offline), use its fixed input `usability example` and supply an assigned marker absent from that input. Record the probe separately from the observer's check that the plugin changed the request and left core untouched.
-7. Administer SUS and the open-ended post-test.
+7. Administer [SUS](../surveys.md#sus-after-all-tasks) and the [open-ended post-test](../surveys.md#open-ended-post-test).
 8. Debrief, explain the purpose, confirm where withdrawal requests go and reset the synthetic seed and private workspace.
+
+Follow the [participant bring-up](../../../ut01-staging.md#participant-bring-up)
+and [private export procedure](../../../ut01-staging.md#export-and-verify-a-private-session-window).
+Capture both ends of the UTC window on the same workstation clock. Export after the buffer drains and reconcile started
+and finished events by attempt ID. Use the ordinary export for a teammate or counted session.
 
 Record the session window, participant code, profile match, task outcomes, assistance, times, friction, sanitized quotes,
 SEQ responses, SUS responses/score, post-test themes, stop reason if any, and instrumentation verification status. The
@@ -38,6 +45,6 @@ session is not a completed valid session.
 - Stop reason, if any:
 - Valid for analysis: yes / no; reason:
 
-The 2026-11-13 teammate dry run is uncounted and not evidence. Record its actual facilitator, observer, custodian,
+The planned teammate dry run is uncounted and not evidence. Record its actual date, facilitator, observer, custodian,
 wording observations, time-limit observations, reset result, telemetry delivery/linking result and applied changes in the
 private dry-run note.
