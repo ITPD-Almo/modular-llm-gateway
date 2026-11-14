@@ -1,0 +1,80 @@
+# Week 7 report
+
+## Project
+
+Modular LLM Gateway, Team 9. Scope covers `SPRINT-07` and the design handoff for `SPRINT-08`.
+
+## Summary
+
+The new [versioned Compose deployment](../../docs/deployment.md#versioned-compose-deployment) starts the same terminal gateway from a pinned image. The [local walkthrough](compose-demo-evidence.md) verifies a plugin added through configuration, a named request-hook timeout and a successful follow-up on the same gateway. The [production evidence from REL-06](../week-06/README.md#rel-06-release-verification) remains the latest released deployment record covered here. The customer-directed work follows [DEC-012](../../docs/decisions.md#dec-012) and [DEC-013](../../docs/decisions.md#dec-013).
+
+The [UT-01 design](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/README.md) targets five adult developers or DevOps operators with basic terminal and Python skills who are new to the gateway. At least three valid sessions are needed to judge [QR-09 QRT-01](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/quality-requirements/qr/QR-09.md#qrt-01). The team arranges the sessions on campus in Week 8. This design week claims no usability result. See the [testing plan](../../docs/project-plan.md#quality-requirement-testing-plan) for tests still awaiting a verdict.
+
+[Analytics](../../docs/analytics.md) measures seven-day [configured chat attempts](../../docs/analytics.md#configured-chat-attempts) as the input to the focus metric. The focus metric needs observed, eligible configured traffic in that window. Rehearsal traffic is excluded. [Observability](../../docs/observability.md) records the runtime signals separately.
+
+## Minimum usable product and customer outcome
+
+The working candidate shows a DevOps operator how to add a Python class through the configuration file, confirm its effect in one synthetic request, and recover from a slow hook. The [Week 6 customer review](../week-06/meeting-report.md#summary) established the operator use case, versioned Compose packaging and the terminal workflow. The [Week 7 review agenda](meeting-script.md) carries the acceptance criteria and Week 8 design questions. US-01 to US-04, US-09, US-11 and US-12 still need story verdicts. The design-review record and transcript status are pending.
+
+## Usability test
+
+1. The main task is a clean Compose start followed by a synthetic chat whose transformation and plugin trace the operator can explain.
+2. The first secondary task is to identify a named 504, check health and complete a follow-up chat on the same process. The second is to add a small request plugin and see its marker without changing gateway core.
+3. The [surveys](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/surveys.md) cover background, ease after each task, SUS and open-ended feedback. The [protocol](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/sessions/README.md) records time, completion, assistance and friction.
+4. The [staging contract](../../docs/ut01-staging.md) connects one UTC window to the dedicated `ut01/gateway_usage` stream. The [implementation rehearsal](https://github.com/ITPD-Almo/modular-llm-gateway/pull/129#issuecomment-6854627777) checked eight filtered events, a successful chat, a timeout, a same-run recovery and a private offline marker result. The separate pre-session verification is [#132](https://github.com/ITPD-Almo/modular-llm-gateway/issues/132).
+5. Use the [consent template](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/consent.md). The private usability-data repository is linked in the [UT-01 evidence map](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/README.md#evidence-map) and holds the filtered telemetry, consent and raw text. The planned recordings destination is the team-owned UT-01 recordings folder. The folder and instructor access need confirmation for the Moodle wrapper.
+6. The [session schedule](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/README.md#schedule), [empty results and triage templates](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/results.md) and [QR-09](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/quality-requirements/qr/QR-09.md) carry the Week 8 handoff. The pass bar is at least two thirds of at least three valid participants completing the main task unaided. The teammate dry run is uncounted, and [#131](https://github.com/ITPD-Almo/modular-llm-gateway/issues/131) tracks its recording and design revisions.
+
+## Threshold review
+
+| Goal | Current measure | New data can settle it | Proposal |
+| --- | --- | --- | --- |
+| [TOS-02](../../docs/threshold-of-success.md#tos-02) | An outside operator follows setup without help and completes a configured chat by 2026-11-13, Week 7. | No. The telemetry records attempts and outcomes, while the facilitator records assistance. | — |
+| [TOS-03](../../docs/threshold-of-success.md#tos-03) | An outside developer follows the plugin guide and changes a request without editing gateway core by 2026-11-13, Week 7. | No. The marker probe sees the result only. | — |
+
+[TOS-02](../../docs/threshold-of-success.md#tos-02) is Missed.
+[TOS-03](../../docs/threshold-of-success.md#tos-03) is Missed.
+
+The counted UT-01 sessions are the next opportunity to observe both activities. The original measures and dates remain the basis of this review.
+
+## Coverage
+
+| Deliverable | Artifact |
+| --- | --- |
+| Sprint plan | [docs/project-plan.md#sprint-07](../../docs/project-plan.md#sprint-07) |
+| UT-01 test record | [docs/usability-tests/ut-01/README.md](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/README.md) |
+| Surveys and post-test | [docs/usability-tests/ut-01/surveys.md](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/surveys.md) |
+| Tasks and protocol | [docs/usability-tests/ut-01/README.md#the-tasks](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/README.md#the-tasks), [docs/usability-tests/ut-01/sessions/README.md](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/sessions/README.md) |
+| Test instrumentation | [docs/usability-tests/ut-01/README.md#instrumentation](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/README.md#instrumentation), [docs/analytics.md#the-events](../../docs/analytics.md#the-events) |
+| Consent | [docs/usability-tests/ut-01/consent.md](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/consent.md) |
+| Private usability-data repository | [The UT-01 evidence map](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/README.md#evidence-map) links the authenticated repository. |
+| Recordings folder | Private access details belong in the Moodle wrapper. See [usability test](#usability-test) for the status. |
+| Requirement and test | [docs/quality-requirements/qr/QR-09.md#qrt-01](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/quality-requirements/qr/QR-09.md#qrt-01) |
+| Recruitment plan and Week 8 handoff | [Usability test](#usability-test), [SPRINT-08](../../docs/project-plan.md#sprint-08) |
+| Sprint Review preparation | [reports/week-07/meeting-script.md](meeting-script.md) |
+| Compose plugin demonstration | [reports/week-07/compose-demo-evidence.md](compose-demo-evidence.md) |
+| Sprint release | [docs/project-plan.md#rel-07](../../docs/project-plan.md#rel-07) |
+| Retrospective | [reports/week-07/sprint-retrospective.md](sprint-retrospective.md) |
+| AI usage | [Ali's Week 7 disclosure](ai-usage-ali.md) and [atkond's design disclosure](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/reports/week-07/ai-usage.md) |
+
+## Contribution
+
+| Member | Work |
+| --- | --- |
+| Ali12hamdan | [Versioned image, Compose and staging instrumentation](https://github.com/ITPD-Almo/modular-llm-gateway/pull/129). |
+| Mohammed-Nour | [Sprint plan and review script](https://github.com/ITPD-Almo/modular-llm-gateway/pull/139), plus the accountable review of [#129](https://github.com/ITPD-Almo/modular-llm-gateway/pull/129). |
+| atkond2point0 | [UT-01 design, QR-09, consent, and recruitment and analysis plans](https://github.com/ITPD-Almo/modular-llm-gateway/pull/140). |
+
+## Repository evidence
+
+The [tests on merged Compose source](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/43436314145) passed. The [design's link-check configuration](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/.lycheeignore) excludes the private usability-data repository because it requires GitHub authentication.
+
+## Deviations
+
+- The current deployment evidence identifies production as `v0.6.0`. The Compose evidence is from the merged implementation and a separate synthetic run.
+- The implementation rehearsal and the uncounted teammate dry run have separate checks. [#131](https://github.com/ITPD-Almo/modular-llm-gateway/issues/131) tracks the dry-run record.
+- The design-review record and instructor access confirmation remain pending. The evidence above records checks that have been completed.
+
+## Privacy
+
+No private-only material or participant identity is included in the product repository.

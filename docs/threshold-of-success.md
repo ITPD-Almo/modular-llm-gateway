@@ -12,15 +12,17 @@ The Customer accepts the first usable plugin workflow: start the gateway, add tw
 
 A person outside the team runs the gateway from a clean checkout and completes the core task by following the documentation alone.
 
-- **Status:** Open
+- **Status:** Missed
 - **Measure:** one usability-test session in which a participant outside the team follows `docs/setup.md`, sends a request through two plugins, and sees the result without help, by the end of Week 7, 2026-11-13.
+- **Outcome:** the November 13 deadline passed while [UT-01](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/README.md#schedule) was still in design. No eligible outside participant had recorded an unaided run by that date. The original measure stays in place.
 
 ## TOS-03
 
 A developer outside the team writes a working plugin from the plugin documentation without changing the gateway core.
 
-- **Status:** Open
+- **Status:** Missed
 - **Measure:** one plugin, written by a developer outside the team against `docs/plugins.md`, that loads from the configuration file and changes a request, with no commit to the core, by the end of Week 7, 2026-11-13.
+- **Outcome:** the November 13 deadline passed without a recorded plugin from an outside developer. The [team's Compose walkthrough](https://github.com/ITPD-Almo/modular-llm-gateway/pull/139) verified the workflow internally. UT-01 secondary task 2 is planned for outside operators in Week 8.
 
 ## TOS-04
 
