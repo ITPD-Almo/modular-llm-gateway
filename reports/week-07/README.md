@@ -14,7 +14,7 @@ The [UT-01 design](../../docs/usability-tests/ut-01/README.md) targets five adul
 
 ## Minimum usable product and customer outcome
 
-The working candidate shows a DevOps operator how to add a Python class through the configuration file, confirm its effect in one synthetic request, and recover from a slow hook. The [Week 6 customer review](../week-06/meeting-report.md#summary) established the operator use case, versioned Compose packaging and the terminal workflow. The [Week 7 review agenda](meeting-script.md) carries the acceptance criteria and Week 8 design questions. US-01 to US-04, US-09, US-11 and US-12 still need story verdicts. The design-review record and transcript status are pending.
+The working candidate shows a DevOps operator how to add a Python class through the configuration file, confirm its effect in one synthetic request, and recover from a slow hook. The [Week 7 feedback and review evidence](meeting-report.md) connects the confirmed operator, Compose and terminal guidance to the verified work. US-01 to US-04, US-09, US-11 and US-12 remain open for their verdicts.
 
 ## Usability test
 
@@ -52,6 +52,7 @@ The counted UT-01 sessions are the next opportunity to observe both activities. 
 | Requirement and test | [docs/quality-requirements/qr/QR-09.md#qrt-01](../../docs/quality-requirements/qr/QR-09.md#qrt-01) |
 | Recruitment plan and Week 8 handoff | [Usability test](#usability-test), [SPRINT-08](../../docs/project-plan.md#sprint-08) |
 | Sprint Review preparation | [reports/week-07/meeting-script.md](meeting-script.md) |
+| Confirmed feedback and review evidence | [reports/week-07/meeting-report.md](meeting-report.md) |
 | Compose plugin demonstration | [reports/week-07/compose-demo-evidence.md](compose-demo-evidence.md) |
 | Sprint release | [docs/project-plan.md#rel-07](../../docs/project-plan.md#rel-07) |
 | Retrospective | [reports/week-07/sprint-retrospective.md](sprint-retrospective.md) |
@@ -75,7 +76,7 @@ On November 15 the TA's existing HTTPS staging route served Swagger, its schema 
 
 - The current deployment evidence identifies production as `v0.6.0`. The Compose evidence is from the merged implementation and a separate synthetic run.
 - The implementation rehearsal and the uncounted teammate dry run have separate checks. [#131](https://github.com/ITPD-Almo/modular-llm-gateway/issues/131) tracks the dry-run record.
-- The design-review record and instructor access details for the Moodle wrapper remain pending.
+- The closeout uses [confirmed feedback and technical evidence](meeting-report.md). The design-review recording, transcript permissions, story verdicts and Week 8 agreement remain pending. The private wrapper records the available instructor access details.
 
 ## Privacy
 

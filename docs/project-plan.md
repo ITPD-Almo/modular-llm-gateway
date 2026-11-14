@@ -123,6 +123,7 @@ A rehearsed, customer-reviewed and instrumented `UT-01` design, with its Week 8 
 - **Due:** 2026-11-15
 - **Sprint Backlog:** [the issues scheduled into SPRINT-07](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/5)
 - **Planned Velocity:** 24
+- **Actual Velocity:** 0 points. The seven stories carry into SPRINT-08 for their outstanding Customer verdicts.
 
 The planned velocity was computed by hand as 2 + 3 + 3 + 5 + 5 + 3 + 3 from the `Story Points` of [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41), [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42), [US-04](https://github.com/ITPD-Almo/modular-llm-gateway/issues/52), [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96), [US-11](https://github.com/ITPD-Almo/modular-llm-gateway/issues/110) and [US-12](https://github.com/ITPD-Almo/modular-llm-gateway/issues/111), carried from SPRINT-06 for their verdicts; tasks contribute zero points.
 The sprint was planned on 2026-11-12, four days into the sprint and three days before its due date.
