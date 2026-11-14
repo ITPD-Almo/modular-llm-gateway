@@ -14,7 +14,7 @@ A person outside the team runs the gateway from a clean checkout and completes t
 
 - **Status:** Missed
 - **Measure:** one usability-test session in which a participant outside the team follows `docs/setup.md`, sends a request through two plugins, and sees the result without help, by the end of Week 7, 2026-11-13.
-- **Outcome:** the November 13 deadline passed while [UT-01](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c787c5e78474108631d236abf5e8b44e11e104ee/docs/usability-tests/ut-01/README.md#schedule) was still in design. No eligible outside participant had recorded an unaided run by that date. The original measure stays in place.
+- **Outcome:** the November 13 deadline passed while [UT-01](https://github.com/ITPD-Almo/modular-llm-gateway/blob/8940c3c279e5d84b546ed252bdd43ab80a441ba3/docs/usability-tests/ut-01/README.md#schedule) was still in design. No eligible outside participant had recorded an unaided run by that date. The original measure stays in place.
 
 ## TOS-03
 
