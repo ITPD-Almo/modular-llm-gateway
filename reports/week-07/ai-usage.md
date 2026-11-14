@@ -8,12 +8,12 @@
 
 - Read the pinned ITPD Assignment 7 and usability-testing requirements.
 - Inspected issue #131 and PR #129's public bring-up contract.
-- Drafted the UT-01 record, task scenarios, surveys, consent template, session template, results stub, QR-09/QRT-01, glossary terms, risks and public report.
+- Drafted the UT-01 record, task scenarios, surveys, consent template, session template, results stub, QR-09/QRT-01, glossary terms and risks.
 - Kept participant identities, recordings, private links, raw notes and credentials out of the repository.
 
 ## What we did with the output
 
-The team must review the wording, run the uncounted teammate dry run on 2026-11-13, apply its wording/time-limit/
+The team must review the wording, run the planned uncounted teammate dry run, apply its wording/time-limit/
 instrumentation changes, verify instrumentation before the first counted session and obtain the design-review notes. The
 bar was checked for identical meaning across the record, analysis plan and QRT: at least 2/3 of at least 3 valid
 participants completing the main task unaided.
