@@ -1,0 +1,20 @@
+services:
+  gateway:
+    image: ${GATEWAY_IMAGE:?Set GATEWAY_IMAGE to the locally loaded image reference}
+    pull_policy: never
+    init: true
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: [/tmp]
+    env_file: ${GATEWAY_RUNTIME_ENV_FILE:-/dev/null}
+    command: [serve, --host, 0.0.0.0, --port, "8000", --provider, "${GATEWAY_COMPOSE_PROVIDER:-fake}"]
+    ports:
+      - "127.0.0.1:${GATEWAY_HOST_PORT:-8000}:8000"
+    volumes:
+      - type: bind
+        source: ${GATEWAY_SETTINGS_DIR:-./config}
+        target: /run/llmgw
+        read_only: true
+        bind:
+          create_host_path: false
