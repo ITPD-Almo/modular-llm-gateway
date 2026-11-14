@@ -11,6 +11,9 @@ The starting product is a Python FastAPI gateway with configured request/respons
 The immediate gap is bounded execution and recovery when a plugin is slow or broken, alongside reproducible setup and a concrete extension example.
 The exact failure policy and measured targets are specified and reviewed before implementation is accepted; a proposed design is not a Customer verdict.
 
+The maintained [usability-test group](usability-tests/README.md) owns UT-01's public design; participant identities,
+recordings and raw usability data stay in the private submission.
+
 An automatic plugin discovery system, hot reload, a web administration interface, multiple real providers and additional example plugins are candidate upgrades, not prerequisites for every release.
 Add one only when a Customer need, evidence and a small story justify it.
 Use an existing gateway if the matched extension exercise shows it delivers the intended workflow with less work.
