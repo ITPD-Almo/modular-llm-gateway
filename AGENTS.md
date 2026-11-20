@@ -28,6 +28,7 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
 - `tests/` holds the pytest suite; tests use synthetic plugins, fake providers and mocked transports, never a real provider key or an external API call. Isolate XDG_CONFIG_HOME when exercising CLI provider selection so a developer's saved profile cannot trigger a paid call.
 - `docs/` holds the maintained artifacts and the documentation site:
   - the vision, the plan and the decisions
+  - [configuration-plan.md](docs/configuration-plan.md): the maintained configuration inventory, owners, connections and review date
   - the assumptions and the research
   - `features.md`: user-facing capabilities linked to their stories, requirements and architectural decisions
   - `quality-requirements/`, `functional-requirements/` and the glossary
