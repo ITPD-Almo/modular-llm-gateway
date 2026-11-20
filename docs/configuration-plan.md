@@ -89,9 +89,10 @@ The link check and its private-repository exclusion.
 - **Type:** workflow
 - **Purpose:** ensure a reader can follow public evidence and document links. Without it, a renamed artifact can leave a report pointing at an unavailable path.
 - **Owner:** the author changing links, with Ali12hamdan maintaining the corresponding branch-protection context.
-- **Where:** `.github/workflows/lychee.yml` and `.lycheeignore`.
+- **Where:** `.github/workflows/lychee.yml`, its automatically loaded root `lychee.toml` and `.lycheeignore`.
 - **Connections:**
   - `produces` the `links` result consumed by [CFG-01](#cfg-01). Changing that name without the protected-branch setting would stop the merge route.
+  - `reads` the bounded concurrency and retry settings in `lychee.toml`. A different local policy can hide the transient HTTP failures CI encounters while checking the same evidence.
   - `reads` the evidence locations in [CFG-20](#cfg-20) and [CFG-21](#cfg-21). The authenticated usability-data repository is excluded with its reason, so a green link run cannot establish instructors' private access.
 - **What good looks like:** public links are checked on PRs and main, and an authentication exclusion remains explicit and narrow, per [Link Checking](https://github.com/inno-itpd/itpd/blob/753d81e9c8b7b78261674c8d4836ef4e4b01d583/requirements/repository-requirements.md#link-checking).
 

@@ -52,7 +52,7 @@ Keep this map and the documentation entry points current in the same pull reques
 | --- | --- | --- |
 | `python -m pytest` | Tests | `tests.yml` |
 | `npx markdownlint-cli2 "**/*.md"` | Markdown, with the rules in `.markdownlint-cli2.jsonc` | `markdown.yml` |
-| `lychee --exclude-path .claude/skills/itpd './**/*.md'` | Links. It fetches external links, so it needs the network; it is the Rust lychee CLI, not the npm package | `lychee.yml` |
+| `lychee --exclude-path .claude/skills/itpd './**/*.md'` | Links, using the root `lychee.toml` retry policy. It fetches external links, so it needs the network; it is the Rust lychee CLI, not the npm package | `lychee.yml` |
 | `python -m mkdocs build --strict` | Documentation site; run it after `pip install -r requirements-docs.txt` | `pages.yml`, which builds and deploys from `main` |
 
 Install the tools with `python -m pip install -e ".[test]"` in a Python 3.12 virtual environment, as [`docs/setup.md`](docs/setup.md) describes.
