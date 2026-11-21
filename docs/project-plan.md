@@ -146,6 +146,7 @@ The in-person `UT-01` sessions run on staging, their results and findings are wr
 - **Due:** 2026-11-21
 - **Sprint Backlog:** [the issues scheduled into SPRINT-08](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/6)
 - **Planned Velocity:** 24
+- **Actual Velocity:** 0 points: no new Customer-accepted completed story is evidenced. The unaccepted carried stories and unfinished counted-session work move to SPRINT-09; closed implementation issues do not contribute accepted points.
 
 The execution tasks are [#132](https://github.com/ITPD-Almo/modular-llm-gateway/issues/132) for the instrumentation verification before the first counted session, [#133](https://github.com/ITPD-Almo/modular-llm-gateway/issues/133) for the counted sessions, [#134](https://github.com/ITPD-Almo/modular-llm-gateway/issues/134) for the private custody and the sanitized notes, [#135](https://github.com/ITPD-Almo/modular-llm-gateway/issues/135) for the results and findings, [#136](https://github.com/ITPD-Almo/modular-llm-gateway/issues/136) for the triage, [#137](https://github.com/ITPD-Almo/modular-llm-gateway/issues/137) for the `QR-09 QRT-01` verdict and [#138](https://github.com/ITPD-Almo/modular-llm-gateway/issues/138) for `REL-08`.
 
@@ -154,7 +155,11 @@ The sprint was planned with its milestone before the Week 7 closeout; #132 to #1
 
 #### REL-08
 
-Planned: `REL-08` is cut on the reviewed green `main` commit at the end of SPRINT-08, and its `**Checked QRs:**` lists `QR-09` when the `QRT-01` verdict is recorded with the results.
+- **Released:** [v0.8.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.8.0) on 2026-11-21, from [the reviewed maintenance baseline](https://github.com/ITPD-Almo/modular-llm-gateway/commit/4dac334b3b18fcaec84e299027e8f9f297c7df4f).
+- **Checked QRs:**
+  - [QR-01](quality-requirements/qr/QR-01.md), through the green main product CI.
+
+See the [quality requirement testing plan](#quality-requirement-testing-plan) for the dated evidence; QR-09 remains Not verified and is moved to SPRINT-09 with the declared sample/instrumentation shortfall. Publishing the maintenance tag does not promote a shared deployment or establish Customer acceptance.
 
 ### SPRINT-09
 
@@ -170,9 +175,9 @@ Provisional: the final release incorporates the selected usability findings, has
 | QR | QRT | Status | Checked | Planned for sprint | Evidence |
 | --- | --- | --- | --- | --- | --- |
 | [QR-02](quality-requirements/qr/QR-02.md) | [QR-02 QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Passes | [SPRINT-05](#sprint-05) | [SPRINT-05](#sprint-05) | [Campus staging run on 2026-10-31](https://github.com/ITPD-Almo/modular-llm-gateway/blob/c7dce8ff876d31a57ee0ca93d9428d8444473f6c/reports/week-05/deployment-evidence.md#deployed-qr-02-rerun-through-the-https-gate) |
-| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Passes | [SPRINT-07](#sprint-07) | [SPRINT-07](#sprint-07) | [Release CI at 614c9d5, 102 passed in 18.85 s](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/43648314095) |
+| [QR-01](quality-requirements/qr/QR-01.md) | [QR-01 QRT-01](quality-requirements/qr/QR-01.md#qrt-01) | Passes | [SPRINT-08](#sprint-08) | [SPRINT-08](#sprint-08) | [Green product CI at 4dac334](https://github.com/ITPD-Almo/modular-llm-gateway/actions/runs/44942224395) |
 | [QR-08](quality-requirements/qr/QR-08.md) | [QR-08 QRT-01](quality-requirements/qr/QR-08.md#qrt-01) | Passes | [SPRINT-06](#sprint-06) | [SPRINT-06](#sprint-06) | [Campus staging run on 2026-11-08](https://github.com/ITPD-Almo/modular-llm-gateway/blob/0073150f73e3b755f0f8a29b21cddb1685b7731d/reports/week-06/README.md#qr-08-qrt-01-campus-run) and [release staging re-run](#rel-06) |
-| [QR-09](quality-requirements/qr/QR-09.md) | [QR-09 QRT-01](quality-requirements/qr/QR-09.md#qrt-01) | Not verified | None | [SPRINT-08](#sprint-08) | None |
+| [QR-09](quality-requirements/qr/QR-09.md) | [QR-09 QRT-01](quality-requirements/qr/QR-09.md#qrt-01) | Not verified | None | [SPRINT-09](#sprint-09) | [Week 8 sample/instrumentation shortfall](usability-tests/ut-01/results.md#limitations) |
 
 ## Progress Monitoring
 
