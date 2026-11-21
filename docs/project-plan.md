@@ -141,12 +141,16 @@ See the [quality requirement testing plan](#quality-requirement-testing-plan) fo
 
 ### SPRINT-08
 
-Provisional: the in-person `UT-01` sessions run on staging, their results and findings are written and triaged, `QR-09 QRT-01` gets its verdict, and `REL-08` is cut.
+The in-person `UT-01` sessions run on staging, their results and findings are written and triaged, `QR-09 QRT-01` gets its verdict, the seven carried stories get their Customer verdicts at the Sprint Review, and `REL-08` is cut.
 
 - **Due:** 2026-11-21
 - **Sprint Backlog:** [the issues scheduled into SPRINT-08](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/6)
+- **Planned Velocity:** 24
 
 The execution tasks are [#132](https://github.com/ITPD-Almo/modular-llm-gateway/issues/132) for the instrumentation verification before the first counted session, [#133](https://github.com/ITPD-Almo/modular-llm-gateway/issues/133) for the counted sessions, [#134](https://github.com/ITPD-Almo/modular-llm-gateway/issues/134) for the private custody and the sanitized notes, [#135](https://github.com/ITPD-Almo/modular-llm-gateway/issues/135) for the results and findings, [#136](https://github.com/ITPD-Almo/modular-llm-gateway/issues/136) for the triage, [#137](https://github.com/ITPD-Almo/modular-llm-gateway/issues/137) for the `QR-09 QRT-01` verdict and [#138](https://github.com/ITPD-Almo/modular-llm-gateway/issues/138) for `REL-08`.
+
+The planned velocity was computed by hand as 2 + 3 + 3 + 5 + 5 + 3 + 3 from the `Story Points` of [US-01](https://github.com/ITPD-Almo/modular-llm-gateway/issues/40), [US-02](https://github.com/ITPD-Almo/modular-llm-gateway/issues/41), [US-03](https://github.com/ITPD-Almo/modular-llm-gateway/issues/42), [US-04](https://github.com/ITPD-Almo/modular-llm-gateway/issues/52), [US-09](https://github.com/ITPD-Almo/modular-llm-gateway/issues/96), [US-11](https://github.com/ITPD-Almo/modular-llm-gateway/issues/110) and [US-12](https://github.com/ITPD-Almo/modular-llm-gateway/issues/111), carried from SPRINT-07 for their verdicts; tasks contribute zero points.
+The sprint was planned with its milestone before the Week 7 closeout; #132 to #137 were consolidated into #135 for the single sessions-and-results pull request on 2026-11-20.
 
 #### REL-08
 
