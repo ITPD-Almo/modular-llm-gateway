@@ -147,6 +147,7 @@ The in-person `UT-01` sessions run on staging, their results and findings are wr
 - **Sprint Backlog:** [the issues scheduled into SPRINT-08](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/6)
 - **Planned Velocity:** 24
 - **Actual Velocity:** 0 points: no new Customer-accepted completed story is evidenced. The unaccepted carried stories and unfinished counted-session work move to SPRINT-09; closed implementation issues do not contribute accepted points.
+- **Closed:** 2026-11-21 after moving all nine remaining open issues to SPRINT-09, including the independent report-review gate. US-01/US-02 were restored to Open because their closures cited implementation rather than a Customer verdict.
 
 The execution tasks are [#132](https://github.com/ITPD-Almo/modular-llm-gateway/issues/132) for the instrumentation verification before the first counted session, [#133](https://github.com/ITPD-Almo/modular-llm-gateway/issues/133) for the counted sessions, [#134](https://github.com/ITPD-Almo/modular-llm-gateway/issues/134) for the private custody and the sanitized notes, [#135](https://github.com/ITPD-Almo/modular-llm-gateway/issues/135) for the results and findings, [#136](https://github.com/ITPD-Almo/modular-llm-gateway/issues/136) for the triage, [#137](https://github.com/ITPD-Almo/modular-llm-gateway/issues/137) for the `QR-09 QRT-01` verdict and [#138](https://github.com/ITPD-Almo/modular-llm-gateway/issues/138) for `REL-08`.
 
