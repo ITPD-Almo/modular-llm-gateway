@@ -4,9 +4,10 @@ max_retries = 5
 retry_wait_time = 3
 
 # Verify this repository's immutable evidence through the same Git objects.
-# Commit metadata and raw files avoid GitHub's intermittent HTML-page HTTP 503s.
+# SHA-addressed source archives and raw files avoid GitHub's HTML-page HTTP 503s.
+# Archive checks also avoid the unauthenticated REST quota of direct API remaps.
 # Queries, fragments and non-SHA references use their original destinations.
 remap = [
-  '^https://github\.com/ITPD-Almo/modular-llm-gateway/commit/([0-9a-f]{40})$ https://api.github.com/repos/ITPD-Almo/modular-llm-gateway/commits/${1}',
+  '^https://github\.com/ITPD-Almo/modular-llm-gateway/commit/([0-9a-f]{40})$ https://codeload.github.com/ITPD-Almo/modular-llm-gateway/tar.gz/${1}',
   '^https://github\.com/ITPD-Almo/modular-llm-gateway/blob/([0-9a-f]{40})/([^?#]+)$ https://raw.githubusercontent.com/ITPD-Almo/modular-llm-gateway/${1}/${2}',
 ]
