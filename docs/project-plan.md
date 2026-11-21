@@ -158,9 +158,10 @@ Planned: `REL-08` is cut on the reviewed green `main` commit at the end of SPRIN
 
 ### SPRINT-09
 
-Provisional: the final release incorporates the selected usability findings, has reproducible evidence and a complete handover, and is frozen for the final demonstration.
+Provisional: the final release incorporates the selected usability findings, has reproducible evidence and a complete handover, is frozen for the final demonstration, and delivers the final repository state, the 7-minute deck and the reflection.
 
 - **Due:** 2026-11-28
+- **Sprint Backlog:** [the issues scheduled into SPRINT-09](https://github.com/ITPD-Almo/modular-llm-gateway/milestone/7)
 
 #### REL-09
 
