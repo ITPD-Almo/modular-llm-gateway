@@ -1,5 +1,7 @@
 # Ali12hamdan's Week 7 AI usage
 
+*Historical artifact: this disclosure was consolidated into [ai-usage.md](ai-usage.md) for the Week 7 report, which is the file the coverage table cites. The file is kept unchanged here under the repository's historical-artifact convention.*
+
 **Tool and purpose.** OpenAI Codex helped implement and test the Compose package, the staging event export and the offline probe. It also helped draft the customer walkthrough and document the recorded checks.
 
 **Accepted.** Ali kept the pinned-image workflow, UTC-window export and offline marker probe after testing them. The walkthrough uses synthetic data and shows the configured plugin, its visible result and the follow-up after a named 504.
