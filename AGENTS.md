@@ -28,6 +28,7 @@ The course requirements are routed from [`SKILL.md`](https://github.com/inno-itp
 - `tests/` holds the pytest suite; tests use synthetic plugins, fake providers and mocked transports, never a real provider key or an external API call. Isolate XDG_CONFIG_HOME when exercising CLI provider selection so a developer's saved profile cannot trigger a paid call.
 - `docs/` holds the maintained artifacts and the documentation site:
   - the vision, the plan and the decisions
+  - [configuration-plan.md](docs/configuration-plan.md): the maintained configuration inventory, owners, connections and review date
   - the assumptions and the research
   - `features.md`: user-facing capabilities linked to their stories, requirements and architectural decisions
   - `quality-requirements/`, `functional-requirements/` and the glossary
@@ -51,7 +52,7 @@ Keep this map and the documentation entry points current in the same pull reques
 | --- | --- | --- |
 | `python -m pytest` | Tests | `tests.yml` |
 | `npx markdownlint-cli2 "**/*.md"` | Markdown, with the rules in `.markdownlint-cli2.jsonc` | `markdown.yml` |
-| `lychee --exclude-path .claude/skills/itpd './**/*.md'` | Links. It fetches external links, so it needs the network; it is the Rust lychee CLI, not the npm package | `lychee.yml` |
+| `lychee --exclude-path .claude/skills/itpd './**/*.md'` | Links, using the root `lychee.toml` request and immutable-evidence policy. It fetches external links, so it needs the network; it is the Rust lychee CLI, not the npm package | `lychee.yml` |
 | `python -m mkdocs build --strict` | Documentation site; run it after `pip install -r requirements-docs.txt` | `pages.yml`, which builds and deploys from `main` |
 
 Install the tools with `python -m pip install -e ".[test]"` in a Python 3.12 virtual environment, as [`docs/setup.md`](docs/setup.md) describes.
@@ -63,7 +64,7 @@ Install the tools with `python -m pip install -e ".[test]"` in a Python 3.12 vir
 - **Commit messages:** one imperative line of at most 72 characters, starting with a capital letter and ending without a full stop; add a body when the reason is not obvious.
 - **Pull requests:** use `.github/pull_request_template.md`. The task's `Accountable` member reviews and merges, and the author never approves their own pull request.
 - **Links:** in issues and pull requests, link a repository file by its full `https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/...` URL. Inside `docs/`, use relative links. Link a file outside `docs/` by its GitHub URL.
-- **Identifiers:** `FR-nnn`, `ADR-nnn` and `DEC-nnn` take three digits and `QR-nn`, `US-nn` and `ASM-nn` two; an identifier is never reused or renumbered.
+- **Identifiers:** `FR-nnn`, `ADR-nnn` and `DEC-nnn` take three digits and `QR-nn`, `US-nn`, `ASM-nn` and `CFG-nn` two; an identifier is never reused or renumbered.
 - **Code:** Python 3.12 with type hints. Plugin hooks are synchronous, take one dictionary and return a new one.
 - **Changelog:** a user-visible change adds its line under `[Unreleased]` in `CHANGELOG.md`.
 - **Secrets:** no real provider key, prompt, recording or personal data in any file.

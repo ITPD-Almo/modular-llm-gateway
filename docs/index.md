@@ -33,6 +33,7 @@ This is a course project of team 9 in the autumn 2026 term, and it is a work in 
 
 - [Definition of done](definition-of-done.md): when a story, a task, and a pull request are done.
 - [Risks](risks.md): what could take the plan away, and the fallback for each.
+- [Configuration plan](configuration-plan.md): the configuration items, their owners, connections and review date.
 - [Decisions](decisions.md) and [assumptions](assumptions.md): what we agreed with the Customer, and what we still need to check.
 - Contributing guide: `CONTRIBUTING.md` in the repository root says how a change gets into the repository.
 - Agent instructions: `AGENTS.md` in the repository root gives the layout, checks, conventions and off-limits files to whoever edits the repository next.

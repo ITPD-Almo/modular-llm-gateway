@@ -201,3 +201,83 @@ The ten-item System Usability Scale, scored from its standard responses with `2.
 ### Valid participant
 
 An eligible participant whose consent, recording, profile match and complete, technically usable session data permit inclusion in the predeclared analysis.
+
+## Repository configuration
+
+### Configuration
+
+The files, settings, dependencies and processes that build, check, deliver and explain this gateway repository.
+
+**Defined by:** [the configuration-management requirements][configuration-rules].
+
+### Configuration management
+
+The team's practice of identifying, owning, reviewing and updating the configuration that produces the gateway and its evidence.
+
+**Defined by:** [the configuration plan](configuration-plan.md).
+
+### Configuration review
+
+A review of the gateway's configuration at an identified baseline, judging the artifact set against the local purposes it serves.
+
+**Defined by:** [the evaluation requirements][evaluation-rules].
+
+### Configuration plan
+
+The maintained inventory of the gateway's configuration items, their owners, locations and connections.
+
+**Defined by:** [the configuration plan](configuration-plan.md).
+
+### Configuration item
+
+One existing maintained file, setting, process or dependency assigned a repository-wide `CFG-nn` in the configuration plan.
+
+**Defined by:** [the configuration items][configuration-items].
+
+### Configuration evaluation
+
+The week's evidence of how well the gateway's artifact sets serve their local goals, including recommendations and their tradeoffs.
+
+**Defined by:** [the evaluation requirements][evaluation-rules].
+
+### Baseline
+
+The identified and frozen tag or source commit whose configuration an evaluation judges.
+
+**Defined by:** [the configuration-management requirements][configuration-rules].
+
+### Upkeep
+
+Work that keeps the gateway's repository, documentation, checks and delivery configuration accurate as the project changes.
+
+### Reproducible build
+
+A gateway build that produces the same artifact from the same identified source, dependencies, target platform and build configuration.
+
+**Defined by:** [the image build procedure](deployment.md#versioned-compose-deployment).
+
+### Dependency pinning
+
+Selecting explicit package versions, action commits or image digests so a gateway installation or check uses reviewed dependencies.
+
+**Defined by:** [the runtime pins](configuration-plan.md#cfg-14) and [the dependency update process](configuration-plan.md#cfg-16).
+
+### Secret
+
+A provider key, ingestion credential, private signing key or access code that grants access and is kept outside the public product repository.
+
+**Defined by:** [the deployment's private configuration](deployment.md#configuration-and-layout).
+
+### Context window
+
+The finite text available to a coding agent during a gateway editing session, including the instructions and artifact excerpts it has read.
+
+### Agent instruction
+
+A repository rule or navigation instruction in `AGENTS.md` that guides a coding agent's edits, checks and handling of protected files.
+
+**Defined by:** [the root agent instructions](https://github.com/ITPD-Almo/modular-llm-gateway/blob/main/AGENTS.md).
+
+[configuration-rules]: https://github.com/inno-itpd/itpd/blob/753d81e9c8b7b78261674c8d4836ef4e4b01d583/requirements/configuration-management-requirements.md#where-the-configuration-plan-and-the-review-live
+[configuration-items]: https://github.com/inno-itpd/itpd/blob/753d81e9c8b7b78261674c8d4836ef4e4b01d583/requirements/configuration-management-requirements.md#the-configuration-items
+[evaluation-rules]: https://github.com/inno-itpd/itpd/blob/753d81e9c8b7b78261674c8d4836ef4e4b01d583/requirements/configuration-management-requirements.md#the-evaluation

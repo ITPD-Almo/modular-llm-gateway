@@ -1,16 +1,20 @@
 # Risks
 
-| ID                  | Status | Impact | Likelihood | Risk                                                                                                                                                                                     |
-| ------------------- | ------ | ------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [RISK-01](#risk-01) | Open   | High   | Medium     | The candidate was not shown running at the Week 3 meeting, so the Customer's verdict on the stories may not arrive before the release, which would leave the MUP unaccepted.             |
-| [RISK-02](#risk-02) | Open   | High   | Medium     | The plugin interface was designed before the Customer saw it run, so the Customer may reject its inputs or outputs, which would force us to rewrite the plugins and their documentation. |
-| [RISK-03](#risk-03) | Open   | High   | Low        | The team already lost one of four members, so another member may become unavailable for a sprint, which would leave that sprint's release unfinished.                                    |
-| [RISK-04](#risk-04) | Open   | Medium | Medium     | The gateway's deployment target and pipeline are untested, so deploying it may take longer than one sprint, which would miss TOS-04 in Week 5.                                           |
-| [RISK-05](#risk-05) | Open   | High   | Medium     | The team may recruit too few eligible participants or a session may not be valid, leaving the QR-09 denominator below the required three.                                                |
-| [RISK-06](#risk-06) | Open   | High   | Medium     | A participant may not understand the recording, sanitized-results or private-access terms, invalidating the session.                                                                     |
-| [RISK-07](#risk-07) | Open   | High   | Low        | Raw notes, recordings or telemetry may be inaccessible to instructors or may expose identity.                                                                                            |
-| [RISK-08](#risk-08) | Open   | High   | Medium     | The staging bring-up or event link may fail during a counted session, confounding usability with instrumentation failure.                                                                |
-| [RISK-09](#risk-09) | Open   | Medium | Medium     | Recruiting and arranging in-person campus sessions may slip beyond the SPRINT-08 analysis window.                                                                                        |
+| ID | Status | Impact | Likelihood | Risk |
+| --- | --- | --- | --- | --- |
+| [RISK-01](#risk-01) | Open | High | Medium | The candidate was not shown running at the Week 3 meeting, so the Customer's verdict on the stories may not arrive before the release, which would leave the MUP unaccepted. |
+| [RISK-02](#risk-02) | Open | High | Medium | The plugin interface was designed before the Customer saw it run, so the Customer may reject its inputs or outputs, which would force us to rewrite the plugins and their documentation. |
+| [RISK-05](#risk-05) | Open | High | Medium | Recruitment may produce fewer than three eligible, valid sessions. |
+| [RISK-06](#risk-06) | Open | High | Medium | A participant may not understand or accept the recording, sanitized-results or private-access terms. |
+| [RISK-08](#risk-08) | Open | High | Medium | The staging bring-up or event link may fail during a counted session. |
+| [RISK-10](#risk-10) | Open | High | Medium | Private provider, telemetry or access settings are handled during deployment and evidence handoffs, so an accidental public commit could disclose a credential and give others access to the service or its data. |
+| [RISK-11](#risk-11) | Open | High | Medium | The repository and its private settings can change independently of their configuration inventory, so a stale plan could direct a member or agent to an older workflow and invalidate the next change or release evidence. |
+| [RISK-13](#risk-13) | Open | High | Medium | Manual deployment and separate environment files allow an unrecorded host change to diverge from staging, so production could run a state the team's verification never checked. |
+| [RISK-03](#risk-03) | Open | High | Low | The team already lost one of four members, so another member may become unavailable for a sprint, which would leave that sprint's release unfinished. |
+| [RISK-07](#risk-07) | Open | High | Low | Private raw notes, recordings or telemetry may be inaccessible to instructors or expose identity. |
+| [RISK-04](#risk-04) | Open | Medium | Medium | The gateway's deployment target and pipeline are untested, so deploying it may take longer than one sprint, which would miss TOS-04 in Week 5. |
+| [RISK-09](#risk-09) | Open | Medium | Medium | Recruiting and arranging in-person campus sessions may slip beyond the SPRINT-08 analysis window. |
+| [RISK-12](#risk-12) | Open | Medium | Medium | A pinned dependency or image base may become incompatible with a needed update, so the team could become unable to maintain or rebuild the gateway on the supported runtime. |
 
 ## RISK-01
 
@@ -127,3 +131,59 @@ Recruiting and arranging in-person campus sessions may slip beyond the SPRINT-08
 - **Window:** [SPRINT-08](project-plan.md#sprint-08) analysis window.
 - **Mitigation:** arrange sessions in a shared schedule immediately after design approval and hold multiple campus slots.
 - **Contingency:** move the QR/QRT row to SPRINT-09 with the reason, declare the schedule deviation in the report and claim no result.
+
+## RISK-10
+
+Private provider, telemetry or access settings are handled during deployment and evidence handoffs, so an accidental public commit could disclose a credential and give others access to the service or its data.
+
+- **Status:** Open
+- **Impact:** High
+  - A working credential can grant access to the gateway, private telemetry or a paid provider and would compromise the private-data separation.
+- **Likelihood:** Medium
+  - Setup, manual deployment and submission each handle private values, and the product repository and its history are public.
+- **Trigger:** a secret scanner, reviewer or operator finds a real credential in a tracked file, PR, published artifact or its Git history.
+- **Window:** [SPRINT-08](project-plan.md#sprint-08), [SPRINT-09](project-plan.md#sprint-09) and retention through grading.
+- **Mitigation:** use placeholder-only examples, private per-environment profiles and scoped credentials, then check staged changes and public artifacts before sharing.
+- **Contingency:** revoke or rotate the exposed secret, tell the instructor, remove the value from files and history under the sensitive-data incident procedure, and record the account privately.
+
+## RISK-11
+
+The repository and its private settings can change independently of their configuration inventory, so a stale plan could direct a member or agent to an older workflow and invalidate the next change or release evidence.
+
+- **Status:** Open
+- **Impact:** High
+  - A believable but outdated item or connection can send an operator to a different setting or leave a reviewer checking the wrong source.
+- **Likelihood:** Medium
+  - The configuration spans workflows, build inputs, documentation and GitHub settings, and the baseline already has a README release claim behind its changelog.
+- **Trigger:** a changed path, owner, settings rule or build input disagrees with the corresponding CFG item or its recorded connection.
+- **Window:** every configuration-changing PR in [SPRINT-08](project-plan.md#sprint-08) and [SPRINT-09](project-plan.md#sprint-09).
+- **Mitigation:** follow the affected item's Connections field during review, keep the maintained entry points current, and record the actual review date.
+- **Contingency:** update the configuration plan in the PR that records the change and treat a plan describing an older repository as a defect.
+
+## RISK-12
+
+A pinned dependency or image base may become incompatible with a needed update, so the team could become unable to maintain or rebuild the gateway on the supported runtime.
+
+- **Status:** Open
+- **Impact:** Medium
+  - A blocked update consumes the final sprint and can delay a safe rebuild or a needed compatibility fix.
+- **Likelihood:** Medium
+  - Runtime packages, tool versions, actions and the image base have different update paths, and the base-image digest has a manual review path.
+- **Trigger:** a dependency-update candidate fails the supported build or checks and a compatible replacement cannot be adopted within the task's scope.
+- **Window:** dependency updates through [SPRINT-09](project-plan.md#sprint-09) and the final handoff.
+- **Mitigation:** keep explicit versions, review update PRs with the installed delivery paths, and reconcile the compiled runtime pins with the package manifest.
+- **Contingency:** pin the working version, record why the update is blocked, and open the task that removes the need for that dependency or incompatible integration.
+
+## RISK-13
+
+Manual deployment and separate environment files allow an unrecorded host change to diverge from staging, so production could run a state the team's verification never checked.
+
+- **Status:** Open
+- **Impact:** High
+  - A mismatched runtime or plugin setting can break the customer demonstration and make the release's verification claim inaccurate.
+- **Likelihood:** Medium
+  - The product has native and Compose delivery paths and private per-environment settings, while the configuration review inspected repository evidence rather than the live host.
+- **Trigger:** the running source receipt, image identity, plugin configuration or documented environment shape differs from the verified staging candidate.
+- **Window:** every staging promotion, production verification and rollback in [SPRINT-08](project-plan.md#sprint-08) and [SPRINT-09](project-plan.md#sprint-09).
+- **Mitigation:** identify one reviewed source SHA and image, keep separate settings, verify receipts on both environments and record every deployment through the runbook.
+- **Contingency:** redeploy the commit staging passed with its verified settings, update the runbook to the actual procedure and recreate the deployment from that record instead of patching the VM by hand.
