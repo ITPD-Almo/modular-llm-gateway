@@ -2,7 +2,7 @@
 
 - **Status:** Planned
 - **Design sprint:** [SPRINT-07](../../project-plan.md#sprint-07)
-- **Run sprint:** [SPRINT-08](../../project-plan.md#sprint-08)
+- **Run sprint:** [SPRINT-09](../../project-plan.md#sprint-09)
 
 ## Goal
 
@@ -147,8 +147,10 @@ Publish only sanitized evidence in SPRINT-08; no result is claimed in this desig
 
 ## Schedule
 
+November 21 closeout: two guided pilot recordings are reported in [results.md](results.md), with no verified counted sample. Complete the independent sessions and their pre-session verification in SPRINT-09 by November 28. The original protocol and task limits stay unchanged; the shortfall is declared in the Week 8 report.
+
 Record the actual date of the uncounted teammate dry run after it is performed. Recruit five eligible participants and arrange
-at least three valid in-person sessions in SPRINT-08 on the university network against staging. Results are due by 2026-11-21.
+at least three valid in-person sessions in SPRINT-08 on the university network against staging. The original results deadline was 2026-11-21; the unmet counted-session work moves to 2026-11-28.
 Reset the clean seed and verify instrumentation before the first counted session. If sessions move into another sprint,
 update this field and the index.
 

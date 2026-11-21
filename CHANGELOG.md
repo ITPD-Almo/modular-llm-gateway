@@ -6,6 +6,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/), and versions
 
 ## [Unreleased]
 
+## [0.8.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.8.0) - 2026-11-21
+
+### Changed
+
+- Refresh the compiled runtime dependency pins; existing v0.7.0 deployments need no configuration migration or mandatory upgrade. Gateway API/plugin behavior and Python package version 0.7.0 are unchanged.
+
 ## [0.7.0](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.7.0) - 2026-11-15
 
 ### Added
