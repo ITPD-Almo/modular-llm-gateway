@@ -12,7 +12,7 @@ certifi==2026.10.23
     # via requests
 charset-normalizer==3.5.2
     # via requests
-click==8.5.0
+click==8.5.1
     # via uvicorn
 fastapi==0.162.6
     # via modular-llm-gateway (pyproject.toml)
