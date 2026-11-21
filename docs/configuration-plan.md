@@ -1,6 +1,6 @@
 # Configuration plan
 
-**Reviewed:** 2026-11-20
+**Reviewed:** 2026-11-21
 
 This inventory records how the gateway is built, checked, delivered and understood.
 Each `CFG-nn` names an existing configuration item and the connections a maintainer must follow when changing it.
