@@ -23,7 +23,7 @@ The working candidate shows a DevOps operator how to add a Python class through 
 3. The [surveys](../../docs/usability-tests/ut-01/surveys.md) cover background, ease after each task, SUS and open-ended feedback. The [protocol](../../docs/usability-tests/ut-01/sessions/README.md) records time, completion, assistance and friction.
 4. The [staging contract](../../docs/ut01-staging.md) connects one UTC window to the dedicated `ut01/gateway_usage` stream. The [implementation rehearsal](https://github.com/ITPD-Almo/modular-llm-gateway/pull/129#issuecomment-6854627777) checked eight filtered events, a successful chat, a timeout, a same-run recovery and a private offline marker result. The separate pre-session verification is [#132](https://github.com/ITPD-Almo/modular-llm-gateway/issues/132).
 5. Use the [consent template](../../docs/usability-tests/ut-01/consent.md). The [private usability-data repository](https://github.com/ITPD-Almo/modular-llm-gateway-usability-data) holds filtered telemetry, consent and raw text. The [link check](../../.lycheeignore) excludes it, because the repository requires GitHub authentication. The UT-01 recordings folder link and sign-in instructions belong in the private Moodle wrapper.
-6. The [session schedule](../../docs/usability-tests/ut-01/README.md#schedule), [empty results and triage templates](../../docs/usability-tests/ut-01/results.md) and [QR-09](../../docs/quality-requirements/qr/QR-09.md) carry the Week 8 handoff. The pass bar is at least two thirds of at least three valid participants completing the main task unaided. The [accountable design review](https://github.com/ITPD-Almo/modular-llm-gateway/pull/140#pullrequestreview-5907097681) reports private confirmation of access and the uncounted teammate dry run. The recording details, dry-run date and resulting changes go in the private handoff.
+6. The [session schedule](../../docs/usability-tests/ut-01/README.md#schedule), [empty results and triage templates](../../docs/usability-tests/ut-01/results.md) and [QR-09](../../docs/quality-requirements/qr/QR-09.md) carry the Week 8 handoff. The pass bar is at least two thirds of at least three valid participants completing the main task unaided. The [accountable design review](https://github.com/ITPD-Almo/modular-llm-gateway/pull/140#pullrequestreview-5907097681) reports the uncounted teammate dry run and states that instructor access was confirmed privately. The current private handoff still records instructor access as pending, so this report treats that part as a reviewer claim awaiting its private record. The recording details, dry-run date and resulting changes go in the private handoff.
 
 ## Threshold review
 
@@ -62,7 +62,7 @@ The counted UT-01 sessions are the next opportunity to observe both activities. 
 | Compose plugin demonstration | [reports/week-07/compose-demo-evidence.md](compose-demo-evidence.md) |
 | `REL-07` | [v0.7.0 tag and release body](https://github.com/ITPD-Almo/modular-llm-gateway/releases/tag/v0.7.0), [CHANGELOG.md](../../CHANGELOG.md#070---2026-11-15), [docs/project-plan.md#rel-07](../../docs/project-plan.md#rel-07) |
 | Retrospective | [reports/week-07/sprint-retrospective.md](sprint-retrospective.md) |
-| AI usage | [reports/week-07/ai-usage.md](ai-usage.md) |
+| AI usage | [reports/week-07/ai-usage.md](ai-usage.md). The earlier [Ali's disclosure](ai-usage-ali.md) is kept as a historical artifact. |
 
 ## Contribution
 
@@ -83,7 +83,7 @@ On November 15 the TA's existing HTTPS staging route served Swagger, its schema 
 ## Deviations
 
 - The current deployment evidence identifies production as `v0.6.0`. The Compose evidence is from the merged implementation and a separate synthetic run.
-- The implementation rehearsal and the uncounted teammate dry run have separate checks. The dry run and instructor access were confirmed privately at the [accountable review](https://github.com/ITPD-Almo/modular-llm-gateway/pull/140#pullrequestreview-5907097681). [#134](https://github.com/ITPD-Almo/modular-llm-gateway/issues/134) keeps the dry-run notes in the private evidence location.
+- The implementation rehearsal and the uncounted teammate dry run have separate checks. The [accountable review](https://github.com/ITPD-Almo/modular-llm-gateway/pull/140#pullrequestreview-5907097681) reports the dry run as done and states that instructor access was confirmed privately; the current private handoff still records instructor access as pending. [#134](https://github.com/ITPD-Almo/modular-llm-gateway/issues/134) keeps the dry-run notes in the private evidence location.
 - The closeout uses [confirmed feedback and technical evidence](meeting-report.md). The design-review recording, transcript permissions, story verdicts and Week 8 agreement remain pending. The private wrapper records the available instructor access details.
 
 ## Privacy

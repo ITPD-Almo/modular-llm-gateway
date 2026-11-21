@@ -16,7 +16,7 @@ Written closeout from the sprint's issues, pull requests and rehearsal records.
 | Problem | Root cause |
 | --- | --- |
 | Sprint planning took place on November 12, after the sprint had started. | Story estimates, owners and the usability design assignments were reconciled after work began. |
-| The teammate dry run and instructor access checks were confirmed only on the sprint's last day, at the [#140 review](https://github.com/ITPD-Almo/modular-llm-gateway/pull/140#pullrequestreview-5907097681). | The test workstation needs scoped ingestion access, and the evidence store needs a verified recordings location and reviewer accounts. |
+| The teammate dry run and instructor access were reported only on the sprint's last day, at the [#140 review](https://github.com/ITPD-Almo/modular-llm-gateway/pull/140#pullrequestreview-5907097681), and the private handoff still records instructor access as pending. | The test workstation needs scoped ingestion access, and the evidence store needs a verified recordings location and reviewer accounts. |
 | Story verdicts remain open. | The evidence records implementation and rehearsal outcomes. The acceptance criteria still need the Customer's explicit verdicts. |
 
 ## Actions

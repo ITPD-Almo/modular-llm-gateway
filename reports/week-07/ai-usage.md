@@ -30,7 +30,7 @@
   - **Checked:** each draft against the pinned assignment and the course requirements. I checked the planned velocity by hand against the saved `Story Points` fields.
   - **Changed:** after Ali's review, I repinned the script's demo and evidence links to the reviewed commits.
   - **Review findings:** I accepted these only after reading the files myself: the malformed results table, the missing risk fields, the QRT format and an "applied" push that contained only a merge of `main`.
-  - **Not decided by the agent:** approval of #140's private access and dry-run criteria rested on my own private confirmation, not on agent output.
+  - **Not decided by the agent:** approval of #140's private access and dry-run criteria rested on my own reading of the reviewer's claims, not on agent output. The current private handoff still records instructor access as pending.
 - **atkond2point0:**
   - **Checked:** the bar has the same meaning across the record, the analysis plan and the QRT: at least 2/3 of at least 3 valid participants completing the main task unaided.
   - **Still to do by the team:** review the wording, run the uncounted teammate dry run, apply its wording, time-limit and instrumentation changes, verify the instrumentation before the first counted session, and obtain the design-review notes.
