@@ -14,7 +14,7 @@ charset-normalizer==3.5.2
     # via requests
 click==8.5.1
     # via uvicorn
-fastapi==0.162.6
+fastapi==0.165.0
     # via modular-llm-gateway (pyproject.toml)
 googleapis-common-protos==1.76.0
     # via opentelemetry-exporter-otlp-proto-http
