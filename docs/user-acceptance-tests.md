@@ -14,9 +14,9 @@ Install and try the gateway with one command on a clean account, without prepari
 
 **Status:** Active
 
-**Start state:** A test account on a clean machine with the reviewed candidate build available at <production-url>, using synthetic seed data and the fake provider.
+**Start state:** A test account on a clean machine with the reviewed candidate build available at `<production-url>`, using synthetic seed data and the fake provider.
 
-**Steps:** Run the terminal installer shown at <production-url>, export the PATH line it prints, then run `llmgw demo`, followed by `llmgw serve`, `llmgw health` and `llmgw chat "hello"`.
+**Steps:** Run the terminal installer shown at `<production-url>`, export the PATH line it prints, then run `llmgw demo`, followed by `llmgw serve`, `llmgw health` and `llmgw chat "hello"`.
 
 **Expected result:** All five demo scenarios pass, `llmgw health` returns `{"status":"ok"}`, and the chat reply shows the fake provider answer with a generated request ID.
 
